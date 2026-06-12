@@ -10,7 +10,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 
 | # | Protocol | Original indexer | Directory | Status |
 |---|----------|------------------|-----------|--------|
-| 1 | Curve Finance | [curvefi/volume-subgraphs](https://github.com/curvefi/volume-subgraphs) (volume, mainnet) | `curve-volume/` | pending |
+| 1 | Curve Finance | [curvefi/volume-subgraphs](https://github.com/curvefi/volume-subgraphs) (volume, mainnet) | `curve-volume/` | ✅ ported, builds + offline tests pass |
 | 2 | Compound v2 | [graphprotocol/compound-v2-subgraph](https://github.com/graphprotocol/compound-v2-subgraph) | `compound-v2/` | pending |
 | 3 | Compound v3 | [papercliplabs/compound-v3-subgraph](https://github.com/papercliplabs/compound-v3-subgraph) | `compound-v3/` | pending |
 | 4 | PancakeSwap | [pancakeswap/pancake-subgraph](https://github.com/pancakeswap/pancake-subgraph) (exchange, BSC) | `pancakeswap-exchange/` | pending |

@@ -1,0 +1,191 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The repo README only lists the deprecated hosted-service endpoint (https://thegraph.com/hosted-service/subgraph/convex-community/volume-mainnet). Replace TODO with the decentralized-network gateway URL for convex-community's 'volume-mainnet' subgraph: https://gateway.thegraph.com/api/subgraphs/id/<ID> (look up the ID on https://thegraph.com/explorer by searching 'volume-mainnet' / 'curve volume')."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 11153725, "end": 11193725 },
+  "entities": [
+    {
+      "subgraphName": "registries",
+      "localName": "Registry",
+      "fields": ["id"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "factories",
+      "localName": "Factory",
+      "fields": ["id", "poolCount", "crvUsd"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "platforms",
+      "localName": "Platform",
+      "fields": ["id", "poolAddresses", "latestPoolSnapshot"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pools",
+      "localName": "Pool",
+      "fields": [
+        "id",
+        "address",
+        "name",
+        "symbol",
+        "metapool",
+        "lpToken",
+        "basePool",
+        "coins",
+        "coinDecimals",
+        "coinNames",
+        "assetType",
+        "poolType",
+        "c128",
+        "isV2",
+        "isRebasing",
+        "cumulativeVolume",
+        "cumulativeVolumeUSD",
+        "cumulativeFeesUSD",
+        "virtualPrice",
+        "baseApr",
+        "creationDate",
+        "creationTx",
+        "creationBlock"
+      ],
+      "decimalFields": ["cumulativeVolume", "cumulativeVolumeUSD", "cumulativeFeesUSD", "virtualPrice", "baseApr"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "basePools",
+      "localName": "BasePool",
+      "fields": ["id", "coins", "coinDecimals"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swapEvents",
+      "localName": "SwapEvent",
+      "fields": [
+        "id",
+        "block",
+        "tx",
+        "gasLimit",
+        "gasUsed",
+        "buyer",
+        "tokenSold",
+        "tokenBought",
+        "amountSold",
+        "amountBought",
+        "amountSoldUSD",
+        "amountBoughtUSD",
+        "timestamp"
+      ],
+      "decimalFields": ["amountSold", "amountBought", "amountSoldUSD", "amountBoughtUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swapVolumeSnapshots",
+      "localName": "SwapVolumeSnapshot",
+      "fields": [
+        "id",
+        "period",
+        "amountSold",
+        "amountBought",
+        "amountSoldUSD",
+        "amountBoughtUSD",
+        "count",
+        "volume",
+        "volumeUSD",
+        "timestamp"
+      ],
+      "decimalFields": ["amountSold", "amountBought", "amountSoldUSD", "amountBoughtUSD", "volume", "volumeUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "candles",
+      "localName": "Candle",
+      "fields": [
+        "id",
+        "timestamp",
+        "period",
+        "lastBlock",
+        "token0",
+        "token1",
+        "txs",
+        "token0TotalAmount",
+        "token1TotalAmount",
+        "open",
+        "close",
+        "low",
+        "high"
+      ],
+      "decimalFields": ["token0TotalAmount", "token1TotalAmount", "open", "close", "low", "high"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "priceFeeds",
+      "localName": "PriceFeed",
+      "fields": ["id", "lastUpdated", "lastBlock", "fromIndex", "toIndex", "isUnderlying", "token0", "token1", "price"],
+      "decimalFields": ["price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenSnapshots",
+      "localName": "TokenSnapshot",
+      "fields": ["id", "token", "price", "timestamp"],
+      "decimalFields": ["price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "dailyPoolSnapshots",
+      "localName": "DailyPoolSnapshot",
+      "fields": [
+        "id",
+        "virtualPrice",
+        "lpPriceUSD",
+        "tvl",
+        "fee",
+        "adminFee",
+        "adminFeesUSD",
+        "lpFeesUSD",
+        "totalDailyFeesUSD",
+        "reserves",
+        "normalizedReserves",
+        "reservesUSD",
+        "A",
+        "xcpProfit",
+        "xcpProfitA",
+        "baseApr",
+        "rebaseApr",
+        "timestamp"
+      ],
+      "decimalFields": [
+        "virtualPrice",
+        "lpPriceUSD",
+        "tvl",
+        "fee",
+        "adminFee",
+        "adminFeesUSD",
+        "lpFeesUSD",
+        "totalDailyFeesUSD",
+        "reservesUSD",
+        "xcpProfit",
+        "xcpProfitA",
+        "baseApr",
+        "rebaseApr"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "dailyPlatformSnapshots",
+      "localName": "DailyPlatformSnapshot",
+      "fields": ["id", "adminFeesUSD", "lpFeesUSD", "totalDailyFeesUSD", "timestamp"],
+      "decimalFields": ["adminFeesUSD", "lpFeesUSD", "totalDailyFeesUSD"],
+      "orderBy": "id"
+    }
+  ]
+}

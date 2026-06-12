@@ -82,6 +82,7 @@ contracts:
 chains:
   - id: 1
     start_block: 11153725
+    # end_block: 11193725   # uncomment for bounded validation runs (see validation.json)
     contracts:
       - name: AddressProvider
         address: "0x0000000022d53366457f9d5e68ec105046fc4383"
