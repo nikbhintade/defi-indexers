@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: compound-v3
+description: Compound V3 (Comet) subgraph (mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: Configurator
+    events:
+      - event: "Upgraded(address indexed implementation)"
+      - event: "SetFactory(address indexed cometProxy, address indexed oldFactory, address indexed newFactory)"
+  # Subgraph template: Comet (registered dynamically on Configurator.SetFactory)
+  - name: Comet
+    events:
+      - event: "Upgraded(address indexed implementation)"
+      - event: "Supply(address indexed from, address indexed dst, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "Withdraw(address indexed src, address indexed to, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "AbsorbDebt(address indexed absorber, address indexed borrower, uint256 basePaidOut, uint256 usdValue)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "SupplyCollateral(address indexed from, address indexed dst, address indexed asset, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "WithdrawCollateral(address indexed src, address indexed to, address indexed asset, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "TransferCollateral(address indexed from, address indexed to, address indexed asset, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "AbsorbCollateral(address indexed absorber, address indexed borrower, address indexed asset, uint256 collateralAbsorbed, uint256 value)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "BuyCollateral(address indexed buyer, address indexed asset, uint256 baseAmount, uint256 collateralAmount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "WithdrawReserves(address indexed to, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+      - event: "Transfer(address indexed from, address indexed to, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+  - name: CometRewards
+    events:
+      - event: "RewardClaimed(address indexed src, address indexed recipient, address indexed token, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, gasUsed]
+chains:
+  - id: 1
+    start_block: 15331590
+    # end_block: 15381590   # uncomment for bounded validation runs (see validation.json)
+    contracts:
+      - name: Configurator
+        address: "0x316f9708bB98af7dA9c68C1C3b5e79039cD336E3"
+      - name: CometRewards
+        address: "0x1B0e765F6224C21223AeA2af16c1C46E38885a40"
+      # dynamically registered template (no static address)
+      - name: Comet

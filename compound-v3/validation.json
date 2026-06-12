@@ -1,0 +1,338 @@
+{
+  "subgraph": {
+    "url": "https://gateway.thegraph.com/api/subgraphs/id/5nwMCSHaTqG3Kd2gHznbTXEnZ9QNWsssQfbHhDqQSQFp",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "Ethereum mainnet deployment listed in the papercliplabs/compound-v3-subgraph README (and used by its validation notebooks via the gateway-arbitrum host)."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 15331590, "end": 15381590 },
+  "entities": [
+    {
+      "subgraphName": "protocols",
+      "localName": "Protocol",
+      "fields": ["id", "configuratorProxy", "configuratorImplementation"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "markets",
+      "localName": "Market",
+      "fields": ["id", "cometProxy", "creationBlockNumber"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "marketConfigurations",
+      "localName": "MarketConfiguration",
+      "fields": [
+        "id",
+        "cometImplementation",
+        "lastConfigurationUpdateBlockNumber",
+        "name",
+        "symbol",
+        "factory",
+        "governor",
+        "pauseGuardian",
+        "extensionDelegate",
+        "supplyKink",
+        "supplyPerSecondInterestRateSlopeLow",
+        "supplyPerSecondInterestRateSlopeHigh",
+        "supplyPerSecondInterestRateBase",
+        "borrowKink",
+        "borrowPerSecondInterestRateSlopeLow",
+        "borrowPerSecondInterestRateSlopeHigh",
+        "borrowPerSecondInterestRateBase",
+        "storeFrontPriceFactor",
+        "trackingIndexScale",
+        "baseTrackingSupplySpeed",
+        "baseTrackingBorrowSpeed",
+        "baseMinForRewards",
+        "baseBorrowMin",
+        "targetReserves"
+      ],
+      "decimalFields": ["supplyKink", "borrowKink"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "marketRewardConfigurations",
+      "localName": "MarketRewardConfiguration",
+      "fields": ["id", "tokenAddress", "rescaleFactor", "shouldUpscale", "multiplier"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "marketAccountings",
+      "localName": "MarketAccounting",
+      "fields": [
+        "id",
+        "lastAccountingUpdatedBlockNumber",
+        "baseSupplyIndex",
+        "baseBorrowIndex",
+        "trackingSupplyIndex",
+        "trackingBorrowIndex",
+        "lastAccrualTime",
+        "totalBasePrincipalSupply",
+        "totalBasePrincipalBorrow",
+        "baseReserveBalance",
+        "totalBaseSupply",
+        "totalBaseBorrow",
+        "totalBaseSupplyUsd",
+        "totalBaseBorrowUsd",
+        "baseReserveBalanceUsd",
+        "collateralBalanceUsd",
+        "collateralReservesBalanceUsd",
+        "totalReserveBalanceUsd",
+        "utilization",
+        "collateralization",
+        "supplyApr",
+        "borrowApr",
+        "rewardSupplyApr",
+        "rewardBorrowApr",
+        "netSupplyApr",
+        "netBorrowApr",
+        "rewardTokenUsdPrice"
+      ],
+      "decimalFields": [
+        "totalBaseSupplyUsd",
+        "totalBaseBorrowUsd",
+        "baseReserveBalanceUsd",
+        "collateralBalanceUsd",
+        "collateralReservesBalanceUsd",
+        "totalReserveBalanceUsd",
+        "utilization",
+        "collateralization",
+        "supplyApr",
+        "borrowApr",
+        "rewardSupplyApr",
+        "rewardBorrowApr",
+        "netSupplyApr",
+        "netBorrowApr",
+        "rewardTokenUsdPrice"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "protocolAccountings",
+      "localName": "ProtocolAccounting",
+      "fields": [
+        "id",
+        "lastUpdatedBlock",
+        "totalSupplyUsd",
+        "totalBorrowUsd",
+        "reserveBalanceUsd",
+        "collateralBalanceUsd",
+        "collateralReservesBalanceUsd",
+        "totalReserveBalanceUsd",
+        "utilization",
+        "collateralization",
+        "avgSupplyApr",
+        "avgBorrowApr",
+        "avgRewardSupplyApr",
+        "avgRewardBorrowApr",
+        "avgNetSupplyApr",
+        "avgNetBorrowApr"
+      ],
+      "decimalFields": [
+        "totalSupplyUsd",
+        "totalBorrowUsd",
+        "reserveBalanceUsd",
+        "collateralBalanceUsd",
+        "collateralReservesBalanceUsd",
+        "totalReserveBalanceUsd",
+        "utilization",
+        "collateralization",
+        "avgSupplyApr",
+        "avgBorrowApr",
+        "avgRewardSupplyApr",
+        "avgRewardBorrowApr",
+        "avgNetSupplyApr",
+        "avgNetBorrowApr"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "address", "name", "symbol", "decimals", "lastPriceUsd", "lastPriceBlockNumber"],
+      "decimalFields": ["lastPriceUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "baseTokens",
+      "localName": "BaseToken",
+      "fields": [
+        "id",
+        "creationBlockNumber",
+        "lastConfigUpdateBlockNumber",
+        "priceFeed",
+        "lastPriceUsd",
+        "lastPriceBlockNumber"
+      ],
+      "decimalFields": ["lastPriceUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "collateralTokens",
+      "localName": "CollateralToken",
+      "fields": [
+        "id",
+        "creationBlockNumber",
+        "lastConfigUpdateBlockNumber",
+        "priceFeed",
+        "borrowCollateralFactor",
+        "liquidateCollateralFactor",
+        "liquidationFactor",
+        "supplyCap",
+        "lastPriceUsd",
+        "lastPriceBlockNumber"
+      ],
+      "decimalFields": ["borrowCollateralFactor", "liquidateCollateralFactor", "liquidationFactor", "lastPriceUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "marketCollateralBalances",
+      "localName": "MarketCollateralBalance",
+      "fields": [
+        "id",
+        "creationBlockNumber",
+        "lastUpdateBlockNumber",
+        "balance",
+        "reserves",
+        "balanceUsd",
+        "reservesUsd"
+      ],
+      "decimalFields": ["balanceUsd", "reservesUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positionCollateralBalances",
+      "localName": "PositionCollateralBalance",
+      "fields": ["id", "creationBlockNumber", "lastUpdateBlockNumber", "balance", "balanceUsd"],
+      "decimalFields": ["balanceUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "accounts",
+      "localName": "Account",
+      "fields": ["id", "creationBlockNumber", "address"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positions",
+      "localName": "Position",
+      "fields": ["id", "creationBlockNumber"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positionAccountings",
+      "localName": "PositionAccounting",
+      "fields": [
+        "id",
+        "lastUpdatedBlockNumber",
+        "basePrincipal",
+        "baseBalance",
+        "baseTrackingIndex",
+        "baseTrackingAccrued",
+        "baseBalanceUsd",
+        "collateralBalanceUsd",
+        "cumulativeBaseSupplied",
+        "cumulativeBaseWithdrawn",
+        "cumulativeBaseDebtAbsorbed",
+        "cumulativeBaseSuppliedUsd",
+        "cumulativeBaseWithdrawnUsd",
+        "cumulativeCollateralLiquidatedUsd",
+        "cumulativeRewardsClaimed",
+        "cumulativeRewardsClaimedUsd",
+        "cumulativeGasUsedWei",
+        "cumulativeGasUsedUsd"
+      ],
+      "decimalFields": [
+        "baseBalanceUsd",
+        "collateralBalanceUsd",
+        "cumulativeBaseSuppliedUsd",
+        "cumulativeBaseWithdrawnUsd",
+        "cumulativeCollateralLiquidatedUsd",
+        "cumulativeRewardsClaimedUsd",
+        "cumulativeGasUsedUsd"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "usages",
+      "localName": "Usage",
+      "fields": [
+        "id",
+        "uniqueUsersCount",
+        "interactionCount",
+        "supplyBaseCount",
+        "withdrawBaseCount",
+        "transferBaseCount",
+        "liquidationCount",
+        "supplyCollateralCount",
+        "withdrawCollateralCount",
+        "transferCollateralCount"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transactions",
+      "localName": "Transaction",
+      "fields": [
+        "id",
+        "hash",
+        "blockNumber",
+        "timestamp",
+        "from",
+        "to",
+        "gasLimit",
+        "gasPrice",
+        "gasUsed",
+        "gasUsedUsd",
+        "supplyBaseInteractionCount",
+        "withdrawBaseInteractionCount",
+        "transferBaseInteractionCount",
+        "absorbDebtInteractionCount",
+        "supplyCollateralInteractionCount",
+        "withdrawCollateralInteractionCount",
+        "transferCollateralInteractionCount",
+        "absorbCollateralInteractionCount",
+        "buyCollateralInteractionCount",
+        "withdrawReservesInteractionCount",
+        "claimRewardsInteractionCount"
+      ],
+      "decimalFields": ["gasUsedUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "supplyBaseInteractions",
+      "localName": "SupplyBaseInteraction",
+      "fields": ["id", "supplier", "amount", "amountUsd"],
+      "decimalFields": ["amountUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "withdrawBaseInteractions",
+      "localName": "WithdrawBaseInteraction",
+      "fields": ["id", "destination", "amount", "amountUsd"],
+      "decimalFields": ["amountUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "supplyCollateralInteractions",
+      "localName": "SupplyCollateralInteraction",
+      "fields": ["id", "supplier", "amount", "amountUsd"],
+      "decimalFields": ["amountUsd"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "withdrawCollateralInteractions",
+      "localName": "WithdrawCollateralInteraction",
+      "fields": ["id", "destination", "amount", "amountUsd"],
+      "decimalFields": ["amountUsd"],
+      "orderBy": "id"
+    }
+  ]
+}
