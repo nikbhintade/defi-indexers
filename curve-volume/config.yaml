@@ -1,0 +1,102 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: curve-volume
+description: Curve Finance volume subgraph (mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: AddressProvider
+    events:
+      - event: "NewAddressIdentifier(uint256 indexed id, address addr, string description)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "AddressModified(uint256 indexed id, address new_address, uint256 version)"
+        field_selection:
+          transaction_fields: [hash]
+  # Subgraph template: RegistryTemplate (MainRegistry abi)
+  - name: MainRegistry
+    events:
+      - event: "PoolAdded(address indexed pool, bytes rate_method_id)"
+        field_selection:
+          transaction_fields: [hash]
+  # Subgraph template: StableFactoryTemplate
+  - name: StableFactory
+    events:
+      - event: "PlainPoolDeployed(address[4] coins, uint256 A, uint256 fee, address deployer)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "PlainPoolDeployed(address[4] coins, uint256 A, uint256 fee, address deployer, address pool)"
+        name: PlainPoolDeployedV2
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MetaPoolDeployed(address coin, address base_pool, uint256 A, uint256 fee, address deployer)"
+        field_selection:
+          transaction_fields: [hash]
+  # Subgraph template: CryptoRegistryTemplate
+  - name: CryptoRegistry
+    events:
+      - event: "PoolAdded(address indexed pool)"
+        field_selection:
+          transaction_fields: [hash]
+  # Subgraph template: CryptoFactoryTemplate
+  - name: CryptoFactory
+    events:
+      - event: "CryptoPoolDeployed(address token, address[2] coins, uint256 A, uint256 gamma, uint256 mid_fee, uint256 out_fee, uint256 allowed_extra_profit, uint256 fee_gamma, uint256 adjustment_step, uint256 admin_fee, uint256 ma_half_time, uint256 initial_price, address deployer)"
+        field_selection:
+          transaction_fields: [hash]
+  # Subgraph template: TriCryptoFactoryTemplate
+  - name: TriCryptoFactory
+    events:
+      - event: "TricryptoPoolDeployed(address pool, string name, string symbol, address weth, address[3] coins, address math, bytes32 salt, uint256 packed_precisions, uint256 packed_A_gamma, uint256 packed_fee_params, uint256 packed_rebalancing_params, uint256 packed_prices, address deployer)"
+        field_selection:
+          transaction_fields: [hash]
+  # Subgraph template: CurvePoolTemplate (v1 pools, int128 indices)
+  - name: CurvePool
+    events:
+      - event: "TokenExchange(address indexed buyer, int128 sold_id, uint256 tokens_sold, int128 bought_id, uint256 tokens_bought)"
+        field_selection:
+          transaction_fields: [hash, gas, gasUsed]
+      - event: "TokenExchangeUnderlying(address indexed buyer, int128 sold_id, uint256 tokens_sold, int128 bought_id, uint256 tokens_bought)"
+        field_selection:
+          transaction_fields: [hash, gas, gasUsed]
+  # Subgraph template: CurvePoolTemplateV2 (crypto pools, uint256 indices)
+  - name: CurvePoolV2
+    events:
+      - event: "TokenExchange(address indexed buyer, uint256 sold_id, uint256 tokens_sold, uint256 bought_id, uint256 tokens_bought)"
+        field_selection:
+          transaction_fields: [hash, gas, gasUsed]
+  # Subgraph template: TriCryptoOptimizedTemplateV2
+  - name: CurveTricryptoOptimized
+    events:
+      - event: "TokenExchange(address indexed buyer, uint256 sold_id, uint256 tokens_sold, uint256 bought_id, uint256 tokens_bought, uint256 fee, uint256 packed_price_scale)"
+        field_selection:
+          transaction_fields: [hash, gas, gasUsed]
+  # Mainnet rebase data sources
+  - name: USDN
+    events:
+      - event: "Reward(uint256 id, uint256 amount)"
+  - name: AETH
+    events:
+      - event: "RatioUpdate(uint256 newRatio)"
+  - name: Lido
+    events:
+      - event: "TokenRebased(uint256 indexed reportTimestamp, uint256 timeElapsed, uint256 preTotalShares, uint256 preTotalEther, uint256 postTotalShares, uint256 postTotalEther, uint256 sharesMintedAsFees)"
+chains:
+  - id: 1
+    start_block: 11153725
+    contracts:
+      - name: AddressProvider
+        address: "0x0000000022d53366457f9d5e68ec105046fc4383"
+      - name: USDN
+        address: "0x674c6ad92fd080e4004b2312b45f796a192d27a0"
+      - name: AETH
+        address: "0x6a9366f02b6e252e0cbe2e6b9cf0a8addd7b641c"
+      - name: Lido
+        address: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+      # dynamically registered templates (no static address)
+      - name: MainRegistry
+      - name: StableFactory
+      - name: CryptoRegistry
+      - name: CryptoFactory
+      - name: TriCryptoFactory
+      - name: CurvePool
+      - name: CurvePoolV2
+      - name: CurveTricryptoOptimized
