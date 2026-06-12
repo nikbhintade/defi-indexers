@@ -1,0 +1,153 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The repo README only lists the deprecated hosted-service explorer page (https://thegraph.com/explorer/subgraph/graphprotocol/compound-v2). Replace TODO with the decentralized-network gateway URL for the 'compound-v2' subgraph (graphprotocol/compound-v2; Messari also publishes an alternative schema not compatible with this port): https://gateway.thegraph.com/api/subgraphs/id/<ID> (look up the ID on https://thegraph.com/explorer by searching 'compound v2')."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 7700000, "end": 7750000 },
+  "entities": [
+    {
+      "subgraphName": "comptrollers",
+      "localName": "Comptroller",
+      "fields": ["id", "priceOracle", "closeFactor", "liquidationIncentive", "maxAssets"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "markets",
+      "localName": "Market",
+      "fields": [
+        "id",
+        "borrowRate",
+        "cash",
+        "collateralFactor",
+        "exchangeRate",
+        "interestRateModelAddress",
+        "name",
+        "reserves",
+        "supplyRate",
+        "symbol",
+        "totalBorrows",
+        "totalSupply",
+        "underlyingAddress",
+        "underlyingName",
+        "underlyingPrice",
+        "underlyingSymbol",
+        "accrualBlockNumber",
+        "blockTimestamp",
+        "borrowIndex",
+        "reserveFactor",
+        "underlyingPriceUSD",
+        "underlyingDecimals"
+      ],
+      "decimalFields": [
+        "borrowRate",
+        "cash",
+        "collateralFactor",
+        "exchangeRate",
+        "reserves",
+        "supplyRate",
+        "totalBorrows",
+        "totalSupply",
+        "underlyingPrice",
+        "borrowIndex",
+        "underlyingPriceUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "accounts",
+      "localName": "Account",
+      "fields": ["id", "countLiquidated", "countLiquidator", "hasBorrowed"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "accountCTokens",
+      "localName": "AccountCToken",
+      "fields": [
+        "id",
+        "symbol",
+        "accrualBlockNumber",
+        "enteredMarket",
+        "cTokenBalance",
+        "totalUnderlyingSupplied",
+        "totalUnderlyingRedeemed",
+        "accountBorrowIndex",
+        "totalUnderlyingBorrowed",
+        "totalUnderlyingRepaid",
+        "storedBorrowBalance"
+      ],
+      "decimalFields": [
+        "cTokenBalance",
+        "totalUnderlyingSupplied",
+        "totalUnderlyingRedeemed",
+        "accountBorrowIndex",
+        "totalUnderlyingBorrowed",
+        "totalUnderlyingRepaid",
+        "storedBorrowBalance"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "accountCTokenTransactions",
+      "localName": "AccountCTokenTransaction",
+      "fields": ["id", "tx_hash", "timestamp", "block", "logIndex"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transferEvents",
+      "localName": "TransferEvent",
+      "fields": ["id", "amount", "to", "from", "blockNumber", "blockTime", "cTokenSymbol"],
+      "decimalFields": ["amount"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mintEvents",
+      "localName": "MintEvent",
+      "fields": ["id", "amount", "to", "from", "blockNumber", "blockTime", "cTokenSymbol", "underlyingAmount"],
+      "decimalFields": ["amount", "underlyingAmount"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redeemEvents",
+      "localName": "RedeemEvent",
+      "fields": ["id", "amount", "to", "from", "blockNumber", "blockTime", "cTokenSymbol", "underlyingAmount"],
+      "decimalFields": ["amount", "underlyingAmount"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "borrowEvents",
+      "localName": "BorrowEvent",
+      "fields": ["id", "amount", "accountBorrows", "borrower", "blockNumber", "blockTime", "underlyingSymbol"],
+      "decimalFields": ["amount", "accountBorrows"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "repayEvents",
+      "localName": "RepayEvent",
+      "fields": ["id", "amount", "accountBorrows", "borrower", "blockNumber", "blockTime", "underlyingSymbol", "payer"],
+      "decimalFields": ["amount", "accountBorrows"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidationEvents",
+      "localName": "LiquidationEvent",
+      "fields": [
+        "id",
+        "amount",
+        "to",
+        "from",
+        "blockNumber",
+        "blockTime",
+        "cTokenSymbol",
+        "underlyingSymbol",
+        "underlyingRepayAmount"
+      ],
+      "decimalFields": ["amount", "underlyingRepayAmount"],
+      "orderBy": "id"
+    }
+  ]
+}

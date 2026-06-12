@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: compound-v2
+description: Compound V2 subgraph (mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: Comptroller
+    events:
+      - event: "MarketListed(address cToken)"
+      - event: "MarketEntered(address cToken, address account)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MarketExited(address cToken, address account)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "NewCloseFactor(uint256 oldCloseFactorMantissa, uint256 newCloseFactorMantissa)"
+      - event: "NewCollateralFactor(address cToken, uint256 oldCollateralFactorMantissa, uint256 newCollateralFactorMantissa)"
+      - event: "NewLiquidationIncentive(uint256 oldLiquidationIncentiveMantissa, uint256 newLiquidationIncentiveMantissa)"
+      - event: "NewMaxAssets(uint256 oldMaxAssets, uint256 newMaxAssets)"
+      - event: "NewPriceOracle(address oldPriceOracle, address newPriceOracle)"
+  # Subgraph template: CToken (registered dynamically on MarketListed)
+  - name: CToken
+    events:
+      - event: "Mint(address minter, uint256 mintAmount, uint256 mintTokens)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Redeem(address redeemer, uint256 redeemAmount, uint256 redeemTokens)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Borrow(address borrower, uint256 borrowAmount, uint256 accountBorrows, uint256 totalBorrows)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RepayBorrow(address payer, address borrower, uint256 repayAmount, uint256 accountBorrows, uint256 totalBorrows)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "LiquidateBorrow(address liquidator, address borrower, uint256 repayAmount, address cTokenCollateral, uint256 seizeTokens)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "AccrueInterest(uint256 interestAccumulated, uint256 borrowIndex, uint256 totalBorrows)"
+      - event: "NewReserveFactor(uint256 oldReserveFactorMantissa, uint256 newReserveFactorMantissa)"
+      - event: "Transfer(address indexed from, address indexed to, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "NewMarketInterestRateModel(address oldInterestRateModel, address newInterestRateModel)"
+chains:
+  - id: 1
+    start_block: 7700000
+    # end_block: 7750000   # uncomment for bounded validation runs (see validation.json)
+    contracts:
+      - name: Comptroller
+        address: "0x3d9819210A31b4961b30EF54bE2aeD79B9c9Cd3B"
+      # dynamically registered template (no static address)
+      - name: CToken
