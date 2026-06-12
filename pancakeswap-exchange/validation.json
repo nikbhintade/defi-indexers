@@ -1,0 +1,275 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The repo README only links https://developer.pancakeswap.finance/apis/subgraph (no concrete endpoint). Replace TODO with the decentralized-network gateway URL for the PancakeSwap exchange-v2 BSC subgraph: https://gateway.thegraph.com/api/subgraphs/id/<ID> (look it up on https://thegraph.com/explorer by searching 'pancakeswap exchange v2' on BNB chain; the widely referenced ID is A1fvJWQLBeUAggX2WQTMm3FKjXTekNXo77ZySun4YN2m — verify before use). PancakeSwap also serves this subgraph via NodeReal: https://open-platform.nodereal.io/<API_KEY>/pancakeswap-free/graphql."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 6809737, "end": 6859737 },
+  "entities": [
+    {
+      "subgraphName": "pancakeFactories",
+      "localName": "PancakeFactory",
+      "fields": [
+        "id",
+        "totalPairs",
+        "totalTransactions",
+        "totalVolumeUSD",
+        "totalVolumeBNB",
+        "untrackedVolumeUSD",
+        "totalLiquidityUSD",
+        "totalLiquidityBNB"
+      ],
+      "decimalFields": [
+        "totalVolumeUSD",
+        "totalVolumeBNB",
+        "untrackedVolumeUSD",
+        "totalLiquidityUSD",
+        "totalLiquidityBNB"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "bundles",
+      "localName": "Bundle",
+      "fields": ["id", "bnbPrice"],
+      "decimalFields": ["bnbPrice"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": [
+        "id",
+        "name",
+        "symbol",
+        "decimals",
+        "tradeVolume",
+        "tradeVolumeUSD",
+        "untrackedVolumeUSD",
+        "totalTransactions",
+        "totalLiquidity",
+        "derivedBNB",
+        "derivedUSD"
+      ],
+      "decimalFields": [
+        "tradeVolume",
+        "tradeVolumeUSD",
+        "untrackedVolumeUSD",
+        "totalLiquidity",
+        "derivedBNB",
+        "derivedUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pairs",
+      "localName": "Pair",
+      "fields": [
+        "id",
+        "name",
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveBNB",
+        "reserveUSD",
+        "trackedReserveBNB",
+        "token0Price",
+        "token1Price",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "untrackedVolumeUSD",
+        "totalTransactions",
+        "block",
+        "timestamp"
+      ],
+      "decimalFields": [
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveBNB",
+        "reserveUSD",
+        "trackedReserveBNB",
+        "token0Price",
+        "token1Price",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "untrackedVolumeUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transactions",
+      "localName": "Transaction",
+      "fields": ["id", "block", "timestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mints",
+      "localName": "Mint",
+      "fields": [
+        "id",
+        "timestamp",
+        "to",
+        "liquidity",
+        "sender",
+        "amount0",
+        "amount1",
+        "logIndex",
+        "amountUSD",
+        "feeTo",
+        "feeLiquidity"
+      ],
+      "decimalFields": ["liquidity", "amount0", "amount1", "amountUSD", "feeLiquidity"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "burns",
+      "localName": "Burn",
+      "fields": [
+        "id",
+        "timestamp",
+        "liquidity",
+        "sender",
+        "amount0",
+        "amount1",
+        "to",
+        "logIndex",
+        "amountUSD",
+        "needsComplete",
+        "feeTo",
+        "feeLiquidity"
+      ],
+      "decimalFields": ["liquidity", "amount0", "amount1", "amountUSD", "feeLiquidity"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swaps",
+      "localName": "Swap",
+      "fields": [
+        "id",
+        "timestamp",
+        "sender",
+        "from",
+        "amount0In",
+        "amount1In",
+        "amount0Out",
+        "amount1Out",
+        "to",
+        "logIndex",
+        "amountUSD",
+        "amountFeeUSD"
+      ],
+      "decimalFields": ["amount0In", "amount1In", "amount0Out", "amount1Out", "amountUSD", "amountFeeUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pancakeDayDatas",
+      "localName": "PancakeDayData",
+      "fields": [
+        "id",
+        "date",
+        "dailyVolumeBNB",
+        "dailyVolumeUSD",
+        "dailyVolumeUntracked",
+        "totalVolumeBNB",
+        "totalLiquidityBNB",
+        "totalVolumeUSD",
+        "totalLiquidityUSD",
+        "totalTransactions"
+      ],
+      "decimalFields": [
+        "dailyVolumeBNB",
+        "dailyVolumeUSD",
+        "dailyVolumeUntracked",
+        "totalVolumeBNB",
+        "totalLiquidityBNB",
+        "totalVolumeUSD",
+        "totalLiquidityUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pairHourDatas",
+      "localName": "PairHourData",
+      "fields": [
+        "id",
+        "hourStartUnix",
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveUSD",
+        "hourlyVolumeToken0",
+        "hourlyVolumeToken1",
+        "hourlyVolumeUSD",
+        "hourlyTxns"
+      ],
+      "decimalFields": [
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveUSD",
+        "hourlyVolumeToken0",
+        "hourlyVolumeToken1",
+        "hourlyVolumeUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pairDayDatas",
+      "localName": "PairDayData",
+      "fields": [
+        "id",
+        "date",
+        "pairAddress",
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveUSD",
+        "dailyVolumeToken0",
+        "dailyVolumeToken1",
+        "dailyVolumeUSD",
+        "dailyTxns"
+      ],
+      "decimalFields": [
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveUSD",
+        "dailyVolumeToken0",
+        "dailyVolumeToken1",
+        "dailyVolumeUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenDayDatas",
+      "localName": "TokenDayData",
+      "fields": [
+        "id",
+        "date",
+        "dailyVolumeToken",
+        "dailyVolumeBNB",
+        "dailyVolumeUSD",
+        "dailyTxns",
+        "totalLiquidityToken",
+        "totalLiquidityBNB",
+        "totalLiquidityUSD",
+        "priceUSD"
+      ],
+      "decimalFields": [
+        "dailyVolumeToken",
+        "dailyVolumeBNB",
+        "dailyVolumeUSD",
+        "totalLiquidityToken",
+        "totalLiquidityBNB",
+        "totalLiquidityUSD",
+        "priceUSD"
+      ],
+      "orderBy": "id"
+    }
+  ]
+}
