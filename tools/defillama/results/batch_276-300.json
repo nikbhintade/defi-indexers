@@ -100,5 +100,206 @@
     "has_public_indexer": false,
     "repos": [],
     "notes": "NexusMutual org has smart-contracts, sdk, cover-router, dune-queries (Dune SQL analytics), but no The Graph subgraph / Ponder / SubQuery / Subsquid indexer repo. Data tooling is Dune-based + SDK reading chain state."
+  },
+  {
+    "rank": 284,
+    "name": "PancakeSwap Infinity",
+    "slug": "pancakeswap-infinity",
+    "category": "Dexs",
+    "tvl_usd": 78711668,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/pancakeswap/exchange-v3-subgraphs",
+        "type": "subgraph",
+        "scope": "PancakeSwap exchange subgraphs (v3 CLMM family) on The Graph Studio",
+        "maintained": "active",
+        "verified": "Official pancakeswap org subgraph repo (updated Jul 2025) for v3-style concentrated-liquidity exchange data; same CLAMM lineage Infinity builds on."
+      },
+      {
+        "url": "https://github.com/pancakeswap/pancake-subgraph",
+        "type": "subgraph",
+        "scope": "Pancake subgraphs (blocks, profile, prediction, NFTs, exchange)",
+        "maintained": "active",
+        "verified": "Official pancakeswap subgraph monorepo (updated Aug 2025). Confirmed The Graph subgraphs maintained by PancakeSwap."
+      }
+    ],
+    "notes": "PancakeSwap officially maintains The Graph subgraphs (pancake-subgraph, exchange-v3-subgraphs). A live 'PancakeSwap Infinity CL' subgraph is deployed on The Graph network (CL pools on BSC/Arbitrum), confirming Infinity indexing exists; however a dedicated open-source 'infinity-subgraph' source repo was not located, only the deployed subgraph + the v3/exchange subgraph source. Ambiguity: Infinity-specific source repo not publicly found."
+  },
+  {
+    "rank": 285,
+    "name": "Lulo",
+    "slug": "lulo",
+    "category": "Yield Aggregator",
+    "tvl_usd": 77674585,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only stablecoin yield aggregator. lulo-labs org has SDK-style repos (solana-go, lulo-xnft, solana-hammer) and a RESTful API; no public subgraph/indexer. Underlying positions live on Morpho/Kamino/Maple etc."
+  },
+  {
+    "rank": 286,
+    "name": "Loopscale",
+    "slug": "loopscale",
+    "category": "Lending",
+    "tvl_usd": 76338377,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only lending. LoopscaleLabs org is mostly forks (anchor, raydium-clmm, whirlpools, marginfi-v2, wormhole) plus pricing adapters, amm-sdk, audits. yellowstone-grpc is a fork of Solana geyser gRPC, not a Loopscale-specific public indexer. No dedicated public subgraph/indexer for Loopscale found."
+  },
+  {
+    "rank": 287,
+    "name": "Enzyme Finance",
+    "slug": "enzyme-finance",
+    "category": "Indexes",
+    "tvl_usd": 75862032,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/enzymefinance/subgraphs",
+        "type": "subgraph",
+        "scope": "Official Enzyme subgraphs (enzyme-core vault indexing, vault-balances/shares/lineage, asset-universe, diva-staking, mln-token) on Ethereum, Polygon, Arbitrum",
+        "maintained": "active",
+        "verified": "Official repo 'The official subgraphs of the Enzyme protocol'; ~311 commits; multiple subgraph.yaml/schema.graphql packages indexing Enzyme vault contracts across ETH/Polygon/Arbitrum (matches protocol chains)."
+      }
+    ],
+    "notes": "Official multi-subgraph monorepo actively maintained, indexing Enzyme vault contracts on Ethereum, Polygon, and Arbitrum. (Archived 'substreams' repo was an earlier Rust indexing approach.)"
+  },
+  {
+    "rank": 288,
+    "name": "APX Bridge",
+    "slug": "apx-bridge",
+    "category": "Bridge",
+    "tvl_usd": 75484470,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "APX Finance / Aster (asterdex org) bridge product. asterdex public repos are API docs and exchange-related; no public subgraph/indexer for the bridge found. Bridge accounting is largely off-chain/CEX-style."
+  },
+  {
+    "rank": 289,
+    "name": "Stargate V2",
+    "slug": "stargate-v2",
+    "category": "Cross Chain Bridge",
+    "tvl_usd": 73368271,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "stargate-protocol org has stargate-v2 (Solidity contracts), stargate-dao, SDKs, and tutorials, but NO public subgraph/Ponder/SubQuery/Subsquid indexer repo. Cross-chain message tracking relies on LayerZero Scan + Stargate API, not a public indexer repo. (Community Messari/other subgraphs may exist but none official.)"
+  },
+  {
+    "rank": 290,
+    "name": "Frax USD",
+    "slug": "frax-usd",
+    "category": "RWA",
+    "tvl_usd": 73311168,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "FraxFinance maintains fraxswap-subgraph (DEX, 2022) and fns-subgraph (name service), but NO subgraph dedicated to the frxUSD / Frax USD stablecoin RWA product. No public indexer specific to Frax USD found."
+  },
+  {
+    "rank": 291,
+    "name": "BYDFi",
+    "slug": "bydfi",
+    "category": "CEX",
+    "tvl_usd": 72804796,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange. Custodial wallet balances; no public on-chain indexer applicable."
+  },
+  {
+    "rank": 292,
+    "name": "Liquity V2",
+    "slug": "liquity-v2",
+    "category": "CDP",
+    "tvl_usd": 71732553,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/liquity/bold/tree/main/subgraph",
+        "type": "subgraph",
+        "scope": "Liquity V2 (BOLD) CDP contracts (Troves/BorrowerOperations/StabilityPool) on Ethereum",
+        "maintained": "active",
+        "verified": "Official liquity/bold monorepo subgraph dir contains subgraph.yaml + schema.graphql + src/ mappings + addresses.ts for BOLD deployment; README documents running the V2 subgraph. Active repo."
+      }
+    ],
+    "notes": "Official Liquity V2 subgraph lives in the liquity/bold monorepo (subgraph/ directory) indexing BOLD CDP contracts on Ethereum. Actively maintained."
+  },
+  {
+    "rank": 293,
+    "name": "Polygon zkEVM Bridge",
+    "slug": "polygon-zkevm-bridge",
+    "category": "Canonical Bridge",
+    "tvl_usd": 71552621,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Canonical L1<>L2 bridge for Polygon zkEVM. No protocol-specific public subgraph/indexer; bridge state tracked via Polygon's own infra/explorers. Out of scope per heuristic (canonical bridge)."
+  },
+  {
+    "rank": 294,
+    "name": "BlazeStake",
+    "slug": "blazestake",
+    "category": "Liquid Staking",
+    "tvl_usd": 71238745,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only liquid staking (bSOL / SolBlaze). No EVM-style public subgraph/indexer; data via Solana RPC / stake pool program. No dedicated public indexer repo found."
+  },
+  {
+    "rank": 295,
+    "name": "Project 0",
+    "slug": "project-0",
+    "category": "Lending",
+    "tvl_usd": 71207642,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only DeFi-native prime broker / lending (0.xyz, 0dotxyz org). Org has a DEX super-aggregator and SDK tooling but no public subgraph/indexer. Solana program; no EVM-style indexer found."
+  },
+  {
+    "rank": 296,
+    "name": "Zest V2",
+    "slug": "zest-v2",
+    "category": "Lending",
+    "tvl_usd": 70879961,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Stacks (Bitcoin L2) lending protocol. Zest-Protocol org has zest-contracts written in Clarity (non-EVM) plus audit repos; no subgraph/Ponder/SubQuery/Subsquid indexer. The Graph does not support Stacks/Clarity. No public indexer found."
+  },
+  {
+    "rank": 297,
+    "name": "sDAI",
+    "slug": "sdai",
+    "category": "Yield",
+    "tvl_usd": 70717565,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Savings xDAI on Gnosis Chain (0xaf2047...3701): an ERC4626 wrapper that routes bridged DAI into Maker DSR / Spark sDAI. Not a standalone protocol with its own repo; no dedicated public subgraph/indexer for sDAI on Gnosis found. Activity is observable via Spark/Maker subgraphs and GnosisScan but nothing sDAI-specific."
+  },
+  {
+    "rank": 298,
+    "name": "YBTC.B",
+    "slug": "ybtc.b",
+    "category": "Anchor BTC",
+    "tvl_usd": 70532846,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Bitlayer wrapped/anchor BTC token. Token-wrapper / bridged BTC representation, custodial-style; no protocol-specific public subgraph/indexer found. Out of scope per token-wrapper heuristic."
+  },
+  {
+    "rank": 299,
+    "name": "Galaxy Curation",
+    "slug": "galaxy-curation",
+    "category": "Risk Curators",
+    "tvl_usd": 70278695,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Risk curator (Galaxy Digital) operating curated vaults on Morpho-style lending (Ethereum/Base). No own protocol contracts and no Galaxy-specific public indexer; vault positions are indexed by the host protocols' own subgraphs (e.g. Morpho)."
+  },
+  {
+    "rank": 300,
+    "name": "Arrakis Modular",
+    "slug": "arrakis-modular",
+    "category": "Liquidity Manager",
+    "tvl_usd": 69981629,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "ArrakisFinance org has contracts (v2-core, infinity-periphery, etc.) and a Dune CLI but NO subgraph/indexer repo. A community Messari subgraph (messari/subgraphs/arrakis-finance) exists but indexes the older Arrakis v1/v2 Uniswap-v3 vaults (tracks rebalance/burn fee events), NOT the Arrakis Modular vault standard; that Messari subgraphs project is itself effectively deprecated/stale. No public indexer verified to cover Arrakis Modular specifically."
   }
 ]
