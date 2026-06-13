@@ -1,0 +1,148 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: eigenlayer-indexer
+description: >-
+  EigenLayer (EigenCloud) core protocol on Ethereum mainnet. On-chain "core
+  slice" port of the Layr-Labs/sidecar Go indexer (commit 46e8cf4). Indexes the
+  event-derivable core state (operators, delegations, operator/staker shares,
+  deposits, withdrawals, AVS registrations, reward submissions / distribution
+  roots, reward claims, splits, eigenpods). Off-chain reward-merkle / state-root
+  / snapshot computation is DEFERRED — see MIGRATION.md.
+rollback_on_reorg: false
+contracts:
+  # ------------------------------------------------------------------ #
+  # DelegationManager (proxy 0x39053d51...). Genesis-era (M1/M2) legacy
+  # ABI signatures are declared for the in-scope events; the 2025
+  # "slashing" upgrade introduced uniquely-named events that are also
+  # declared (they fire only post-upgrade). See MIGRATION.md.
+  # ------------------------------------------------------------------ #
+  - name: DelegationManager
+    handler: ./src/handlers.ts
+    events:
+      - event: "OperatorRegistered(address indexed operator, (address earningsReceiver, address delegationApprover, uint32 stakerOptOutWindowBlocks) operatorDetails)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorMetadataURIUpdated(address indexed operator, string metadataURI)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorDetailsModified(address indexed operator, (address earningsReceiver, address delegationApprover, uint32 stakerOptOutWindowBlocks) newOperatorDetails)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "StakerDelegated(address indexed staker, address indexed operator)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "StakerUndelegated(address indexed staker, address indexed operator)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "StakerForceUndelegated(address indexed staker, address indexed operator)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorSharesIncreased(address indexed operator, address staker, address strategy, uint256 shares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorSharesDecreased(address indexed operator, address staker, address strategy, uint256 shares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "WithdrawalQueued(bytes32 withdrawalRoot, (address staker, address delegatedTo, address withdrawer, uint256 nonce, uint32 startBlock, address[] strategies, uint256[] shares) withdrawal)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "WithdrawalCompleted(bytes32 withdrawalRoot)"
+        field_selection:
+          transaction_fields: [hash]
+      # --- 2025 slashing-upgrade events (uniquely named; fire post-upgrade) ---
+      - event: "DelegationApproverUpdated(address indexed operator, address newDelegationApprover)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorSharesSlashed(address indexed operator, address strategy, uint256 totalSlashedShares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "SlashingWithdrawalQueued(bytes32 withdrawalRoot, (address staker, address delegatedTo, address withdrawer, uint256 nonce, uint32 startBlock, address[] strategies, uint256[] scaledShares) withdrawal, uint256[] sharesToWithdraw)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "SlashingWithdrawalCompleted(bytes32 withdrawalRoot)"
+        field_selection:
+          transaction_fields: [hash]
+
+  # ------------------------------------------------------------------ #
+  # StrategyManager (proxy 0x858646...). Genesis-era Deposit carries the
+  # token param. (A later impl dropped `token` — out of validation window.)
+  # ------------------------------------------------------------------ #
+  - name: StrategyManager
+    handler: ./src/handlers.ts
+    events:
+      - event: "Deposit(address staker, address token, address strategy, uint256 shares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "StrategyAddedToDepositWhitelist(address strategy)"
+        field_selection:
+          transaction_fields: [hash]
+
+  # ------------------------------------------------------------------ #
+  # AVSDirectory (proxy 0x135dda...)
+  # ------------------------------------------------------------------ #
+  - name: AVSDirectory
+    handler: ./src/handlers.ts
+    events:
+      - event: "OperatorAVSRegistrationStatusUpdated(address indexed operator, address indexed avs, uint8 status)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "AVSMetadataURIUpdated(address indexed avs, string metadataURI)"
+        field_selection:
+          transaction_fields: [hash]
+
+  # ------------------------------------------------------------------ #
+  # RewardsCoordinator (proxy 0x7750d3...)
+  # ------------------------------------------------------------------ #
+  - name: RewardsCoordinator
+    handler: ./src/handlers.ts
+    events:
+      - event: "AVSRewardsSubmissionCreated(address indexed avs, uint256 indexed submissionNonce, bytes32 indexed rewardsSubmissionHash, ((address strategy, uint96 multiplier)[] strategiesAndMultipliers, address token, uint256 amount, uint32 startTimestamp, uint32 duration) rewardsSubmission)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RewardsSubmissionForAllCreated(address indexed submitter, uint256 indexed submissionNonce, bytes32 indexed rewardsSubmissionHash, ((address strategy, uint96 multiplier)[] strategiesAndMultipliers, address token, uint256 amount, uint32 startTimestamp, uint32 duration) rewardsSubmission)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "DistributionRootSubmitted(uint32 indexed rootIndex, bytes32 indexed root, uint32 indexed rewardsCalculationEndTimestamp, uint32 activatedAt)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RewardsClaimed(bytes32 root, address indexed earner, address indexed claimer, address indexed recipient, address token, uint256 claimedAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      # --- splits (later-era; uniquely named) ---
+      - event: "OperatorAVSSplitBipsSet(address indexed caller, address indexed operator, address indexed avs, uint32 activatedAt, uint16 oldOperatorAVSSplitBips, uint16 newOperatorAVSSplitBips)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorPISplitBipsSet(address indexed caller, address indexed operator, uint32 activatedAt, uint16 oldOperatorPISplitBips, uint16 newOperatorPISplitBips)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "DefaultOperatorSplitBipsSet(uint16 oldDefaultOperatorSplitBips, uint16 newDefaultOperatorSplitBips)"
+        field_selection:
+          transaction_fields: [hash]
+
+  # ------------------------------------------------------------------ #
+  # EigenPodManager (proxy 0x91e677...)
+  # ------------------------------------------------------------------ #
+  - name: EigenPodManager
+    handler: ./src/handlers.ts
+    events:
+      - event: "PodDeployed(address indexed eigenPod, address indexed podOwner)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "PodSharesUpdated(address indexed podOwner, int256 sharesDelta)"
+        field_selection:
+          transaction_fields: [hash]
+
+chains:
+  - id: 1
+    start_block: 17445563 # EigenLayer mainnet genesis (sidecar config.go GetGenesisBlockNumber)
+    # end_block: 17495563  # uncomment for bounded validation run (genesis + 50k)
+    contracts:
+      - name: DelegationManager
+        address: "0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A"
+      - name: StrategyManager
+        address: "0x858646372CC42E1A627fcE94aa7A7033e7CF075A"
+      - name: AVSDirectory
+        address: "0x135DDa560e946695d6f155dACaFC6f1F25C1F5AF"
+      - name: RewardsCoordinator
+        address: "0x7750d328b314EfFa365A0402Ccfd489B80B0adda"
+      - name: EigenPodManager
+        address: "0x91E677b07F7AF907ec9a428aafA9fc14a0d3A338"

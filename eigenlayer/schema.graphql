@@ -1,0 +1,304 @@
+# EigenLayer core "on-chain slice" schema.
+#
+# Ported from the Layr-Labs/sidecar Go indexer (commit 46e8cf4). The sidecar
+# stores both per-event DELTA tables (operator_share_deltas, staker_share_deltas,
+# avs_operator_state_changes, staker_delegation_changes) and cumulative
+# CURRENT-STATE tables (operator_shares, staker_shares, delegated_stakers). This
+# schema keeps both shapes: event-record entities (1 row per event, id =
+# txHash-logIndex or the sidecar's natural key) and aggregated current-state
+# entities (Operator, Staker, OperatorShares, StakerShares, AvsOperator).
+#
+# Type mapping (per CONVENTIONS.md): Bytes -> String (lowercase 0x hex),
+# NUMERIC/uint256 -> BigInt, addresses -> lowercase String.
+#
+# Off-chain reward-merkle / state-root / snapshot computation is DEFERRED and
+# NOT represented here. See MIGRATION.md.
+
+# ------------------------------------------------------------------------- #
+# Operators (current state). The sidecar has no single operators table; this
+# denormalizes OperatorRegistered + OperatorMetadataURIUpdated +
+# OperatorDetailsModified + DelegationApproverUpdated into one row keyed by
+# operator address (lowercase).
+# ------------------------------------------------------------------------- #
+type Operator {
+  id: ID! # operator address (lowercase)
+  delegationApprover: String # address; null until known
+  earningsReceiver: String # address (legacy OperatorDetails); null on slashing-era impl
+  stakerOptOutWindowBlocks: BigInt # legacy OperatorDetails; null on slashing-era impl
+  metadataURI: String
+  registeredAtBlock: BigInt!
+  registeredAtTransactionHash: String!
+  lastUpdateBlockNumber: BigInt!
+  # delegations from stakers currently delegated to this operator
+  delegatedStakers: [Staker!]! @derivedFrom(field: "delegatedTo")
+  operatorShares: [OperatorShares!]! @derivedFrom(field: "operator")
+}
+
+# ------------------------------------------------------------------------- #
+# Staker delegation current state (sidecar: delegated_stakers). id = staker
+# address. delegatedTo is the operator currently delegated to (null when
+# undelegated).
+# ------------------------------------------------------------------------- #
+type Staker {
+  id: ID! # staker address (lowercase)
+  delegatedTo: Operator # null when not delegated
+  delegated: Boolean!
+  lastUpdateBlockNumber: BigInt!
+  lastUpdateTransactionHash: String!
+  shares: [StakerShares!]! @derivedFrom(field: "staker")
+}
+
+# Per-event delegation change (sidecar: staker_delegation_changes).
+type StakerDelegationChange {
+  id: ID! # txHash-logIndex
+  staker: String! @index
+  operator: String! @index
+  delegated: Boolean!
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# ------------------------------------------------------------------------- #
+# Operator shares per (operator, strategy). sidecar: operator_shares
+# (cumulative) keyed unique(operator, strategy, block_number). We keep the
+# latest cumulative value keyed (operator-strategy).
+# ------------------------------------------------------------------------- #
+type OperatorShares {
+  id: ID! # operator-strategy (lowercase)
+  operator: Operator!
+  strategy: String! @index
+  shares: BigInt! # cumulative
+  lastUpdateBlockNumber: BigInt!
+}
+
+# Per-event operator-share delta (sidecar: operator_share_deltas).
+type OperatorShareDelta {
+  id: ID! # txHash-logIndex-operator-strategy-staker
+  operator: String! @index
+  staker: String!
+  strategy: String! @index
+  shares: BigInt! # signed delta (negative on decrease/slash)
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# ------------------------------------------------------------------------- #
+# Staker shares per (staker, strategy). sidecar: staker_shares (cumulative).
+# ------------------------------------------------------------------------- #
+type StakerShares {
+  id: ID! # staker-strategy (lowercase)
+  staker: Staker!
+  strategy: String! @index
+  shares: BigInt! # cumulative
+  lastUpdateBlockNumber: BigInt!
+}
+
+# Per-event staker-share delta (sidecar: staker_share_deltas).
+type StakerShareDelta {
+  id: ID! # txHash-logIndex-staker-strategy-strategyIndex
+  staker: String! @index
+  strategy: String! @index
+  shares: BigInt! # signed delta
+  strategyIndex: BigInt!
+  withdrawalRoot: String # set for withdrawal-driven deltas
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# ------------------------------------------------------------------------- #
+# Deposits (StrategyManager.Deposit). Not a sidecar table directly (it feeds
+# staker_share_deltas) but kept as an event record.
+# ------------------------------------------------------------------------- #
+type Deposit {
+  id: ID! # txHash-logIndex
+  staker: String! @index
+  token: String!
+  strategy: String! @index
+  shares: BigInt!
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+type StrategyWhitelist {
+  id: ID! # strategy address (lowercase)
+  strategy: String!
+  whitelistedAtBlock: BigInt!
+  transactionHash: String!
+}
+
+# ------------------------------------------------------------------------- #
+# Withdrawals. Legacy WithdrawalQueued/Completed and slashing-era
+# SlashingWithdrawalQueued/Completed share the withdrawalRoot key. One Withdrawal
+# row per root tracks the queued->completed lifecycle. Strategies/shares arrays
+# stored as parallel string arrays (lowercase / decimal strings).
+# ------------------------------------------------------------------------- #
+type Withdrawal {
+  id: ID! # withdrawalRoot (lowercase bytes32 hex)
+  withdrawalRoot: String!
+  staker: String @index
+  delegatedTo: String
+  withdrawer: String
+  nonce: BigInt
+  startBlock: BigInt
+  strategies: [String!]
+  shares: [String!] # legacy: shares; slashing: scaledShares
+  sharesToWithdraw: [String!] # slashing-era only
+  isSlashing: Boolean!
+  # lifecycle
+  status: WithdrawalStatus!
+  queuedBlockNumber: BigInt
+  queuedTransactionHash: String
+  queuedLogIndex: Int
+  completedBlockNumber: BigInt
+  completedTransactionHash: String
+  completedLogIndex: Int
+}
+
+enum WithdrawalStatus {
+  QUEUED
+  COMPLETED
+}
+
+# ------------------------------------------------------------------------- #
+# AVS + operator<->AVS registrations.
+# ------------------------------------------------------------------------- #
+type Avs {
+  id: ID! # avs address (lowercase)
+  metadataURI: String
+  lastUpdateBlockNumber: BigInt!
+}
+
+# Current registration state per (operator, avs). sidecar:
+# registered_avs_operators (cumulative).
+type AvsOperator {
+  id: ID! # operator-avs (lowercase)
+  operator: String! @index
+  avs: String! @index
+  registered: Boolean!
+  lastUpdateBlockNumber: BigInt!
+  lastUpdateTransactionHash: String!
+}
+
+# Per-event registration change. sidecar: avs_operator_state_changes.
+type AvsOperatorStateChange {
+  id: ID! # txHash-logIndex
+  operator: String! @index
+  avs: String! @index
+  registered: Boolean! # status==1 (REGISTERED) -> true
+  status: Int! # raw uint8 from event
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# ------------------------------------------------------------------------- #
+# Rewards (on-chain event data only — NOT the off-chain merkle computation).
+# ------------------------------------------------------------------------- #
+# sidecar: reward_submissions (one row per (rewardHash, strategyIndex)).
+type RewardSubmission {
+  id: ID! # rewardsSubmissionHash-strategyIndex
+  avs: String! @index
+  rewardHash: String! @index
+  token: String!
+  amount: BigInt!
+  strategy: String!
+  strategyIndex: BigInt!
+  multiplier: BigInt!
+  startTimestamp: BigInt!
+  endTimestamp: BigInt! # startTimestamp + duration
+  duration: BigInt!
+  isForAll: Boolean!
+  rewardType: String! # avs | all_stakers | all_earners
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# sidecar: submitted_distribution_roots.
+type SubmittedDistributionRoot {
+  id: ID! # rootIndex as string
+  root: String!
+  rootIndex: BigInt!
+  rewardsCalculationEndTimestamp: BigInt!
+  activatedAt: BigInt!
+  createdAtBlockNumber: BigInt!
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# sidecar: rewards_claimed.
+type RewardsClaimed {
+  id: ID! # txHash-logIndex
+  root: String!
+  earner: String! @index
+  claimer: String!
+  recipient: String!
+  token: String!
+  claimedAmount: BigInt!
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# sidecar: operator_avs_splits.
+type OperatorAVSSplit {
+  id: ID! # txHash-logIndex
+  operator: String! @index
+  avs: String! @index
+  activatedAt: BigInt!
+  oldOperatorAVSSplitBips: Int!
+  newOperatorAVSSplitBips: Int!
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# sidecar: operator_pi_splits.
+type OperatorPISplit {
+  id: ID! # txHash-logIndex
+  operator: String! @index
+  activatedAt: BigInt!
+  oldOperatorPISplitBips: Int!
+  newOperatorPISplitBips: Int!
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# sidecar: default_operator_splits.
+type DefaultOperatorSplit {
+  id: ID! # txHash-logIndex
+  oldDefaultOperatorSplitBips: Int!
+  newDefaultOperatorSplitBips: Int!
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}
+
+# ------------------------------------------------------------------------- #
+# EigenPods.
+# ------------------------------------------------------------------------- #
+type EigenPod {
+  id: ID! # eigenPod address (lowercase)
+  podOwner: String! @index
+  deployedAtBlock: BigInt!
+  deployedTransactionHash: String!
+  # cumulative beacon-chain ETH shares (sum of PodSharesUpdated deltas for owner)
+  shares: BigInt!
+  lastUpdateBlockNumber: BigInt!
+}
+
+# Per-event pod shares delta (EigenPodManager.PodSharesUpdated).
+type PodSharesUpdate {
+  id: ID! # txHash-logIndex
+  podOwner: String! @index
+  sharesDelta: BigInt! # signed
+  blockNumber: BigInt!
+  logIndex: Int!
+  transactionHash: String!
+}

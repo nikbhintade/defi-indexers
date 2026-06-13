@@ -1,0 +1,70 @@
+{
+  "_comment": "Cross-validation target for this port is the EigenLayer Sidecar API, NOT a GraphQL subgraph. The sidecar (Layr-Labs/sidecar) is a self-hosted Go service exposing a gRPC + REST API (https://sidecar-docs.eigenlayer.xyz). There is no canonical public read endpoint and no The Graph subgraph, so tools/compare cannot run automatically against a hosted endpoint. To validate: run a sidecar instance synced to mainnet (or use a hosted RPC if one is provisioned), set `subgraph.url` to its REST base, and map the entity/endpoint pairs below. The `subgraph` key name is retained for tools/compare schema compatibility; it points at the sidecar REST API here.",
+  "subgraph": {
+    "url": "TODO_SIDECAR_REST_API_BASE",
+    "authEnv": null,
+    "note": "EigenLayer Sidecar REST/gRPC API base (e.g. http://<host>:7100 for REST). No public hosted endpoint is published; provision a synced sidecar and set this. Endpoint->entity mapping: operator-shares (rpc GetOperatorShares / SQL operator_shares) -> OperatorShares; staker-shares (SQL staker_shares) -> StakerShares; delegated_stakers / GetDelegatedStrategies -> Staker; avs_operator_state_changes / registered_avs_operators -> AvsOperator; reward_submissions -> RewardSubmission; submitted_distribution_roots -> SubmittedDistributionRoot; rewards_claimed -> RewardsClaimed; operator_avs_splits/operator_pi_splits/default_operator_splits -> OperatorAVSSplit/OperatorPISplit/DefaultOperatorSplit; queued/completed_slashing_withdrawals + WithdrawalQueued/Completed logs -> Withdrawal. NOTE: many sidecar read endpoints serve OFF-CHAIN snapshot/computed values (e.g. *_snapshots, rewards gold tables) which are OUT OF SCOPE for this port and have no local counterpart."
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 17445563, "end": 17495563 },
+  "entities": [
+    {
+      "subgraphName": "operatorShares",
+      "localName": "OperatorShares",
+      "fields": ["id", "operator", "strategy", "shares"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "stakerShares",
+      "localName": "StakerShares",
+      "fields": ["id", "staker", "strategy", "shares"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "delegatedStakers",
+      "localName": "Staker",
+      "fields": ["id", "delegatedTo", "delegated"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "avsOperatorStateChanges",
+      "localName": "AvsOperatorStateChange",
+      "fields": ["id", "operator", "avs", "registered", "blockNumber", "logIndex"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "rewardSubmissions",
+      "localName": "RewardSubmission",
+      "fields": [
+        "id",
+        "avs",
+        "rewardHash",
+        "token",
+        "amount",
+        "strategy",
+        "strategyIndex",
+        "multiplier",
+        "startTimestamp",
+        "endTimestamp",
+        "duration",
+        "rewardType"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "submittedDistributionRoots",
+      "localName": "SubmittedDistributionRoot",
+      "fields": ["id", "root", "rootIndex", "rewardsCalculationEndTimestamp", "activatedAt", "blockNumber"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "deposits",
+      "localName": "Deposit",
+      "fields": ["id", "staker", "token", "strategy", "shares", "blockNumber", "logIndex"],
+      "orderBy": "id"
+    }
+  ]
+}
