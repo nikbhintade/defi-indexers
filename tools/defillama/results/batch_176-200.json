@@ -10,12 +10,12 @@
       {
         "url": "https://github.com/kaonone/starknet-bridge-subgraph",
         "type": "subgraph",
-        "scope": "Indexes StarkNet StarkGate L1 bridge: StarknetMessaging contract (LogMessageToL2/ConsumedMessageToL2) plus token bridge deposit/withdrawal events. Templated multi-bridge config.",
+        "scope": "Indexes StarkNet StarkGate L1 bridge: StarknetMessaging contract (LogMessageToL2/ConsumedMessageToL2/LogMessageToL1) plus token-bridge deposit/withdrawal events via templated multi-bridge config.",
         "maintained": "stale",
         "verified": "Cloned repo; subgraph.template.yaml has StarknetMessaging dataSource with bridge event handlers; schema.graphql defines DepositEvent/withdrawal entities; config.template.ts lists L1/L2 bridge addresses. 7 commits, community, no recent activity."
       }
     ],
-    "notes": "Community subgraph (kaonone). Also enviodev/starknet-bridge-indexer exists but is a 1-commit blank Envio scaffold (not verified as indexing). No official StarkWare subgraph."
+    "notes": "Community subgraph (kaonone). enviodev/starknet-bridge-indexer also exists but is a 1-commit blank Envio scaffold (not verified as indexing). No official StarkWare subgraph."
   },
   {
     "rank": 177,
@@ -25,7 +25,7 @@
     "tvl_usd": 178588715,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "Pending verification - placeholder"
+    "notes": "BTC wrapper/bridge asset. lombard-finance org has SDK + evm-smart-contracts + Solana programs but no public subgraph/indexer source repo. Bridge/wrapper category - low likelihood, confirmed none."
   },
   {
     "rank": 178,
@@ -35,7 +35,7 @@
     "tvl_usd": 176897497,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "Pending verification - placeholder"
+    "notes": "HyperCore is a non-EVM L1 with a native on-chain CLOB. Spot orderbook data is served via Hyperliquid API / node L1 data schemas / Kafka feeds (hyperliquid-dex/node is the chain node, not a protocol indexer). No deployable subgraph/Ponder/Envio-style public indexer repo for the spot orderbook."
   },
   {
     "rank": 179,
@@ -45,7 +45,7 @@
     "tvl_usd": 176427056,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "Pending verification - placeholder"
+    "notes": "sAVAX liquid staking on Avalanche. benqi-fi org has BENQI-Smart-Contracts + DefiLlama-Adapters fork only. Older references to a hosted-service subgraph (yhayun/benqithegraph) exist but no public source repo; no maintained official subgraph/indexer located."
   },
   {
     "rank": 180,
@@ -55,7 +55,7 @@
     "tvl_usd": 172994675,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "Solana-only liquid/native staking. marinade-finance org has on-chain program + TS SDK/CLI repos but no public EVM-style subgraph/indexer. Solana programs are not subgraph-indexable."
+    "notes": "Solana-only native staking. marinade-finance org has on-chain Anchor program + TS SDK/CLI but no public EVM-style subgraph/indexer; Solana programs are not subgraph-indexable."
   },
   {
     "rank": 181,
@@ -65,7 +65,7 @@
     "tvl_usd": 172781834,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "ether.fi docs reference a deployed subgraph for Liquid vaults but no public subgraph/indexer source repo found in etherfi-protocol org (only smart-contracts, cross-chain, DefiLlama-Adapters). Liquid vaults use Veda/BoringVault framework."
+    "notes": "Liquid vaults built on Veda/BoringVault. ether.fi docs reference a deployed subgraph but no public subgraph/indexer source repo in etherfi-protocol org (only smart-contracts, cross-chain, DefiLlama-Adapters). Veda-Labs org (boring-vault) also has no public indexer/subgraph repo."
   },
   {
     "rank": 182,
@@ -85,7 +85,7 @@
     "tvl_usd": 167320174,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "Pending verification - placeholder"
+    "notes": "Chain entry (OP Stack L2), not a single indexable protocol. FraxFinance/fraxtal-node is the chain node; Fraxtal supports generic The Graph subgraph deployment (slug frax-mainnet) but there is no protocol-specific indexer repo for the chain's TVL."
   },
   {
     "rank": 184,
@@ -95,7 +95,7 @@
     "tvl_usd": 162869924,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "00labs org has huma-contracts/huma-contracts-v2, huma-monorepo (git-submodule based), huma-js SDK. SDK/docs reference a hosted subgraph for receivables/pools, but no public subgraph/indexer source repo located."
+    "notes": "00labs org has huma-contracts / huma-contracts-v2, huma-monorepo (git-submodule based), huma-js SDK. SDK/docs reference a hosted subgraph for receivables/pools, but no public subgraph/indexer source repo located in the org."
   },
   {
     "rank": 185,
@@ -118,12 +118,32 @@
       {
         "url": "https://github.com/gmx-io/gmx-subgraph",
         "type": "subgraph",
-        "scope": "Official GMX monorepo of subgraphs; includes 'synthetics-stats' subgraph for GMX V2 (synthetics) perps on Arbitrum & Avalanche, plus prices/raw/stats subgraphs.",
+        "scope": "Official GMX monorepo of subgraphs; includes 'synthetics-stats' subgraph for GMX V2 (synthetics) perps on Arbitrum & Avalanche, alongside prices/raw/stats V1 subgraphs.",
         "maintained": "active",
-        "verified": "WebFetch of repo listing confirms synthetics-stats directory (GMX V2) alongside gmx-arbitrum/avalanche stats; 362 commits; official gmx-io org. V2 endpoints served via satsuma."
+        "verified": "WebFetch of repo listing confirms synthetics-stats directory (GMX V2) alongside gmx-arbitrum/avalanche stats subgraphs; 362 commits; official gmx-io org. V2 endpoints served via Satsuma (synthetics-arbitrum/avalanche-stats)."
       }
     ],
     "notes": "Official. synthetics-stats = GMX V2 perps subgraph."
+  },
+  {
+    "rank": 187,
+    "name": "Tonstakers LSD",
+    "slug": "tonstakers-lsd",
+    "category": "Liquid Staking",
+    "tvl_usd": 159800241,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "TON blockchain (non-EVM) liquid staking. tonstakers org has tonstakers-sdk + DefiLlama-Adapters + ton-proxy only; no subgraph/indexer (TON not subgraph-indexable)."
+  },
+  {
+    "rank": 188,
+    "name": "Solv Basis Trading",
+    "slug": "solv-basis-trading",
+    "category": "Basis Trading",
+    "tvl_usd": 159714433,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "solv-finance org has SolvBTC contracts; org repo search for subgraph/graph/indexer returns 0 results. TVL data integrated via DefiLlama adapters only. No public subgraph/indexer source repo."
   },
   {
     "rank": 189,
@@ -136,12 +156,67 @@
       {
         "url": "https://github.com/velodrome-finance/indexer",
         "type": "ponder",
-        "scope": "Official Envio multi-chain indexer for Velodrome V2 (Optimism) and Aerodrome (Base, chain 8453), including Slipstream concentrated-liquidity pools via CLFactory/CLPool event handlers.",
+        "scope": "Official multi-chain Envio (HyperIndex) indexer for Velodrome V2 (Optimism) and Aerodrome (Base, chain 8453), including Slipstream concentrated-liquidity pools via CLFactory/CLPool event handlers.",
         "maintained": "active",
-        "verified": "Cloned repo; config.yaml description states 'Multi-chain indexer for Velodrome V2 on Optimism and Aerodrome on Base' with chain id 8453; src/EventHandlers/CLFactory.ts & CLPool.ts handle Slipstream CL pools. Pushed Jun 2026."
+        "verified": "Cloned repo; config.yaml description 'Multi-chain indexer for Velodrome V2 on Optimism and Aerodrome on Base' with chain id 8453; src/EventHandlers/CLFactory.ts & CLPool.ts handle Slipstream CL pools. Pushed Jun 2026, 30 stars."
       }
     ],
-    "notes": "Official Envio (HyperIndex) indexer shared by Velodrome/Aerodrome. type marked ponder as closest enum (it is Envio/custom TS indexer). velodrome-finance/subgraph is archived (2023) and Velodrome-only."
+    "notes": "Official Envio indexer shared by Velodrome/Aerodrome (type marked 'ponder' as nearest enum for the TS Envio indexer; it is HyperIndex/Envio, not Ponder). Old velodrome-finance/subgraph is archived (2023) and Velodrome-only."
+  },
+  {
+    "rank": 190,
+    "name": "Noble",
+    "slug": "noble",
+    "category": "Chain",
+    "tvl_usd": 157156709,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Cosmos SDK appchain for stablecoin/RWA issuance (USDC/USDN). noble-assets org has chain code (Cosmos modules) but no EVM-style subgraph/indexer; Cosmos chains are not subgraph-indexable. Chain entry, not an indexable protocol."
+  },
+  {
+    "rank": 191,
+    "name": "stHYPE",
+    "slug": "sthype",
+    "category": "Liquid Staking",
+    "tvl_usd": 157143075,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Hyperliquid liquid staking (now run by Valantis Labs). Docs mention a public off-chain validator indexer but no public subgraph/indexer source repo; integration repo provides ABIs/frontend only. No deployable indexer located."
+  },
+  {
+    "rank": 192,
+    "name": "RealT Tokens",
+    "slug": "realt-tokens",
+    "category": "RWA",
+    "tvl_usd": 156791072,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/realtoken-thegraph/protocol-subgraphs",
+        "type": "subgraph",
+        "scope": "RealToken Money Market (RMM, Aave-fork lending) subgraph on Gnosis Chain. Active deployment 'rmm-realt' (Gnosis Chain V2).",
+        "maintained": "active",
+        "verified": "WebFetch: RealToken-specific fork of aave/protocol-subgraphs under realtoken-thegraph org; deployment listed as 'rmm-realt' (RealToken Money Market) on Gnosis Chain V2; updated Apr 2025."
+      },
+      {
+        "url": "https://github.com/realtoken-thegraph/swapcat-subgraph",
+        "type": "subgraph",
+        "scope": "Subgraph for the YAM/Swapcat secondary marketplace where RealTokens are traded on Gnosis Chain.",
+        "maintained": "stale",
+        "verified": "WebFetch of realtoken-thegraph org: 'Subgraph for Swapcat on Gnosis Chain' (YAM marketplace); TypeScript, updated Jul 2024."
+      }
+    ],
+    "notes": "Official RealToken indexing org (realtoken-thegraph). Subgraphs cover the RMM lending market and YAM secondary marketplace where RealTokens (Gnosis-Chain RWA real-estate tokens) trade."
+  },
+  {
+    "rank": 193,
+    "name": "Lorenzo sUSD1+",
+    "slug": "lorenzo-susd1+",
+    "category": "Yield",
+    "tvl_usd": 156275228,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Lorenzo-Protocol org has app-chain (lorenzo/ethermint), vault contracts (lorenzo_vault_contract, enzoBTC), SDKs and DefiLlama-Adapters, but no repo with subgraph/ponder/indexer. No public indexer source located."
   },
   {
     "rank": 194,
@@ -154,7 +229,7 @@
       {
         "url": "https://github.com/yearn/kong",
         "type": "custom",
-        "scope": "Official real-time/historical EVM indexer with built-in index over Yearn V2 and V3 vault ecosystems (registries, vaults, strategies, accountants, debt allocators). TS + Postgres/Timescale + GraphQL.",
+        "scope": "Official real-time/historical EVM indexer with built-in index over Yearn V2 and V3 vault ecosystems (registries, vaults, strategies, accountants, debt allocators). TS + Postgres/Timescale + GraphQL API.",
         "maintained": "active",
         "verified": "WebFetch confirms Kong 'comes configured with an index over Yearn Finance v2 and v3 vault ecosystems'; 376 commits; recommended by Yearn docs over subgraphs."
       },
@@ -167,5 +242,65 @@
       }
     ],
     "notes": "Official. Kong is the current actively-maintained indexer (V2+V3); the older V2 subgraph is archived."
+  },
+  {
+    "rank": 195,
+    "name": "CoinEx",
+    "slug": "coinex",
+    "category": "CEX",
+    "tvl_usd": 150379938,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange; no public onchain indexer/subgraph."
+  },
+  {
+    "rank": 196,
+    "name": "EtherFi Borrowing Market",
+    "slug": "etherfi-borrowing-market",
+    "category": "Lending",
+    "tvl_usd": 149942043,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "ether.fi Liquid vault borrowing built on Veda/BoringVault framework. No public subgraph/indexer source repo in etherfi-protocol or Veda-Labs orgs (boring-vault is contracts-only). Docs reference a hosted subgraph but no public source."
+  },
+  {
+    "rank": 197,
+    "name": "Bitrue",
+    "slug": "bitrue",
+    "category": "CEX",
+    "tvl_usd": 149744746,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange; no public onchain indexer/subgraph."
+  },
+  {
+    "rank": 198,
+    "name": "PinkSale",
+    "slug": "pinksale",
+    "category": "Launchpad",
+    "tvl_usd": 148481673,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "pinksale-finance org publishes per-launchpad GitHub-Pages repos (frontend/contract listings), not data indexers. No subgraph/Ponder/Envio indexer for PinkSale launchpads located."
+  },
+  {
+    "rank": 199,
+    "name": "KPK",
+    "slug": "kpk",
+    "category": "Risk Curators",
+    "tvl_usd": 147628874,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "karpatkey (DAO treasury manager / risk curator). Org repos: kpk-token, defi-kit (Zodiac Roles permissions), onchain-investment-vehicles, client-configs, build-actions. No indexer/subgraph/ponder/data-pipeline repo."
+  },
+  {
+    "rank": 200,
+    "name": "Echo Bridge",
+    "slug": "echo-bridge",
+    "category": "Bridge",
+    "tvl_usd": 143264755,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "BTCFi bridge on Aptos (non-EVM) - mints aBTC on Aptos. echo-proto org has DefiLlama/dimension adapters, Aptos-Tokens, lz-echo-bridge contracts; no public subgraph/indexer (Aptos not subgraph-indexable). Bridge/wrapper category."
   }
 ]
