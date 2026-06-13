@@ -25,7 +25,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 13 | Aave V3 (#7) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-v3/` | ✅ ported, builds + offline tests pass |
 | 14 | Sky Lending (#13) | [messari/subgraphs/tree/master/subgraphs/makerdao](https://github.com/messari/subgraphs/tree/master/subgraphs/makerdao) | `sky-lending/` | ✅ ported, builds + offline tests pass |
 | 15 | EigenCloud (#17) | [Layr-Labs/sidecar](https://github.com/Layr-Labs/sidecar) | `eigenlayer/` | ✅ ported (core on-chain slice), builds + offline tests pass |
-| 16 | USDT0 (#25) | [enviodev/usdt0-indexer](https://github.com/enviodev/usdt0-indexer) | `usdt0/` | queued |
+| 16 | USDT0 (#25) | [enviodev/usdt0-indexer](https://github.com/enviodev/usdt0-indexer) | `usdt0/` | ✅ upgraded v2→v3, builds + offline tests pass |
 | 17 | SparkLend (#26) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `sparklend/` | queued |
 | 18 | Babylon Protocol (#27) | [babylonlabs-io/babylon-staking-indexer](https://github.com/babylonlabs-io/babylon-staking-indexer) | `babylon/` | queued ⚠️ non-EVM (Bitcoin+Cosmos) — may not be HyperIndex-portable |
 | 19 | Maple (#41) | [maple-labs/maple-core-v2](https://github.com/maple-labs/maple-core-v2) | `maple/` | queued |

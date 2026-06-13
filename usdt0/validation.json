@@ -1,0 +1,25 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": null,
+    "_note": "The 'original' here is the upstream Envio v2 indexer (enviodev/usdt0-indexer), not a subgraph. To cross-validate, run that v2 indexer and this v3 port over the same block range and diff the USDT0Transfer + DailyUSDT0TransferStats tables via their Hasura GraphQL endpoints. There is no public hosted endpoint documented; set url to a deployed instance if available. Note the entity type was renamed dailyUSDT0TransferStats -> DailyUSDT0TransferStats (see MIGRATION.md), so the v2 side query name is `dailyUSDT0TransferStats`."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 23997148, "end": 24047148 },
+  "entities": [
+    {
+      "subgraphName": "dailyUSDT0TransferStats",
+      "localName": "DailyUSDT0TransferStats",
+      "fields": ["id", "date", "totalSentTransfers", "totalReceivedTransfers", "totalAmountSent", "totalAmountReceived"],
+      "decimalFields": ["totalAmountSent", "totalAmountReceived"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "USDT0Transfer",
+      "localName": "USDT0Transfer",
+      "fields": ["id", "srcChain", "dstChain", "fromAddress", "toAddress", "amountSent", "amountReceived", "txHashSent", "txHashReceived"],
+      "decimalFields": ["amountSent", "amountReceived"],
+      "orderBy": "id"
+    }
+  ]
+}

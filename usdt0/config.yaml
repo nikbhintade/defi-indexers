@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: usdt0-indexer
+description: USDT0 (LayerZero OFT) cross-chain transfer indexer — upgraded from envio v2 to v3
+contracts:
+  - name: USDT0
+    events:
+      - event: "OFTReceived(bytes32 indexed guid, uint32 srcEid, address indexed toAddress, uint256 amountReceivedLD)"
+        field_selection:
+          transaction_fields:
+            - hash
+      - event: "OFTSent(bytes32 indexed guid, uint32 dstEid, address indexed fromAddress, uint256 amountSentLD, uint256 amountReceivedLD)"
+        field_selection:
+          transaction_fields:
+            - hash
+chains:
+  - id: 1
+    start_block: 23997148
+    # end_block: 24047148  # uncomment for bounded validation runs
+    contracts:
+      - name: USDT0
+        address:
+          - 0x6C96dE32CEa08842dcc4058c14d3aaAD7Fa41dee
+rollback_on_reorg: false
