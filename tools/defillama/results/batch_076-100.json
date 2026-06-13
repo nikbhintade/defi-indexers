@@ -187,5 +187,55 @@
     "has_public_indexer": false,
     "repos": [],
     "notes": "Obol distributed validator technology. ObolNetwork github has contracts (obol-splits) and Go infra (charon) but no subgraph/indexer/ponder repo (org search for subgraph/indexer/ponder returned 0). Marked false."
+  },
+  {
+    "rank": 91,
+    "name": "Fluid Lending",
+    "slug": "fluid-lending",
+    "category": "Lending",
+    "tvl_usd": 584801303,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Fluid (by Instadapp) lending/vault/liquidity layer. Contracts public (Instadapp/fluid-contracts-public) but no public subgraph/indexer for Fluid lending markets: Instadapp org has no subgraph/fluid/indexer repo; existing 'instadapp' subgraphs (PierrickGT, protofire DSA) index the older DeFi Smart Accounts, not Fluid. Fluid governance has an 'Build the Instadapp Subgraph [In-Progress]' bounty; data is served via on-chain FluidVaultResolver. Marked false."
+  },
+  {
+    "rank": 92,
+    "name": "Optimism Bridge",
+    "slug": "optimism-bridge",
+    "category": "Canonical Bridge",
+    "tvl_usd": 581865840,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Canonical OP Stack L1<>L2 bridge. The bridge contracts live in ethereum-optimism/optimism (Optimism monorepo) but that is protocol/infra code, not a TVL/deposit indexer for the bridge as a DefiLlama protocol. No dedicated public subgraph/indexer repo scoped to the canonical bridge. Marked false."
+  },
+  {
+    "rank": 93,
+    "name": "Liquid Collective",
+    "slug": "liquid-collective",
+    "category": "Liquid Staking",
+    "tvl_usd": 581114099,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "LsETH liquid staking. liquid-collective/liquid-collective-protocol holds the smart contracts only; reporting/accounting is via Alluvial's proprietary enterprise API, not a public subgraph/indexer. No public indexer repo found. Marked false."
+  },
+  {
+    "rank": 94,
+    "name": "Lombard LBTC",
+    "slug": "lombard-lbtc",
+    "category": "Restaked BTC",
+    "tvl_usd": 568619543,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "LBTC liquid Bitcoin. lombard-finance github org (25 repos) has SDK, EVM/Solana/Sui/Starknet contracts, deposit-address tooling, but no subgraph/indexer/ponder/subsquid repo. Marked false."
+  },
+  {
+    "rank": 95,
+    "name": "OSL HK",
+    "slug": "osl-hk",
+    "category": "CEX",
+    "tvl_usd": 567535279,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized/custodial exchange (Hong Kong). No public subgraph/indexer repo. Marked false."
   }
 ]

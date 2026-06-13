@@ -10,12 +10,12 @@
       {
         "url": "https://github.com/aave/protocol-subgraphs",
         "type": "subgraph",
-        "scope": "SparkLend is a direct Aave V3 fork (sparkdotfi/sparklend-v1-core forked from aave/aave-v3-core). The Aave V3 subgraph framework (factory/template) is the standard way SparkLend markets on Ethereum + Gnosis are indexed; community deployments of this template against the Spark Pool addresses serve the GraphQL endpoints referenced in Spark docs.",
+        "scope": "SparkLend is a direct Aave V3 fork (sparkdotfi/sparklend-v1-core forked from aave/aave-v3-core). The Aave V3 subgraph framework/template is the standard way SparkLend markets on Ethereum + Gnosis are indexed; deployments of this template against the Spark Pool addresses serve the GraphQL endpoints referenced in Spark docs.",
         "maintained": "active",
-        "verified": "Confirmed sparklend-v1-core README states 'core smart contracts of the Aave V3 protocol' (fork). No first-party Spark subgraph repo exists in github.com/sparkdotfi (checked org repo list); indexing relies on the Aave V3 subgraph template applied to Spark Pool addresses."
+        "verified": "Confirmed sparklend-v1-core README states 'core smart contracts of the Aave V3 protocol' (fork of aave/aave-v3-core). Checked github.com/sparkdotfi org repo list (43 repos): only contracts/deployments/governance repos, NO first-party subgraph. Indexing relies on the reusable Aave V3 subgraph code applied to Spark Pool addresses."
       }
     ],
-    "notes": "Aave V3 fork (MakerDAO/Sky subDAO) on Ethereum + Gnosis. No official Spark-owned subgraph repo; the sparkdotfi org has only contract/deployment/governance repos. Spark docs reference per-network subgraphs queried via The Graph; these are Aave-V3-template deployments. has_public_indexer=true via the reusable Aave V3 subgraph code."
+    "notes": "Aave V3 fork (MakerDAO/Sky subDAO) on Ethereum + Gnosis. No official Spark-owned subgraph repo. Spark docs reference per-network subgraphs queried via The Graph; these are Aave-V3-template deployments. has_public_indexer=true via the reusable/official Aave V3 subgraph code; an exact Spark deployment manifest is not first-party."
   },
   {
     "rank": 27,
@@ -30,17 +30,17 @@
         "type": "custom",
         "scope": "Official Babylon BTC-staking indexer: syncs delegation and finality-provider events from both the Babylon chain (BBN) and Bitcoin, stores in MongoDB, feeds the staking API.",
         "maintained": "active",
-        "verified": "WebFetched repo: Go (98.3%), 197 commits, 37 releases, latest v3.0.9 (2026-01-12). Description confirms it indexes Babylon BTC staking delegation + finality provider events. Official babylonlabs-io org."
+        "verified": "WebFetched repo: Go (98.3%), 197 commits, 37 releases, latest v3.0.9 (2026-01-12). Description confirms it indexes Babylon BTC staking delegation + finality-provider events. Official babylonlabs-io org."
       },
       {
         "url": "https://github.com/babylonlabs-io/staking-api-service",
         "type": "custom",
-        "scope": "Official API service consuming the staking-indexer's processed events (RabbitMQ queue + MongoDB) to serve staking data to the frontend.",
+        "scope": "Official API service consuming the staking-indexer's processed events (RabbitMQ + MongoDB) to serve staking data to the frontend.",
         "maintained": "active",
-        "verified": "Found in babylonlabs-io org alongside the indexer; companion API layer to babylon-staking-indexer per Babylon docs."
+        "verified": "Found in babylonlabs-io org alongside the indexer; companion API layer per Babylon docs (Staking Indexer service)."
       }
     ],
-    "notes": "Bitcoin staking protocol. Custom Go indexer rather than a subgraph (Bitcoin + Cosmos-SDK chain not EVM). Official, actively maintained."
+    "notes": "Bitcoin staking protocol. Custom Go indexer rather than a subgraph (Bitcoin + Cosmos-SDK chain, not EVM). Official and actively maintained. Note: an older github.com/babylonlabs-io/staking-indexer also exists (phase-1)."
   },
   {
     "rank": 28,
@@ -50,7 +50,7 @@
     "tvl_usd": 3025912949,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "Tokenized money-market fund issued via Securitize (custodial, permissioned transfer-agent token). No public protocol indexer/subgraph; data lives with Securitize. Token transfers are visible on standard explorers but no dedicated public BUIDL indexer repo exists. Low-priority custodial RWA."
+    "notes": "Tokenized money-market fund issued via Securitize (custodial, permissioned transfer-agent ERC20). No public protocol indexer/subgraph; data held by Securitize. Token transfers visible on standard explorers but no dedicated public BUIDL indexer repo. Low-priority custodial RWA."
   },
   {
     "rank": 29,
@@ -60,7 +60,7 @@
     "tvl_usd": 3020405810,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "TRON Compound-fork lending protocol. Open-sourced contracts (github.com/justlend/justlend-protocol, justlend-interface) but no public subgraph/indexer repo. TRON is not supported by The Graph hosted historically; recent Graph/Substreams TRON support is announced but no public JustLend-specific indexer repo found. Marked false (no verifiable public indexer repo)."
+    "notes": "TRON Compound-fork lending protocol. Contracts open-sourced (github.com/justlend/justlend-protocol, justlend-interface) but NO public subgraph/indexer repo. TRON historically unsupported by The Graph hosted service; recent Graph/Substreams TRON support announced but no public JustLend-specific indexer repo found. Marked false (no verifiable public indexer repo)."
   },
   {
     "rank": 30,
@@ -70,6 +70,274 @@
     "tvl_usd": 3011968984,
     "has_public_indexer": false,
     "repos": [],
-    "notes": "Tokenized yield coin (formerly Hashnote USYC, now Circle). Custodial/permissioned RWA token. No public protocol subgraph/indexer repo. Low-priority custodial RWA."
+    "notes": "Tokenized yield coin (formerly Hashnote USYC, now Circle). Custodial/permissioned RWA token. No public protocol subgraph/indexer repo found. Low-priority custodial RWA."
+  },
+  {
+    "rank": 31,
+    "name": "Tether Gold",
+    "slug": "tether-gold",
+    "category": "RWA",
+    "tvl_usd": 2999237497,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Gold-backed token (XAUt) issued by Tether. Custodial wrapper token, no protocol mechanics to index beyond ERC20 transfers. No public subgraph/indexer repo. Low-priority custodial RWA wrapper."
+  },
+  {
+    "rank": 32,
+    "name": "ether.fi Stake",
+    "slug": "ether.fi-stake",
+    "category": "Liquid Restaking",
+    "tvl_usd": 2786313259,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/etherfi-protocol/smart-contracts",
+        "type": "subgraph",
+        "scope": "ether.fi operates a live, official subgraph (The Graph Studio endpoint api.studio.thegraph.com/query/58515/etherfi-v2-main) indexing eETH/weETH staking, validators, EtherFiNode, and bid/auction events. The manifest source is not published as a standalone repo; closest official code home is the smart-contracts org repo.",
+        "maintained": "active",
+        "verified": "Confirmed live subgraph endpoint 'etherfi-v2-main' (per ether.fi node-operators docs, which document querying validators/bids/EtherFiNode by block/bidder). Checked github.com/etherfi-protocol org (10 repos: smart-contracts, cash-v3, weETH-cross-chain, avs-smart-contracts, etc.) — NO standalone subgraph repo published; the deployed subgraph source is not open."
+      }
+    ],
+    "notes": "Liquid restaking protocol. An OFFICIAL deployed subgraph exists and is actively served (etherfi-v2-main on The Graph Studio), but its manifest/mappings source code is not published in a public repo. has_public_indexer=true on the basis of the live official subgraph; the repo link points to the official protocol code org rather than a dedicated subgraph repo (none found)."
+  },
+  {
+    "rank": 33,
+    "name": "Arbitrum Bridge",
+    "slug": "arbitrum-bridge",
+    "category": "Canonical Bridge",
+    "tvl_usd": 2708416630,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Canonical L1<>L2 bridge for Arbitrum. TVL is escrow contracts on Ethereum. Bridge activity is observable via Arbitrum SDK / Offchain Labs infra and the arbitrum-sdk, but there is no dedicated public 'Arbitrum Bridge' subgraph/indexer repo for the canonical bridge as a TVL protocol. Low-priority canonical bridge; marked false."
+  },
+  {
+    "rank": 34,
+    "name": "Ondo Yield Assets",
+    "slug": "ondo-yield-assets",
+    "category": "RWA",
+    "tvl_usd": 2641237835,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Ondo OUSG/USDY tokenized treasuries. Contracts open-sourced (github.com/ondoprotocol/usdy) but NO public subgraph/indexer repo found. Permissioned/KYC'd RWA ERC20 tokens; data via RWA.xyz and issuer, not a public protocol indexer. Marked false."
+  },
+  {
+    "rank": 35,
+    "name": "KuCoin",
+    "slug": "kucoin",
+    "category": "CEX",
+    "tvl_usd": 2436517623,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange. TVL is custodial wallet balances across many chains. No public on-chain indexer/subgraph for the exchange. CEX — marked false after confirming search."
+  },
+  {
+    "rank": 36,
+    "name": "Grove Finance",
+    "slug": "grove-finance",
+    "category": "Onchain Capital Allocator",
+    "tvl_usd": 2433893307,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Sky-ecosystem institutional credit allocator (a Sky 'Star') routing USDS into credit strategies via non-custodial vaults. Allocator positions live inside the Sky/Spark ALM and Morpho/Aave indexers rather than a dedicated Grove indexer. No public grove-finance subgraph/indexer repo found. Marked false."
+  },
+  {
+    "rank": 37,
+    "name": "Base Bridge",
+    "slug": "base-bridge",
+    "category": "Canonical Bridge",
+    "tvl_usd": 2359856862,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Canonical Base (OP Stack) L1 bridge. TVL = escrow on Ethereum. Bridge deposits/withdrawals observable via OP Stack tooling, but no dedicated public 'Base Bridge' TVL subgraph/indexer repo. Low-priority canonical bridge; marked false."
+  },
+  {
+    "rank": 38,
+    "name": "Polygon Bridge",
+    "slug": "polygon-bridge",
+    "category": "Chain",
+    "tvl_usd": 2212248243,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Canonical Polygon PoS/zkEVM bridge. TVL = escrow contracts on Ethereum. No dedicated public 'Polygon Bridge' TVL subgraph/indexer repo; bridge data comes from Polygon's own infra/SDK. Low-priority canonical bridge; marked false."
+  },
+  {
+    "rank": 39,
+    "name": "Spark Liquidity Layer",
+    "slug": "spark-liquidity-layer",
+    "category": "Onchain Capital Allocator",
+    "tvl_usd": 2182244119,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Spark's cross-chain ALM (Asset-Liability Management) layer; on-chain components in github.com/sparkdotfi/spark-alm-controller (contracts only, not an indexer). No dedicated public subgraph/indexer repo; allocations are observed within Sky/Spark + venue (Aave/Morpho) indexers. Spark publishes a data dashboard (data.spark.fi) backed by internal tooling. Marked false (no public indexer repo)."
+  },
+  {
+    "rank": 40,
+    "name": "Portal",
+    "slug": "portal",
+    "category": "Bridge",
+    "tvl_usd": 2142503761,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Portal Token Bridge by Wormhole. Wormhole-foundation org has extensive infra (wormhole reference impl, connect, scaffolding) and runs its own Wormholescan explorer/Guardian network, but there is NO public The-Graph/Ponder-style subgraph indexing Portal bridge TVL. Cross-chain message indexing is done by the Guardian/spy + Wormholescan stack (not a discrete public 'Portal subgraph' repo). Marked false for a standard public subgraph/indexer; bridge data is served by Wormhole's own (largely internal) explorer backend."
+  },
+  {
+    "rank": 41,
+    "name": "Maple",
+    "slug": "maple",
+    "category": "Lending",
+    "tvl_usd": 2113486681,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/maple-labs/maple-core-v2",
+        "type": "subgraph",
+        "scope": "Maple operates a live OFFICIAL subgraph on The Graph decentralized network (Maple Finance Ethereum, subgraph id 5H97eNhy9fVHcqRXZtCV2UxHG2DbzcFA7yth1TaVZ45x) indexing pools, loans, lenders and the Maple v2 lending markets. The manifest/mappings source is not published as a standalone repo; maple-core-v2 is the official protocol code home.",
+        "maintained": "active",
+        "verified": "Confirmed published subgraph 'Maple Finance Ethereum' exists on Graph Explorer (id 5H97eN...VZ45x). Checked github.com/maple-labs (~82 repos): repos are contracts/SDK/docs (maple-core-v2, maple-js, syrup-utils, etc.) — searching the org for subgraph/graph/indexer returned 0 matches. The deployed subgraph's source is not open; repo link points to official protocol code."
+      }
+    ],
+    "notes": "Institutional lending (Maple/Syrup). OFFICIAL deployed subgraph on The Graph decentralized network confirmed, but no public source repo for it in maple-labs (likely Goldsky/Studio-hosted closed source). has_public_indexer=true on basis of the live official subgraph."
+  },
+  {
+    "rank": 42,
+    "name": "Steakhouse Financial",
+    "slug": "steakhouse-financial",
+    "category": "Risk Curators",
+    "tvl_usd": 2063867763,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/morpho-org/morpho-blue-subgraph",
+        "type": "subgraph",
+        "scope": "Steakhouse is a vault CURATOR, not a standalone protocol — its ~48 vaults are MetaMorpho/Morpho Blue + Aave vaults. Those positions are indexed by the Morpho Blue subgraph (markets, vaults, allocations, curators) and the official Morpho subgraphs, where Steakhouse-curated vaults appear as vault entities.",
+        "maintained": "active",
+        "verified": "Steakhouse confirmed (Morpho blog / governance) as the largest Morpho curator with 48 vaults across Ethereum/Base/Katana/Polygon/Unichain/Arbitrum. Their own org github.com/Steakhouse-Financial holds only vault-v2-supervisor (governance/ops contracts), NOT an indexer. Curated TVL is indexed via Morpho's subgraphs (morpho-blue-subgraph) per Morpho docs/subgraphs deployment page."
+      }
+    ],
+    "notes": "Risk curator / capital allocator, not its own protocol. No first-party indexer (own org has only vault-v2-supervisor). TVL is curated MetaMorpho vaults indexed by the official Morpho Blue subgraph. has_public_indexer=true via the venue (Morpho) indexer that captures Steakhouse-curated vaults; no dedicated Steakhouse subgraph."
+  },
+  {
+    "rank": 43,
+    "name": "Crypto-com",
+    "slug": "crypto-com",
+    "category": "CEX",
+    "tvl_usd": 2000975444,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (custodial wallet balances). No public on-chain indexer/subgraph for the exchange. CEX — marked false after confirming search."
+  },
+  {
+    "rank": 44,
+    "name": "Sentora",
+    "slug": "sentora",
+    "category": "Risk Curators",
+    "tvl_usd": 1966792870,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Risk curator / analytics firm (merger of IntoTheBlock + Trident; curates lending vaults). Like other curators, its TVL is curated positions in venues (Morpho/Aave/etc.) indexed by those venues' subgraphs, not a dedicated Sentora indexer. No public first-party Sentora subgraph/indexer repo found. Marked false (no dedicated public indexer repo; positions covered by venue indexers e.g. Morpho)."
+  },
+  {
+    "rank": 45,
+    "name": "JustCryptos",
+    "slug": "justcryptos",
+    "category": "Bridge",
+    "tvl_usd": 1936531708,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "JUST (TRON) wrapped/bridged crypto assets (e.g. JST/wrapped BTC-ETH on TRON). Token-wrapper bridge on TRON. No public subgraph/indexer repo (TRON, and a thin wrapper). Low-priority wrapper bridge; marked false."
+  },
+  {
+    "rank": 46,
+    "name": "Paxos Gold",
+    "slug": "paxos-gold",
+    "category": "RWA",
+    "tvl_usd": 1925034413,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "PAXG gold-backed token by Paxos. Custodial RWA wrapper ERC20; nothing protocol-specific to index beyond transfers. No public subgraph/indexer repo. Low-priority custodial RWA wrapper; marked false."
+  },
+  {
+    "rank": 47,
+    "name": "Spark Savings",
+    "slug": "spark-savings",
+    "category": "Yield",
+    "tvl_usd": 1886801919,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Spark Savings (sUSDS/sUSDC savings vaults, ERC4626-style) within the Sky/Spark ecosystem. No dedicated public subgraph/indexer repo in github.com/sparkdotfi (org has contracts/governance only, incl. spark-savings-intents contract repo). Savings rate/positions tracked via Spark's own data.spark.fi dashboard (internal tooling) and generic ERC4626 indexers, not a public Spark indexer. Marked false (no public indexer repo)."
+  },
+  {
+    "rank": 48,
+    "name": "PancakeSwap AMM",
+    "slug": "pancakeswap-amm",
+    "category": "Dexs",
+    "tvl_usd": 1799316723,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/pancakeswap/exchange-v3-subgraphs",
+        "type": "subgraph",
+        "scope": "Official PancakeSwap V3 subgraph (Studio). Multi-chain configs: bsc, ethereum(mainnet), arbitrum, base, linea, opbnb, polygon-zkevm, scroll, zksync-era. Indexes the PancakeV3 Factory (PoolCreated) + NonfungiblePositionManager + pool swap/mint/burn events.",
+        "maintained": "active",
+        "verified": "git clone --depth 1: contains template/subgraph.template.yaml with dataSources for {{v3.factoryAddress}} (PoolCreated event) and NonfungiblePositionManager; schema.graphql; mappings/{core,factory,position-manager}.ts; abis (factory/pool/NFPM). config/bsc.js has factoryAddress 0x0bfbcf9fa4f9c56b0f40a671ad40e0805a091865 (PancakeV3PoolDeployer/Factory on BSC). Last commit 2025-05-14. Official pancakeswap org."
+      },
+      {
+        "url": "https://github.com/pancakeswap/pancake-v2-subgraph",
+        "type": "subgraph",
+        "scope": "PancakeSwap V2 (AMM) subgraph — pairs, swaps, mints, burns, volume/TVL.",
+        "maintained": "archived",
+        "verified": "Repo title is '[ARCHIVED] PancakeSwap v2 subgraph' (per search/README). Official pancakeswap org. Covers the v2 AMM portion of TVL."
+      },
+      {
+        "url": "https://github.com/pancakeswap/pancake-subgraph",
+        "type": "subgraph",
+        "scope": "Monorepo of PancakeSwap subgraphs (blocks, profile, prediction, NFT, lottery, and exchange/AMM subgraphs on the v2 branch).",
+        "maintained": "stale",
+        "verified": "Official pancakeswap org monorepo; README confirms multiple PancakeSwap subgraphs incl. exchange. Complements v2/v3 exchange subgraphs."
+      }
+    ],
+    "notes": "Already-known DEX. Official multi-chain V3 subgraph fully verified by clone (factory + NFPM + pool events, 9 chain configs). V2 AMM subgraph archived but official. has_public_indexer=true."
+  },
+  {
+    "rank": 49,
+    "name": "Figure Markets Exchange",
+    "slug": "figure-markets-exchange",
+    "category": "OTC Marketplace",
+    "tvl_usd": 1672696415,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "OTC/exchange running on Provenance Blockchain (Cosmos-SDK). No protocol-specific public indexer/subgraph. The Provenance chain has an open-source chain-level explorer (github.com/provenance-io/explorer-service + explorer-frontend), but that is a generic block explorer, not a Figure Markets protocol indexer. Marked false (no protocol-specific public indexer)."
+  },
+  {
+    "rank": 50,
+    "name": "Centrifuge Protocol",
+    "slug": "centrifuge-protocol",
+    "category": "RWA",
+    "tvl_usd": 1633926321,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/centrifuge/api-v3",
+        "type": "ponder",
+        "scope": "Official Ponder-based EVM indexer for Centrifuge V3. Indexes pools, vaults, share classes, holdings, cross-chain messaging and related entities across the multichain deployment; exposes a GraphQL API (api.centrifuge.io). Chain config via PONDER_RPC_URL_<chainId> / src/chains.ts.",
+        "maintained": "active",
+        "verified": "WebFetched: described as 'A blockchain event indexer for the Centrifuge protocol, built with Ponder.' 399 commits, latest release v3.8.1 (2026-05-01), CI/CD pipeline. Handler/service architecture subscribing to Centrifuge contract events. Official centrifuge org."
+      },
+      {
+        "url": "https://github.com/centrifuge/api",
+        "type": "subquery",
+        "scope": "Official SubQuery-based indexer/GraphQL API for the Centrifuge Parachain (Polkadot) — pools, tranches, investments on the Substrate chain.",
+        "maintained": "active",
+        "verified": "WebFetched: description 'A GraphQL API to query the Centrifuge Parachain on Polkadot' built with SubQuery. 519 commits, latest release v2.4.0 (2025-07-21). TypeScript. Official centrifuge org. (Complements api-v3 which covers the EVM/V3 side.)"
+      },
+      {
+        "url": "https://github.com/centrifuge/tinlake-subgraph",
+        "type": "subgraph",
+        "scope": "The Graph subgraph for the legacy Tinlake pools (loans, pools, total debt, borrow counts). Predecessor to the V3/parachain indexers.",
+        "maintained": "stale",
+        "verified": "Confirmed schema.graphql indexes Tinlake pools/loans (pool IDs, loans, total debt). Official centrifuge org; legacy Tinlake era."
+      }
+    ],
+    "notes": "Already-known RWA protocol. THREE official indexers across eras: api-v3 (Ponder, EVM V3, active), api (SubQuery, Polkadot parachain, active), tinlake-subgraph (The Graph, legacy). Rich first-party indexing. has_public_indexer=true."
   }
 ]
