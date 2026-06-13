@@ -1,0 +1,156 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: ssv-network-indexer
+description: SSV Network (ssvlabs/ssv-subgraph) mainnet subgraph ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: SSVNetwork
+    abi_file_path: ./abis/SSVNetwork.json
+    handler: ./src/handlers/index.ts
+    events:
+      # ---- DAO governance ----
+      - event: "DeclareOperatorFeePeriodUpdated(uint64 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ExecuteOperatorFeePeriodUpdated(uint64 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "LiquidationThresholdPeriodUpdated(uint64 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "LiquidationThresholdPeriodSSVUpdated(uint64 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MinimumLiquidationCollateralUpdated(uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MinimumLiquidationCollateralSSVUpdated(uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "NetworkFeeUpdated(uint256 oldFee, uint256 newFee)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "NetworkFeeUpdatedSSV(uint256 oldFee, uint256 newFee)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorFeeIncreaseLimitUpdated(uint64 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorMaximumFeeUpdated(uint256 maxFee)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "QuorumUpdated(uint16 newQuorum)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "SSVNetworkUpgradeBlock(string version, uint256 blockNumber)"
+        field_selection:
+          transaction_fields: [hash]
+      # ---- Operator lifecycle ----
+      - event: "OperatorAdded(uint64 indexed operatorId, address indexed owner, bytes publicKey, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorFeeDeclarationCancelled(address indexed owner, uint64 indexed operatorId)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorFeeDeclared(address indexed owner, uint64 indexed operatorId, uint256 blockNumber, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorFeeExecuted(address indexed owner, uint64 indexed operatorId, uint256 blockNumber, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorRemoved(uint64 indexed operatorId)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorWhitelistUpdated(uint64 indexed operatorId, address whitelisted)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorMultipleWhitelistUpdated(uint64[] operatorIds, address[] whitelistAddresses)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorMultipleWhitelistRemoved(uint64[] operatorIds, address[] whitelistAddresses)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorWhitelistingContractUpdated(uint64[] operatorIds, address whitelistingContract)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorPrivacyStatusUpdated(uint64[] operatorIds, bool toPrivate)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorWithdrawn(address indexed owner, uint64 indexed operatorId, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "OperatorWithdrawnSSV(address indexed owner, uint64 indexed operatorId, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      # ---- Cluster + Validator ----
+      - event: "ClusterDeposited(address indexed owner, uint64[] operatorIds, uint256 value, (uint32 validatorCount, uint64 networkFeeIndex, uint64 index, bool active, uint256 balance) cluster)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClusterLiquidated(address indexed owner, uint64[] operatorIds, (uint32 validatorCount, uint64 networkFeeIndex, uint64 index, bool active, uint256 balance) cluster)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClusterReactivated(address indexed owner, uint64[] operatorIds, (uint32 validatorCount, uint64 networkFeeIndex, uint64 index, bool active, uint256 balance) cluster)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClusterWithdrawn(address indexed owner, uint64[] operatorIds, uint256 value, (uint32 validatorCount, uint64 networkFeeIndex, uint64 index, bool active, uint256 balance) cluster)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClusterBalanceUpdated(address indexed owner, uint64[] operatorIds, uint64 indexed blockNum, uint32 effectiveBalance, (uint32 validatorCount, uint64 networkFeeIndex, uint64 index, bool active, uint256 balance) cluster)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClusterMigratedToETH(address indexed owner, uint64[] operatorIds, uint256 ethDeposited, uint256 ssvRefunded, uint32 effectiveBalance, (uint32 validatorCount, uint64 networkFeeIndex, uint64 index, bool active, uint256 balance) cluster)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ValidatorAdded(address indexed owner, uint64[] operatorIds, bytes publicKey, bytes shares, (uint32 validatorCount, uint64 networkFeeIndex, uint64 index, bool active, uint256 balance) cluster)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ValidatorRemoved(address indexed owner, uint64[] operatorIds, bytes publicKey, (uint32 validatorCount, uint64 networkFeeIndex, uint64 index, bool active, uint256 balance) cluster)"
+        field_selection:
+          transaction_fields: [hash]
+      # ---- Account / fee recipient ----
+      - event: "FeeRecipientAddressUpdated(address indexed owner, address recipientAddress)"
+        field_selection:
+          transaction_fields: [hash]
+      # ---- Staking ----
+      - event: "ERC20Rescued(address indexed token, address indexed to, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "FeesSynced(uint256 newFeesWei, uint256 accEthPerShare)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "NetworkEarningsWithdrawn(uint256 value, address recipient)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RewardsClaimed(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RewardsSettled(address indexed user, uint256 pending, uint256 accrued, uint256 userIndex)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Staked(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "UnstakeRequested(address indexed user, uint256 amount, uint256 unlockTime)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "UnstakedWithdrawn(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      # ---- Oracle / root ----
+      - event: "RootCommitted(bytes32 indexed merkleRoot, uint64 indexed blockNum)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "OracleReplaced(uint32 indexed oracleId, address indexed oldOracle, address indexed newOracle)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "WeightedRootProposed(bytes32 indexed merkleRoot, uint64 indexed blockNum, uint256 accumulatedWeight, uint256 quorum, uint32 oracleId, address oracle)"
+        field_selection:
+          transaction_fields: [hash]
+chains:
+  - id: 1
+    start_block: 17507480
+    # end_block: 17557480   # uncomment for bounded validation runs (start + 50k)
+    contracts:
+      - name: SSVNetwork
+        address: "0xDD9BC35aE942eF0cFa76930954a156B3fF30a4E1"
+field_selection:
+  transaction_fields: [hash]

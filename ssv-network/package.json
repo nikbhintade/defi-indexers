@@ -1,0 +1,23 @@
+{
+  "name": "ssv-network-indexer",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "codegen": "envio codegen",
+    "build": "tsc --noEmit",
+    "dev": "envio dev",
+    "start": "envio start",
+    "test": "vitest run --test-timeout=20000"
+  },
+  "dependencies": {
+    "envio": "3.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

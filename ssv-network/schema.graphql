@@ -1,0 +1,638 @@
+# Ported 1:1 from ssvlabs/ssv-subgraph schema.graphql (commit e2f1aa0).
+# Type mapping: Bytes -> String (lowercase 0x hex), BigInt -> BigInt,
+# Int -> Int, enums -> enums. @entity(immutable: ...) directives removed
+# (HyperIndex types are plain `type X`). @derivedFrom kept.
+
+type Account {
+  id: ID! # address (lowercase hex)
+  nonce: BigInt!
+  validatorCount: BigInt! # uint256
+  clusters: [Cluster!]! @derivedFrom(field: "owner")
+  validators: [Validator!]! @derivedFrom(field: "owner")
+  operators: [Operator!]! @derivedFrom(field: "owner")
+  effectiveBalance: BigInt! # uint256
+  feeRecipient: String! # address
+  stakedAmount: BigInt!
+  unstakePendingAmount: BigInt!
+}
+
+type Cluster {
+  id: ID! # concat owner + operatorIds
+  owner: Account! # address
+  operatorIds: [BigInt!]! # uint64[]
+  validatorCount: BigInt! # uint32
+  effectiveBalance: BigInt! # uint256
+  vUnits: BigInt! # uint256
+  validators: [Validator!]! @derivedFrom(field: "cluster")
+  feeAsset: ClusterFeeAssetTypes!
+  networkFeeIndex: BigInt! # uint64
+  index: BigInt! # uint64
+  active: Boolean! # bool
+  balance: BigInt! # uint256
+  lastUpdateBlockNumber: BigInt! # uint256
+  lastUpdateBlockTimestamp: BigInt!
+  lastUpdateTransactionHash: String!
+}
+
+enum ClusterFeeAssetTypes {
+  SSV
+  ETH
+}
+
+type Validator {
+  id: ID! # publicKey (lowercase hex)
+  owner: Account! # address
+  # subgraph: [Operator!]! (list of Operator references). HyperIndex cannot
+  # store arrays of entity references, so this is stored as the array of
+  # operator-id strings the subgraph would have stored (byte-for-byte the same
+  # values), and Operator.validators @derivedFrom(field:"operators") is dropped.
+  operators: [String!]! # uint64[] operator ids
+  cluster: Cluster!
+  removed: Boolean! # bool
+  shares: String! # bytes
+  lastUpdateBlockNumber: BigInt! # uint256
+  lastUpdateBlockTimestamp: BigInt!
+  lastUpdateTransactionHash: String!
+}
+
+type Operator {
+  id: ID! # uint64 as string
+  operatorId: BigInt!
+  owner: Account! # address
+  publicKey: String! # bytes
+  removed: Boolean! # bool
+  fee: BigInt! # uint256
+  feeIndex: BigInt! # uint256
+  feeIndexBlockNumber: BigInt! # uint256
+  declaredFee: BigInt! # uint256
+  feeSSV: BigInt! # uint256
+  feeIndexSSV: BigInt! # uint256
+  feeIndexBlockNumberSSV: BigInt! # uint256
+  declaredSSVFee: BigInt! # uint256
+  # subgraph: [Account!]! (list of Account references). Stored as the array of
+  # account-id (lowercase address) strings the subgraph stored.
+  whitelisted: [String!]!
+  whitelistedContract: String! # address
+  isPrivate: Boolean! # bool
+  totalWithdrawn: BigInt! # uint256
+  totalWithdrawnSSV: BigInt! # uint256
+  totalEffectiveBalance: BigInt! # uint256
+  lastUpdateBlockNumber: BigInt! # uint256
+  lastUpdateBlockTimestamp: BigInt!
+  lastUpdateTransactionHash: String!
+  validatorCount: BigInt! # uint256
+  # NB: subgraph had `validators: [Validator!] @derivedFrom(field: "operators")`.
+  # Dropped: HyperIndex cannot derive from an array-of-strings field. The
+  # relation is query-only and never read inside mappings, so data parity for
+  # all written entities is unaffected.
+}
+
+type DAOValues {
+  id: ID! # contract address (lowercase hex)
+  networkFee: BigInt! # uint256
+  networkFeeIndex: BigInt! # uint256
+  networkFeeIndexBlockNumber: BigInt! # uint256
+  liquidationThreshold: BigInt! # uint256
+  minimumLiquidationCollateral: BigInt! # uint256
+  networkFeeSSV: BigInt! # uint256
+  networkFeeIndexSSV: BigInt! # uint256
+  networkFeeIndexBlockNumberSSV: BigInt! # uint256
+  liquidationThresholdSSV: BigInt! # uint256
+  minimumLiquidationCollateralSSV: BigInt! # uint256
+  operatorFeeIncreaseLimit: BigInt! # uint256
+  declareOperatorFeePeriod: BigInt! # uint256
+  executeOperatorFeePeriod: BigInt! # uint256
+  operatorMaximumFee: BigInt! # uint256
+  operatorMaximumFeeSSV: BigInt! # uint256
+  validatorsPerOperatorLimit: BigInt!
+  updateType: DAOUpdateTypes!
+  accEthPerShare: BigInt!
+  newFeesWei: BigInt!
+  quorum: Int!
+  version: String!
+  latestMerkleRoot: String!
+  totalAccounts: BigInt!
+  totalValidators: BigInt!
+  totalOperators: BigInt!
+  totalEffectiveBalance: BigInt!
+  effectiveBalanceETH: BigInt!
+  validatorsAdded: BigInt!
+  validatorsRemoved: BigInt!
+  operatorsAdded: BigInt!
+  operatorsRemoved: BigInt!
+  lastUpdateBlockNumber: BigInt! # uint256
+  lastUpdateBlockTimestamp: BigInt! # uint256
+  lastUpdateTransactionHash: String! # uint256
+}
+
+enum DAOUpdateTypes {
+  INITIALIZATION
+  NETWORK_FEE
+  NETWORK_FEE_SSV
+  LIQUIDATION_THRESHOLD
+  LIQUIDATION_THRESHOLD_SSV
+  MIN_LIQUIDATION_COLLATERAL
+  MIN_LIQUIDATION_COLLATERAL_SSV
+  OPERATOR_FEE_INCREASE_LIMIT
+  DECLARE_OPERATOR_FEE_PERIOD
+  EXECUTE_OPERATOR_FEE_PERIOD
+  OPERATOR_MAX_FEE
+  OPERATOR_MAX_FEE_SSV
+  CLUSTER_BALANCE_UPDATED
+  QUORUM_UPDATED
+  FEES_SYNCED
+  ROOT_COMMITTED
+  VALIDATOR_ADDED
+  VALIDATOR_REMOVED
+  OPERATOR_ADDED
+  OPERATOR_REMOVED
+  SSV_NETWORK_UPGRADE
+}
+
+type Oracle {
+  id: ID!
+  oracleId: BigInt!
+  oracleAddress: String! # address
+  lastUpdateBlockNumber: BigInt! # uint256
+  lastUpdateBlockTimestamp: BigInt!
+  lastUpdateTransactionHash: String!
+}
+
+type ClusterBalanceUpdated {
+  id: ID!
+  owner: String! # address
+  operatorIds: [BigInt!]! # uint64[]
+  effectiveBalance: BigInt! # uint256
+  cluster_validatorCount: BigInt! # uint32
+  cluster_networkFeeIndex: BigInt! # uint64
+  cluster_index: BigInt! # uint64
+  cluster_active: Boolean! # bool
+  cluster_balance: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ClusterMigratedToETH {
+  id: ID!
+  owner: String! # address
+  operatorIds: [BigInt!]! # uint64[]
+  ethDeposited: BigInt! # uint256
+  ssvRefunded: BigInt! # uint256
+  effectiveBalance: BigInt! # uint256
+  cluster: Cluster!
+  cluster_validatorCount: BigInt! # uint32
+  cluster_networkFeeIndex: BigInt! # uint64
+  cluster_index: BigInt! # uint64
+  cluster_active: Boolean! # bool
+  cluster_balance: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ClusterDeposited {
+  id: ID!
+  owner: String! # address
+  operatorIds: [BigInt!]! # uint64[]
+  value: BigInt! # uint256
+  cluster_validatorCount: BigInt! # uint32
+  cluster_networkFeeIndex: BigInt! # uint64
+  cluster_index: BigInt! # uint64
+  cluster_active: Boolean! # bool
+  cluster_balance: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ClusterLiquidated {
+  id: ID!
+  owner: String! # address
+  operatorIds: [BigInt!]! # uint64[]
+  cluster: Cluster!
+  cluster_validatorCount: BigInt! # uint32
+  cluster_networkFeeIndex: BigInt! # uint64
+  cluster_index: BigInt! # uint64
+  cluster_active: Boolean! # bool
+  cluster_balance: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ClusterReactivated {
+  id: ID!
+  owner: String! # address
+  operatorIds: [BigInt!]! # uint64[]
+  cluster: Cluster!
+  cluster_validatorCount: BigInt! # uint32
+  cluster_networkFeeIndex: BigInt! # uint64
+  cluster_index: BigInt! # uint64
+  cluster_active: Boolean! # bool
+  cluster_balance: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ClusterWithdrawn {
+  id: ID!
+  owner: String! # address
+  operatorIds: [BigInt!]! # uint64[]
+  value: BigInt! # uint256
+  cluster_validatorCount: BigInt! # uint32
+  cluster_networkFeeIndex: BigInt! # uint64
+  cluster_index: BigInt! # uint64
+  cluster_active: Boolean! # bool
+  cluster_balance: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type DeclareOperatorFeePeriodUpdated {
+  id: ID!
+  value: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ERC20Rescued {
+  id: ID!
+  token: String! # address
+  to: String! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ExecuteOperatorFeePeriodUpdated {
+  id: ID!
+  value: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type FeeRecipientAddressUpdated {
+  id: ID!
+  owner: String! # address
+  recipientAddress: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type FeesSynced {
+  id: ID!
+  newFeesWei: BigInt!
+  accEthPerShare: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type LiquidationThresholdPeriodUpdated {
+  id: ID!
+  value: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type LiquidationThresholdPeriodSSVUpdated {
+  id: ID!
+  value: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MinimumLiquidationCollateralUpdated {
+  id: ID!
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MinimumLiquidationCollateralSSVUpdated {
+  id: ID!
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type NetworkEarningsWithdrawn {
+  id: ID!
+  value: BigInt! # uint256
+  recipient: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type NetworkFeeUpdated {
+  id: ID!
+  oldFee: BigInt! # uint256
+  newFee: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type NetworkFeeUpdatedSSV {
+  id: ID!
+  oldFee: BigInt! # uint256
+  newFee: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorAdded {
+  id: ID!
+  operatorId: BigInt! # uint64
+  owner: String! # address
+  publicKey: String! # bytes
+  fee: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorFeeDeclarationCancelled {
+  id: ID!
+  owner: String! # address
+  operatorId: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorFeeDeclared {
+  id: ID!
+  owner: String! # address
+  operatorId: BigInt! # uint64
+  blockNumber: BigInt! # uint256
+  fee: BigInt! # uint256
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorFeeExecuted {
+  id: ID!
+  owner: String! # address
+  operatorId: BigInt! # uint64
+  blockNumber: BigInt! # uint256
+  fee: BigInt! # uint256
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorFeeIncreaseLimitUpdated {
+  id: ID!
+  value: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorMaximumFeeUpdated {
+  id: ID!
+  maxFee: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorRemoved {
+  id: ID!
+  operatorId: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorWhitelistUpdated {
+  id: ID!
+  operatorId: BigInt! # uint64
+  whitelisted: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorMultipleWhitelistUpdated {
+  id: ID!
+  operatorIds: [BigInt!]! # uint64[]
+  whitelistAddresses: [String!] # address[]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorMultipleWhitelistRemoved {
+  id: ID!
+  operatorIds: [BigInt!]! # uint64[]
+  whitelistAddresses: [String!] # address[]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorWhitelistingContractUpdated {
+  id: ID!
+  operatorIds: [BigInt!]! # uint64[]
+  whitelistingContract: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorPrivacyStatusUpdated {
+  id: ID!
+  operatorIds: [BigInt!]! # uint64[]
+  toPrivate: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorWithdrawn {
+  id: ID!
+  owner: String! # address
+  operatorId: BigInt! # uint64
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OperatorWithdrawnSSV {
+  id: ID!
+  owner: String! # address
+  operatorId: BigInt! # uint64
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type RewardsClaimed {
+  id: ID!
+  user: String! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type RewardsSettled {
+  id: ID!
+  user: String! # address
+  pending: BigInt!
+  accrued: BigInt!
+  userIndex: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type Staked {
+  id: ID!
+  user: String! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type SSVNetworkUpgradeBlock {
+  id: ID!
+  version: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type UnstakeRequested {
+  id: ID!
+  user: String! # address
+  amount: BigInt!
+  unlockTime: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type UnstakedWithdrawn {
+  id: ID!
+  user: String! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ValidatorAdded {
+  id: ID!
+  owner: String! # address
+  operatorIds: [BigInt!]! # uint64[]
+  publicKey: String! # bytes
+  shares: String! # bytes
+  cluster: Cluster!
+  cluster_validatorCount: BigInt! # uint32
+  cluster_networkFeeIndex: BigInt! # uint64
+  cluster_index: BigInt! # uint64
+  cluster_active: Boolean! # bool
+  cluster_balance: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type ValidatorRemoved {
+  id: ID!
+  owner: String! # address
+  operatorIds: [BigInt!]! # uint64[]
+  publicKey: String! # bytes
+  cluster: Cluster!
+  cluster_validatorCount: BigInt! # uint32
+  cluster_networkFeeIndex: BigInt! # uint64
+  cluster_index: BigInt! # uint64
+  cluster_active: Boolean! # bool
+  cluster_balance: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type Upgraded {
+  id: ID!
+  implementation: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type RootCommitted {
+  id: ID!
+  sender: String! # address
+  merkleRoot: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type RootProposed {
+  id: ID!
+  merkleRoot: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type DelegationUpdated {
+  id: ID!
+  user: String! # address
+  oracleIds: [BigInt!]!
+  amounts: [BigInt!]!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type OracleReplaced {
+  id: ID!
+  oracleId: BigInt! # address
+  oldOracle: String!
+  newOracle: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type QuorumUpdated {
+  id: ID!
+  newQuorum: Int!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type WeightedRootProposed {
+  id: ID!
+  merkleRoot: String!
+  accumulatedWeight: BigInt!
+  quorum: BigInt!
+  oracleId: BigInt!
+  oracle: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}

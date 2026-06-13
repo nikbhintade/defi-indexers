@@ -1,0 +1,181 @@
+{
+  "subgraph": {
+    "url": "https://gateway.thegraph.com/api/subgraphs/id/TODO_SSV_SUBGRAPH_ID",
+    "authEnv": "GRAPH_API_KEY",
+    "note": "No concrete The Graph gateway subgraph id is published in ssvlabs/ssv-subgraph (README only documents `graph deploy --studio <NAME>`; package name is ssv-bapps-subgraph). Replace TODO_SSV_SUBGRAPH_ID with SSV's official mainnet subgraph deployment id before running tools/compare. Auth via GRAPH_API_KEY (The Graph gateway API key)."
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 17507480, "end": 17557480 },
+  "entities": [
+    {
+      "subgraphName": "operators",
+      "localName": "Operator",
+      "fields": [
+        "id",
+        "operatorId",
+        "owner",
+        "publicKey",
+        "removed",
+        "fee",
+        "feeIndex",
+        "feeIndexBlockNumber",
+        "declaredFee",
+        "feeSSV",
+        "feeIndexSSV",
+        "feeIndexBlockNumberSSV",
+        "declaredSSVFee",
+        "whitelistedContract",
+        "isPrivate",
+        "totalWithdrawn",
+        "totalWithdrawnSSV",
+        "totalEffectiveBalance",
+        "validatorCount"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "accounts",
+      "localName": "Account",
+      "fields": [
+        "id",
+        "nonce",
+        "validatorCount",
+        "effectiveBalance",
+        "feeRecipient",
+        "stakedAmount",
+        "unstakePendingAmount"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "clusters",
+      "localName": "Cluster",
+      "fields": [
+        "id",
+        "owner",
+        "operatorIds",
+        "validatorCount",
+        "effectiveBalance",
+        "vUnits",
+        "feeAsset",
+        "networkFeeIndex",
+        "index",
+        "active",
+        "balance"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "validators",
+      "localName": "Validator",
+      "fields": ["id", "owner", "operators", "cluster", "removed", "shares"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "daovalues",
+      "localName": "DAOValues",
+      "fields": [
+        "id",
+        "networkFee",
+        "networkFeeIndex",
+        "networkFeeIndexBlockNumber",
+        "liquidationThreshold",
+        "minimumLiquidationCollateral",
+        "networkFeeSSV",
+        "networkFeeIndexSSV",
+        "networkFeeIndexBlockNumberSSV",
+        "liquidationThresholdSSV",
+        "minimumLiquidationCollateralSSV",
+        "operatorFeeIncreaseLimit",
+        "declareOperatorFeePeriod",
+        "executeOperatorFeePeriod",
+        "operatorMaximumFee",
+        "operatorMaximumFeeSSV",
+        "validatorsPerOperatorLimit",
+        "updateType",
+        "accEthPerShare",
+        "newFeesWei",
+        "quorum",
+        "version",
+        "latestMerkleRoot",
+        "totalAccounts",
+        "totalValidators",
+        "totalOperators",
+        "totalEffectiveBalance",
+        "effectiveBalanceETH",
+        "validatorsAdded",
+        "validatorsRemoved",
+        "operatorsAdded",
+        "operatorsRemoved"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "operatorAddeds",
+      "localName": "OperatorAdded",
+      "fields": ["id", "operatorId", "owner", "publicKey", "fee", "blockNumber"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "validatorAddeds",
+      "localName": "ValidatorAdded",
+      "fields": [
+        "id",
+        "owner",
+        "operatorIds",
+        "publicKey",
+        "shares",
+        "cluster",
+        "cluster_validatorCount",
+        "cluster_balance",
+        "blockNumber"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "clusterDepositeds",
+      "localName": "ClusterDeposited",
+      "fields": [
+        "id",
+        "owner",
+        "operatorIds",
+        "value",
+        "cluster_validatorCount",
+        "cluster_networkFeeIndex",
+        "cluster_index",
+        "cluster_active",
+        "cluster_balance",
+        "blockNumber"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "clusterWithdrawns",
+      "localName": "ClusterWithdrawn",
+      "fields": [
+        "id",
+        "owner",
+        "operatorIds",
+        "value",
+        "cluster_balance",
+        "blockNumber"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "networkFeeUpdateds",
+      "localName": "NetworkFeeUpdated",
+      "fields": ["id", "oldFee", "newFee", "blockNumber"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "oracles",
+      "localName": "Oracle",
+      "fields": ["id", "oracleId", "oracleAddress"],
+      "orderBy": "id"
+    }
+  ]
+}
