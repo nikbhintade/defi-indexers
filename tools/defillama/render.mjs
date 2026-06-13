@@ -28,6 +28,7 @@ const all = [...byRank.values()].sort((a, b) => a.rank - b.rank);
 
 const ported = {
   "morpho-blue": "spiko-morpho", "compound-v3": "compound-v3",
+  "compound-v2": "compound-v2", "convex-finance": "convex",
   "pancakeswap-amm": "pancakeswap-exchange", "curve-dex": "curve-volume",
   "pendle": "pendle", "spiko": "spiko-morpho", "venus-core-pool": "venus",
   "anemoy-capital": "anemoy-centrifuge", "ether.fi-stake": "(skipped)",
