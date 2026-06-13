@@ -1,0 +1,290 @@
+type Pool {
+  """ Entity ID """
+  id: ID!
+  """ Pool ID in the Convex Booster contract """
+  poolid: BigInt!
+  """ Platform """
+  platform: Platform!
+  """ Pool name """
+  name: String!
+  """ Pool LP token address """
+  lpToken: String! #address
+  """ Pool LP token balance """
+  lpTokenBalance: BigInt!
+  """ Pool LP token price in USD """
+  lpTokenUSDPrice: BigDecimal!
+  """ Convex receipt token """
+  token: String! #address
+  """ Pool gauge address """
+  gauge: String! #address
+  """ CRV Rewards contract """
+  crvRewardsPool: String! @index #address
+  """ Pool stash reward contract """
+  stash: String! #address
+  """ Pool stash reward contract version """
+  stashVersion: BigInt!
+  """ Pool stash reward contract minor version """
+  stashMinorVersion: BigInt!
+  """ Whether the pool is active """
+  active: Boolean!
+  """ Whether the pool is v2 """
+  isV2: Boolean!
+  """ Whether the pool is a Llamma Lending pool """
+  isLending: Boolean!
+  """ Pool creation date """
+  creationDate: BigInt!
+  """ Pool creation block """
+  creationBlock: BigInt!
+  """ Pool TVL in USD """
+  tvl: BigDecimal!
+  """ Percentage of Curve LP token staked on Convex for that pool """
+  curveTvlRatio: BigDecimal!
+  """ Pool CRV APR """
+  crvApr: BigDecimal!
+  """ Pool CVX APR """
+  cvxApr: BigDecimal!
+  """ Pool's extra rewards APR (other tokens) """
+  extraRewardsApr: BigDecimal!
+  """ Pool's base APR (from Curve) """
+  baseApr: BigDecimal!
+  """ Pool's base APR (non-annualized) """
+  rawBaseApr: BigDecimal!
+  """ Deposits """
+  deposits: [Deposit!]! @derivedFrom(field: "poolid")
+  """ Withdrawals """
+  withdrawals: [Withdrawal!]! @derivedFrom(field: "poolid")
+  """ CRV Rewards """
+  crvRewards: [PoolReward!]! @derivedFrom(field: "poolid")
+  """ Curve pool contract address """
+  swap: String! #address
+  """ Underlying asset type (USD, BTC...) """
+  assetType: Int!
+  """ Extra reward contracts """
+  extras: [String!]!
+  """ Extra reward contracts """
+  extraRewards: [ExtraReward!]! @derivedFrom(field: "poolid")
+  """ Pool coins """
+  coins: [String!]! #address
+  """ Pool snapshots """
+  snapshots: [DailyPoolSnapshot!]! @derivedFrom(field: "poolid")
+}
+
+type DailyPoolSnapshot {
+  """ Entity ID """
+  id: ID!
+  """ Platform """
+  poolid: Pool!
+  """ Pool name """
+  poolName: String!
+  """ Number of withdrawals """
+  withdrawalCount: BigInt!
+  """ Number of deposits """
+  depositCount: BigInt!
+  """ Total amount of LP tokens withdrawn """
+  withdrawalVolume: BigInt!
+  """ Total amount of LP tokens deposited """
+  depositVolume: BigInt!
+  """ Total USD value of withdrawals """
+  withdrawalValue: BigDecimal!
+  """ Total USD value of deposits """
+  depositValue: BigDecimal!
+  """ Pool LP token balance """
+  lpTokenBalance: BigInt!
+  """ Pool LP token virtual price """
+  lpTokenVirtualPrice: BigDecimal!
+  """ Pool LP token price in USD """
+  lpTokenUSDPrice: BigDecimal!
+  """ Pool xcpProfit """
+  xcpProfit: BigDecimal!
+  """ Pool xcpProfitA """
+  xcpProfitA: BigDecimal!
+  """ Pool TVL in USD """
+  tvl: BigDecimal!
+  """ Percentage of Curve LP token staked on Convex for that pool """
+  curveTvlRatio: BigDecimal!
+  """ Pool CRV APR """
+  crvApr: BigDecimal!
+  """ Pool CVX APR """
+  cvxApr: BigDecimal!
+  """ Pool's extra rewards APR (other tokens) """
+  extraRewardsApr: BigDecimal!
+  """ Pool's base APR (from Curve) """
+  baseApr: BigDecimal!
+  """ Pool's base APR (non-annualized) """
+  rawBaseApr: BigDecimal!
+  """ Snapshot timestamp """
+  timestamp: BigInt!
+  """ Snapshot block """
+  block: BigInt!
+}
+
+type DailyRevenueSnapshot {
+  id: ID!
+  platform: Platform!
+  """ Daily revenue distributed to LP Providers in USD (CRV rewards) """
+  crvRevenueToLpProvidersAmount: BigDecimal!
+  """ Daily CVX distributed to LP Providers in USD (pro-rata CRV rewards)"""
+  cvxRevenueToLpProvidersAmount: BigDecimal!
+  """ Daily CRV revenue distributed to CvxCrv Stakers in USD ('Lock' rewards)"""
+  crvRevenueToCvxCrvStakersAmount: BigDecimal!
+  """ Daily CVX revenue distributed to CvxCrv Stakers in USD ('Lock' rewards)"""
+  cvxRevenueToCvxCrvStakersAmount: BigDecimal!
+  """ Daily 3CRV revenue distributed to CvxCrv Stakers in USD """
+  threeCrvRevenueToCvxCrvStakersAmount: BigDecimal!
+  """ Daily revenue distributed to CVX stakers """
+  crvRevenueToCvxStakersAmount: BigDecimal!
+  """ Daily revenue distributed as caller incentives (for harvests) """
+  crvRevenueToCallersAmount: BigDecimal!
+  """ Daily revenue going to treasury """
+  crvRevenueToPlatformAmount: BigDecimal!
+  """ Total Daily revenue from CRV in USD """
+  totalCrvRevenue: BigDecimal!
+  """ Daily FXS revenue distributed to CVX stakers in USD """
+  fxsRevenueToCvxStakersAmount: BigDecimal!
+  """ Daily FXS revenue distributed to CvxFXS Stakers in USD """
+  fxsRevenueToCvxFxsStakersAmount: BigDecimal!
+  """ Daily FXS distributed to LP Providers in USD """
+  fxsRevenueToLpProvidersAmount: BigDecimal!
+  """ Daily FXS revenue distributed as caller incentives (for harvests) """
+  fxsRevenueToCallersAmount: BigDecimal!
+  """ Daily FXS revenue going to treasury """
+  fxsRevenueToPlatformAmount: BigDecimal!
+  """ Total Daily revenue from FXS in USD """
+  totalFxsRevenue: BigDecimal!
+
+  """ Revenue from POL and votemarket bribes in USD """
+  otherRevenue: BigDecimal!
+
+  """ crv USD price """
+  crvPrice: BigDecimal!
+  """ cvx USD price """
+  cvxPrice: BigDecimal!
+  """ fxs USD price """
+  fxsPrice: BigDecimal!
+  """ Revenue accrued from Votium bribes """
+  bribeRevenue: BigDecimal!
+  """ Snapshot timestamp """
+  timestamp: BigInt!
+}
+
+type FeeRevenue {
+  """ Entity ID """
+  id: ID!
+  """ Platform """
+  platform: Platform!
+  """ Fee revenue amount """
+  amount: BigInt!
+  """ Snapshot timestamp """
+  timestamp: BigInt!
+}
+
+type Deposit {
+  """ Entity ID """
+  id: ID!
+  """ Depositing user address """
+  user: User! # address
+  """ Convex booster id of the pool """
+  poolid: Pool!
+  """ Deposit amount """
+  amount: BigInt! # uint256
+  """ Deposit timestamp """
+  timestamp: BigInt!
+}
+
+type Withdrawal {
+  """ Entity ID """
+  id: ID!
+  """ Withdrawing user address """
+  user: User! # address
+  """ Convex booster id of the pool """
+  poolid: Pool!
+  """ Withdrawal amount """
+  amount: BigInt! # uint256
+  """ Withdrawal timestamp """
+  timestamp: BigInt!
+}
+
+
+type User {
+  """ Entity ID """
+  id: ID!
+  """ User address """
+  address: String!
+  """ User withdrawals """
+  withdrawals: [Withdrawal!]! @derivedFrom(field: "user")
+  """ User deposits """
+  deposits: [Deposit!]! @derivedFrom(field: "user")
+}
+
+type ExtraReward {
+  """ Entity ID """
+  id: ID!
+  """ Convex booster id of the pool """
+  poolid: Pool!
+  """ Contract address handling the extra reward """
+  contract: String! #address
+  """ Token the extra reward is given in """
+  token: String! #address
+}
+
+type PoolReward {
+  """ Entity ID """
+  id: ID!
+  """ Convex booster id of the pool """
+  poolid: Pool!
+  """ Staking contract address """
+  contract: String!
+  """ CRV rewards amount """
+  crvRewards: BigInt!
+  """ Timestamp """
+  timestamp: BigInt!
+}
+
+type Platform {
+  """ Entity ID """
+  id: ID!
+  """ Number of pools """
+  poolCount: BigInt!
+  """ Pools """
+  curvePools: [Pool!]! @derivedFrom(field: "platform")
+  """ Revenue snapshots """
+  revenue: [DailyRevenueSnapshot!]! @derivedFrom(field: "platform")
+  """ Historical fee snapshots """
+  feeRevenue: [FeeRevenue!]! @derivedFrom(field: "platform")
+  """ Votium bribe fee """
+  bribeFee: BigInt!
+  """ Cumulative CRV revenue distributed to LP Providers in USD """
+  totalCrvRevenueToLpProviders: BigDecimal!
+  """ Cumulative CVX revenue distributed to LP Providers in USD """
+  totalCvxRevenueToLpProviders: BigDecimal!
+  """ Cumulative FXS revenue distributed to LP Providers in USD """
+  totalFxsRevenueToLpProviders: BigDecimal!
+  """ Cumulative CRV revenue distributed to CvxCrv Stakers in USD ('Lock' rewards)"""
+  totalCrvRevenueToCvxCrvStakers: BigDecimal!
+  """ Cumulative CVX revenue distributed to CvxCrv Stakers in USD ('Lock' rewards)"""
+  totalCvxRevenueToCvxCrvStakers: BigDecimal!
+  """ Cumulative 3CRV revenue distributed to CvxCrv Stakers """
+  totalThreeCrvRevenueToCvxCrvStakers: BigDecimal!
+  """ Cumulative FXS revenue distributed to CvxFxs Stakers in USD """
+  totalFxsRevenueToCvxFxsStakers: BigDecimal!
+  """ Cumulative CRV revenue distributed to CVX stakers """
+  totalCrvRevenueToCvxStakers: BigDecimal!
+  """ Cumulative FXS revenue distributed to CVX stakers """
+  totalFxsRevenueToCvxStakers: BigDecimal!
+  """ Cumulative CRV revenue distributed as caller incentives (for harvests) """
+  totalCrvRevenueToCallers: BigDecimal!
+  """ Cumulative FXS revenue distributed as caller incentives (for harvests) """
+  totalFxsRevenueToCallers: BigDecimal!
+  """ Cumulative CRV revenue going to treasury """
+  totalCrvRevenueToPlatform: BigDecimal!
+  """ Cumulative FXS revenue going to treasury """
+  totalFxsRevenueToPlatform: BigDecimal!
+  """ Total cumulative revenue from CRV """
+  totalCrvRevenue: BigDecimal!
+  """ Total cumulative revenue from FXS """
+  totalFxsRevenue: BigDecimal!
+  """ Cumulative revenue accrued from Votium bribes """
+  totalBribeRevenue: BigDecimal!
+  """ Cumulative revenue from POL and Votemarket """
+  totalOtherRevenue: BigDecimal!
+}

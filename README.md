@@ -16,7 +16,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 4 | PancakeSwap | [pancakeswap/pancake-subgraph](https://github.com/pancakeswap/pancake-subgraph) (exchange, BSC) | `pancakeswap-exchange/` | ✅ ported, builds + offline tests pass |
 | 5 | Venus | [VenusProtocol/venus-protocol-subgraphs](https://github.com/VenusProtocol/venus-protocol-subgraphs) | `venus/` | ✅ ported, builds + offline tests pass |
 | 6 | Pendle | public Pendle subgraphs | `pendle/` | ✅ ported, builds + offline tests pass |
-| 7 | Convex Finance | [convex-community/convex-subgraph](https://github.com/convex-community/convex-subgraph) | `convex/` | pending |
+| 7 | Convex Finance | [convex-community/convex-subgraph](https://github.com/convex-community/convex-subgraph) | `convex/` | ✅ ported, builds + offline tests pass |
 | 8 | ether.fi | public `etherfi-v2` subgraph | `etherfi/` | pending |
 | 9 | Anemoy Capital | [centrifuge/api-v3](https://github.com/centrifuge/api-v3) indexer + public GraphQL | `anemoy-centrifuge/` | pending |
 | 10 | Spiko | [spiko-tech/morpho-blue-subgraph](https://github.com/spiko-tech/morpho-blue-subgraph) | `spiko-morpho/` | pending |

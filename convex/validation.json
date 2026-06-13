@@ -1,0 +1,195 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The convex-community/convex subgraph README only lists the deprecated hosted-service endpoint (https://thegraph.com/hosted-service/subgraph/convex-community/convex). Replace TODO with the decentralized-network gateway URL: https://gateway.thegraph.com/api/subgraphs/id/<ID> — look up the ID on https://thegraph.com/explorer by searching 'convex-community' / 'convex'. As of this port no published decentralized-network id was confirmable offline, hence TODO (same situation as curve-volume)."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 12450992, "end": 12500992 },
+  "entities": [
+    {
+      "subgraphName": "platforms",
+      "localName": "Platform",
+      "fields": [
+        "id",
+        "poolCount",
+        "bribeFee",
+        "totalCrvRevenueToLpProviders",
+        "totalCvxRevenueToLpProviders",
+        "totalCrvRevenue",
+        "totalBribeRevenue",
+        "totalOtherRevenue"
+      ],
+      "decimalFields": [
+        "totalCrvRevenueToLpProviders",
+        "totalCvxRevenueToLpProviders",
+        "totalCrvRevenue",
+        "totalBribeRevenue",
+        "totalOtherRevenue"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pools",
+      "localName": "Pool",
+      "fields": [
+        "id",
+        "poolid",
+        "name",
+        "lpToken",
+        "lpTokenBalance",
+        "lpTokenUSDPrice",
+        "token",
+        "gauge",
+        "crvRewardsPool",
+        "stash",
+        "stashVersion",
+        "stashMinorVersion",
+        "active",
+        "isV2",
+        "isLending",
+        "creationDate",
+        "creationBlock",
+        "tvl",
+        "curveTvlRatio",
+        "crvApr",
+        "cvxApr",
+        "extraRewardsApr",
+        "baseApr",
+        "rawBaseApr",
+        "swap",
+        "assetType",
+        "extras",
+        "coins"
+      ],
+      "decimalFields": [
+        "lpTokenUSDPrice",
+        "tvl",
+        "curveTvlRatio",
+        "crvApr",
+        "cvxApr",
+        "extraRewardsApr",
+        "baseApr",
+        "rawBaseApr"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "dailyPoolSnapshots",
+      "localName": "DailyPoolSnapshot",
+      "fields": [
+        "id",
+        "poolName",
+        "withdrawalCount",
+        "depositCount",
+        "withdrawalVolume",
+        "depositVolume",
+        "withdrawalValue",
+        "depositValue",
+        "lpTokenBalance",
+        "lpTokenVirtualPrice",
+        "lpTokenUSDPrice",
+        "xcpProfit",
+        "xcpProfitA",
+        "tvl",
+        "curveTvlRatio",
+        "crvApr",
+        "cvxApr",
+        "extraRewardsApr",
+        "baseApr",
+        "rawBaseApr",
+        "timestamp",
+        "block"
+      ],
+      "decimalFields": [
+        "withdrawalValue",
+        "depositValue",
+        "lpTokenVirtualPrice",
+        "lpTokenUSDPrice",
+        "xcpProfit",
+        "xcpProfitA",
+        "tvl",
+        "curveTvlRatio",
+        "crvApr",
+        "cvxApr",
+        "extraRewardsApr",
+        "baseApr",
+        "rawBaseApr"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "dailyRevenueSnapshots",
+      "localName": "DailyRevenueSnapshot",
+      "fields": [
+        "id",
+        "crvRevenueToLpProvidersAmount",
+        "cvxRevenueToLpProvidersAmount",
+        "crvRevenueToCvxCrvStakersAmount",
+        "cvxRevenueToCvxCrvStakersAmount",
+        "threeCrvRevenueToCvxCrvStakersAmount",
+        "crvRevenueToCvxStakersAmount",
+        "crvRevenueToCallersAmount",
+        "crvRevenueToPlatformAmount",
+        "totalCrvRevenue",
+        "otherRevenue",
+        "crvPrice",
+        "cvxPrice",
+        "bribeRevenue",
+        "timestamp"
+      ],
+      "decimalFields": [
+        "crvRevenueToLpProvidersAmount",
+        "cvxRevenueToLpProvidersAmount",
+        "crvRevenueToCvxCrvStakersAmount",
+        "cvxRevenueToCvxCrvStakersAmount",
+        "threeCrvRevenueToCvxCrvStakersAmount",
+        "crvRevenueToCvxStakersAmount",
+        "crvRevenueToCallersAmount",
+        "crvRevenueToPlatformAmount",
+        "totalCrvRevenue",
+        "otherRevenue",
+        "crvPrice",
+        "cvxPrice",
+        "bribeRevenue"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "deposits",
+      "localName": "Deposit",
+      "fields": ["id", "user", "poolid", "amount", "timestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "withdrawals",
+      "localName": "Withdrawal",
+      "fields": ["id", "user", "poolid", "amount", "timestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "users",
+      "localName": "User",
+      "fields": ["id", "address"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "poolRewards",
+      "localName": "PoolReward",
+      "fields": ["id", "poolid", "contract", "crvRewards", "timestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "extraRewards",
+      "localName": "ExtraReward",
+      "fields": ["id", "poolid", "contract", "token"],
+      "decimalFields": [],
+      "orderBy": "id"
+    }
+  ],
+  "_relationFieldNote": "Subgraph relation fields (user, poolid, platform) serialize as the referenced id string. In HyperIndex these are stored as <field>_id columns; tools/compare maps subgraphName->localName per entity. For Deposit/Withdrawal the 'user'/'poolid' columns are 'user_id'/'poolid_id' locally."
+}

@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: convex-indexer
+description: Convex Finance core subgraph (convex-community/convex, mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  # ---- Booster (core) ----
+  # The subgraph used callHandlers (addPool / shutdownPool / earmarkFees) which
+  # HyperIndex does not support. Pool creation / shutdown / fee accounting are
+  # driven from the Deposited / Withdrawn events instead (see MIGRATION.md).
+  - name: Booster
+    events:
+      - event: "Deposited(address indexed user, uint256 indexed poolid, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Withdrawn(address indexed user, uint256 indexed poolid, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+  # ---- BaseRewardPool (subgraph template PoolCrvRewards) ----
+  # Subgraph callHandler queueNewRewards(uint256) -> RewardAdded(uint256 reward)
+  # event (reward == _rewards, the reward pool address == event.srcAddress).
+  - name: BaseRewardPool
+    events:
+      - event: "RewardAdded(uint256 reward)"
+        field_selection:
+          transaction_fields: [hash]
+  # ---- Votium bribes v1 ----
+  - name: VotiumBribe
+    events:
+      - event: "Bribed(address _token, uint256 _amount, bytes32 indexed _proposal, uint256 _choiceIndex)"
+      - event: "UpdatedFee(uint256 _feeAmount)"
+  # ---- Votium bribes v2 ----
+  - name: VotiumBribeV2
+    events:
+      - event: "IncreasedIncentive(uint256 _index, address _token, uint256 _total, uint256 _increase, uint256 indexed _round, address indexed _gauge, uint256 _maxPerVote)"
+      - event: "NewIncentive(uint256 _index, address _token, uint256 _amount, uint256 indexed _round, address indexed _gauge, uint256 _maxPerVote, address[] _excluded, address indexed _depositor, bool _recycled)"
+      - event: "UpdatedFee(uint256 _feeAmount)"
+  # ---- 3CRV rewards (LOCK_FEES VirtualBalanceRewardPool) ----
+  - name: ThreeCrvRewards
+    events:
+      - event: "RewardAdded(uint256 reward)"
+  # ---- Treasury POL (CvxCrvPol TreasurySwap) ----
+  - name: CvxCrvPol
+    events:
+      - event: "ClaimedReward(address indexed _token, uint256 _amount)"
+  # ---- Treasury POL (CvxFpisPol TreasuryManager) ----
+  - name: CvxFpisPol
+    events:
+      - event: "ClaimedReward(address indexed _token, uint256 _amount)"
+  # ---- VoteMarket rewards ----
+  - name: VoteMarketRewards
+    events:
+      - event: "Claimed(address indexed user, address rewardToken, uint256 indexed bribeId, uint256 amount, uint256 protocolFees, uint256 period)"
+  # NOTE: the subgraph's FeeDepositTemplate (FXS revenue) is NOT ported. Its only
+  # registration path was FeeRegistry.setDepositAddress, a callHandler, and the
+  # FeeRegistry contract emits no events — so neither the registration nor the
+  # FeeDeposit address can be recovered without a callHandler. See MIGRATION.md
+  # "Gaps". The mapping-fxs-deposits logic is preserved in src/services/revenue.ts
+  # (handleRewardsDistributed) but is currently unreachable.
+chains:
+  - id: 1
+    # Booster deploy block. Later data sources (VotiumBribe @ 13209937,
+    # VotiumBribeV2 @ 17862211, CvxCrvPol @ 17004046, CvxFpisPol @ 16938064,
+    # VoteMarketRewards @ 16741334) simply have no events before their deploy.
+    start_block: 12450992
+    # end_block: 12500992   # 12450992 + 50_000 — uncomment for bounded validation runs
+    contracts:
+      - name: Booster
+        address: "0xf403c135812408bfbe8713b5a23a04b3d48aae31"
+      - name: VotiumBribe
+        address: "0x19BBC3463Dd8d07f55438014b021Fb457EBD4595"
+      - name: VotiumBribeV2
+        address: "0x63942E31E98f1833A234077f47880A66136a2D1e"
+      - name: ThreeCrvRewards
+        address: "0x7091dbb7fcbA54569eF1387Ac89Eb2a5C9F6d2EA"
+      - name: CvxCrvPol
+        address: "0xa25B17D7deEE59f9e326e45cC3C0C1B158E74316"
+      - name: CvxFpisPol
+        address: "0x858847c21B075e45727fcB0B544BD843CD750361"
+      - name: VoteMarketRewards
+        address: "0x0000000be1d98523b5469aff51a1e7b4891c6225"
+      # dynamically registered template (no static address)
+      - name: BaseRewardPool
