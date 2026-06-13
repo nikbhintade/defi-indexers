@@ -2,7 +2,7 @@
   "subgraph": {
     "url": "TODO",
     "authEnv": "GRAPH_API_KEY",
-    "_note": "The repo README only lists the deprecated hosted-service explorer page (https://thegraph.com/explorer/subgraph/graphprotocol/compound-v2). Replace TODO with the decentralized-network gateway URL for the 'compound-v2' subgraph (graphprotocol/compound-v2; Messari also publishes an alternative schema not compatible with this port): https://gateway.thegraph.com/api/subgraphs/id/<ID> (look up the ID on https://thegraph.com/explorer by searching 'compound v2')."
+    "_note": "Set url to the decentralized-network gateway URL for the graphprotocol 'compound-v2' subgraph: https://gateway.thegraph.com/api/subgraphs/id/<ID> (auth via GRAPH_API_KEY). CANDIDATE (unverified — confirm the schema exposes this port's entity names like accountCTokens/mintEvents before trusting a diff): 'Compound V2 Official' on Graph Explorer = id CzZokpVTjAaZqoS2MXH8pSXt53voTMCJPE5rnuSGAnxk. NOTE: Messari publishes a separate Compound-v2 subgraph with a DIFFERENT, incompatible schema — do not use it with this validation.json."
   },
   "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
   "blockRange": { "start": 7700000, "end": 7750000 },
