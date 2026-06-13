@@ -1,0 +1,190 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+# Messari makerdao subgraph (MCD/CDP "Vat" system, now Sky) ported to HyperIndex.
+# Source: messari/subgraphs subgraphs/makerdao. Rendered for Ethereum mainnet
+# from protocols/makerdao/config/templates/makerdao.template.yaml +
+# deployments/makerdao-ethereum/configurations.json (graftEnabled:false).
+#
+# This single indexer is the data source for BOTH queue rows:
+#   "Sky Lending (#13)" and "Sky RWA (#49)"  (the Vat indexes all ilks incl. RWA).
+#
+# LogNote is an anonymous event whose first indexed topic is the called
+# function's 4-byte selector. The subgraph used topic0 to route to handlers;
+# HyperIndex delivers every LogNote of a contract to one handler, which
+# dispatches on `event.params.sig` (the selector). Two ABI shapes exist:
+#   Vat:   LogNote(bytes4 sig, bytes32 arg1, bytes32 arg2, bytes32 arg3, bytes data)
+#   other: LogNote(bytes4 sig, address usr, bytes32 arg1, bytes32 arg2, bytes data)
+name: sky-lending
+description: Messari MakerDAO/Sky (MCD Vat CDP) subgraph ported to HyperIndex (mainnet)
+rollback_on_reorg: false
+contracts:
+  # Vault (CDP engine)
+  - name: Vat
+    abi_file_path: abis/Vat.json
+    events:
+      - event: "LogNote(bytes4 indexed sig, bytes32 indexed arg1, bytes32 indexed arg2, bytes32 indexed arg3, bytes data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # Borrow rate (stability fee)
+  - name: Jug
+    abi_file_path: abis/Jug.json
+    events:
+      - event: "LogNote(bytes4 indexed sig, address indexed usr, bytes32 indexed arg1, bytes32 indexed arg2, bytes data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # DAI Savings Rate
+  - name: Pot
+    abi_file_path: abis/Pot.json
+    events:
+      - event: "LogNote(bytes4 indexed sig, address indexed usr, bytes32 indexed arg1, bytes32 indexed arg2, bytes data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # Oracle liaison
+  - name: Spot
+    abi_file_path: abis/Spot.json
+    events:
+      - event: "LogNote(bytes4 indexed sig, address indexed usr, bytes32 indexed arg1, bytes32 indexed arg2, bytes data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "Poke(bytes32 ilk, bytes32 val, uint256 spot)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # Liquidation (legacy Cat v1)
+  - name: CatV1
+    abi_file_path: abis/CatV1.json
+    events:
+      - event: "Bite(bytes32 indexed ilk, address indexed urn, uint256 ink, uint256 art, uint256 tab, address flip, uint256 id)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "LogNote(bytes4 indexed sig, address indexed usr, bytes32 indexed arg1, bytes32 indexed arg2, bytes data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # Liquidation (legacy Cat v2)
+  - name: CatV2
+    abi_file_path: abis/CatV2.json
+    events:
+      - event: "Bite(bytes32 indexed ilk, address indexed urn, uint256 ink, uint256 art, uint256 tab, address flip, uint256 id)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "LogNote(bytes4 indexed sig, address indexed usr, bytes32 indexed arg1, bytes32 indexed arg2, bytes data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # Liquidation (current Dog)
+  - name: Dog
+    abi_file_path: abis/Dog.json
+    events:
+      - event: "Bark(bytes32 indexed ilk, address indexed urn, uint256 ink, uint256 art, uint256 due, address clip, uint256 indexed id)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "File(bytes32 indexed ilk, bytes32 indexed what, uint256 data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # CDP Manager
+  - name: CdpManager
+    abi_file_path: abis/DssCdpManager.json
+    events:
+      - event: "NewCdp(address indexed usr, address indexed own, uint256 indexed cdp)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "LogNote(bytes4 indexed sig, address indexed usr, bytes32 indexed arg1, bytes32 indexed arg2, bytes data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # DSProxy factory
+  - name: DSProxyFactory
+    abi_file_path: abis/DSProxyFactory.json
+    events:
+      - event: "Created(address indexed sender, address indexed owner, address proxy, address cache)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # Peg Stability Modules (three static instances; one PSM ABI/handler)
+  - name: PsmUsdcA
+    abi_file_path: abis/PSM.json
+    events:
+      - event: "SellGem(address indexed owner, uint256 value, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "BuyGem(address indexed owner, uint256 value, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+  - name: PsmPaxA
+    abi_file_path: abis/PSM.json
+    events:
+      - event: "SellGem(address indexed owner, uint256 value, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "BuyGem(address indexed owner, uint256 value, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+  - name: PsmGusdA
+    abi_file_path: abis/PSM.json
+    events:
+      - event: "SellGem(address indexed owner, uint256 value, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "BuyGem(address indexed owner, uint256 value, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # Collateral auction (legacy Flip) — dynamically registered via Cat.Bite
+  - name: Flip
+    abi_file_path: abis/Flip.json
+    events:
+      - event: "LogNote(bytes4 indexed sig, address indexed usr, bytes32 indexed arg1, bytes32 indexed arg2, bytes data)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+  # Collateral auction (current Clip) — dynamically registered via Dog.Bark
+  - name: Clip
+    abi_file_path: abis/Clip.json
+    events:
+      - event: "Take(uint256 indexed id, uint256 max, uint256 price, uint256 owe, uint256 tab, uint256 lot, address indexed usr)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+      - event: "Yank(uint256 id)"
+        field_selection:
+          transaction_fields: [hash, from, nonce]
+
+chains:
+  - id: 1
+    # Earliest static data source is DSProxyFactory @ 5834580. Per-contract
+    # registration start blocks are enforced in code via `where.block.number._gte`
+    # is not needed because addresses are pinned; HyperIndex skips logs before
+    # each contract's first appearance automatically by address.
+    start_block: 5834580
+    # end_block: 8978152   # uncomment for bounded validation runs (Vat start 8928152 + 50k)
+    contracts:
+      - name: Vat
+        address: "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b"
+      - name: Jug
+        address: "0x19c0976f590d67707e62397c87829d896dc0f1f1"
+      - name: Pot
+        address: "0x197E90f9FAD81970bA7976f33CbD77088E5D7cf7"
+      - name: Spot
+        address: "0x65c79fcb50ca1594b025960e539ed7a9a6d434a3"
+      - name: CatV1
+        address: "0x78F2c2AF65126834c51822F56Be0d7469D7A523E"
+      - name: CatV2
+        address: "0xa5679C04fc3d9d8b0AaB1F0ab83555b301cA70Ea"
+      - name: Dog
+        address: "0x135954d155898D42C90D2a57824C690e0c7BEf1B"
+      - name: CdpManager
+        address: "0x5ef30b9986345249bc32d8928b7ee64de9435e39"
+      - name: DSProxyFactory
+        address: "0xA26e15C895EFc0616177B7c1e7270A4C7D51C997"
+      - name: PsmUsdcA
+        address: "0x89B78CfA322F6C5dE0aBcEecab66Aee45393cC5A"
+      - name: PsmPaxA
+        address: "0x961Ae24a1Ceba861D1FDf723794f6024Dc5485Cf"
+      - name: PsmGusdA
+        address: "0x204659B2Fd2aD5723975c362Ce2230Fba11d3900"
+      # dynamically registered templates (no static address)
+      - name: Flip
+      - name: Clip

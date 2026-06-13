@@ -1,0 +1,235 @@
+{
+  "_comment": "Validation config for tools/compare. This single port serves BOTH queue rows 'Sky Lending (#13)' and 'Sky RWA (#49)' (the Messari makerdao subgraph indexes the entire Maker/Sky Vat, including RWA ilks). Source: messari/subgraphs subgraphs/makerdao @ commit 2711ac91ef119f321f65b339e10a57f9aa74f9d8.",
+  "subgraph": {
+    "_comment_url": "TODO: the Messari makerdao subgraph is published on The Graph decentralized network, but the sparse checkout did not include the deployment registry (deployment/deployment.json) so a concrete subgraph deployment id was not found. Replace <SUBGRAPH_ID> with the makerdao subgraph's decentralized-network id (gateway endpoint pattern below) and provide GRAPH_API_KEY. The legacy hosted-service slug was 'messari/makerdao'.",
+    "url": "https://gateway.thegraph.com/api/subgraphs/id/<SUBGRAPH_ID>",
+    "authEnv": "GRAPH_API_KEY"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": {
+    "_comment": "Rendered mainnet Vat start block (8928152) -> +50k. Uncomment end_block in config.yaml for a matching bounded run.",
+    "start": 8928152,
+    "end": 8978152
+  },
+  "entities": [
+    {
+      "subgraphName": "lendingProtocols",
+      "localName": "LendingProtocol",
+      "fields": [
+        "id",
+        "name",
+        "slug",
+        "network",
+        "type",
+        "lendingType",
+        "cumulativeUniqueUsers",
+        "cumulativeUniqueBorrowers",
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD",
+        "cumulativeDepositUSD",
+        "cumulativeBorrowUSD",
+        "cumulativeLiquidateUSD",
+        "cumulativeTotalRevenueUSD",
+        "cumulativeProtocolSideRevenueUSD",
+        "cumulativeSupplySideRevenueUSD",
+        "totalPoolCount",
+        "openPositionCount",
+        "cumulativePositionCount"
+      ],
+      "decimalFields": [
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD",
+        "cumulativeDepositUSD",
+        "cumulativeBorrowUSD",
+        "cumulativeLiquidateUSD",
+        "cumulativeTotalRevenueUSD",
+        "cumulativeProtocolSideRevenueUSD",
+        "cumulativeSupplySideRevenueUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "markets",
+      "localName": "Market",
+      "fields": [
+        "id",
+        "name",
+        "isActive",
+        "canBorrowFrom",
+        "canUseAsCollateral",
+        "maximumLTV",
+        "liquidationThreshold",
+        "liquidationPenalty",
+        "inputToken",
+        "inputTokenBalance",
+        "inputTokenPriceUSD",
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD",
+        "cumulativeDepositUSD",
+        "cumulativeBorrowUSD",
+        "cumulativeLiquidateUSD",
+        "cumulativeTotalRevenueUSD",
+        "cumulativeProtocolSideRevenueUSD",
+        "cumulativeSupplySideRevenueUSD",
+        "positionCount",
+        "openPositionCount",
+        "lendingPositionCount",
+        "borrowingPositionCount",
+        "createdBlockNumber"
+      ],
+      "decimalFields": [
+        "maximumLTV",
+        "liquidationThreshold",
+        "liquidationPenalty",
+        "inputTokenPriceUSD",
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD",
+        "cumulativeDepositUSD",
+        "cumulativeBorrowUSD",
+        "cumulativeLiquidateUSD",
+        "cumulativeTotalRevenueUSD",
+        "cumulativeProtocolSideRevenueUSD",
+        "cumulativeSupplySideRevenueUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "name", "symbol", "decimals", "lastPriceUSD"],
+      "decimalFields": ["lastPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "accounts",
+      "localName": "Account",
+      "fields": [
+        "id",
+        "positionCount",
+        "openPositionCount",
+        "closedPositionCount",
+        "depositCount",
+        "withdrawCount",
+        "borrowCount",
+        "repayCount",
+        "liquidateCount",
+        "liquidationCount"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positions",
+      "localName": "Position",
+      "fields": [
+        "id",
+        "account",
+        "market",
+        "side",
+        "isCollateral",
+        "balance",
+        "hashOpened",
+        "hashClosed",
+        "blockNumberOpened",
+        "depositCount",
+        "withdrawCount",
+        "borrowCount",
+        "repayCount",
+        "liquidationCount"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "deposits",
+      "localName": "Deposit",
+      "fields": ["id", "hash", "logIndex", "account", "market", "asset", "amount", "amountUSD", "position"],
+      "decimalFields": ["amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "borrows",
+      "localName": "Borrow",
+      "fields": ["id", "hash", "logIndex", "account", "market", "asset", "amount", "amountUSD", "position"],
+      "decimalFields": ["amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "withdraws",
+      "localName": "Withdraw",
+      "fields": ["id", "hash", "logIndex", "account", "market", "asset", "amount", "amountUSD", "position"],
+      "decimalFields": ["amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "repays",
+      "localName": "Repay",
+      "fields": ["id", "hash", "logIndex", "account", "market", "asset", "amount", "amountUSD", "position"],
+      "decimalFields": ["amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidates",
+      "localName": "Liquidate",
+      "fields": [
+        "id",
+        "hash",
+        "logIndex",
+        "liquidator",
+        "liquidatee",
+        "market",
+        "asset",
+        "amount",
+        "amountUSD",
+        "profitUSD",
+        "position"
+      ],
+      "decimalFields": ["amountUSD", "profitUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "interestRates",
+      "localName": "InterestRate",
+      "fields": ["id", "rate", "side", "type"],
+      "decimalFields": ["rate"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "financialsDailySnapshots",
+      "localName": "FinancialsDailySnapshot",
+      "fields": [
+        "id",
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD",
+        "dailyDepositUSD",
+        "dailyBorrowUSD",
+        "dailyLiquidateUSD",
+        "dailyTotalRevenueUSD",
+        "dailyProtocolSideRevenueUSD",
+        "dailySupplySideRevenueUSD",
+        "cumulativeTotalRevenueUSD",
+        "blockNumber",
+        "timestamp"
+      ],
+      "decimalFields": [
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD",
+        "dailyDepositUSD",
+        "dailyBorrowUSD",
+        "dailyLiquidateUSD",
+        "dailyTotalRevenueUSD",
+        "dailyProtocolSideRevenueUSD",
+        "dailySupplySideRevenueUSD",
+        "cumulativeTotalRevenueUSD"
+      ],
+      "orderBy": "id"
+    }
+  ]
+}

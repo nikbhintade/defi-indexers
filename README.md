@@ -23,7 +23,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 11 | Lido (#4) | [lidofinance/lido-subgraph](https://github.com/lidofinance/lido-subgraph) | `lido/` | ✅ ported, builds + offline tests pass |
 | 12 | SSV Network (#6) | [ssvlabs/ssv-subgraph](https://github.com/ssvlabs/ssv-subgraph) | `ssv-network/` | ✅ ported, builds + offline tests pass |
 | 13 | Aave V3 (#7) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-v3/` | ✅ ported, builds + offline tests pass |
-| 14 | Sky Lending (#13) | [messari/subgraphs/tree/master/subgraphs/makerdao](https://github.com/messari/subgraphs/tree/master/subgraphs/makerdao) | `sky-lending/` | queued |
+| 14 | Sky Lending (#13) | [messari/subgraphs/tree/master/subgraphs/makerdao](https://github.com/messari/subgraphs/tree/master/subgraphs/makerdao) | `sky-lending/` | ✅ ported, builds + offline tests pass |
 | 15 | EigenCloud (#17) | [Layr-Labs/sidecar](https://github.com/Layr-Labs/sidecar) | `eigenlayer/` | queued |
 | 16 | USDT0 (#25) | [enviodev/usdt0-indexer](https://github.com/enviodev/usdt0-indexer) | `usdt0/` | queued |
 | 17 | SparkLend (#26) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `sparklend/` | queued |
@@ -58,7 +58,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 46 | fx Protocol (#267) | [messari/subgraphs/tree/master/subgraphs/fx-protocol](https://github.com/messari/subgraphs/tree/master/subgraphs/fx-protocol) | `fx-protocol/` | queued |
 | 47 | Benqi Lending (#272) | [messari/subgraphs/tree/master/subgraphs/compound-forks/protocols/benqi](https://github.com/messari/subgraphs/tree/master/subgraphs/compound-forks/protocols/benqi) | `benqi/` | queued |
 | 48 | NEAR Intents (#273) | [defuse-protocol/rust-near-indexer](https://github.com/defuse-protocol/rust-near-indexer) | `near-intents/` | queued ⚠️ non-EVM (NEAR) — may not be HyperIndex-portable |
-| 49 | Sky RWA (#275) | [messari/subgraphs/tree/master/subgraphs/makerdao](https://github.com/messari/subgraphs/tree/master/subgraphs/makerdao) | `sky-rwa/` | queued |
+| 49 | Sky RWA (#275) | [messari/subgraphs/tree/master/subgraphs/makerdao](https://github.com/messari/subgraphs/tree/master/subgraphs/makerdao) | `sky-rwa/` | ✅ covered by `sky-lending/` (same Messari MakerDAO subgraph) |
 | 50 | Railgun (#278) | [Railgun-Community/subgraph-v3-template](https://github.com/Railgun-Community/subgraph-v3-template) | `railgun/` | queued |
 | 51 | PancakeSwap Infinity (#284) | [pancakeswap/exchange-v3-subgraphs](https://github.com/pancakeswap/exchange-v3-subgraphs) | `pancakeswap-infinity/` | queued |
 | 52 | Enzyme Finance (#287) | [enzymefinance/subgraphs](https://github.com/enzymefinance/subgraphs) | `enzyme/` | queued |
