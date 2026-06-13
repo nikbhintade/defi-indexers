@@ -237,5 +237,63 @@
     "has_public_indexer": false,
     "repos": [],
     "notes": "Centralized/custodial exchange (Hong Kong). No public subgraph/indexer repo. Marked false."
+  },
+  {
+    "rank": 96,
+    "name": "BingX",
+    "slug": "bingx",
+    "category": "CEX",
+    "tvl_usd": 562574043,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange. No public subgraph/indexer repo. Marked false."
+  },
+  {
+    "rank": 97,
+    "name": "Lista Liquid Staking",
+    "slug": "lista-liquid-staking",
+    "category": "Liquid Staking",
+    "tvl_usd": 548751487,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Lista DAO BNB liquid staking (slisBNB / synclub-contracts). lista-dao github org has contracts (synclub-contracts) and SDK but no subgraph/indexer/ponder/subsquid repo. Marked false."
+  },
+  {
+    "rank": 98,
+    "name": "Aster Bridge",
+    "slug": "aster-bridge",
+    "category": "Bridge",
+    "tvl_usd": 534448350,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Bridge TVL of Aster (asterdex). asterdexcom github has cloud-perp-subgraph (a The Graph subgraph) but it indexes the apx-perp perpetual exchange across BNB/Arbitrum/Base/opBNB, NOT the bridge deposits/withdrawals. No public subgraph/indexer scoped to the Aster Bridge found. Marked false (perp subgraph exists but out of scope for this bridge entry)."
+  },
+  {
+    "rank": 99,
+    "name": "Convex Finance",
+    "slug": "convex-finance",
+    "category": "Yield",
+    "tvl_usd": 521669624,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/convex-community/convex-subgraph",
+        "type": "subgraph",
+        "scope": "Convex Finance subgraphs: Booster (Curve LP deposits, pool TVL/APR), vlCVX locker, cvxCRV/CVX staking, CRV emissions/fees. Multiple subgraphs in monorepo.",
+        "maintained": "active",
+        "verified": "WebFetch confirms repo indexes Booster/locker/staking/emissions with TypeScript mappings and GraphQL schema; 306 commits. Community-maintained (convex-community)."
+      }
+    ],
+    "notes": "Comprehensive community Convex subgraph (convex-community). No separate official convex-eth subgraph repo found; convex-eth org holds contracts (platform, frax-cvx-platform). The community subgraph powers Convex analytics and is on The Graph explorer."
+  },
+  {
+    "rank": 100,
+    "name": "Solstice",
+    "slug": "solstice",
+    "category": "Basis Trading",
+    "tvl_usd": 507886086,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-native synthetic stablecoin (USX) / delta-neutral yield vault, launched ~2025. No public github org with a subgraph/indexer found; Solana protocol with off-chain/Chainlink PoR. Marked false."
   }
 ]
