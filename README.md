@@ -19,7 +19,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 7 | Convex Finance | [convex-community/convex-subgraph](https://github.com/convex-community/convex-subgraph) | `convex/` | ✅ ported, builds + offline tests pass |
 | 8 | ether.fi | public `etherfi-v2` subgraph | `etherfi/` | ⏭️ skipped (no public source; deployed artifacts network-blocked) |
 | 9 | Anemoy Capital | [centrifuge/api-v3](https://github.com/centrifuge/api-v3) indexer + public GraphQL | `anemoy-centrifuge/` | ✅ ported (mainnet core slice), builds + offline tests pass |
-| 10 | Spiko | [spiko-tech/morpho-blue-subgraph](https://github.com/spiko-tech/morpho-blue-subgraph) | `spiko-morpho/` | pending |
+| 10 | Spiko | [spiko-tech/morpho-blue-subgraph](https://github.com/spiko-tech/morpho-blue-subgraph) | `spiko-morpho/` | ✅ ported, builds + offline tests pass |
 
 ## Per-protocol layout
 

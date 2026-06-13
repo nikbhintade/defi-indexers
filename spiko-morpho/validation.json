@@ -1,0 +1,101 @@
+{
+  "subgraph": {
+    "url": "TODO_GRAPH_GATEWAY_URL",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "No concrete decentralized-network gateway subgraph id is confirmable offline. Candidates found in the source repo: hosted-service deploy target 'morpho-association/morpho-blue' (package.json deploy:hs) and 'morpho-org/morpho-blue' (deploy-local). The canonical Morpho Blue subgraph on The Graph's decentralized network is also a candidate. Set url to 'https://gateway.thegraph.com/api/subgraphs/id/<ID>' once a concrete id is confirmed, and provide GRAPH_API_KEY."
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 18883124, "end": 18933124 },
+  "entities": [
+    {
+      "subgraphName": "lendingProtocols",
+      "localName": "LendingProtocol",
+      "fields": [
+        "id",
+        "name",
+        "slug",
+        "totalPoolCount",
+        "cumulativeUniqueUsers",
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD"
+      ],
+      "decimalFields": [
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "markets",
+      "localName": "Market",
+      "fields": [
+        "id",
+        "name",
+        "inputToken",
+        "borrowedToken",
+        "lltv",
+        "maximumLTV",
+        "totalSupply",
+        "totalSupplyShares",
+        "totalBorrow",
+        "totalBorrowShares",
+        "totalCollateral",
+        "fee",
+        "totalValueLockedUSD",
+        "totalBorrowBalanceUSD"
+      ],
+      "decimalFields": [
+        "maximumLTV",
+        "totalValueLockedUSD",
+        "totalBorrowBalanceUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positions",
+      "localName": "Position",
+      "fields": [
+        "id",
+        "account",
+        "market",
+        "side",
+        "balance",
+        "principal",
+        "shares",
+        "depositCount",
+        "withdrawCount",
+        "borrowCount",
+        "repayCount"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "name", "symbol", "decimals", "lastPriceUSD"],
+      "decimalFields": ["lastPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "metaMorphos",
+      "localName": "MetaMorpho",
+      "fields": [
+        "id",
+        "name",
+        "symbol",
+        "asset",
+        "owner",
+        "timelock",
+        "fee",
+        "lastTotalAssets",
+        "totalShares"
+      ],
+      "orderBy": "id"
+    }
+  ]
+}

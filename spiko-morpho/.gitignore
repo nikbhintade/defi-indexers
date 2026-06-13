@@ -1,0 +1,7 @@
+node_modules/
+.envio/
+generated/
+*.log
+.DS_Store
+db/
+logs/
