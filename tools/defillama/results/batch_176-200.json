@@ -1,0 +1,171 @@
+[
+  {
+    "rank": 176,
+    "name": "Starknet Bridge",
+    "slug": "starknet-bridge",
+    "category": "Canonical Bridge",
+    "tvl_usd": 181125519,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/kaonone/starknet-bridge-subgraph",
+        "type": "subgraph",
+        "scope": "Indexes StarkNet StarkGate L1 bridge: StarknetMessaging contract (LogMessageToL2/ConsumedMessageToL2) plus token bridge deposit/withdrawal events. Templated multi-bridge config.",
+        "maintained": "stale",
+        "verified": "Cloned repo; subgraph.template.yaml has StarknetMessaging dataSource with bridge event handlers; schema.graphql defines DepositEvent/withdrawal entities; config.template.ts lists L1/L2 bridge addresses. 7 commits, community, no recent activity."
+      }
+    ],
+    "notes": "Community subgraph (kaonone). Also enviodev/starknet-bridge-indexer exists but is a 1-commit blank Envio scaffold (not verified as indexing). No official StarkWare subgraph."
+  },
+  {
+    "rank": 177,
+    "name": "Lombard BTC.b",
+    "slug": "lombard-btc.b",
+    "category": "Bridge",
+    "tvl_usd": 178588715,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Pending verification - placeholder"
+  },
+  {
+    "rank": 178,
+    "name": "Hyperliquid Spot Orderbook",
+    "slug": "hyperliquid-spot-orderbook",
+    "category": "Dexs",
+    "tvl_usd": 176897497,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Pending verification - placeholder"
+  },
+  {
+    "rank": 179,
+    "name": "Benqi Staked Avax",
+    "slug": "benqi-staked-avax",
+    "category": "Liquid Staking",
+    "tvl_usd": 176427056,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Pending verification - placeholder"
+  },
+  {
+    "rank": 180,
+    "name": "Marinade Native",
+    "slug": "marinade-native",
+    "category": "Staking Pool",
+    "tvl_usd": 172994675,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only liquid/native staking. marinade-finance org has on-chain program + TS SDK/CLI repos but no public EVM-style subgraph/indexer. Solana programs are not subgraph-indexable."
+  },
+  {
+    "rank": 181,
+    "name": "ether.fi Liquid",
+    "slug": "ether.fi-liquid",
+    "category": "Onchain Capital Allocator",
+    "tvl_usd": 172781834,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "ether.fi docs reference a deployed subgraph for Liquid vaults but no public subgraph/indexer source repo found in etherfi-protocol org (only smart-contracts, cross-chain, DefiLlama-Adapters). Liquid vaults use Veda/BoringVault framework."
+  },
+  {
+    "rank": 182,
+    "name": "Marinade Liquid Staking",
+    "slug": "marinade-liquid-staking",
+    "category": "Liquid Staking",
+    "tvl_usd": 170888869,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only (mSOL). No public EVM-style subgraph/indexer; org has Anchor program + SDK only."
+  },
+  {
+    "rank": 183,
+    "name": "Fraxtal",
+    "slug": "fraxtal",
+    "category": "Chain",
+    "tvl_usd": 167320174,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Pending verification - placeholder"
+  },
+  {
+    "rank": 184,
+    "name": "Huma Finance V2",
+    "slug": "huma-finance-v2",
+    "category": "Yield",
+    "tvl_usd": 162869924,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "00labs org has huma-contracts/huma-contracts-v2, huma-monorepo (git-submodule based), huma-js SDK. SDK/docs reference a hosted subgraph for receivables/pools, but no public subgraph/indexer source repo located."
+  },
+  {
+    "rank": 185,
+    "name": "VALR",
+    "slug": "valr",
+    "category": "CEX",
+    "tvl_usd": 161299813,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange; no public onchain indexer/subgraph."
+  },
+  {
+    "rank": 186,
+    "name": "GMX V2 Perps",
+    "slug": "gmx-v2-perps",
+    "category": "Derivatives",
+    "tvl_usd": 160946603,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/gmx-io/gmx-subgraph",
+        "type": "subgraph",
+        "scope": "Official GMX monorepo of subgraphs; includes 'synthetics-stats' subgraph for GMX V2 (synthetics) perps on Arbitrum & Avalanche, plus prices/raw/stats subgraphs.",
+        "maintained": "active",
+        "verified": "WebFetch of repo listing confirms synthetics-stats directory (GMX V2) alongside gmx-arbitrum/avalanche stats; 362 commits; official gmx-io org. V2 endpoints served via satsuma."
+      }
+    ],
+    "notes": "Official. synthetics-stats = GMX V2 perps subgraph."
+  },
+  {
+    "rank": 189,
+    "name": "Aerodrome Slipstream",
+    "slug": "aerodrome-slipstream",
+    "category": "Dexs",
+    "tvl_usd": 159468730,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/velodrome-finance/indexer",
+        "type": "ponder",
+        "scope": "Official Envio multi-chain indexer for Velodrome V2 (Optimism) and Aerodrome (Base, chain 8453), including Slipstream concentrated-liquidity pools via CLFactory/CLPool event handlers.",
+        "maintained": "active",
+        "verified": "Cloned repo; config.yaml description states 'Multi-chain indexer for Velodrome V2 on Optimism and Aerodrome on Base' with chain id 8453; src/EventHandlers/CLFactory.ts & CLPool.ts handle Slipstream CL pools. Pushed Jun 2026."
+      }
+    ],
+    "notes": "Official Envio (HyperIndex) indexer shared by Velodrome/Aerodrome. type marked ponder as closest enum (it is Envio/custom TS indexer). velodrome-finance/subgraph is archived (2023) and Velodrome-only."
+  },
+  {
+    "rank": 194,
+    "name": "Yearn Finance",
+    "slug": "yearn-finance",
+    "category": "Yield Aggregator",
+    "tvl_usd": 151466763,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/yearn/kong",
+        "type": "custom",
+        "scope": "Official real-time/historical EVM indexer with built-in index over Yearn V2 and V3 vault ecosystems (registries, vaults, strategies, accountants, debt allocators). TS + Postgres/Timescale + GraphQL.",
+        "maintained": "active",
+        "verified": "WebFetch confirms Kong 'comes configured with an index over Yearn Finance v2 and v3 vault ecosystems'; 376 commits; recommended by Yearn docs over subgraphs."
+      },
+      {
+        "url": "https://github.com/yearn/yearn-vaults-v2-subgraph",
+        "type": "subgraph",
+        "scope": "Official V2 vault subgraph (Ethereum, Fantom, Arbitrum).",
+        "maintained": "archived",
+        "verified": "WebFetch: described as official V2 subgraph; archived by owner Nov 6, 2025."
+      }
+    ],
+    "notes": "Official. Kong is the current actively-maintained indexer (V2+V3); the older V2 subgraph is archived."
+  }
+]
