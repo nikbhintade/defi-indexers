@@ -1,0 +1,214 @@
+{
+  "subgraph": {
+    "url": "https://api.centrifuge.io/graphql",
+    "authEnv": null,
+    "_note": "Centrifuge's PUBLIC production api-v3 GraphQL endpoint (the 'public GraphQL' the user referenced). This is a Ponder GraphQL API, NOT a TheGraph subgraph: entity query names are the camelCase plural of the entity (e.g. `pools`, `tokens`, `vaults`, `investorTransactions`). IMPORTANT: the public API is MULTICHAIN and a SUPERSET of this port. To compare, you MUST filter to Ethereum mainnet (centrifugeId = \"1\") and to the in-scope block range, and you must restrict to the IN-SCOPE entities below — deferred entities (crosschain payloads/messages/adapters, basin, on/off-ramp, policies, merkle, smart-contract wards, token-instance positions, checkpoints, token-yield snapshot columns) are intentionally NOT produced here and will diff. Row counts for multichain pools also differ because only the mainnet hub+spoke slice is indexed. Confirm the live endpoint URL and the exact filter argument names (centrifugeId / createdAtBlock) against the running api-v3 schema before trusting a diff. The endpoint requires network access not available in the porting sandbox."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 24319323, "end": 24369323 },
+  "entities": [
+    {
+      "subgraphName": "pools",
+      "localName": "Pool",
+      "fields": ["id", "centrifugeId", "isActive", "currency", "decimals", "metadata", "name"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "poolSpokeBlockchains",
+      "localName": "PoolSpokeBlockchain",
+      "fields": ["id", "poolId", "centrifugeId"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "index", "isActive", "centrifugeId", "poolId", "decimals", "name", "symbol", "salt", "totalIssuance", "tokenPrice"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenInstances",
+      "localName": "TokenInstance",
+      "fields": ["id", "centrifugeId", "tokenId", "isActive", "address", "tokenPrice", "totalIssuance"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "vaults",
+      "localName": "Vault",
+      "fields": ["id", "centrifugeId", "isActive", "kind", "status", "poolId", "tokenId", "assetId", "assetAddress", "factory", "maxReserve"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "assets",
+      "localName": "Asset",
+      "fields": ["id", "centrifugeId", "address", "assetTokenId", "decimals", "name", "symbol"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "assetRegistrations",
+      "localName": "AssetRegistration",
+      "fields": ["id", "assetId", "centrifugeId"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "investorTransactions",
+      "localName": "InvestorTransaction",
+      "fields": ["id", "centrifugeId", "poolId", "tokenId", "type", "account", "tokenAmount", "currencyAmount", "tokenPrice", "currencyAssetId"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "vaultInvestOrders",
+      "localName": "VaultInvestOrder",
+      "fields": ["id", "centrifugeId", "poolId", "tokenId", "accountAddress", "assetId", "requestedAssetsAmount", "claimableAssetsAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "vaultRedeemOrders",
+      "localName": "VaultRedeemOrder",
+      "fields": ["id", "centrifugeId", "poolId", "tokenId", "accountAddress", "assetId", "requestedSharesAmount", "claimableSharesAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "investOrders",
+      "localName": "InvestOrder",
+      "fields": ["id", "poolId", "tokenId", "assetId", "account", "index", "approvedAssetsAmount", "issuedSharesAmount", "claimedSharesAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redeemOrders",
+      "localName": "RedeemOrder",
+      "fields": ["id", "poolId", "tokenId", "assetId", "account", "index", "approvedSharesAmount", "revokedAssetsAmount", "claimedAssetsAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "epochInvestOrders",
+      "localName": "EpochInvestOrder",
+      "fields": ["id", "poolId", "tokenId", "assetId", "index", "approvedAssetsAmount", "approvedPoolAmount", "issuedSharesAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "epochRedeemOrders",
+      "localName": "EpochRedeemOrder",
+      "fields": ["id", "poolId", "tokenId", "assetId", "index", "approvedSharesAmount", "revokedSharesAmount", "revokedAssetsAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "epochOutstandingInvests",
+      "localName": "EpochOutstandingInvest",
+      "fields": ["id", "poolId", "tokenId", "assetId", "pendingAssetsAmount", "queuedAssetsAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "epochOutstandingRedeems",
+      "localName": "EpochOutstandingRedeem",
+      "fields": ["id", "poolId", "tokenId", "assetId", "pendingSharesAmount", "queuedSharesAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pendingInvestOrders",
+      "localName": "PendingInvestOrder",
+      "fields": ["id", "poolId", "tokenId", "assetId", "account", "pendingAssetsAmount", "queuedAssetsAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pendingRedeemOrders",
+      "localName": "PendingRedeemOrder",
+      "fields": ["id", "poolId", "tokenId", "assetId", "account", "pendingSharesAmount", "queuedSharesAmount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "holdings",
+      "localName": "Holding",
+      "fields": ["id", "centrifugeId", "poolId", "tokenId", "isInitialized", "isLiability", "valuation", "assetId", "assetQuantity", "totalValue"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "holdingAccounts",
+      "localName": "HoldingAccount",
+      "fields": ["id", "tokenId", "kind"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "holdingEscrows",
+      "localName": "HoldingEscrow",
+      "fields": ["id", "centrifugeId", "poolId", "tokenId", "assetId", "assetAddress", "assetAmount", "assetPrice", "maxAssetPriceAge", "escrowAddress"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "escrows",
+      "localName": "Escrow",
+      "fields": ["id", "address", "poolId", "centrifugeId"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "poolManagers",
+      "localName": "PoolManager",
+      "fields": ["id", "address", "centrifugeId", "poolId", "isHubManager", "isBalancesheetManager"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "accounts",
+      "localName": "Account",
+      "fields": ["id", "address"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "poolSnapshots",
+      "localName": "PoolSnapshot",
+      "fields": ["id", "poolId", "blockNumber", "trigger", "triggerChainId", "currency"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenSnapshots",
+      "localName": "TokenSnapshot",
+      "fields": ["id", "tokenId", "blockNumber", "trigger", "triggerChainId", "tokenPrice", "totalIssuance"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenInstanceSnapshots",
+      "localName": "TokenInstanceSnapshot",
+      "fields": ["id", "tokenId", "centrifugeId", "blockNumber", "trigger", "triggerChainId", "tokenPrice", "totalIssuance"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "holdingSnapshots",
+      "localName": "HoldingSnapshot",
+      "fields": ["id", "tokenId", "assetId", "blockNumber", "trigger", "triggerChainId", "assetQuantity", "totalValue"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "holdingEscrowSnapshots",
+      "localName": "HoldingEscrowSnapshot",
+      "fields": ["id", "tokenId", "assetId", "blockNumber", "trigger", "triggerChainId", "assetAmount", "assetPrice", "maxAssetPriceAge"],
+      "decimalFields": [],
+      "orderBy": "id"
+    }
+  ]
+}

@@ -1,0 +1,586 @@
+"""
+Centrifuge api-v3 (Ponder) → HyperIndex port. Ethereum mainnet (chainId 1) only.
+Entity names + field names mirror the Ponder onchainTable definitions in ponder.schema.ts.
+Composite primary keys are collapsed into a single `id: ID!` built from the same key
+parts (joined with `-`) the Ponder code uses, in the same column order.
+
+Type mapping: t.hex()->String (lowercase), t.bigint()->BigInt, t.integer()->Int,
+t.boolean()->Boolean, t.text()->String, t.timestamp()->Timestamp, onchainEnum->enum.
+Audit columns (createdAt*/updatedAt*) preserved as in the source.
+"""
+
+# ---------------------------------------------------------------------------
+# Enums (onchainEnum)
+# ---------------------------------------------------------------------------
+enum VaultKind {
+  Async
+  Sync
+  SyncDepositAsyncRedeem
+}
+enum VaultStatus {
+  LinkInProgress
+  UnlinkInProgress
+  Linked
+  Unlinked
+}
+enum VaultCrosschainInProgress {
+  Deploy
+  Link
+  Unlink
+  MaxReserve
+}
+enum InvestorTransactionType {
+  DEPOSIT_REQUEST_UPDATED
+  REDEEM_REQUEST_UPDATED
+  DEPOSIT_REQUEST_CANCELLED
+  REDEEM_REQUEST_CANCELLED
+  DEPOSIT_REQUEST_EXECUTED
+  REDEEM_REQUEST_EXECUTED
+  DEPOSIT_CLAIMABLE
+  REDEEM_CLAIMABLE
+  DEPOSIT_CLAIMED
+  REDEEM_CLAIMED
+  SYNC_DEPOSIT
+  SYNC_REDEEM
+  TRANSFER_IN
+  TRANSFER_OUT
+}
+enum HoldingAccountType {
+  Asset
+  Equity
+  Loss
+  Gain
+  Expense
+  Liability
+}
+enum HoldingEscrowCrosschainInProgress {
+  NotifyAssetPrice
+}
+enum TokenInstanceCrosschainInProgress {
+  NotifySharePrice
+  SetValuation
+}
+enum PoolManagerCrosschainInProgress {
+  CanManage
+  CanNotManage
+}
+
+# ---------------------------------------------------------------------------
+# Core entities
+# ---------------------------------------------------------------------------
+type Blockchain {
+  id: ID!
+  centrifugeId: String! @index
+  network: String!
+  lastPeriodStart: Timestamp
+  chainId: Int
+  name: String
+  explorer: String
+  icon: String
+}
+
+type Pool {
+  id: ID! # poolId (uint64) as decimal string
+  centrifugeId: String! @index
+  isActive: Boolean!
+  currency: BigInt
+  decimals: Int
+  metadata: String
+  name: String
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type PoolSpokeBlockchain {
+  id: ID! # poolId-centrifugeId
+  poolId: BigInt! @index
+  centrifugeId: String! @index
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+}
+
+type Token {
+  id: ID! # scId (bytes16) lowercase
+  index: Int
+  isActive: Boolean!
+  centrifugeId: String @index
+  poolId: BigInt! @index
+  decimals: Int
+  name: String
+  symbol: String
+  salt: String
+  totalIssuance: BigInt
+  tokenPrice: BigInt
+  tokenPriceComputedAt: Timestamp
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type Vault {
+  id: ID! # vaultAddress-centrifugeId
+  vaultAddress: String! @index
+  centrifugeId: String! @index
+  isActive: Boolean!
+  kind: VaultKind
+  status: VaultStatus
+  poolId: BigInt!
+  tokenId: String! @index
+  assetId: BigInt!
+  assetAddress: String
+  factory: String
+  manager: String
+  maxReserve: BigInt
+  crosschainInProgress: VaultCrosschainInProgress
+  crosschainInProgressValue: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type InvestorTransaction {
+  id: ID! # poolId-tokenId-account-type-createdAtTxHash
+  centrifugeId: String!
+  poolId: BigInt!
+  tokenId: String!
+  type: InvestorTransactionType!
+  account: String!
+  epochIndex: Int
+  tokenAmount: BigInt
+  currencyAmount: BigInt
+  tokenPrice: BigInt
+  transactionFee: BigInt
+  fromAccount: String
+  toAccount: String
+  fromCentrifugeId: String
+  toCentrifugeId: String
+  currencyAssetId: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+}
+
+type VaultInvestOrder {
+  id: ID! # tokenId-centrifugeId-assetId-accountAddress
+  centrifugeId: String!
+  poolId: BigInt!
+  tokenId: String!
+  accountAddress: String!
+  assetId: BigInt!
+  requestedAssetsAmount: BigInt
+  claimableAssetsAmount: BigInt
+  epochIndex: Int
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type VaultRedeemOrder {
+  id: ID! # tokenId-centrifugeId-assetId-accountAddress
+  centrifugeId: String!
+  poolId: BigInt!
+  tokenId: String!
+  accountAddress: String!
+  assetId: BigInt!
+  requestedSharesAmount: BigInt
+  claimableSharesAmount: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type PendingInvestOrder {
+  id: ID! # tokenId-assetId-account
+  poolId: BigInt!
+  tokenId: String! @index
+  assetId: BigInt! @index
+  account: String!
+  pendingAssetsAmount: BigInt
+  queuedAssetsAmount: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type PendingRedeemOrder {
+  id: ID! # tokenId-assetId-account
+  poolId: BigInt!
+  tokenId: String! @index
+  assetId: BigInt! @index
+  account: String!
+  pendingSharesAmount: BigInt
+  queuedSharesAmount: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type InvestOrder {
+  id: ID! # tokenId-assetId-account-index
+  poolId: BigInt! @index
+  tokenId: String! @index
+  assetId: BigInt! @index
+  account: String! @index
+  index: Int!
+  approvedAt: Timestamp
+  approvedAtBlock: Int
+  approvedAtTxHash: String
+  approvedAssetsAmount: BigInt
+  issuedSharesAmount: BigInt
+  issuedWithNavPoolPerShare: BigInt
+  issuedWithNavAssetPerShare: BigInt
+  issuedAt: Timestamp
+  issuedAtBlock: Int
+  issuedAtTxHash: String
+  claimedAt: Timestamp
+  claimedAtBlock: Int
+  claimedAtTxHash: String
+  claimedSharesAmount: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type RedeemOrder {
+  id: ID! # tokenId-assetId-account-index
+  poolId: BigInt! @index
+  tokenId: String! @index
+  assetId: BigInt! @index
+  account: String! @index
+  index: Int!
+  approvedAt: Timestamp
+  approvedAtBlock: Int
+  approvedAtTxHash: String
+  approvedSharesAmount: BigInt
+  revokedAt: Timestamp
+  revokedAtBlock: Int
+  revokedAtTxHash: String
+  revokedSharesAmount: BigInt
+  revokedAssetsAmount: BigInt
+  revokedPoolAmount: BigInt
+  revokedWithNavPoolPerShare: BigInt
+  revokedWithNavAssetPerShare: BigInt
+  claimedAt: Timestamp
+  claimedAtBlock: Int
+  claimedAtTxHash: String
+  claimedAssetsAmount: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type EpochOutstandingInvest {
+  id: ID! # tokenId-assetId
+  poolId: BigInt! @index
+  tokenId: String! @index
+  assetId: BigInt! @index
+  pendingAssetsAmount: BigInt
+  queuedAssetsAmount: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type EpochOutstandingRedeem {
+  id: ID! # tokenId-assetId
+  poolId: BigInt! @index
+  tokenId: String! @index
+  assetId: BigInt! @index
+  pendingSharesAmount: BigInt
+  queuedSharesAmount: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type EpochInvestOrder {
+  id: ID! # tokenId-assetId-index
+  poolId: BigInt! @index
+  tokenId: String! @index
+  assetId: BigInt! @index
+  index: Int!
+  approvedAt: Timestamp
+  approvedAtBlock: Int
+  approvedAtTxHash: String
+  approvedAssetsAmount: BigInt
+  approvedPoolAmount: BigInt
+  approvedPercentageOfTotalPending: BigInt
+  issuedAt: Timestamp
+  issuedAtBlock: Int
+  issuedAtTxHash: String
+  issuedSharesAmount: BigInt
+  issuedWithNavPoolPerShare: BigInt
+  issuedWithNavAssetPerShare: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type EpochRedeemOrder {
+  id: ID! # tokenId-assetId-index
+  poolId: BigInt! @index
+  tokenId: String! @index
+  assetId: BigInt! @index
+  index: Int!
+  approvedAt: Timestamp
+  approvedAtBlock: Int
+  approvedAtTxHash: String
+  approvedSharesAmount: BigInt
+  approvedPercentageOfTotalPending: BigInt
+  revokedAt: Timestamp
+  revokedAtBlock: Int
+  revokedAtTxHash: String
+  revokedSharesAmount: BigInt
+  revokedAssetsAmount: BigInt
+  revokedPoolAmount: BigInt
+  revokedWithNavPoolPerShare: BigInt
+  revokedWithNavAssetPerShare: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type AssetRegistration {
+  id: ID! # assetId-centrifugeId
+  assetId: BigInt!
+  centrifugeId: String!
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type Asset {
+  id: ID! # assetId (uint128) as decimal string
+  centrifugeId: String @index
+  address: String @index
+  assetTokenId: BigInt
+  decimals: Int!
+  name: String
+  symbol: String
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type TokenInstance {
+  id: ID! # centrifugeId-tokenId
+  centrifugeId: String!
+  tokenId: String!
+  isActive: Boolean!
+  address: String! @index
+  tokenPrice: BigInt
+  computedAt: Timestamp
+  totalIssuance: BigInt
+  crosschainInProgress: TokenInstanceCrosschainInProgress
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type Holding {
+  id: ID! # tokenId-assetId
+  centrifugeId: String! @index
+  poolId: BigInt! @index
+  tokenId: String! @index
+  isInitialized: Boolean!
+  isLiability: Boolean
+  valuation: String
+  assetId: BigInt! @index
+  assetQuantity: BigInt
+  totalValue: BigInt
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type HoldingAccount {
+  id: ID!
+  tokenId: String!
+  kind: HoldingAccountType!
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type Escrow {
+  id: ID! # address-centrifugeId
+  address: String!
+  poolId: BigInt! @index
+  centrifugeId: String! @index
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type HoldingEscrow {
+  id: ID! # tokenId-assetId
+  centrifugeId: String! @index
+  poolId: BigInt! @index
+  tokenId: String! @index
+  assetId: BigInt! @index
+  assetAddress: String!
+  assetAmount: BigInt
+  assetPrice: BigInt
+  maxAssetPriceAge: BigInt
+  escrowAddress: String!
+  crosschainInProgress: HoldingEscrowCrosschainInProgress
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type PoolManager {
+  id: ID! # address-centrifugeId-poolId
+  address: String!
+  centrifugeId: String!
+  poolId: BigInt! @index
+  isHubManager: Boolean!
+  isBalancesheetManager: Boolean!
+  crosschainInProgress: PoolManagerCrosschainInProgress
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+type Account {
+  id: ID! # address
+  address: String! @index
+  createdAt: Timestamp!
+  createdAtBlock: Int!
+  createdAtTxHash: String!
+  updatedAt: Timestamp!
+  updatedAtBlock: Int!
+  updatedAtTxHash: String!
+}
+
+# ---------------------------------------------------------------------------
+# Snapshots (in-scope tables)
+# ---------------------------------------------------------------------------
+type PoolSnapshot {
+  id: ID! # poolId-blockNumber-trigger
+  timestamp: Timestamp!
+  blockNumber: Int!
+  trigger: String!
+  triggerTxHash: String
+  triggerChainId: String!
+  poolId: BigInt!
+  currency: BigInt
+}
+
+type TokenSnapshot {
+  id: ID! # tokenId-blockNumber-trigger
+  timestamp: Timestamp! @index
+  blockNumber: Int!
+  trigger: String!
+  triggerTxHash: String
+  triggerChainId: String!
+  tokenId: String!
+  tokenPrice: BigInt
+  totalIssuance: BigInt
+  tokenPriceComputedAt: Timestamp
+}
+
+type TokenInstanceSnapshot {
+  id: ID! # tokenId-blockNumber-trigger
+  timestamp: Timestamp!
+  blockNumber: Int!
+  trigger: String!
+  triggerTxHash: String
+  triggerChainId: String!
+  tokenId: String!
+  centrifugeId: String!
+  tokenPrice: BigInt
+  totalIssuance: BigInt
+}
+
+type HoldingSnapshot {
+  id: ID! # tokenId-assetId-blockNumber-trigger
+  timestamp: Timestamp!
+  blockNumber: Int!
+  trigger: String!
+  triggerTxHash: String
+  triggerChainId: String!
+  tokenId: String!
+  assetId: BigInt!
+  assetQuantity: BigInt
+  totalValue: BigInt
+}
+
+type HoldingEscrowSnapshot {
+  id: ID! # tokenId-assetId-blockNumber-trigger
+  timestamp: Timestamp!
+  blockNumber: Int!
+  trigger: String!
+  triggerTxHash: String
+  triggerChainId: String!
+  tokenId: String!
+  assetId: BigInt!
+  assetAmount: BigInt
+  assetPrice: BigInt
+  maxAssetPriceAge: BigInt
+}

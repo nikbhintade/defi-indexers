@@ -1,0 +1,110 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: anemoy-centrifuge
+description: Centrifuge api-v3 (Ponder) indexer ported to HyperIndex — Ethereum mainnet core pool/share-class/vault/investor slice (powers Anemoy Capital).
+rollback_on_reorg: false
+contracts:
+  # ---- Hub-side (Centrifuge protocol v3.1, Ethereum mainnet) ----
+  - name: HubRegistry
+    events:
+      - event: "NewPool(uint64 poolId, address indexed manager, uint128 indexed currency)"
+      - event: "NewAsset(uint128 indexed assetId, uint8 decimals)"
+      - event: "UpdateManager(uint64 indexed poolId, address indexed manager, bool canManage)"
+      - event: "UpdateCurrency(uint64 indexed poolId, uint128 currency)"
+      - event: "SetMetadata(uint64 indexed poolId, bytes metadata)"
+  - name: Hub
+    events:
+      - event: "NotifyPool(uint16 indexed centrifugeId, uint64 indexed poolId)"
+      - event: "UpdateBalanceSheetManager(uint16 indexed centrifugeId, uint64 indexed poolId, bytes32 indexed manager, bool canManage)"
+  - name: ShareClassManager
+    events:
+      - event: "AddShareClass(uint64 indexed poolId, bytes16 indexed scId, uint32 indexed index, string name, string symbol, bytes32 salt)"
+      - event: "UpdateMetadata(uint64 indexed poolId, bytes16 indexed scId, string name, string symbol)"
+      - event: "UpdatePricePoolPerShare(uint64 indexed poolId, bytes16 indexed scId, uint128 price, uint64 computedAt)"
+  - name: Holdings
+    events:
+      - event: "Initialize(uint64 indexed poolId, bytes16 indexed scId, uint128 indexed assetId, address valuation, bool isLiability, (uint8 kind, uint32 accountId)[] accounts)"
+      - event: "Increase(uint64 indexed poolId, bytes16 indexed scId, uint128 indexed assetId, uint128 pricePoolPerAsset, uint128 amount, uint128 increasedValue)"
+      - event: "Decrease(uint64 indexed poolId, bytes16 indexed scId, uint128 indexed assetId, uint128 pricePoolPerAsset, uint128 amount, uint128 decreasedValue)"
+      - event: "Update(uint64 indexed poolId, bytes16 indexed scId, uint128 indexed assetId, bool isPositive, uint128 diffValue)"
+      - event: "UpdateValuation(uint64 indexed poolId, bytes16 indexed scId, uint128 indexed assetId, address valuation)"
+      - event: "UpdateIsLiability(uint64 indexed poolId, bytes16 indexed scId, uint128 indexed assetId, bool isLiability)"
+  - name: BatchRequestManager
+    events:
+      - event: "UpdateDepositRequest(uint64 indexed poolId, bytes16 indexed shareClassId, uint128 indexed assetId, uint32 epochId, bytes32 investor, uint128 pendingAmount, uint128 queuedUserAmount, bool pendingCancellation)"
+      - event: "UpdateRedeemRequest(uint64 indexed poolId, bytes16 indexed shareClassId, uint128 indexed assetId, uint32 epochId, bytes32 investor, uint128 pendingAmount, uint128 queuedUserAmount, bool pendingCancellation)"
+      - event: "ApproveDeposits(uint64 indexed poolId, bytes16 indexed shareClassId, uint128 indexed assetId, uint32 epochId, uint128 approvedPoolAmount, uint128 approvedAssetAmount, uint128 pendingAssetAmount)"
+      - event: "ApproveRedeems(uint64 indexed poolId, bytes16 indexed shareClassId, uint128 indexed assetId, uint32 epochId, uint128 approvedShareAmount, uint128 pendingShareAmount)"
+      - event: "IssueShares(uint64 indexed poolId, bytes16 indexed shareClassId, uint128 indexed assetId, uint32 epochId, uint128 pricePoolPerShare, uint128 priceAssetPerShare, uint128 issuedShareAmount)"
+      - event: "RevokeShares(uint64 indexed poolId, bytes16 indexed shareClassId, uint128 indexed assetId, uint32 epochId, uint128 pricePoolPerShare, uint128 priceAssetPerShare, uint128 revokedShareAmount, uint128 revokedAssetAmount, uint128 revokedPoolAmount)"
+      - event: "ClaimDeposit(uint64 indexed poolId, bytes16 indexed shareClassId, uint32 indexed epochId, bytes32 investor, uint128 assetId, uint128 paymentAssetAmount, uint128 pendingAssetAmount, uint128 claimedShareAmount)"
+      - event: "ClaimRedeem(uint64 indexed poolId, bytes16 indexed shareClassId, uint32 indexed epochId, bytes32 investor, uint128 assetId, uint128 paymentShareAmount, uint128 pendingShareAmount, uint128 claimedAssetAmount)"
+  # ---- Spoke-side ----
+  - name: Spoke
+    events:
+      - event: "RegisterAsset(uint16 centrifugeId, uint128 indexed assetId, address indexed asset, uint256 indexed tokenId, string name, string symbol, uint8 decimals, bool isInitialization)"
+      - event: "AddShareClass(uint64 indexed poolId, bytes16 indexed scId, address token)"
+      - event: "DeployVault(uint64 indexed poolId, bytes16 indexed scId, address indexed asset, uint256 tokenId, address factory, address vault, uint8 kind)"
+      - event: "LinkVault(uint64 indexed poolId, bytes16 indexed scId, address indexed asset, uint256 tokenId, address vault)"
+      - event: "UnlinkVault(uint64 indexed poolId, bytes16 indexed scId, address indexed asset, uint256 tokenId, address vault)"
+      - event: "UpdateSharePrice(uint64 indexed poolId, bytes16 indexed scId, uint128 price, uint64 computedAt)"
+      - event: "UpdateAssetPrice(uint64 indexed poolId, bytes16 indexed scId, address indexed asset, uint256 tokenId, uint128 price, uint64 computedAt)"
+      - event: "UpdateMaxAssetPriceAge(uint64 indexed poolId, bytes16 indexed scId, address indexed asset, uint256 tokenId, uint64 maxPriceAge)"
+      - event: "InitiateTransferShares(uint16 centrifugeId, uint64 indexed poolId, bytes16 indexed scId, address indexed sender, bytes32 destinationAddress, uint128 amount)"
+  - name: BalanceSheet
+    events:
+      - event: "NoteDeposit(uint64 indexed poolId, bytes16 indexed scId, address sender, address asset, uint256 tokenId, uint128 amount, uint128 pricePoolPerAsset)"
+      - event: "Withdraw(uint64 indexed poolId, bytes16 indexed scId, address asset, uint256 tokenId, address receiver, uint128 amount, uint128 pricePoolPerAsset)"
+      - event: "UpdateManager(uint64 indexed poolId, address who, bool canManage)"
+  - name: PoolEscrowFactory
+    events:
+      - event: "DeployPoolEscrow(uint64 indexed poolId, address indexed escrow)"
+  # ---- Dynamically-registered (factory-deployed) templates: no static address ----
+  - name: Vault
+    events:
+      - event: "DepositRequest(address indexed controller, address indexed owner, uint256 indexed requestId, address sender, uint256 assets)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RedeemRequest(address indexed controller, address indexed owner, uint256 indexed requestId, address sender, uint256 shares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "DepositClaimable(address indexed controller, uint256 indexed requestId, uint256 assets, uint256 shares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RedeemClaimable(address indexed controller, uint256 indexed requestId, uint256 assets, uint256 shares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Deposit(address indexed sender, address indexed owner, uint256 assets, uint256 shares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Withdraw(address indexed sender, address indexed receiver, address indexed owner, uint256 assets, uint256 shares)"
+        field_selection:
+          transaction_fields: [hash]
+  - name: TokenInstance
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+chains:
+  - id: 1
+    start_block: 24319323
+    # end_block: 24369323   # uncomment for bounded validation runs (see validation.json)
+    contracts:
+      - name: HubRegistry
+        address: "0x19f46D8130e610C6C0f0116EA40Fb781dEFaDE93"
+      - name: Hub
+        address: "0xA4A7Bb3831958463b3FE3E27A6a160F764341953"
+      - name: ShareClassManager
+        address: "0xaFFC269c8fe18EE9C7DDb22301AC2c2507d69BEf"
+      - name: Holdings
+        address: "0x3f0c8D8d2637881c3f6d8531F51a47c2094C918d"
+      - name: BatchRequestManager
+        address: "0xc52Bd1Bdfa0135147D3F01a0B6D6cd0A831dFe77"
+      - name: Spoke
+        address: "0xEC3582fcDc34078a4B7a8c75a5a3AE46f48525aB"
+      - name: BalanceSheet
+        address: "0x12a110cE5f0FC871cC72Bc7ECaF35cf39DD0f43e"
+      - name: PoolEscrowFactory
+        address: "0x5187A505c485E22f0b8a5FBdF69eF1c29C478CE3"
+      # dynamically registered templates (no static address)
+      - name: Vault
+      - name: TokenInstance
