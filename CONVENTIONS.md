@@ -58,6 +58,13 @@ rollback_on_reorg: false   # deterministic bounded runs for validation
 - Add `@index` to fields handlers must query via `context.X.getWhere(...)`
   (the subgraph's `store.loadRelated`/derived lookups used inside mappings).
 - Subgraph `ID`/`Bytes` ids → `id: ID!` strings.
+- **Entity type names MUST be PascalCase** (start with an uppercase letter). envio
+  3.1.2 PascalCases the generated entity accessor/type (`context.Foo`, `type Foo`),
+  and a schema type whose name starts lowercase (e.g. `type dailyStats`) desyncs
+  the test-runtime table mapping — `createTestIndexer` crashes opaquely with
+  "Worker exited with code 1". Rename such entities to PascalCase (document it as a
+  deviation if the original used a lowercase name); field names/ids/values are
+  unaffected.
 
 ## Handlers (src/)
 
