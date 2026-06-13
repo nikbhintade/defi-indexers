@@ -1,0 +1,104 @@
+[
+  {
+    "rank": 276,
+    "name": "AlphaPing",
+    "slug": "alphaping",
+    "category": "Risk Curators",
+    "tvl_usd": 82933612,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Risk curator that operates vaults on Morpho, Euler, TermMax, IPOR. No own protocol contracts and no public AlphaPing-specific indexer; their vault positions are indexed by the host protocols' own subgraphs (e.g. Morpho)."
+  },
+  {
+    "rank": 277,
+    "name": "Mainstreet",
+    "slug": "mainstreet",
+    "category": "Basis Trading",
+    "tvl_usd": 81944175,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Mainstreet-Labs org has only mainstreet-core (Solidity contracts), an audit repo, and a Python proof-of-reserves. No subgraph/Ponder/indexer repo found."
+  },
+  {
+    "rank": 278,
+    "name": "Railgun",
+    "slug": "railgun",
+    "category": "Privacy",
+    "tvl_usd": 81640037,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/Railgun-Community/subgraph-v3-template",
+        "type": "subgraph",
+        "scope": "RAILGUN V3 events (Shield/Unshield/Transact) across Ethereum, Polygon, BSC, Arbitrum",
+        "maintained": "stale",
+        "verified": "Repo contains subgraph.yaml + schema.graphql + ABIs + Matchstick tests; networks.json defines railgun-v3-ethereum/polygon/bsc/arbitrum deployments indexing RAILGUN smart contracts. ~7 commits, low activity."
+      },
+      {
+        "url": "https://github.com/Railgun-Community/subgraph-v2-template",
+        "type": "subgraph",
+        "scope": "RAILGUN V2 event indexing template (multi-chain)",
+        "maintained": "stale",
+        "verified": "Listed in Railgun-Community org as RAILGUN v2 event indexing template alongside v3 template."
+      },
+      {
+        "url": "https://github.com/Railgun-Community/subsquid-integration",
+        "type": "subsquid",
+        "scope": "Subsquid-based indexing integration for RAILGUN",
+        "maintained": "unknown",
+        "verified": "Official Railgun-Community repo described as Subsquid indexing platform integration."
+      }
+    ],
+    "notes": "Official Railgun-Community org maintains The Graph subgraph templates (v2 + v3) and a Subsquid integration indexing RAILGUN privacy contracts on Ethereum/Arbitrum/BSC/Polygon (matches protocol chains)."
+  },
+  {
+    "rank": 279,
+    "name": "Bybit Staked SOL",
+    "slug": "bybit-staked-sol",
+    "category": "Liquid Staking",
+    "tvl_usd": 81165345,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only CEX-operated LST (Bybit Web3). Custodial, no public EVM-style indexer or open-source repo."
+  },
+  {
+    "rank": 280,
+    "name": "SoSoValue Indexes",
+    "slug": "sosovalue-indexes",
+    "category": "Indexes",
+    "tvl_usd": 80273430,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized crypto index product (SSI). No public protocol repo or indexer found."
+  },
+  {
+    "rank": 281,
+    "name": "River Omni-CDP",
+    "slug": "river-omni-cdp",
+    "category": "CeDeFi",
+    "tvl_usd": 79694678,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "River (Satoshi-Protocol org) has satoshi-core (CDP contracts), satoshi-farm, satoshi-sdk (TS) and audit repo. No subgraph/Ponder/indexer repo; satoshi-sdk reads on-chain state directly rather than via a public indexer."
+  },
+  {
+    "rank": 282,
+    "name": "infiniFi",
+    "slug": "infinifi",
+    "category": "Yield",
+    "tvl_usd": 79350801,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "InfiniFi-Labs org has infinifi-protocol (Solidity) plus various Pendle/Ethena adapter forks and DefiLlama adapters. 'railway-monorepo' is labeled a pre-existing indexer from Revest, not an infiniFi-specific indexer. No dedicated public subgraph/indexer for infiniFi found."
+  },
+  {
+    "rank": 283,
+    "name": "Nexus Mutual",
+    "slug": "nexus-mutual",
+    "category": "Insurance",
+    "tvl_usd": 79291753,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "NexusMutual org has smart-contracts, sdk, cover-router, dune-queries (Dune SQL analytics), but no The Graph subgraph / Ponder / SubQuery / Subsquid indexer repo. Data tooling is Dune-based + SDK reading chain state."
+  }
+]
