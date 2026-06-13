@@ -15,7 +15,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 3 | Compound v3 | [papercliplabs/compound-v3-subgraph](https://github.com/papercliplabs/compound-v3-subgraph) | `compound-v3/` | ✅ ported, builds + offline tests pass |
 | 4 | PancakeSwap | [pancakeswap/pancake-subgraph](https://github.com/pancakeswap/pancake-subgraph) (exchange, BSC) | `pancakeswap-exchange/` | ✅ ported, builds + offline tests pass |
 | 5 | Venus | [VenusProtocol/venus-protocol-subgraphs](https://github.com/VenusProtocol/venus-protocol-subgraphs) | `venus/` | ✅ ported, builds + offline tests pass |
-| 6 | Pendle | public Pendle subgraphs | `pendle/` | pending |
+| 6 | Pendle | public Pendle subgraphs | `pendle/` | ✅ ported, builds + offline tests pass |
 | 7 | Convex Finance | [convex-community/convex-subgraph](https://github.com/convex-community/convex-subgraph) | `convex/` | pending |
 | 8 | ether.fi | public `etherfi-v2` subgraph | `etherfi/` | pending |
 | 9 | Anemoy Capital | [centrifuge/api-v3](https://github.com/centrifuge/api-v3) indexer + public GraphQL | `anemoy-centrifuge/` | pending |

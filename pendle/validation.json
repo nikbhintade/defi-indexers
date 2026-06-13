@@ -1,0 +1,232 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The subgraph-v3 README only links the deprecated hosted/legacy-explorer endpoint https://thegraph.com/legacy-explorer/subgraph/ngfam/pendle (the legacy explorer is shut down, so this URL no longer serves data). Pendle now runs newer subgraphs on the decentralized network; the current endpoint for THIS schema (pendle-finance/subgraph-v3, mainnet) must be supplied before running tools/compare. Replace TODO with the decentralized-network gateway URL: https://gateway.thegraph.com/api/subgraphs/id/<ID> (look up the published subgraph-v3 mainnet deployment on https://thegraph.com/explorer and verify it matches this schema before use)."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 12638042, "end": 12688042 },
+  "entities": [
+    {
+      "subgraphName": "forges",
+      "localName": "Forge",
+      "fields": ["id", "forgeId"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "marketFactories",
+      "localName": "MarketFactory",
+      "fields": ["id", "address"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pendleDatas",
+      "localName": "PendleData",
+      "fields": ["id", "protocolSwapFee", "swapFee", "exitFee"],
+      "decimalFields": ["protocolSwapFee", "swapFee", "exitFee"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": [
+        "id",
+        "symbol",
+        "name",
+        "decimals",
+        "forgeId",
+        "underlyingAsset",
+        "totalSupply",
+        "mintVolume",
+        "redeemVolume",
+        "tradeVolume",
+        "tradeVolumeUSD",
+        "txCount",
+        "totalLiquidity",
+        "type"
+      ],
+      "decimalFields": ["mintVolume", "redeemVolume", "tradeVolume", "tradeVolumeUSD", "totalLiquidity"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "yieldContracts",
+      "localName": "YieldContract",
+      "fields": [
+        "id",
+        "forgeId",
+        "underlyingAsset",
+        "xyt",
+        "ot",
+        "yieldBearingAsset",
+        "expiry",
+        "mintTxCount",
+        "redeemTxCount",
+        "lockedVolume",
+        "mintVolume",
+        "redeemVolume",
+        "lockedVolumeUSD",
+        "mintVolumeUSD",
+        "redeemVolumeUSD"
+      ],
+      "decimalFields": [
+        "lockedVolume",
+        "mintVolume",
+        "redeemVolume",
+        "lockedVolumeUSD",
+        "mintVolumeUSD",
+        "redeemVolumeUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pairs",
+      "localName": "Pair",
+      "fields": [
+        "id",
+        "token0",
+        "token1",
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "token0WeightRaw",
+        "token1WeightRaw",
+        "reserveUSD",
+        "token0Price",
+        "token1Price",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "txCount",
+        "feesUSD",
+        "expiry",
+        "createdAtBlockNumber"
+      ],
+      "decimalFields": [
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveUSD",
+        "token0Price",
+        "token1Price",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "feesUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mintYieldTokens",
+      "localName": "MintYieldToken",
+      "fields": [
+        "id",
+        "blockNumber",
+        "timestamp",
+        "forgeId",
+        "amountToTokenize",
+        "amountMinted",
+        "expiry",
+        "from",
+        "underlyingAsset",
+        "yieldBearingAsset",
+        "xytAsset",
+        "otAsset",
+        "yieldContract",
+        "mintedValueUSD"
+      ],
+      "decimalFields": ["amountToTokenize", "amountMinted", "mintedValueUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redeemYieldTokens",
+      "localName": "RedeemYieldToken",
+      "fields": [
+        "id",
+        "blockNumber",
+        "timestamp",
+        "forgeId",
+        "amountToRedeem",
+        "amountRedeemed",
+        "expiry",
+        "from",
+        "underlyingAsset",
+        "yieldBearingAsset",
+        "xytAsset",
+        "otAsset",
+        "yieldContract",
+        "redeemedValueUSD"
+      ],
+      "decimalFields": ["amountToRedeem", "amountRedeemed", "redeemedValueUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidityPools",
+      "localName": "LiquidityPool",
+      "fields": [
+        "id",
+        "timestamp",
+        "pair",
+        "type",
+        "from",
+        "inToken0",
+        "inToken1",
+        "inAmount0",
+        "inAmount1",
+        "swapFeesCollectedUSD",
+        "swapVolumeUSD",
+        "lpAmount",
+        "amountUSD"
+      ],
+      "decimalFields": ["inAmount0", "inAmount1", "swapFeesCollectedUSD", "swapVolumeUSD", "lpAmount", "amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swaps",
+      "localName": "Swap",
+      "fields": [
+        "id",
+        "timestamp",
+        "pair",
+        "sender",
+        "from",
+        "inToken",
+        "outToken",
+        "inAmount",
+        "outAmount",
+        "to",
+        "logIndex",
+        "feesCollected",
+        "feesCollectedUSD",
+        "amountUSD"
+      ],
+      "decimalFields": ["inAmount", "outAmount", "feesCollected", "feesCollectedUSD", "amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "sushiswapPairs",
+      "localName": "SushiswapPair",
+      "fields": [
+        "id",
+        "otToken",
+        "baseToken",
+        "isOtToken0",
+        "totalTradingUSD",
+        "marketWorthUSD",
+        "baseTokenBalance",
+        "otBalance",
+        "otPrice"
+      ],
+      "decimalFields": ["totalTradingUSD", "marketWorthUSD", "baseTokenBalance", "otBalance", "otPrice"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "uniswapPools",
+      "localName": "UniswapPool",
+      "fields": ["id", "poolAddress", "token0Address", "token1Address", "hasBeenUsed"],
+      "decimalFields": [],
+      "orderBy": "id"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: pendle-indexer
+description: Pendle subgraph-v3 (Ethereum mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  # ---- Static data sources (subgraph dataSources) ----
+  - name: PendleRouter
+    events:
+      # SwapEvent: uses event.transaction.{hash,from}
+      - event: "SwapEvent(address indexed trader, address inToken, address outToken, uint256 exactIn, uint256 exactOut, address market)"
+        field_selection:
+          transaction_fields: [hash, from]
+      # Join / Exit: use event.transaction.hash
+      - event: "Join(address indexed sender, uint256 token0Amount, uint256 token1Amount, address market, uint256 exactOutLp)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Exit(address indexed sender, uint256 token0Amount, uint256 token1Amount, address market, uint256 exactInLp)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MarketCreated(bytes32 marketFactoryId, address indexed xyt, address indexed token, address indexed market)"
+      # NOTE: subgraph callHandler redeemLpInterests(address,address) is a no-op
+      # in the source mapping; HyperIndex has no callHandlers, so it is omitted.
+  - name: PendleData
+    events:
+      - event: "ForgeAdded(bytes32 indexed forgeId, address indexed forgeAddress)"
+      - event: "NewMarketFactory(bytes32 indexed marketFactoryId, address indexed marketFactoryAddress)"
+      - event: "MarketFeesSet(uint256 _swapFee, uint256 _protocolSwapFee)"
+  - name: UniswapFactory
+    events:
+      - event: "PoolCreated(address indexed token0, address indexed token1, uint24 indexed fee, int24 tickSpacing, address pool)"
+  - name: SushiswapFactory
+    events:
+      - event: "PairCreated(address indexed token0, address indexed token1, address pair, uint256 allPairsLength)"
+  - name: Directory
+    events:
+      - event: "NewAddress(bytes32 contractType, address contractAddress)"
+
+  # ---- Templates (subgraph templates -> address-less + contractRegister) ----
+  - name: IPendleForge
+    events:
+      - event: "NewYieldContracts(bytes32 forgeId, address indexed underlyingAsset, uint256 indexed expiry, address ot, address xyt, address yieldBearingAsset)"
+      # MintYieldTokens / RedeemYieldToken: use event.transaction.{hash,from}
+      - event: "MintYieldTokens(bytes32 forgeId, address indexed underlyingAsset, uint256 indexed expiry, uint256 amountToTokenize, uint256 amountTokenMinted, address indexed user)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "RedeemYieldToken(bytes32 forgeId, address indexed underlyingAsset, uint256 indexed expiry, uint256 amountToRedeem, uint256 redeemedAmount, address indexed user)"
+        field_selection:
+          transaction_fields: [hash, from]
+  - name: PendleMarket
+    events:
+      - event: "Sync(uint256 reserve0, uint256 weight0, uint256 reserve1)"
+      # Transfer: uses event.transaction.hash for LpTransferEvent id
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+  - name: SushiswapPair
+    events:
+      - event: "Swap(address indexed sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out, address indexed to)"
+      - event: "Mint(address indexed sender, uint256 amount0, uint256 amount1)"
+      - event: "Burn(address indexed sender, uint256 amount0, uint256 amount1, address indexed to)"
+  - name: PendleLiquidityMiningV1
+    events:
+      - event: "Staked(uint256 expiry, address user, uint256 amount)"
+      - event: "Withdrawn(uint256 expiry, address user, uint256 amount)"
+      - event: "PendleRewardsSettled(uint256 expiry, address user, uint256 amount)"
+      # NOTE: subgraph callHandler redeemLpInterests(uint256,address) -> handleRedeemLpInterests
+      # is omitted (HyperIndex has no callHandlers). See MIGRATION.md.
+  - name: PendleLiquidityMiningV2
+    events:
+      - event: "Staked(address user, uint256 amount)"
+      - event: "Withdrawn(address user, uint256 amount)"
+chains:
+  - id: 1
+    start_block: 12638042 # min(PendleData @ 12638042, others @ 12638048)
+    # end_block: 12688042   # uncomment for bounded validation runs (12638042 + 50k)
+    contracts:
+      - name: PendleRouter
+        address: "0x1b6d3E5Da9004668E14Ca39d1553E9a46Fe842B3"
+      - name: PendleData
+        address: "0xE8A6916576832AA5504092C1cCCC46E3bB9491d6"
+      - name: UniswapFactory
+        address: "0x1F98431c8aD98523631AE4a59f267346ea31F984"
+      - name: SushiswapFactory
+        address: "0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac"
+      - name: Directory
+        address: "0x702A893f712a59be72722e4078513A1FbA5CAf2D"
+      # dynamically registered templates (no static address)
+      - name: IPendleForge
+      - name: PendleMarket
+      - name: SushiswapPair
+      - name: PendleLiquidityMiningV1
+      - name: PendleLiquidityMiningV2
