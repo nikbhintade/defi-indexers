@@ -1,0 +1,322 @@
+[
+  {
+    "rank": 51,
+    "name": "Gauntlet",
+    "slug": "gauntlet",
+    "category": "Risk Curators",
+    "tvl_usd": 1462688957,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Gauntlet is a risk-modeling firm / vault curator (operates curated Morpho & Aave vaults), not a protocol with its own contracts to index. TVL is the sum of vaults it curates on Morpho/Aave/etc. No Gauntlet-specific public subgraph/indexer; the underlying data lives in Morpho/Aave subgraphs. One confirming search; marked false."
+  },
+  {
+    "rank": 52,
+    "name": "Uniswap V3",
+    "slug": "uniswap-v3",
+    "category": "Dexs",
+    "tvl_usd": 1453187921,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/Uniswap/v3-subgraph",
+        "type": "subgraph",
+        "scope": "Full Uniswap V3 protocol: factory, pools, swaps, mints, burns, positions, ticks across all supported chains (multi-chain template).",
+        "maintained": "active",
+        "verified": "WebFetch of repo: contains v3-subgraph.template.yaml + schema, TypeScript mappings (99.4%), 413 commits, 26 PRs, 91 open issues; indexes factory/pool/swap events. Official Uniswap Labs org."
+      }
+    ],
+    "notes": "Official Uniswap Labs subgraph. Many community forks exist (revert-finance, opynfinance, messari) but official repo is canonical."
+  },
+  {
+    "rank": 53,
+    "name": "Curve DEX",
+    "slug": "curve-dex",
+    "category": "Dexs",
+    "tvl_usd": 1439151293,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/curvefi/volume-subgraphs",
+        "type": "subgraph",
+        "scope": "Curve pools volume/revenue/OHLC across 10 chains (Ethereum, Arbitrum, Optimism, Polygon, etc.). Does NOT track liquidity events.",
+        "maintained": "active",
+        "verified": "WebFetch: official curvefi org repo, 322 commits, subgraph configs for 10 chains, tracks pool volume snapshots + APR + OHLC via Curve address provider contract."
+      },
+      {
+        "url": "https://github.com/curvefi/curve-subgraph",
+        "type": "subgraph",
+        "scope": "Curve.fi pools/tokens subgraph (official curvefi org).",
+        "maintained": "unknown",
+        "verified": "Listed under official curvefi org in search; companion to volume-subgraphs."
+      }
+    ],
+    "notes": "Official curvefi org maintains subgraphs. volume-subgraphs is the actively used one. Community alternatives: protofire/curve-subgraph, messari/subgraphs curve-finance."
+  },
+  {
+    "rank": 54,
+    "name": "HashKey Exchange",
+    "slug": "hashkey-exchange",
+    "category": "CEX",
+    "tvl_usd": 1312550561,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (custodial). TVL is wallet balances tracked by DefiLlama; no on-chain protocol contracts to index. CEX entries do not have public subgraphs/indexers. Marked false."
+  },
+  {
+    "rank": 55,
+    "name": "Falcon Finance",
+    "slug": "falcon-finance",
+    "category": "Basis Trading",
+    "tvl_usd": 1296901716,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "USDf synthetic-dollar / basis-trading protocol. No public Falcon Finance org or subgraph/indexer repo found; collateral is largely off-chain/custodial (basis trading). Marked false."
+  },
+  {
+    "rank": 56,
+    "name": "USDD",
+    "slug": "usdd",
+    "category": "CDP",
+    "tvl_usd": 1270978410,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "TRON DAO Reserve algorithmic stablecoin, primarily on Tron (TRC-20). The Graph does not support Tron; no public USDD subgraph/indexer repo found. Marked false."
+  },
+  {
+    "rank": 57,
+    "name": "CCIP",
+    "slug": "ccip",
+    "category": "Bridge",
+    "tvl_usd": 1185665235,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Chainlink CCIP cross-chain messaging. Core protocol is open source (smartcontractkit/chainlink-ccip, smartcontractkit/ccip) but these are protocol/offchain node code, not a subgraph/indexer of CCIP TVL. Status tracking is via the hosted CCIP Explorer (closed). No public subgraph indexing CCIP lane/token-pool TVL found. Marked false."
+  },
+  {
+    "rank": 58,
+    "name": "Poloniex",
+    "slug": "poloniex",
+    "category": "CEX",
+    "tvl_usd": 1173023568,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (custodial). No on-chain protocol contracts; CEX entries have no public subgraph/indexer. Marked false."
+  },
+  {
+    "rank": 59,
+    "name": "Bitkub",
+    "slug": "bitkub",
+    "category": "CEX",
+    "tvl_usd": 1169423409,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (custodial, Thailand). No public protocol subgraph/indexer. Marked false."
+  },
+  {
+    "rank": 60,
+    "name": "Pendle",
+    "slug": "pendle",
+    "category": "Yield",
+    "tvl_usd": 1169172405,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/pendle-finance/subgraph-v3",
+        "type": "subgraph",
+        "scope": "Pendle yield contracts: all forges (Aave/Compound), yield tokens (xyt/ot), markets/pairs, locked/minted/redeemed volume.",
+        "maintained": "archived",
+        "verified": "WebFetch: official pendle-finance org subgraph, 86 commits, indexes yield contracts + tokens + pairs. ARCHIVED by owner on Jan 9 2026 (read-only)."
+      }
+    ],
+    "notes": "Official Pendle subgraph-v3 is now ARCHIVED (Jan 2026). Pendle also publishes @pendle/subgraph-sdk on npm. Current Pendle data is largely served via their hosted API; archived subgraph is the public indexer of record."
+  },
+  {
+    "rank": 61,
+    "name": "Spiko",
+    "slug": "spiko",
+    "category": "RWA",
+    "tvl_usd": 1152018435,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/spiko-tech/morpho-blue-subgraph",
+        "type": "subgraph",
+        "scope": "Morpho Blue lending subgraph (Messari schema) maintained by Spiko; tracks Morpho markets relevant to Spiko collateral. Fork of morpho-org/morpho-blue-subgraph.",
+        "maintained": "unknown",
+        "verified": "WebFetch of spiko-tech org: only subgraph repo present is morpho-blue-subgraph (a Morpho fork), not a dedicated Spiko securities subgraph."
+      }
+    ],
+    "notes": "Spiko (spiko-tech) maintains contracts repos (EVM, Starknet, Stellar, Solana) and a deployed 'spiko-base'/'spiko-*' subgraph appears on The Graph Explorer (Arbitrum/Base) indexing Spiko fund tokens (EUTBL/USTBL) - but the dedicated securities-subgraph source is NOT in a public repo; only the morpho-blue-subgraph fork is public. Marked true on the strength of the deployed Graph subgraph + public Morpho fork; source of the tokenized-fund subgraph itself is not public/located."
+  },
+  {
+    "rank": 62,
+    "name": "Kamino Lend",
+    "slug": "kamino-lend",
+    "category": "Lending",
+    "tvl_usd": 1073506298,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana lending protocol (Kamino-Finance/klend is the open-source program, but that is contracts not an indexer). The Graph/Ponder/Subsquid do not index Solana; no public Kamino subgraph/indexer. Third-party position monitors exist (csacanam/kamino-positions-monitor) but are not protocol indexers. Marked false."
+  },
+  {
+    "rank": 63,
+    "name": "Ondo Global Markets",
+    "slug": "ondo-global-markets",
+    "category": "RWA",
+    "tvl_usd": 1058956754,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Ondo tokenized global-markets (equities) product. ondoprotocol publishes token contract repos (e.g. usdy) but no public subgraph/indexer found for Ondo Global Markets. Marked false."
+  },
+  {
+    "rank": 64,
+    "name": "Compound V3",
+    "slug": "compound-v3",
+    "category": "Lending",
+    "tvl_usd": 1056738880,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/papercliplabs/compound-v3-subgraph",
+        "type": "subgraph",
+        "scope": "Compound III (Comet) markets: supply/borrow, collateral, rates, liquidations across Ethereum, Polygon, Arbitrum, Base, Optimism, Scroll (+ testnets).",
+        "maintained": "stale",
+        "verified": "WebFetch: contains subgraph.yaml + schema.graphql + TS mappings for Comet contracts, multi-chain configs; 42 commits, no recent activity timestamps shown."
+      }
+    ],
+    "notes": "No official compound-finance subgraph for V3 (only compound-finance/comet contracts and the older compound-finance/compound-v2-subgraph). papercliplabs/compound-v3-subgraph is the established community Comet subgraph. Recorded as the public indexer of record."
+  },
+  {
+    "rank": 65,
+    "name": "Venus Core Pool",
+    "slug": "venus-core-pool",
+    "category": "Lending",
+    "tvl_usd": 1048549226,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/VenusProtocol/subgraphs",
+        "type": "subgraph",
+        "scope": "Officially maintained monorepo of Venus subgraphs incl. core-pool/markets, isolated pools, governance on BNB Chain (and other Venus chains).",
+        "maintained": "active",
+        "verified": "WebFetch: official VenusProtocol org monorepo, 1024 commits, matchstick tests + CI, deploys 'Markets' subgraph to BSC. Core Pool subgraph moved here from the now-archived venus-subgraph repo."
+      }
+    ],
+    "notes": "Official VenusProtocol/subgraphs monorepo. The standalone VenusProtocol/venus-subgraph is archived (migrated into the monorepo). Also VenusProtocol/venus-governance-subgraph."
+  },
+  {
+    "rank": 66,
+    "name": "Veda",
+    "slug": "veda",
+    "category": "Onchain Capital Allocator",
+    "tvl_usd": 1040809482,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Veda Labs (BoringVault). Public repos are contracts/UI only (boring-vault, boring-vault-svm, boring-vault-plasma, boring-vault-ui) plus DefiLlama adapters. No subgraph/ponder/subquery/indexer repo found in the Veda-Labs org. Marked false."
+  },
+  {
+    "rank": 67,
+    "name": "Bitmex",
+    "slug": "bitmex",
+    "category": "CEX",
+    "tvl_usd": 1022215516,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized derivatives exchange (custodial). No on-chain protocol contracts to index; no public subgraph/indexer. Marked false."
+  },
+  {
+    "rank": 68,
+    "name": "Sanctum Validator LSTs",
+    "slug": "sanctum-validator-lsts",
+    "category": "Liquid Staking",
+    "tvl_usd": 1014148801,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana liquid-staking (validator LSTs via Sanctum). Solana programs are not indexable by The Graph/Ponder/Subsquid; no public Sanctum subgraph/indexer repo found. Marked false."
+  },
+  {
+    "rank": 69,
+    "name": "Kelp",
+    "slug": "kelp",
+    "category": "Liquid Restaking",
+    "tvl_usd": 983875037,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Kelp DAO (rsETH liquid restaking, EVM). Kelp-DAO org publishes contracts (LRT-rsETH), eigenpod-proofs-generation, DefiLlama/dimension adapters, but no dedicated subgraph/indexer repo found. Marked false (no official or clear community protocol subgraph located)."
+  },
+  {
+    "rank": 70,
+    "name": "Blockchain Capital",
+    "slug": "blockchain-capital",
+    "category": "RWA",
+    "tvl_usd": 974631393,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Tokenized fund (BCAP) on zkSync Era. Only a token smart-contract repo exists (BCAPtoken/BCAPToken); no subgraph/indexer found. Marked false."
+  },
+  {
+    "rank": 71,
+    "name": "Bitstamp",
+    "slug": "bitstamp",
+    "category": "CEX",
+    "tvl_usd": 928963357,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (custodial). No on-chain protocol contracts; no public subgraph/indexer. Marked false."
+  },
+  {
+    "rank": 72,
+    "name": "Ethena USDtb",
+    "slug": "ethena-usdtb",
+    "category": "RWA",
+    "tvl_usd": 915910122,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Ethena USDtb (BlackRock BUIDL-backed stablecoin, Ethereum). ethena-labs publishes usdtb-minting-client (SDK/UI) only; no subgraph/indexer repo found for USDtb. Marked false."
+  },
+  {
+    "rank": 73,
+    "name": "Kinetiq kHYPE",
+    "slug": "kinetiq-khype",
+    "category": "Liquid Staking",
+    "tvl_usd": 899691132,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Liquid staking for HYPE on Hyperliquid L1. Only audit/contract repo found (code-423n4/2025-04-kinetiq); no public Kinetiq subgraph/indexer. HyperEVM subgraph support is nascent. Marked false."
+  },
+  {
+    "rank": 74,
+    "name": "Rocket Pool",
+    "slug": "rocket-pool",
+    "category": "Liquid Staking",
+    "tvl_usd": 894659095,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/rocket-pool/rocket-pool-subgraph",
+        "type": "subgraph",
+        "scope": "Rocket Pool protocol: rETH balances/mint/burn/transfers, minipools, nodes, RPL, Redstone/Atlas upgrades.",
+        "maintained": "stale",
+        "verified": "Listed under official rocket-pool org; last updated Aug 22 2023 per repo listing. Community contribution (Data Nexus & VGR) hosted in the official org with plan to transfer ownership."
+      },
+      {
+        "url": "https://github.com/Data-Nexus/rocket-pool-mainnet",
+        "type": "subgraph",
+        "scope": "Rocket Pool mainnet subgraph v2.0.0 incl. Redstone+Atlas contracts (rETH, minipools, nodes, RPL).",
+        "maintained": "stale",
+        "verified": "WebFetch: contains subgraph.yaml + schema.graphql + TS mappings; 46 commits; states 'community contribution by Data Nexus & VGR with aim to transfer ownership to Rocket Pool dev team'."
+      }
+    ],
+    "notes": "Official rocket-pool org hosts rocket-pool-subgraph (community-built by Data Nexus & VGR; stale, last update 2023). Data-Nexus/rocket-pool-mainnet is the maintainer's source repo. Docs at docs.rocketpool.net document the subgraph entities."
+  },
+  {
+    "rank": 75,
+    "name": "Jupiter Lend",
+    "slug": "jupiter-lend",
+    "category": "Lending",
+    "tvl_usd": 872860963,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana lending (Jupiter). Open-source programs exist (audit repo code-423n4/2026-02-jupiter-lend; jup-ag/cli) but these are Solana programs/CLI, not a subgraph/indexer. The Graph/Ponder/Subsquid do not index Solana. Marked false."
+  }
+]

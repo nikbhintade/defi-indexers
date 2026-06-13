@@ -1,0 +1,191 @@
+[
+  {
+    "rank": 76,
+    "name": "Anemoy Capital",
+    "slug": "anemoy-capital",
+    "category": "RWA",
+    "tvl_usd": 865800797,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/centrifuge/api-v3",
+        "type": "ponder",
+        "scope": "Centrifuge protocol V3 indexer: pools, vaults, share classes, holdings, investor flows, cross-chain messaging. Anemoy Capital funds are Centrifuge pools, so they are indexed here.",
+        "maintained": "active",
+        "verified": "WebFetch of repo confirms Ponder indexer (ponder.config.ts, ponder.schema.ts) indexing EVM events for Centrifuge pools/vaults; 399 commits, latest release v3.8.1 May 2026, prod GraphQL at api.centrifuge.io"
+      }
+    ],
+    "notes": "Anemoy is an issuer of RWA funds on Centrifuge; covered by official Centrifuge api-v3 Ponder indexer."
+  },
+  {
+    "rank": 77,
+    "name": "WisdomTree",
+    "slug": "wisdomtree",
+    "category": "RWA",
+    "tvl_usd": 807649366,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Institutional/custodial tokenized funds (WisdomTree Prime/Connect). No public subgraph/indexer repo found; no public github org with indexing code."
+  },
+  {
+    "rank": 78,
+    "name": "Raydium AMM",
+    "slug": "raydium-amm",
+    "category": "Dexs",
+    "tvl_usd": 802653767,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only AMM (raydium-io/raydium-amm is the on-chain Rust program, not an indexer). The Graph hosted subgraphs index EVM, not Solana state. No public Ponder/SubQuery/Subsquid indexer for Raydium found; analytics rely on Solana RPC/Geyser, not a public git indexer repo."
+  },
+  {
+    "rank": 79,
+    "name": "Concrete",
+    "slug": "concrete",
+    "category": "Onchain Capital Allocator",
+    "tvl_usd": 794402252,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "ERC-4626 vault protocol by Blueprint Finance. Docs reference an internal subgraph indexing deposits/withdrawals/yield but no public repo is published. Only public github is the code-423n4/2024-11-concrete audit repo (contracts, not an indexer). CONCRETE-Project github org is an unrelated Bitcoin payments app. Marked false: no public indexer repo found."
+  },
+  {
+    "rank": 80,
+    "name": "SwissBorg",
+    "slug": "swissborg",
+    "category": "CEX",
+    "tvl_usd": 788142752,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange. No public subgraph/indexer repo (SwissBorg github org has wallet/KYC infra, no protocol indexer)."
+  },
+  {
+    "rank": 81,
+    "name": "Invesco USTB",
+    "slug": "invesco-ustb",
+    "category": "RWA",
+    "tvl_usd": 753933591,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Tokenized US T-bill fund issued via Superstate (USTB token). superstateinc github org has only token/contract repos (ustb, onchain-redemptions) plus DefiLlama adapters, no subgraph/indexer. Marked false."
+  },
+  {
+    "rank": 82,
+    "name": "Binance Staked SOL",
+    "slug": "binance-staked-sol",
+    "category": "Liquid Staking",
+    "tvl_usd": 738670926,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Binance custodial Solana staking (BNSOL). Solana-only, custodial; no public indexer repo. Marked false."
+  },
+  {
+    "rank": 83,
+    "name": "Uniswap V2",
+    "slug": "uniswap-v2",
+    "category": "Dexs",
+    "tvl_usd": 722946849,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/Uniswap/v2-subgraph",
+        "type": "subgraph",
+        "scope": "Official Uniswap V2 subgraph: tracks the V2 factory, all pairs, mints/burns/swaps, liquidity and USD-derived stats.",
+        "maintained": "active",
+        "verified": "WebFetch of repo confirms official Uniswap org, ~299 commits on main, config/src/abis dirs, TypeScript subgraph; actively maintained."
+      }
+    ],
+    "notes": "Official Uniswap V2 subgraph by Uniswap. (Older ianlapham/uniswap-v2-subgraph is the legacy mirror.)"
+  },
+  {
+    "rank": 84,
+    "name": "Function FBTC",
+    "slug": "function-fbtc",
+    "category": "Bridge",
+    "tvl_usd": 679567877,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Wrapped/bridged BTC (FBTC) with custodial mint/redeem. fbtc-xyz github org has only fbtc-contract (Solidity contracts, last updated 2024), no subgraph/indexer. Marked false."
+  },
+  {
+    "rank": 85,
+    "name": "Jupiter Perpetual Exchange",
+    "slug": "jupiter-perpetual-exchange",
+    "category": "Derivatives",
+    "tvl_usd": 662412854,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana-only perps DEX. Only community IDL-parsing samples (julianfssen/jupiter-perps-anchor-idl-parsing) and SDKs exist, plus closed-source program. No official or community public indexer/subgraph indexing Jupiter Perps. Marked false."
+  },
+  {
+    "rank": 86,
+    "name": "Jito Liquid Staking",
+    "slug": "jito-liquid-staking",
+    "category": "Liquid Staking",
+    "tvl_usd": 656887174,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "JitoSOL liquid staking on Solana via the spl-stake-pool program. No public subgraph/indexer repo (Solana, off-chain analytics via RPC). Marked false."
+  },
+  {
+    "rank": 87,
+    "name": "Uniswap V4",
+    "slug": "uniswap-v4",
+    "category": "Dexs",
+    "tvl_usd": 639074748,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/Uniswap/v4-subgraph",
+        "type": "subgraph",
+        "scope": "Official Uniswap V4 subgraph: PoolManager, pools, hooks, swaps/modifyLiquidity across multiple chains (networks.json).",
+        "maintained": "active",
+        "verified": "Official Uniswap org repo confirmed via search; multi-chain config via networks.json. Also an official Envio alternative exists (enviodev/uniswap-v4-indexer)."
+      },
+      {
+        "url": "https://github.com/enviodev/uniswap-v4-indexer",
+        "type": "other",
+        "scope": "Fast multichain Uniswap V4 indexer (HyperIndex/Envio).",
+        "maintained": "active",
+        "verified": "Search result confirms it is a multichain Uniswap V4 indexer; community/Envio-maintained."
+      }
+    ],
+    "notes": "Official Uniswap V4 subgraph plus an Envio multichain indexer."
+  },
+  {
+    "rank": 88,
+    "name": "Lista Lending",
+    "slug": "lista-lending",
+    "category": "Lending",
+    "tvl_usd": 631716343,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Lista DAO lending (moolah). lista-dao github org (17 repos) has contracts, lending-sdk, MCP server and AI skills but no subgraph/indexer/ponder/subsquid repo. Marked false."
+  },
+  {
+    "rank": 89,
+    "name": "StakeWise V2",
+    "slug": "stakewise-v2",
+    "category": "Liquid Staking",
+    "tvl_usd": 610270076,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/stakewise/subgraphs",
+        "type": "subgraph",
+        "scope": "StakeWise V2 subgraphs: ethereum + stakewise subgraphs covering V2 contracts (sETH2, rETH2, pool, rewards) plus a uniswap-v3 subgraph for StakeWise token pairs.",
+        "maintained": "stale",
+        "verified": "WebFetch confirms repo with ethereum/stakewise/uniswap-v3 subgraphs referencing sETH2/rETH2; 69 commits, last release v1.5.0 Oct 2022 (V2 is legacy, hence stale)."
+      }
+    ],
+    "notes": "Official StakeWise V2 subgraphs repo. V2 is the legacy product (V3 has stakewise/v3-subgraph); the V2 subgraph repo is stale but is the correct scope for this entry."
+  },
+  {
+    "rank": 90,
+    "name": "Obol",
+    "slug": "obol",
+    "category": "Staking Pool",
+    "tvl_usd": 592187521,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Obol distributed validator technology. ObolNetwork github has contracts (obol-splits) and Go infra (charon) but no subgraph/indexer/ponder repo (org search for subgraph/indexer/ponder returned 0). Marked false."
+  }
+]

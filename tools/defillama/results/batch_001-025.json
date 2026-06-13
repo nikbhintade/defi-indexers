@@ -1,0 +1,315 @@
+[
+  {
+    "rank": 1,
+    "name": "Binance CEX",
+    "slug": "binance-cex",
+    "category": "CEX",
+    "tvl_usd": 140023432060,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange. TVL is reserve wallet balances tracked off-chain by DefiLlama; no protocol contracts and no public subgraph/indexer exist for Binance CEX."
+  },
+  {
+    "rank": 2,
+    "name": "OKX",
+    "slug": "okx",
+    "category": "CEX",
+    "tvl_usd": 21836368476,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (reserve wallets). No protocol contracts to index; no public indexer."
+  },
+  {
+    "rank": 3,
+    "name": "Bitfinex",
+    "slug": "bitfinex",
+    "category": "CEX",
+    "tvl_usd": 16720363265,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (reserve wallets). No public subgraph/indexer."
+  },
+  {
+    "rank": 4,
+    "name": "Lido",
+    "slug": "lido",
+    "category": "Liquid Staking",
+    "tvl_usd": 14888940351,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/lidofinance/lido-subgraph",
+        "type": "subgraph",
+        "scope": "Lido stETH/wstETH staking on Ethereum mainnet (Lido.ts mappings, rewards, transfers)",
+        "maintained": "stale",
+        "verified": "Official lidofinance org repo; contains src/Lido.ts mappings and README documenting The Graph deployment for Lido contracts. Hosted-service era repo, now lower activity but source is public and indexes Lido."
+      }
+    ],
+    "notes": "Official subgraph under lidofinance org. Also deployed on The Graph decentralized network (id HXfMc1jPHfFQoccWd7VMv66km75FoxVHDMvsJj5vG5vf)."
+  },
+  {
+    "rank": 5,
+    "name": "Bybit",
+    "slug": "bybit",
+    "category": "CEX",
+    "tvl_usd": 13917752883,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (reserve wallets). No public subgraph/indexer."
+  },
+  {
+    "rank": 6,
+    "name": "SSV Network",
+    "slug": "ssv-network",
+    "category": "Staking Pool",
+    "tvl_usd": 12290471373,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/ssvlabs/ssv-subgraph",
+        "type": "subgraph",
+        "scope": "SSVNetwork smart contract events on Ethereum (validators, clusters, operators)",
+        "maintained": "active",
+        "verified": "Official ssvlabs org repo. Contains subgraph.yaml, schema.graphql, abis/SSVNetwork.json. Latest release v2.0.11 (Apr 2026), 223 commits. Indexes SSVNetwork contract events."
+      }
+    ],
+    "notes": "Official subgraph indexing the SSVNetwork contract; deployed on The Graph Studio."
+  },
+  {
+    "rank": 7,
+    "name": "Aave V3",
+    "slug": "aave-v3",
+    "category": "Lending",
+    "tvl_usd": 11796539687,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/aave/protocol-subgraphs",
+        "type": "subgraph",
+        "scope": "Aave V3 (and V2) across 20+ networks: ETH mainnet, Polygon, Avalanche, Arbitrum, Optimism, Base, Scroll, zkSync, Linea, Sonic, etc.",
+        "maintained": "active",
+        "verified": "Official aave org repo. Contains templates/v3.subgraph.template.yaml, schema.graphql, src mappings, abis, multi-network config. 279 commits with recent V3 network additions."
+      }
+    ],
+    "notes": "Official Aave protocol subgraphs repo with dedicated V3 templates and active multi-chain V3 deployments."
+  },
+  {
+    "rank": 8,
+    "name": "Robinhood",
+    "slug": "robinhood",
+    "category": "CEX",
+    "tvl_usd": 11284117749,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized brokerage/exchange (reserve wallets). Robinhood GitHub orgs host non-indexing repos; no public subgraph/indexer for the protocol TVL."
+  },
+  {
+    "rank": 9,
+    "name": "LayerZero V2",
+    "slug": "layerzero-v2",
+    "category": "Bridge",
+    "tvl_usd": 7554765056,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Omnichain messaging protocol. LayerZero-Labs publishes protocol/devtools contracts (LayerZero-v2, devtools) but no public subgraph/indexer for endpoint TVL was found; analytics served via the closed LayerZero Scan API. Community Python Scan wrapper exists but is not an indexer of the protocol."
+  },
+  {
+    "rank": 10,
+    "name": "WBTC",
+    "slug": "wbtc",
+    "category": "Bridge",
+    "tvl_usd": 7267773198,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Custodial wrapped-BTC token (BitGo). Only a community proof-of-concept subgraph exists (ssilvajb/subgraph-wbtc); no official WBTC indexer. WrappedBTC org hosts DAO/website repos only."
+  },
+  {
+    "rank": 11,
+    "name": "Morpho Blue",
+    "slug": "morpho-blue",
+    "category": "Lending",
+    "tvl_usd": 6662455903,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/morpho-org/morpho-blue-subgraph",
+        "type": "subgraph",
+        "scope": "Morpho Blue markets + MetaMorpho vaults (Messari Lending schema), Ethereum mainnet",
+        "maintained": "archived",
+        "verified": "Official morpho-org repo. Contains subgraph.yaml, schema.graphql, abis, src TS mappings; indexes all Morpho Blue markets with Chainlink price mapping. Archived/read-only as of Apr 2026."
+      },
+      {
+        "url": "https://github.com/morpho-org/blue-points-subgraph",
+        "type": "subgraph",
+        "scope": "Morpho Blue markets & MetaMorpho vault user positions/points",
+        "maintained": "active",
+        "verified": "Official morpho-org repo with releases; tracks user proportions across Morpho Blue markets and vaults."
+      }
+    ],
+    "notes": "Official morpho-org subgraphs. The flagship morpho-blue-subgraph was archived Apr 2026; blue-points-subgraph and positions-indexer-subgraph remain available. Docs page (docs.morpho.org/tools/offchain/subgraphs) blocked 403 but repos verified directly."
+  },
+  {
+    "rank": 12,
+    "name": "Binance staked ETH",
+    "slug": "binance-staked-eth",
+    "category": "Liquid Staking",
+    "tvl_usd": 6178302715,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "WBETH is a custodial Binance liquid-staking wrapper (contract 0xa2E3356...E2e1). No official or community public subgraph/indexer found; rebasing/value handled off-chain by Binance."
+  },
+  {
+    "rank": 13,
+    "name": "Sky Lending",
+    "slug": "sky-lending",
+    "category": "CDP",
+    "tvl_usd": 5824538417,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/messari/subgraphs/tree/master/subgraphs/makerdao",
+        "type": "subgraph",
+        "scope": "MakerDAO/MCD (now Sky) CDP vaults: Vat.frob LogNote events tracking collateral (ink/dink) and debt (art/dart), DAI",
+        "maintained": "unknown",
+        "verified": "Messari standardized lending subgraph. Contains schema.graphql, src mappings, abis, protocols/makerdao/config; README documents indexing the MCD Vat contract. Sky Lending is the rebrand of MakerDAO MCD, indexed by this subgraph."
+      }
+    ],
+    "notes": "No dedicated official Sky/MakerDAO subgraph repo found under sky-ecosystem org (contracts only). Best public indexer is the Messari MakerDAO subgraph covering the same MCD/CDP system. protofire/makerdao-scd-subgraph covers legacy single-collateral DAI (out of scope for current Sky TVL)."
+  },
+  {
+    "rank": 14,
+    "name": "Hyperliquid Bridge",
+    "slug": "hyperliquid-bridge",
+    "category": "Bridge",
+    "tvl_usd": 5764509898,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Canonical USDC deposit bridge for the Hyperliquid L1. No dedicated public subgraph/indexer for the bridge contract; hyperliquid-dex publishes node/SDK and a HyperEVM block indexer example, not a bridge-TVL indexer."
+  },
+  {
+    "rank": 15,
+    "name": "Coinbase Bridge",
+    "slug": "coinbase-bridge",
+    "category": "Bridge",
+    "tvl_usd": 5468930155,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Custodial Coinbase reserve/bridge balances tracked off-chain. No public protocol subgraph/indexer."
+  },
+  {
+    "rank": 16,
+    "name": "MEXC",
+    "slug": "mexc",
+    "category": "CEX",
+    "tvl_usd": 4783328360,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (reserve wallets). No public subgraph/indexer."
+  },
+  {
+    "rank": 17,
+    "name": "EigenCloud",
+    "slug": "eigencloud",
+    "category": "Restaking",
+    "tvl_usd": 4653891850,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/Layr-Labs/sidecar",
+        "type": "custom",
+        "scope": "EigenLayer protocol state and rewards: indexes Ethereum blockchain data for staker/operator/AVS rewards and protocol state",
+        "maintained": "active",
+        "verified": "Official Layr-Labs repo. Go-based open-source verified indexer (Indexer + State Manager + Rewards Engine + API server). 1,412 commits, latest v4.1.0 (Mar 2026) across mainnet/testnet/preprod."
+      }
+    ],
+    "notes": "EigenCloud/EigenLayer (Layr-Labs). Official indexer is the Sidecar (custom Go indexer), not a subgraph. Actively maintained."
+  },
+  {
+    "rank": 18,
+    "name": "Ethena USDe",
+    "slug": "ethena-usde",
+    "category": "Basis Trading",
+    "tvl_usd": 4484434051,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "A deployed Ethena subgraph exists on The Graph decentralized network (id E11rAmbGfTfFSjvM6jpCB5TVCL3rBzr84ueShketo294, Arbitrum) and Goldsky has been used for USDe data, but no public source git repo could be verified. ethena-labs org publishes minting SDKs and ethena_sats_adapters (points adapters, RPC-based), not a public TVL subgraph/indexer. Marked false pending a verifiable public repo."
+  },
+  {
+    "rank": 19,
+    "name": "Gemini",
+    "slug": "gemini",
+    "category": "CEX",
+    "tvl_usd": 4445073418,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (reserve wallets). No public subgraph/indexer."
+  },
+  {
+    "rank": 20,
+    "name": "Bitget",
+    "slug": "bitget",
+    "category": "CEX",
+    "tvl_usd": 4436106027,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (reserve wallets). No public subgraph/indexer."
+  },
+  {
+    "rank": 21,
+    "name": "Binance Bitcoin",
+    "slug": "binance-bitcoin",
+    "category": "Bridge",
+    "tvl_usd": 4343609092,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Custodial Binance BTC-backed b-token reserves tracked off-chain. No public protocol subgraph/indexer."
+  },
+  {
+    "rank": 22,
+    "name": "Gate",
+    "slug": "gate",
+    "category": "CEX",
+    "tvl_usd": 4005163724,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (reserve wallets). No public subgraph/indexer."
+  },
+  {
+    "rank": 23,
+    "name": "HTX",
+    "slug": "htx",
+    "category": "CEX",
+    "tvl_usd": 3949750305,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange (reserve wallets). No public subgraph/indexer."
+  },
+  {
+    "rank": 24,
+    "name": "Deribit",
+    "slug": "deribit",
+    "category": "CEX",
+    "tvl_usd": 3886893884,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized derivatives exchange (reserve wallets). No public subgraph/indexer."
+  },
+  {
+    "rank": 25,
+    "name": "USDT0",
+    "slug": "usdt0",
+    "category": "Bridge",
+    "tvl_usd": 3663321677,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/enviodev/usdt0-indexer",
+        "type": "custom",
+        "scope": "Cross-chain USDT0 (LayerZero OFT) transfers across HyperSync-supported networks",
+        "maintained": "active",
+        "verified": "Envio HyperIndex indexer. Contains config.yaml, schema.graphql, package.json, .env.example; indexes the USDT0 OFT contract for cross-chain transfers. Small repo (4 commits) but functional and on-point."
+      }
+    ],
+    "notes": "USDT0 is Everdawn Labs' LayerZero OFT-based omnichain USDT. No official Everdawn repo found; best public indexer is the Envio (enviodev) HyperIndex usdt0-indexer."
+  }
+]

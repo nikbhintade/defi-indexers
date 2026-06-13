@@ -1,0 +1,75 @@
+[
+  {
+    "rank": 26,
+    "name": "SparkLend",
+    "slug": "sparklend",
+    "category": "Lending",
+    "tvl_usd": 3331743145,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/aave/protocol-subgraphs",
+        "type": "subgraph",
+        "scope": "SparkLend is a direct Aave V3 fork (sparkdotfi/sparklend-v1-core forked from aave/aave-v3-core). The Aave V3 subgraph framework (factory/template) is the standard way SparkLend markets on Ethereum + Gnosis are indexed; community deployments of this template against the Spark Pool addresses serve the GraphQL endpoints referenced in Spark docs.",
+        "maintained": "active",
+        "verified": "Confirmed sparklend-v1-core README states 'core smart contracts of the Aave V3 protocol' (fork). No first-party Spark subgraph repo exists in github.com/sparkdotfi (checked org repo list); indexing relies on the Aave V3 subgraph template applied to Spark Pool addresses."
+      }
+    ],
+    "notes": "Aave V3 fork (MakerDAO/Sky subDAO) on Ethereum + Gnosis. No official Spark-owned subgraph repo; the sparkdotfi org has only contract/deployment/governance repos. Spark docs reference per-network subgraphs queried via The Graph; these are Aave-V3-template deployments. has_public_indexer=true via the reusable Aave V3 subgraph code."
+  },
+  {
+    "rank": 27,
+    "name": "Babylon Protocol",
+    "slug": "babylon-protocol",
+    "category": "Restaking",
+    "tvl_usd": 3279668461,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/babylonlabs-io/babylon-staking-indexer",
+        "type": "custom",
+        "scope": "Official Babylon BTC-staking indexer: syncs delegation and finality-provider events from both the Babylon chain (BBN) and Bitcoin, stores in MongoDB, feeds the staking API.",
+        "maintained": "active",
+        "verified": "WebFetched repo: Go (98.3%), 197 commits, 37 releases, latest v3.0.9 (2026-01-12). Description confirms it indexes Babylon BTC staking delegation + finality provider events. Official babylonlabs-io org."
+      },
+      {
+        "url": "https://github.com/babylonlabs-io/staking-api-service",
+        "type": "custom",
+        "scope": "Official API service consuming the staking-indexer's processed events (RabbitMQ queue + MongoDB) to serve staking data to the frontend.",
+        "maintained": "active",
+        "verified": "Found in babylonlabs-io org alongside the indexer; companion API layer to babylon-staking-indexer per Babylon docs."
+      }
+    ],
+    "notes": "Bitcoin staking protocol. Custom Go indexer rather than a subgraph (Bitcoin + Cosmos-SDK chain not EVM). Official, actively maintained."
+  },
+  {
+    "rank": 28,
+    "name": "BlackRock BUIDL",
+    "slug": "blackrock-buidl",
+    "category": "RWA",
+    "tvl_usd": 3025912949,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Tokenized money-market fund issued via Securitize (custodial, permissioned transfer-agent token). No public protocol indexer/subgraph; data lives with Securitize. Token transfers are visible on standard explorers but no dedicated public BUIDL indexer repo exists. Low-priority custodial RWA."
+  },
+  {
+    "rank": 29,
+    "name": "JustLend",
+    "slug": "justlend",
+    "category": "Lending",
+    "tvl_usd": 3020405810,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "TRON Compound-fork lending protocol. Open-sourced contracts (github.com/justlend/justlend-protocol, justlend-interface) but no public subgraph/indexer repo. TRON is not supported by The Graph hosted historically; recent Graph/Substreams TRON support is announced but no public JustLend-specific indexer repo found. Marked false (no verifiable public indexer repo)."
+  },
+  {
+    "rank": 30,
+    "name": "Circle USYC",
+    "slug": "circle-usyc",
+    "category": "RWA",
+    "tvl_usd": 3011968984,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Tokenized yield coin (formerly Hashnote USYC, now Circle). Custodial/permissioned RWA token. No public protocol subgraph/indexer repo. Low-priority custodial RWA."
+  }
+]
