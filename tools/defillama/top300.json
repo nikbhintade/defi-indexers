@@ -1,0 +1,5856 @@
+[
+  {
+    "rank": 1,
+    "name": "Binance CEX",
+    "slug": "binance-cex",
+    "tvl": 140023432060,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Binance",
+      "Solana",
+      "Ripple",
+      "Tron",
+      "Doge",
+      "Arbitrum",
+      "Base",
+      "Aptos",
+      "Plasma",
+      "Polygon",
+      "Near",
+      "Litecoin",
+      "Avalanche",
+      "TON",
+      "Hedera",
+      "Optimism",
+      "Sonic",
+      "Celo",
+      "Algorand",
+      "Stellar",
+      "Chiliz",
+      "Op_Bnb",
+      "Ronin",
+      "zkSync Era",
+      "Manta",
+      "Scroll",
+      "Starknet",
+      "Polkadot",
+      "Sui",
+      "Fantom"
+    ],
+    "url": "https://www.binance.com",
+    "github": [],
+    "twitter": "binance",
+    "oracles": []
+  },
+  {
+    "rank": 2,
+    "name": "OKX",
+    "slug": "okx",
+    "tvl": 21836368476,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Tron",
+      "Solana",
+      "Doge",
+      "Ripple",
+      "Litecoin",
+      "TON",
+      "Arbitrum",
+      "Linea",
+      "Aptos",
+      "Avalanche",
+      "Optimism",
+      "Base",
+      "zkSync Era",
+      "Scroll",
+      "Starknet",
+      "Polygon",
+      "Polkadot"
+    ],
+    "url": "https://www.okx.com",
+    "github": [],
+    "twitter": "okx",
+    "oracles": []
+  },
+  {
+    "rank": 3,
+    "name": "Bitfinex",
+    "slug": "bitfinex",
+    "tvl": 16720363265,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Tron",
+      "Solana",
+      "Avalanche",
+      "Near",
+      "Polygon",
+      "Litecoin",
+      "Tezos",
+      "Algorand",
+      "EOS",
+      "Cosmos",
+      "Aptos",
+      "Elrond",
+      "Cardano",
+      "EthereumClassic",
+      "Fantom",
+      "Doge",
+      "Zilliqa",
+      "Polkadot"
+    ],
+    "url": "https://www.bitfinex.com",
+    "github": [],
+    "twitter": "bitfinex",
+    "oracles": []
+  },
+  {
+    "rank": 4,
+    "name": "Lido",
+    "slug": "lido",
+    "tvl": 14888940351,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum",
+      "Solana",
+      "Moonbeam",
+      "Moonriver",
+      "Terra"
+    ],
+    "url": "https://lido.fi/",
+    "github": [
+      "lidofinance"
+    ],
+    "twitter": "LidoFinance",
+    "oracles": []
+  },
+  {
+    "rank": 5,
+    "name": "Bybit",
+    "slug": "bybit",
+    "tvl": 13917752883,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Tron",
+      "Solana",
+      "Mantle",
+      "Binance",
+      "Ripple",
+      "Avalanche",
+      "Arbitrum",
+      "Doge",
+      "Hyperliquid L1",
+      "Aptos",
+      "Sui",
+      "Polygon",
+      "Base",
+      "Optimism",
+      "Litecoin",
+      "Celo",
+      "Kava",
+      "Linea",
+      "zkSync Era",
+      "Klaytn",
+      "Sonic",
+      "TON",
+      "Cosmos",
+      "Plasma",
+      "Cardano",
+      "dYdX",
+      "Manta",
+      "Arbitrum Nova",
+      "EOS",
+      "Scroll",
+      "Starknet",
+      "Taiko",
+      "Fantom",
+      "Polkadot"
+    ],
+    "url": "https://www.bybit.com",
+    "github": [],
+    "twitter": "Bybit_Official",
+    "oracles": []
+  },
+  {
+    "rank": 6,
+    "name": "SSV Network",
+    "slug": "ssv-network",
+    "tvl": 12290471373,
+    "category": "Staking Pool",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://ssv.network/",
+    "github": [],
+    "twitter": "ssv_network",
+    "oracles": []
+  },
+  {
+    "rank": 7,
+    "name": "Aave V3",
+    "slug": "aave-v3",
+    "tvl": 11796539687,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "Plasma",
+      "Arbitrum",
+      "Base",
+      "Avalanche",
+      "Binance",
+      "Polygon",
+      "MegaETH",
+      "Mantle",
+      "X Layer",
+      "xDai",
+      "Optimism",
+      "Linea",
+      "Sonic",
+      "Celo",
+      "Scroll",
+      "zkSync Era",
+      "Metis",
+      "Soneium",
+      "Fantom",
+      "Harmony"
+    ],
+    "url": "https://aave.com",
+    "github": [],
+    "twitter": "aave",
+    "oracles": []
+  },
+  {
+    "rank": 8,
+    "name": "Robinhood",
+    "slug": "robinhood",
+    "tvl": 11284117749,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Polygon",
+      "Avalanche"
+    ],
+    "url": "https://robinhood.com",
+    "github": [
+      "robinhood"
+    ],
+    "twitter": "RobinhoodApp",
+    "oracles": []
+  },
+  {
+    "rank": 9,
+    "name": "LayerZero V2",
+    "slug": "layerzero-v2",
+    "tvl": 7554765056,
+    "category": "Bridge",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Arbitrum",
+      "Abstract",
+      "Polygon",
+      "Avalanche",
+      "Stable",
+      "Binance",
+      "Hemi",
+      "Plasma",
+      "Citrea",
+      "Hyperliquid L1",
+      "Flare",
+      "Fraxtal",
+      "Celo",
+      "Mantle",
+      "Berachain",
+      "Katana",
+      "Fantom",
+      "Optimism",
+      "Metis",
+      "zkSync Era",
+      "RSK",
+      "Astar",
+      "TAC",
+      "Peaq",
+      "Ink",
+      "Blast",
+      "Mode",
+      "Scroll",
+      "Nibiru",
+      "Monad",
+      "Sonic",
+      "xDai",
+      "X Layer",
+      "Plume Mainnet",
+      "Op_Bnb",
+      "Goat",
+      "World Chain",
+      "Harmony",
+      "Tempo",
+      "Lisk",
+      "MegaETH",
+      "Flow",
+      "Moonriver",
+      "Hedera",
+      "Morph",
+      "Taiko",
+      "XDC",
+      "Conflux",
+      "Unichain",
+      "Soneium",
+      "Manta",
+      "BOB",
+      "Swellchain",
+      "Sei",
+      "Linea",
+      "Kava",
+      "Canto",
+      "Klaytn"
+    ],
+    "url": "https://layerzero.network/",
+    "github": [],
+    "twitter": "LayerZero_Core",
+    "oracles": []
+  },
+  {
+    "rank": 10,
+    "name": "WBTC",
+    "slug": "wbtc",
+    "tvl": 7267773198,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://wbtc.network/",
+    "github": [
+      "WrappedBTC"
+    ],
+    "twitter": "WrappedBTC",
+    "oracles": []
+  },
+  {
+    "rank": 11,
+    "name": "Morpho Blue",
+    "slug": "morpho-blue",
+    "tvl": 6662455903,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Hyperliquid L1",
+      "Monad",
+      "Katana",
+      "Flare",
+      "Arbitrum",
+      "World Chain",
+      "Sei",
+      "Stable",
+      "Optimism",
+      "Plume Mainnet",
+      "Tempo",
+      "Citrea",
+      "Polygon",
+      "Etherlink",
+      "Hemi",
+      "Celo",
+      "TAC",
+      "Klaytn",
+      "Abstract",
+      "Lisk",
+      "Soneium",
+      "Scroll",
+      "Fraxtal",
+      "Corn",
+      "Sonic",
+      "Binance",
+      "0G",
+      "Botanix",
+      "Ink",
+      "Arc",
+      "Unichain",
+      "xDai",
+      "Zircuit",
+      "Bitlayer",
+      "Linea",
+      "Mode"
+    ],
+    "url": "https://app.morpho.org",
+    "github": [],
+    "twitter": "Morpho",
+    "oracles": []
+  },
+  {
+    "rank": 12,
+    "name": "Binance staked ETH",
+    "slug": "binance-staked-eth",
+    "tvl": 6178302715,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum",
+      "Binance"
+    ],
+    "url": "https://www.binance.com/en/wbeth",
+    "github": [],
+    "twitter": "binance",
+    "oracles": []
+  },
+  {
+    "rank": 13,
+    "name": "Sky Lending",
+    "slug": "sky-lending",
+    "tvl": 5824538417,
+    "category": "CDP",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://app.sky.money/",
+    "github": [],
+    "twitter": "SkyEcosystem",
+    "oracles": []
+  },
+  {
+    "rank": 14,
+    "name": "Hyperliquid Bridge",
+    "slug": "hyperliquid-bridge",
+    "tvl": 5764509898,
+    "category": "Bridge",
+    "chains": [
+      "Hyperliquid L1",
+      "Arbitrum"
+    ],
+    "url": "https://app.hyperliquid.xyz",
+    "github": [],
+    "twitter": "HyperliquidX",
+    "oracles": []
+  },
+  {
+    "rank": 15,
+    "name": "Coinbase Bridge",
+    "slug": "coinbase-bridge",
+    "tvl": 5468930155,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin",
+      "Ripple",
+      "Doge",
+      "Cardano",
+      "Litecoin"
+    ],
+    "url": "https://www.coinbase.com/",
+    "github": [],
+    "twitter": "coinbase",
+    "oracles": []
+  },
+  {
+    "rank": 16,
+    "name": "MEXC",
+    "slug": "mexc",
+    "tvl": 4783328360,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Solana",
+      "Tron",
+      "Binance",
+      "Ripple",
+      "Arbitrum",
+      "Aptos",
+      "TON",
+      "Avalanche",
+      "Base",
+      "Optimism",
+      "Polygon",
+      "Klaytn",
+      "Starknet"
+    ],
+    "url": "https://www.mexc.com",
+    "github": [],
+    "twitter": "MEXC_Official",
+    "oracles": []
+  },
+  {
+    "rank": 17,
+    "name": "EigenCloud",
+    "slug": "eigencloud",
+    "tvl": 4653891850,
+    "category": "Restaking",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.eigencloud.xyz",
+    "github": [
+      "Layr-Labs"
+    ],
+    "twitter": "eigencloud",
+    "oracles": []
+  },
+  {
+    "rank": 18,
+    "name": "Ethena USDe",
+    "slug": "ethena-usde",
+    "tvl": 4484434051,
+    "category": "Basis Trading",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.app.ethena.fi/join/3y20d",
+    "github": [],
+    "twitter": "ethena",
+    "oracles": []
+  },
+  {
+    "rank": 19,
+    "name": "Gemini",
+    "slug": "gemini",
+    "tvl": 4445073418,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum"
+    ],
+    "url": "https://www.gemini.com",
+    "github": [],
+    "twitter": "Gemini",
+    "oracles": []
+  },
+  {
+    "rank": 20,
+    "name": "Bitget",
+    "slug": "bitget",
+    "tvl": 4436106027,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Binance",
+      "Tron",
+      "Solana",
+      "Ripple",
+      "Arbitrum",
+      "Avalanche",
+      "Base",
+      "Polygon",
+      "Cardano",
+      "Optimism",
+      "Sonic",
+      "TON",
+      "Cronos",
+      "zkSync Era",
+      "Klaytn",
+      "Metis",
+      "Starknet",
+      "Sui",
+      "Fantom",
+      "Kava",
+      "Hyperliquid L1"
+    ],
+    "url": "https://www.bitget.com",
+    "github": [],
+    "twitter": "bitget",
+    "oracles": []
+  },
+  {
+    "rank": 21,
+    "name": "Binance Bitcoin",
+    "slug": "binance-bitcoin",
+    "tvl": 4343609092,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://www.binance.com/en/collateral-btokens",
+    "github": [],
+    "twitter": "binance",
+    "oracles": []
+  },
+  {
+    "rank": 22,
+    "name": "Gate",
+    "slug": "gate",
+    "tvl": 4005163724,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Solana",
+      "Binance",
+      "Doge",
+      "Tron",
+      "Base",
+      "Ripple",
+      "Sui",
+      "Litecoin",
+      "Optimism",
+      "Celo",
+      "Arbitrum",
+      "Avalanche",
+      "EthereumClassic",
+      "Manta",
+      "Klaytn",
+      "Cardano",
+      "Linea",
+      "Polygon",
+      "zkSync Era",
+      "XDC",
+      "Cronos",
+      "WEMIX",
+      "Terra",
+      "Aptos",
+      "Algorand",
+      "Flare",
+      "VeChain",
+      "Celestia",
+      "Ergo",
+      "Mantle",
+      "Metis",
+      "EOS",
+      "dYdX",
+      "CORE",
+      "Scroll",
+      "Injective",
+      "Alephium",
+      "Stacks",
+      "Cosmos",
+      "Chiliz",
+      "LUKSO",
+      "X Layer",
+      "Starknet",
+      "Moonriver",
+      "RSK",
+      "Theta",
+      "Moonbeam",
+      "Osmosis",
+      "Op_Bnb",
+      "Harmony",
+      "Vana",
+      "Agoric",
+      "Shibarium",
+      "Ronin",
+      "Radix",
+      "Elrond",
+      "Acala",
+      "Tezos",
+      "IoTeX",
+      "Dymension",
+      "ApeChain",
+      "REI",
+      "ZetaChain",
+      "ThunderCore",
+      "XPLA",
+      "Aura Network",
+      "Oasys",
+      "Astar",
+      "Etherlink",
+      "Bitkub",
+      "Fuse",
+      "Merlin",
+      "Neon",
+      "BandChain",
+      "Bifrost",
+      "Bitlayer",
+      "Mode",
+      "Boba",
+      "Neutron",
+      "Blast",
+      "Matchain",
+      "Meter",
+      "Zircuit",
+      "zkLink",
+      "Aurora",
+      "Taiko",
+      "Arbitrum Nova",
+      "EnergyWeb",
+      "Polygon zkEVM",
+      "Fantom",
+      "BSquared",
+      "Bittorrent",
+      "AirDAO",
+      "EOS EVM",
+      "Kardia",
+      "Kroma",
+      "Fuel",
+      "HAQQ",
+      "Polkadot",
+      "OKExChain",
+      "Sei",
+      "Songbird",
+      "Umee",
+      "TomoChain",
+      "Bahamut"
+    ],
+    "url": "https://www.gate.com",
+    "github": [],
+    "twitter": "Gate",
+    "oracles": []
+  },
+  {
+    "rank": 23,
+    "name": "HTX",
+    "slug": "htx",
+    "tvl": 3949750305,
+    "category": "CEX",
+    "chains": [
+      "Tron",
+      "Bitcoin",
+      "Ethereum",
+      "Ripple",
+      "Doge",
+      "Solana",
+      "TON",
+      "Cardano",
+      "Litecoin",
+      "Binance",
+      "Arbitrum",
+      "Sui",
+      "Avalanche",
+      "CORE",
+      "EOS",
+      "Polygon",
+      "Starknet",
+      "Optimism",
+      "Algorand"
+    ],
+    "url": "https://www.htx.com/",
+    "github": [],
+    "twitter": "HuobiGlobal",
+    "oracles": []
+  },
+  {
+    "rank": 24,
+    "name": "Deribit",
+    "slug": "deribit",
+    "tvl": 3886893884,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Solana",
+      "Ripple",
+      "Binance",
+      "EthereumPoW"
+    ],
+    "url": "https://www.deribit.com",
+    "github": [],
+    "twitter": "DeribitExchange",
+    "oracles": []
+  },
+  {
+    "rank": 25,
+    "name": "USDT0",
+    "slug": "usdt0",
+    "tvl": 3663321677,
+    "category": "Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://usdt0.to",
+    "github": [],
+    "twitter": "USDT0_to",
+    "oracles": []
+  },
+  {
+    "rank": 26,
+    "name": "SparkLend",
+    "slug": "sparklend",
+    "tvl": 3331743145,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "xDai"
+    ],
+    "url": "https://app.spark.fi",
+    "github": [],
+    "twitter": "sparkdotfi",
+    "oracles": []
+  },
+  {
+    "rank": 27,
+    "name": "Babylon Protocol",
+    "slug": "babylon-protocol",
+    "tvl": 3279668461,
+    "category": "Restaking",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://babylonlabs.io",
+    "github": [],
+    "twitter": "babylonlabs_io",
+    "oracles": []
+  },
+  {
+    "rank": 28,
+    "name": "BlackRock BUIDL",
+    "slug": "blackrock-buidl",
+    "tvl": 3025912949,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Aptos",
+      "Solana",
+      "Avalanche",
+      "Binance",
+      "Optimism",
+      "Arbitrum",
+      "Polygon"
+    ],
+    "url": "https://securitize.io/",
+    "github": [],
+    "twitter": "BlackRock",
+    "oracles": []
+  },
+  {
+    "rank": 29,
+    "name": "JustLend",
+    "slug": "justlend",
+    "tvl": 3020405810,
+    "category": "Lending",
+    "chains": [
+      "Tron"
+    ],
+    "url": "https://justlend.just.network",
+    "github": [
+      "justlend"
+    ],
+    "twitter": "DeFi_JUST",
+    "oracles": []
+  },
+  {
+    "rank": 30,
+    "name": "Circle USYC",
+    "slug": "circle-usyc",
+    "tvl": 3011968984,
+    "category": "RWA",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Noble",
+      "Near"
+    ],
+    "url": "https://www.circle.com/usyc",
+    "github": [],
+    "twitter": "circle",
+    "oracles": []
+  },
+  {
+    "rank": 31,
+    "name": "Tether Gold",
+    "slug": "tether-gold",
+    "tvl": 2999237497,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Monad",
+      "Plasma",
+      "Avalanche",
+      "Arbitrum",
+      "Celo",
+      "Ink",
+      "Polygon"
+    ],
+    "url": "https://gold.tether.to/",
+    "github": [],
+    "twitter": "tethergold",
+    "oracles": []
+  },
+  {
+    "rank": 32,
+    "name": "ether.fi Stake",
+    "slug": "ether.fi-stake",
+    "tvl": 2786313259,
+    "category": "Liquid Restaking",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Arbitrum"
+    ],
+    "url": "https://www.ether.fi/refer/04bb2542",
+    "github": [],
+    "twitter": "ether_fi",
+    "oracles": []
+  },
+  {
+    "rank": 33,
+    "name": "Arbitrum Bridge",
+    "slug": "arbitrum-bridge",
+    "tvl": 2708416630,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://portal.arbitrum.io/bridge",
+    "github": [],
+    "twitter": "arbitrum",
+    "oracles": []
+  },
+  {
+    "rank": 34,
+    "name": "Ondo Yield Assets",
+    "slug": "ondo-yield-assets",
+    "tvl": 2641237835,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Stellar",
+      "Ripple",
+      "Sei",
+      "Solana",
+      "Mantle",
+      "Sui",
+      "Noble",
+      "Aptos",
+      "Arbitrum",
+      "Plume Mainnet",
+      "Polygon"
+    ],
+    "url": "https://ondo.finance",
+    "github": [],
+    "twitter": "OndoFinance",
+    "oracles": []
+  },
+  {
+    "rank": 35,
+    "name": "KuCoin",
+    "slug": "kucoin",
+    "tvl": 2436517623,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Solana",
+      "Tron",
+      "Ripple",
+      "Binance",
+      "Doge",
+      "Arbitrum",
+      "Avalanche",
+      "Cardano",
+      "Base",
+      "TON",
+      "Near",
+      "Optimism",
+      "Polygon",
+      "Aptos",
+      "Kucoin",
+      "Kava",
+      "EOS",
+      "Algorand",
+      "Starknet",
+      "Sui",
+      "Polkadot"
+    ],
+    "url": "https://www.kucoin.com",
+    "github": [],
+    "twitter": "kucoincom",
+    "oracles": []
+  },
+  {
+    "rank": 36,
+    "name": "Grove Finance",
+    "slug": "grove-finance",
+    "tvl": 2433893307,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ethereum",
+      "Avalanche",
+      "Base",
+      "Plume Mainnet"
+    ],
+    "url": "https://data.grove.finance/",
+    "github": [],
+    "twitter": "grovedotfinance",
+    "oracles": []
+  },
+  {
+    "rank": 37,
+    "name": "Base Bridge",
+    "slug": "base-bridge",
+    "tvl": 2359856862,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://docs.base.org/base-chain/network-information/bridges-mainnet",
+    "github": [],
+    "twitter": "BuildOnBase",
+    "oracles": []
+  },
+  {
+    "rank": 38,
+    "name": "Polygon Bridge",
+    "slug": "polygon-bridge",
+    "tvl": 2212248243,
+    "category": "Chain",
+    "chains": [
+      "Polygon"
+    ],
+    "url": "https://polygon.technology/",
+    "github": [],
+    "twitter": "0xPolygon",
+    "oracles": []
+  },
+  {
+    "rank": 39,
+    "name": "Spark Liquidity Layer",
+    "slug": "spark-liquidity-layer",
+    "tvl": 2182244119,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Optimism",
+      "Unichain",
+      "Arbitrum",
+      "Avalanche"
+    ],
+    "url": "https://app.spark.fi",
+    "github": [],
+    "twitter": "sparkdotfi",
+    "oracles": []
+  },
+  {
+    "rank": 40,
+    "name": "Portal",
+    "slug": "portal",
+    "tvl": 2142503761,
+    "category": "Bridge",
+    "chains": [
+      "Ethereum",
+      "Algorand",
+      "Binance",
+      "Solana",
+      "Polygon",
+      "Near",
+      "Base",
+      "Avalanche",
+      "Arbitrum",
+      "Sui",
+      "Aptos",
+      "Optimism",
+      "Moonbeam",
+      "Celo",
+      "Klaytn",
+      "Terra",
+      "Oasis",
+      "Aurora",
+      "Fantom",
+      "Karura",
+      "Acala",
+      "Terra2",
+      "Injective",
+      "XPLA"
+    ],
+    "url": "https://portalbridge.com",
+    "github": [
+      "wormhole-foundation"
+    ],
+    "twitter": "portalbridge_",
+    "oracles": []
+  },
+  {
+    "rank": 41,
+    "name": "Maple",
+    "slug": "maple",
+    "tvl": 2113486681,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "Solana"
+    ],
+    "url": "https://www.maple.finance",
+    "github": [],
+    "twitter": "maplefinance",
+    "oracles": []
+  },
+  {
+    "rank": 42,
+    "name": "Steakhouse Financial",
+    "slug": "steakhouse-financial",
+    "tvl": 2063867763,
+    "category": "Risk Curators",
+    "chains": [
+      "Base",
+      "Ethereum",
+      "Monad",
+      "Solana",
+      "Katana",
+      "Arbitrum",
+      "Polygon",
+      "Corn",
+      "Unichain"
+    ],
+    "url": "",
+    "github": [],
+    "twitter": "SteakhouseFi",
+    "oracles": []
+  },
+  {
+    "rank": 43,
+    "name": "Crypto-com",
+    "slug": "crypto-com",
+    "tvl": 2000975444,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Polygon",
+      "Binance",
+      "Avalanche",
+      "Arbitrum",
+      "Optimism",
+      "Fantom"
+    ],
+    "url": "https://crypto.com",
+    "github": [],
+    "twitter": "cryptocom",
+    "oracles": []
+  },
+  {
+    "rank": 44,
+    "name": "Sentora",
+    "slug": "sentora",
+    "tvl": 1966792870,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum",
+      "Ink",
+      "Solana"
+    ],
+    "url": "https://sentora.com/",
+    "github": [],
+    "twitter": "SentoraHQ",
+    "oracles": []
+  },
+  {
+    "rank": 45,
+    "name": "JustCryptos",
+    "slug": "justcryptos",
+    "tvl": 1936531708,
+    "category": "Bridge",
+    "chains": [
+      "Tron"
+    ],
+    "url": "https://just.network/token",
+    "github": [],
+    "twitter": "DeFi_JUST",
+    "oracles": []
+  },
+  {
+    "rank": 46,
+    "name": "Paxos Gold",
+    "slug": "paxos-gold",
+    "tvl": 1925034413,
+    "category": "RWA",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://paxos.com/paxgold/",
+    "github": [],
+    "twitter": "Paxos",
+    "oracles": []
+  },
+  {
+    "rank": 47,
+    "name": "Spark Savings",
+    "slug": "spark-savings",
+    "tvl": 1886801919,
+    "category": "Yield",
+    "chains": [
+      "Ethereum",
+      "Arbitrum",
+      "Avalanche",
+      "Base",
+      "Optimism",
+      "Unichain"
+    ],
+    "url": "https://data.spark.fi/savings/",
+    "github": [],
+    "twitter": "sparkdotfi",
+    "oracles": []
+  },
+  {
+    "rank": 48,
+    "name": "PancakeSwap AMM",
+    "slug": "pancakeswap-amm",
+    "tvl": 1799316723,
+    "category": "Dexs",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Aptos",
+      "zkSync Era",
+      "Base",
+      "Op_Bnb",
+      "Arbitrum",
+      "Linea",
+      "Polygon zkEVM",
+      "Monad"
+    ],
+    "url": "https://pancakeswap.finance/",
+    "github": [],
+    "twitter": "PancakeSwap",
+    "oracles": []
+  },
+  {
+    "rank": 49,
+    "name": "Figure Markets Exchange",
+    "slug": "figure-markets-exchange",
+    "tvl": 1672696415,
+    "category": "OTC Marketplace",
+    "chains": [
+      "Provenance"
+    ],
+    "url": "https://www.figuremarkets.com/crypto-exchange/",
+    "github": [],
+    "twitter": "figuremarkets",
+    "oracles": []
+  },
+  {
+    "rank": 50,
+    "name": "Centrifuge Protocol",
+    "slug": "centrifuge-protocol",
+    "tvl": 1633926321,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Avalanche",
+      "Base",
+      "Plume Mainnet",
+      "Pharos",
+      "Monad",
+      "Binance",
+      "Optimism",
+      "Arbitrum",
+      "Hyperliquid L1"
+    ],
+    "url": "https://centrifuge.io",
+    "github": [],
+    "twitter": "centrifuge",
+    "oracles": []
+  },
+  {
+    "rank": 51,
+    "name": "Gauntlet",
+    "slug": "gauntlet",
+    "tvl": 1462688957,
+    "category": "Risk Curators",
+    "chains": [
+      "Base",
+      "Binance",
+      "Ethereum",
+      "Stable",
+      "Katana",
+      "Solana",
+      "Arbitrum",
+      "Optimism",
+      "Hyperliquid L1",
+      "Unichain",
+      "Polygon",
+      "Tempo"
+    ],
+    "url": "https://www.gauntlet.xyz",
+    "github": [],
+    "twitter": "gauntlet_xyz",
+    "oracles": []
+  },
+  {
+    "rank": 52,
+    "name": "Uniswap V3",
+    "slug": "uniswap-v3",
+    "tvl": 1453187921,
+    "category": "Dexs",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Arbitrum",
+      "Binance",
+      "Polygon",
+      "X Layer",
+      "Plasma",
+      "Optimism",
+      "xDai",
+      "Celo",
+      "Avalanche",
+      "Unichain",
+      "RSK",
+      "Nibiru",
+      "Monad",
+      "World Chain",
+      "0G",
+      "XDC",
+      "Boba",
+      "zkSync Era",
+      "Filecoin",
+      "Mantle",
+      "Etherlink",
+      "Goat",
+      "BOB",
+      "Lens",
+      "Telos",
+      "Hemi",
+      "Sonic",
+      "Redbelly",
+      "Scroll",
+      "Linea",
+      "Sei",
+      "Blast",
+      "Taiko",
+      "Lisk",
+      "Polygon zkEVM",
+      "Moonbeam",
+      "Corn",
+      "Tempo",
+      "Manta",
+      "LightLink",
+      "Saga"
+    ],
+    "url": "https://app.uniswap.org/",
+    "github": [],
+    "twitter": "Uniswap",
+    "oracles": []
+  },
+  {
+    "rank": 53,
+    "name": "Curve DEX",
+    "slug": "curve-dex",
+    "tvl": 1439151293,
+    "category": "Dexs",
+    "chains": [
+      "Ethereum",
+      "Arbitrum",
+      "Fraxtal",
+      "Etherlink",
+      "Base",
+      "Monad",
+      "Polygon",
+      "Plasma",
+      "Avalanche",
+      "X Layer",
+      "Hyperliquid L1",
+      "TAC",
+      "Optimism",
+      "XDC",
+      "Binance",
+      "xDai",
+      "Fantom",
+      "Kava",
+      "Unichain",
+      "Celo",
+      "Taiko",
+      "Sonic",
+      "Aurora",
+      "Moonbeam",
+      "Plume Mainnet",
+      "Ink",
+      "Stable",
+      "Corn",
+      "Harmony",
+      "Mantle"
+    ],
+    "url": "https://curve.finance",
+    "github": [],
+    "twitter": "CurveFinance",
+    "oracles": []
+  },
+  {
+    "rank": 54,
+    "name": "HashKey Exchange",
+    "slug": "hashkey-exchange",
+    "tvl": 1312550561,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Tron",
+      "Solana",
+      "Doge",
+      "Aptos",
+      "Avalanche",
+      "TON",
+      "Litecoin",
+      "Arbitrum",
+      "Optimism",
+      "Polygon",
+      "Polkadot"
+    ],
+    "url": "https://www.hashkey.com",
+    "github": [],
+    "twitter": "HashKeyExchange",
+    "oracles": []
+  },
+  {
+    "rank": 55,
+    "name": "Falcon Finance",
+    "slug": "falcon-finance",
+    "tvl": 1296901716,
+    "category": "Basis Trading",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://app.falcon.finance",
+    "github": [],
+    "twitter": "falconstable",
+    "oracles": []
+  },
+  {
+    "rank": 56,
+    "name": "USDD",
+    "slug": "usdd",
+    "tvl": 1270978410,
+    "category": "CDP",
+    "chains": [
+      "Tron",
+      "Ethereum",
+      "Binance"
+    ],
+    "url": "https://usdd.io/",
+    "github": [],
+    "twitter": "usddio",
+    "oracles": []
+  },
+  {
+    "rank": 57,
+    "name": "CCIP",
+    "slug": "ccip",
+    "tvl": 1185665235,
+    "category": "Bridge",
+    "chains": [
+      "Ethereum",
+      "Avalanche",
+      "Base",
+      "Arbitrum",
+      "Ronin",
+      "Binance",
+      "BOB",
+      "Pharos",
+      "Optimism",
+      "World Chain",
+      "zkSync Era",
+      "Astar",
+      "Polygon",
+      "Linea",
+      "Sonic",
+      "0G",
+      "HashKey Chain",
+      "Shibarium"
+    ],
+    "url": "https://chain.link/cross-chain",
+    "github": [],
+    "twitter": "chainlink",
+    "oracles": []
+  },
+  {
+    "rank": 58,
+    "name": "Poloniex",
+    "slug": "poloniex",
+    "tvl": 1173023568,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Ripple",
+      "Tron",
+      "Stellar",
+      "EthereumClassic",
+      "Solana",
+      "Optimism",
+      "Cardano",
+      "Arbitrum",
+      "Polygon"
+    ],
+    "url": "https://www.poloniex.com/",
+    "github": [],
+    "twitter": "Poloniex",
+    "oracles": []
+  },
+  {
+    "rank": 59,
+    "name": "Bitkub",
+    "slug": "bitkub",
+    "tvl": 1169423409,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Ripple",
+      "Binance",
+      "Solana",
+      "Optimism",
+      "Cardano",
+      "Doge",
+      "Arbitrum",
+      "Tron",
+      "Avalanche",
+      "Polygon",
+      "Base",
+      "Algorand",
+      "Scroll",
+      "zkSync Era",
+      "CORE",
+      "Mantle",
+      "Aptos",
+      "Litecoin",
+      "TON",
+      "Fantom"
+    ],
+    "url": "https://www.bitkub.com/",
+    "github": [],
+    "twitter": "BitkubOfficial",
+    "oracles": []
+  },
+  {
+    "rank": 60,
+    "name": "Pendle",
+    "slug": "pendle",
+    "tvl": 1169172405,
+    "category": "Yield",
+    "chains": [
+      "Ethereum",
+      "Plasma",
+      "Arbitrum",
+      "Hyperliquid L1",
+      "Binance",
+      "Base",
+      "Sonic",
+      "Mantle",
+      "Avalanche",
+      "Optimism",
+      "Berachain"
+    ],
+    "url": "https://pendle.finance/",
+    "github": [
+      "pendle-finance"
+    ],
+    "twitter": "pendle_fi",
+    "oracles": []
+  },
+  {
+    "rank": 61,
+    "name": "Spiko",
+    "slug": "spiko",
+    "tvl": 1152018435,
+    "category": "RWA",
+    "chains": [
+      "Stellar",
+      "Arbitrum",
+      "Polygon",
+      "Ethereum",
+      "Base",
+      "Starknet",
+      "Etherlink"
+    ],
+    "url": "https://www.spiko.io/",
+    "github": [
+      "spiko-tech"
+    ],
+    "twitter": "Spiko_finance",
+    "oracles": []
+  },
+  {
+    "rank": 62,
+    "name": "Kamino Lend",
+    "slug": "kamino-lend",
+    "tvl": 1073506298,
+    "category": "Lending",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://kamino.com/",
+    "github": [],
+    "twitter": "Kamino",
+    "oracles": []
+  },
+  {
+    "rank": 63,
+    "name": "Ondo Global Markets",
+    "slug": "ondo-global-markets",
+    "tvl": 1058956754,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Binance",
+      "Solana"
+    ],
+    "url": "https://ondo.finance",
+    "github": [],
+    "twitter": "OndoFinance",
+    "oracles": []
+  },
+  {
+    "rank": 64,
+    "name": "Compound V3",
+    "slug": "compound-v3",
+    "tvl": 1056738880,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "Arbitrum",
+      "Base",
+      "Optimism",
+      "Polygon",
+      "Mantle",
+      "Unichain",
+      "Ronin",
+      "Scroll"
+    ],
+    "url": "https://v3-app.compound.finance/",
+    "github": [],
+    "twitter": "Compound_xyz",
+    "oracles": []
+  },
+  {
+    "rank": 65,
+    "name": "Venus Core Pool",
+    "slug": "venus-core-pool",
+    "tvl": 1048549226,
+    "category": "Lending",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Arbitrum",
+      "zkSync Era",
+      "Base",
+      "Unichain",
+      "Optimism",
+      "Op_Bnb"
+    ],
+    "url": "https://app.venus.io/#/core-pool",
+    "github": [],
+    "twitter": "VenusProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 66,
+    "name": "Veda",
+    "slug": "veda",
+    "tvl": 1040809482,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ink",
+      "Ethereum",
+      "Optimism",
+      "Hyperliquid L1",
+      "Plasma",
+      "Base",
+      "Arbitrum",
+      "Sonic",
+      "Berachain",
+      "Binance",
+      "BOB",
+      "Scroll"
+    ],
+    "url": "https://veda.tech",
+    "github": [
+      "Veda-Labs"
+    ],
+    "twitter": "veda_labs",
+    "oracles": []
+  },
+  {
+    "rank": 67,
+    "name": "Bitmex",
+    "slug": "bitmex",
+    "tvl": 1022215516,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Tron",
+      "Solana",
+      "Binance",
+      "Ripple"
+    ],
+    "url": "https://www.bitmex.com",
+    "github": [],
+    "twitter": "BitMEX",
+    "oracles": []
+  },
+  {
+    "rank": 68,
+    "name": "Sanctum Validator LSTs",
+    "slug": "sanctum-validator-lsts",
+    "tvl": 1014148801,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://www.sanctum.so",
+    "github": [],
+    "twitter": "sanctumso",
+    "oracles": []
+  },
+  {
+    "rank": 69,
+    "name": "Kelp",
+    "slug": "kelp",
+    "tvl": 983875037,
+    "category": "Liquid Restaking",
+    "chains": [
+      "Ethereum",
+      "Arbitrum",
+      "Optimism",
+      "Manta",
+      "Mode",
+      "Blast",
+      "Scroll",
+      "Base",
+      "Linea",
+      "X Layer",
+      "zkSync Era",
+      "Zircuit",
+      "Swellchain",
+      "Hemi",
+      "Berachain",
+      "Sonic"
+    ],
+    "url": "https://kelpdao.xyz/restake/?utm_source=0x798fF1e6D7AFd28c333eE6eBe03125d30ec6eF10",
+    "github": [],
+    "twitter": "KelpDAO",
+    "oracles": []
+  },
+  {
+    "rank": 70,
+    "name": "Blockchain Capital",
+    "slug": "blockchain-capital",
+    "tvl": 974631393,
+    "category": "RWA",
+    "chains": [
+      "zkSync Era"
+    ],
+    "url": "https://www.blockchaincapital.com/",
+    "github": [],
+    "twitter": "blockchaincap",
+    "oracles": []
+  },
+  {
+    "rank": 71,
+    "name": "Bitstamp",
+    "slug": "bitstamp",
+    "tvl": 928963357,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Ripple",
+      "Bitcoin",
+      "Litecoin",
+      "Solana",
+      "Avalanche",
+      "Near",
+      "Cardano",
+      "XDC",
+      "Sui"
+    ],
+    "url": "https://www.bitstamp.net",
+    "github": [],
+    "twitter": "Bitstamp",
+    "oracles": []
+  },
+  {
+    "rank": 72,
+    "name": "Ethena USDtb",
+    "slug": "ethena-usdtb",
+    "tvl": 915910122,
+    "category": "RWA",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://usdtb.money",
+    "github": [],
+    "twitter": "ethena",
+    "oracles": []
+  },
+  {
+    "rank": 73,
+    "name": "Kinetiq kHYPE",
+    "slug": "kinetiq-khype",
+    "tvl": 899691132,
+    "category": "Liquid Staking",
+    "chains": [
+      "Hyperliquid L1"
+    ],
+    "url": "https://kinetiq.xyz/stake",
+    "github": [],
+    "twitter": "kinetiq_xyz",
+    "oracles": []
+  },
+  {
+    "rank": 74,
+    "name": "Rocket Pool",
+    "slug": "rocket-pool",
+    "tvl": 894659095,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://rocketpool.net",
+    "github": [
+      "rocket-pool"
+    ],
+    "twitter": "Rocket_Pool",
+    "oracles": []
+  },
+  {
+    "rank": 75,
+    "name": "Jupiter Lend",
+    "slug": "jupiter-lend",
+    "tvl": 872860963,
+    "category": "Lending",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://jup.ag/?ref=f6y1ryr2snn3",
+    "github": [],
+    "twitter": "JupiterExchange",
+    "oracles": []
+  },
+  {
+    "rank": 76,
+    "name": "Anemoy Capital",
+    "slug": "anemoy-capital",
+    "tvl": 865800797,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Celo",
+      "Base"
+    ],
+    "url": "https://www.anemoy.io",
+    "github": [],
+    "twitter": "anemoycapital",
+    "oracles": []
+  },
+  {
+    "rank": 77,
+    "name": "WisdomTree",
+    "slug": "wisdomtree",
+    "tvl": 807649366,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Stellar"
+    ],
+    "url": "https://www.wisdomtreeprime.com/",
+    "github": [],
+    "twitter": "WisdomTreePrime",
+    "oracles": []
+  },
+  {
+    "rank": 78,
+    "name": "Raydium AMM",
+    "slug": "raydium-amm",
+    "tvl": 802653767,
+    "category": "Dexs",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://raydium.io",
+    "github": [],
+    "twitter": "RaydiumProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 79,
+    "name": "Concrete",
+    "slug": "concrete",
+    "tvl": 794402252,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ethereum",
+      "Stable",
+      "Berachain",
+      "Arbitrum",
+      "Katana"
+    ],
+    "url": "https://app.concrete.xyz",
+    "github": [],
+    "twitter": "ConcreteXYZ",
+    "oracles": []
+  },
+  {
+    "rank": 80,
+    "name": "SwissBorg",
+    "slug": "swissborg",
+    "tvl": 788142752,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Solana",
+      "Ripple",
+      "Binance",
+      "Hedera",
+      "Doge",
+      "Cardano",
+      "Avalanche",
+      "Near",
+      "Polygon",
+      "Optimism",
+      "Tron",
+      "Cosmos",
+      "Injective",
+      "Arbitrum",
+      "TON",
+      "Algorand",
+      "Sei",
+      "Stellar",
+      "Celestia",
+      "Sonic",
+      "Moonbeam",
+      "Berachain",
+      "xDai",
+      "Osmosis",
+      "Chiliz",
+      "Polkadot"
+    ],
+    "url": "https://swissborg.com",
+    "github": [],
+    "twitter": "swissborg",
+    "oracles": []
+  },
+  {
+    "rank": 81,
+    "name": "Invesco USTB",
+    "slug": "invesco-ustb",
+    "tvl": 753933591,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Plume Mainnet",
+      "Solana"
+    ],
+    "url": "https://superstate.com/",
+    "github": [],
+    "twitter": "superstatefunds",
+    "oracles": []
+  },
+  {
+    "rank": 82,
+    "name": "Binance Staked SOL",
+    "slug": "binance-staked-sol",
+    "tvl": 738670926,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://www.binance.com/en/solana-staking",
+    "github": [],
+    "twitter": "binance",
+    "oracles": []
+  },
+  {
+    "rank": 83,
+    "name": "Uniswap V2",
+    "slug": "uniswap-v2",
+    "tvl": 722946849,
+    "category": "Dexs",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Polygon",
+      "Arbitrum",
+      "Binance",
+      "Optimism",
+      "X Layer",
+      "Monad",
+      "Avalanche",
+      "Unichain",
+      "Tempo",
+      "Zora",
+      "Celo"
+    ],
+    "url": "https://app.uniswap.org/",
+    "github": [],
+    "twitter": "Uniswap",
+    "oracles": []
+  },
+  {
+    "rank": 84,
+    "name": "Function FBTC",
+    "slug": "function-fbtc",
+    "tvl": 679567877,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://www.fxn.xyz",
+    "github": [
+      "fbtc-xyz"
+    ],
+    "twitter": "FunctionBTC",
+    "oracles": []
+  },
+  {
+    "rank": 85,
+    "name": "Jupiter Perpetual Exchange",
+    "slug": "jupiter-perpetual-exchange",
+    "tvl": 662412854,
+    "category": "Derivatives",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://jup.ag/?ref=f6y1ryr2snn3",
+    "github": [],
+    "twitter": "JupiterExchange",
+    "oracles": [
+      "Chaos"
+    ]
+  },
+  {
+    "rank": 86,
+    "name": "Jito Liquid Staking",
+    "slug": "jito-liquid-staking",
+    "tvl": 656887174,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://jito.network",
+    "github": [],
+    "twitter": "jito_sol",
+    "oracles": []
+  },
+  {
+    "rank": 87,
+    "name": "Uniswap V4",
+    "slug": "uniswap-v4",
+    "tvl": 639074748,
+    "category": "Dexs",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Binance",
+      "Arbitrum",
+      "Polygon",
+      "Monad",
+      "Unichain",
+      "Soneium",
+      "Optimism",
+      "Avalanche",
+      "World Chain",
+      "X Layer",
+      "Tempo",
+      "Blast",
+      "Ink",
+      "Zora"
+    ],
+    "url": "https://app.uniswap.org/",
+    "github": [],
+    "twitter": "Uniswap",
+    "oracles": []
+  },
+  {
+    "rank": 88,
+    "name": "Lista Lending",
+    "slug": "lista-lending",
+    "tvl": 631716343,
+    "category": "Lending",
+    "chains": [
+      "Binance",
+      "Ethereum"
+    ],
+    "url": "https://lista.org/lending",
+    "github": [],
+    "twitter": "LISTA_DAO",
+    "oracles": []
+  },
+  {
+    "rank": 89,
+    "name": "StakeWise V2",
+    "slug": "stakewise-v2",
+    "tvl": 610270076,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum",
+      "xDai"
+    ],
+    "url": "https://stakewise.io/",
+    "github": [],
+    "twitter": "stakewise_io",
+    "oracles": []
+  },
+  {
+    "rank": 90,
+    "name": "Obol",
+    "slug": "obol",
+    "tvl": 592187521,
+    "category": "Staking Pool",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://obol.org/",
+    "github": [],
+    "twitter": "Obol_Collective",
+    "oracles": []
+  },
+  {
+    "rank": 91,
+    "name": "Fluid Lending",
+    "slug": "fluid-lending",
+    "tvl": 584801303,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "Plasma",
+      "Arbitrum",
+      "Base",
+      "Polygon"
+    ],
+    "url": "https://fluid.io/lending/1",
+    "github": [],
+    "twitter": "0xfluid",
+    "oracles": []
+  },
+  {
+    "rank": 92,
+    "name": "Optimism Bridge",
+    "slug": "optimism-bridge",
+    "tvl": 581865840,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "PGN"
+    ],
+    "url": "https://app.optimism.io/bridge/deposit",
+    "github": [],
+    "twitter": "optimismFND",
+    "oracles": []
+  },
+  {
+    "rank": 93,
+    "name": "Liquid Collective",
+    "slug": "liquid-collective",
+    "tvl": 581114099,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://liquidcollective.io",
+    "github": [],
+    "twitter": "liquid_col",
+    "oracles": [
+      "Internal"
+    ]
+  },
+  {
+    "rank": 94,
+    "name": "Lombard LBTC",
+    "slug": "lombard-lbtc",
+    "tvl": 568619543,
+    "category": "Restaked BTC",
+    "chains": [
+      "Bitcoin",
+      "Ethereum"
+    ],
+    "url": "https://www.lombard.finance/app/stake/?referrer=ssybnl",
+    "github": [],
+    "twitter": "Lombard_Finance",
+    "oracles": []
+  },
+  {
+    "rank": 95,
+    "name": "OSL HK",
+    "slug": "osl-hk",
+    "tvl": 567535279,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Solana",
+      "Ripple",
+      "Binance",
+      "Tron",
+      "Litecoin",
+      "Avalanche",
+      "Sei",
+      "Doge",
+      "TON",
+      "Polygon"
+    ],
+    "url": "https://www.osl.com/en",
+    "github": [],
+    "twitter": "OSL_HK",
+    "oracles": []
+  },
+  {
+    "rank": 96,
+    "name": "BingX",
+    "slug": "bingx",
+    "tvl": 562574043,
+    "category": "CEX",
+    "chains": [
+      "Tron",
+      "Bitcoin",
+      "Ethereum",
+      "Binance",
+      "Solana",
+      "TON",
+      "Ripple",
+      "Arbitrum"
+    ],
+    "url": "https://bingx.com",
+    "github": [],
+    "twitter": "BingXOfficial",
+    "oracles": []
+  },
+  {
+    "rank": 97,
+    "name": "Lista Liquid Staking",
+    "slug": "lista-liquid-staking",
+    "tvl": 548751487,
+    "category": "Liquid Staking",
+    "chains": [
+      "Binance"
+    ],
+    "url": "https://lista.org/",
+    "github": [],
+    "twitter": "LISTA_DAO",
+    "oracles": []
+  },
+  {
+    "rank": 98,
+    "name": "Aster Bridge",
+    "slug": "aster-bridge",
+    "tvl": 534448350,
+    "category": "Bridge",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Arbitrum",
+      "Solana",
+      "Scroll"
+    ],
+    "url": "https://www.asterdex.com",
+    "github": [],
+    "twitter": "Aster_DEX",
+    "oracles": []
+  },
+  {
+    "rank": 99,
+    "name": "Convex Finance",
+    "slug": "convex-finance",
+    "tvl": 521669624,
+    "category": "Yield",
+    "chains": [
+      "Ethereum",
+      "Fraxtal",
+      "Arbitrum",
+      "Polygon"
+    ],
+    "url": "https://www.convexfinance.com/",
+    "github": [
+      "convex-eth"
+    ],
+    "twitter": "ConvexFinance",
+    "oracles": []
+  },
+  {
+    "rank": 100,
+    "name": "Solstice",
+    "slug": "solstice",
+    "tvl": 507886086,
+    "category": "Basis Trading",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://solstice.finance/",
+    "github": [],
+    "twitter": "solsticefi",
+    "oracles": []
+  },
+  {
+    "rank": 101,
+    "name": "xStocks",
+    "slug": "xstocks",
+    "tvl": 500335538,
+    "category": "RWA",
+    "chains": [
+      "Solana",
+      "Arbitrum"
+    ],
+    "url": "https://defi.xstocks.fi",
+    "github": [],
+    "twitter": "xStocksFi",
+    "oracles": []
+  },
+  {
+    "rank": 102,
+    "name": "Lighter Bridge",
+    "slug": "lighter-bridge",
+    "tvl": 493984288,
+    "category": "Bridge",
+    "chains": [
+      "Ethereum",
+      "Arbitrum"
+    ],
+    "url": "https://app.lighter.xyz",
+    "github": [],
+    "twitter": "Lighter_xyz",
+    "oracles": []
+  },
+  {
+    "rank": 103,
+    "name": "Polymarket International",
+    "slug": "polymarket-international",
+    "tvl": 443353348,
+    "category": "Prediction Market",
+    "chains": [
+      "Polygon"
+    ],
+    "url": "https://polymarket.com",
+    "github": [],
+    "twitter": "Polymarket",
+    "oracles": [
+      "UMA"
+    ]
+  },
+  {
+    "rank": 104,
+    "name": "World Chain",
+    "slug": "world-chain",
+    "tvl": 443110740,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://world.org/",
+    "github": [],
+    "twitter": "worldcoin",
+    "oracles": []
+  },
+  {
+    "rank": 105,
+    "name": "Tornado Cash",
+    "slug": "tornado-cash",
+    "tvl": 430847825,
+    "category": "Privacy",
+    "chains": [
+      "Ethereum",
+      "Binance",
+      "Arbitrum",
+      "xDai",
+      "Avalanche",
+      "Polygon",
+      "EthereumClassic",
+      "Optimism"
+    ],
+    "url": "",
+    "github": [
+      "tornadocash"
+    ],
+    "twitter": "TornadoCash",
+    "oracles": []
+  },
+  {
+    "rank": 106,
+    "name": "Unit",
+    "slug": "unit",
+    "tvl": 421504388,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Solana",
+      "Plasma",
+      "Monad"
+    ],
+    "url": "https://hyperunit.xyz/deposit",
+    "github": [],
+    "twitter": "unitxyz",
+    "oracles": []
+  },
+  {
+    "rank": 107,
+    "name": "SolvBTC",
+    "slug": "solvbtc",
+    "tvl": 408816527,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin",
+      "Binance",
+      "Ethereum",
+      "Solana",
+      "Base",
+      "Arbitrum",
+      "X Layer",
+      "Mantle",
+      "Polygon",
+      "Merlin",
+      "Avalanche",
+      "BOB"
+    ],
+    "url": "https://app.solv.finance/solvbtc",
+    "github": [],
+    "twitter": "SolvProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 108,
+    "name": "Hastra",
+    "slug": "hastra",
+    "tvl": 408054148,
+    "category": "RWA",
+    "chains": [
+      "Solana",
+      "Ethereum"
+    ],
+    "url": "https://hastra.io/",
+    "github": [],
+    "twitter": "HastraFi",
+    "oracles": []
+  },
+  {
+    "rank": 109,
+    "name": "Indodax",
+    "slug": "indodax",
+    "tvl": 395784772,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Solana",
+      "Binance",
+      "Tron",
+      "Optimism",
+      "Cardano",
+      "Polygon",
+      "Base",
+      "Arbitrum",
+      "Litecoin",
+      "Stellar",
+      "Sui",
+      "Avalanche",
+      "Algorand",
+      "Linea",
+      "EOS"
+    ],
+    "url": "https://indodax.com/",
+    "github": [],
+    "twitter": "indodax",
+    "oracles": []
+  },
+  {
+    "rank": 110,
+    "name": "HyperLend Pooled",
+    "slug": "hyperlend-pooled",
+    "tvl": 394913572,
+    "category": "Lending",
+    "chains": [
+      "Hyperliquid L1"
+    ],
+    "url": "https://app.hyperlend.finance/?ref=DEFILLAMA",
+    "github": [],
+    "twitter": "hyperlendx",
+    "oracles": []
+  },
+  {
+    "rank": 111,
+    "name": "Korbit",
+    "slug": "korbit",
+    "tvl": 393867002,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Ripple"
+    ],
+    "url": "https://korbit.co.kr",
+    "github": [],
+    "twitter": "Korbit_exchange",
+    "oracles": []
+  },
+  {
+    "rank": 112,
+    "name": "Kraken Bitcoin",
+    "slug": "kraken-bitcoin",
+    "tvl": 388233071,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://www.kraken.com/kbtc",
+    "github": [],
+    "twitter": "krakenfx",
+    "oracles": []
+  },
+  {
+    "rank": 113,
+    "name": "Lorenzo enzoBTC",
+    "slug": "lorenzo-enzobtc",
+    "tvl": 382595509,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://www.lorenzo-protocol.xyz",
+    "github": [],
+    "twitter": "LorenzoProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 114,
+    "name": "Merlins Seal",
+    "slug": "merlins-seal",
+    "tvl": 380431989,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin",
+      "Arbitrum",
+      "Ethereum",
+      "Zkfair"
+    ],
+    "url": "https://merlinchain.io/bridge/staking",
+    "github": [],
+    "twitter": "MerlinLayer2",
+    "oracles": []
+  },
+  {
+    "rank": 115,
+    "name": "Jupiter Staked SOL",
+    "slug": "jupiter-staked-sol",
+    "tvl": 361931786,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://jup.ag/?ref=f6y1ryr2snn3",
+    "github": [],
+    "twitter": "JupiterExchange",
+    "oracles": []
+  },
+  {
+    "rank": 116,
+    "name": "mETH Protocol",
+    "slug": "meth-protocol",
+    "tvl": 357632822,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.methprotocol.xyz/",
+    "github": [],
+    "twitter": "mETHProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 117,
+    "name": "DoubleZero Staked SOL",
+    "slug": "doublezero-staked-sol",
+    "tvl": 349289042,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://doublezero.xyz/",
+    "github": [],
+    "twitter": "doublezero",
+    "oracles": []
+  },
+  {
+    "rank": 118,
+    "name": "Avalon USDa",
+    "slug": "avalon-usda",
+    "tvl": 346525943,
+    "category": "CDP",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Klaytn",
+      "Berachain",
+      "Sonic",
+      "Mantle"
+    ],
+    "url": "https://www.avalonfinance.xyz",
+    "github": [],
+    "twitter": "avalonfinance_",
+    "oracles": []
+  },
+  {
+    "rank": 119,
+    "name": "Backpack",
+    "slug": "backpack",
+    "tvl": 340136972,
+    "category": "CEX",
+    "chains": [
+      "Solana",
+      "Bitcoin",
+      "Hyperliquid L1",
+      "Ethereum",
+      "Arbitrum",
+      "Base",
+      "Aptos",
+      "Optimism",
+      "Ripple",
+      "Binance",
+      "Sei",
+      "Polygon",
+      "Monad",
+      "Sui",
+      "Tron",
+      "Doge",
+      "Plasma",
+      "Stable",
+      "Eclipse",
+      "Avalanche",
+      "Litecoin",
+      "Fogo"
+    ],
+    "url": "https://backpack.exchange",
+    "github": [],
+    "twitter": "Backpack",
+    "oracles": []
+  },
+  {
+    "rank": 120,
+    "name": "Symbiotic",
+    "slug": "symbiotic",
+    "tvl": 336483853,
+    "category": "Restaking",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://symbiotic.fi",
+    "github": [
+      "symbioticfi"
+    ],
+    "twitter": "symbioticfi",
+    "oracles": []
+  },
+  {
+    "rank": 121,
+    "name": "Lista CDP",
+    "slug": "lista-cdp",
+    "tvl": 336038924,
+    "category": "CDP",
+    "chains": [
+      "Binance"
+    ],
+    "url": "https://lista.org/",
+    "github": [],
+    "twitter": "LISTA_DAO",
+    "oracles": []
+  },
+  {
+    "rank": 122,
+    "name": "M0",
+    "slug": "m0",
+    "tvl": 331082388,
+    "category": "Stablecoin Issuer",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.m0.org/",
+    "github": [],
+    "twitter": "m0",
+    "oracles": []
+  },
+  {
+    "rank": 123,
+    "name": "tBTC",
+    "slug": "tbtc",
+    "tvl": 327670451,
+    "category": "Decentralized BTC",
+    "chains": [
+      "Bitcoin",
+      "Ethereum"
+    ],
+    "url": "https://threshold.network/",
+    "github": [],
+    "twitter": "TheTNetwork",
+    "oracles": []
+  },
+  {
+    "rank": 124,
+    "name": "Quickswap Dex",
+    "slug": "quickswap-dex",
+    "tvl": 325612610,
+    "category": "Dexs",
+    "chains": [
+      "Polygon",
+      "Base"
+    ],
+    "url": "https://quickswap.exchange/",
+    "github": [],
+    "twitter": "QuickswapDEX",
+    "oracles": []
+  },
+  {
+    "rank": 125,
+    "name": "Bitvavo",
+    "slug": "bitvavo",
+    "tvl": 324712620,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Solana",
+      "Hyperliquid L1",
+      "Base",
+      "Arbitrum",
+      "Plasma",
+      "Optimism",
+      "Linea",
+      "Sonic",
+      "zkSync Era",
+      "Binance"
+    ],
+    "url": "https://bitvavo.com/en",
+    "github": [],
+    "twitter": "bitvavocom",
+    "oracles": []
+  },
+  {
+    "rank": 126,
+    "name": "Hyperliquid HLP",
+    "slug": "hyperliquid-hlp",
+    "tvl": 310717542,
+    "category": "Derivatives",
+    "chains": [
+      "Hyperliquid L1"
+    ],
+    "url": "https://app.hyperliquid.xyz",
+    "github": [],
+    "twitter": "HyperliquidX",
+    "oracles": []
+  },
+  {
+    "rank": 127,
+    "name": "Lightning Network",
+    "slug": "lightning-network",
+    "tvl": 309119140,
+    "category": "Payments",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://lightning.network/",
+    "github": [],
+    "twitter": null,
+    "oracles": []
+  },
+  {
+    "rank": 128,
+    "name": "Nexo",
+    "slug": "nexo",
+    "tvl": 307307022,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Binance",
+      "Polygon",
+      "Avalanche",
+      "Arbitrum",
+      "Optimism",
+      "Fantom"
+    ],
+    "url": "https://nexo.com/",
+    "github": [],
+    "twitter": "Nexo",
+    "oracles": []
+  },
+  {
+    "rank": 129,
+    "name": "BounceBit CeDeFi Yield",
+    "slug": "bouncebit-cedefi-yield",
+    "tvl": 307251791,
+    "category": "Basis Trading",
+    "chains": [
+      "BounceBit",
+      "Binance",
+      "Ethereum",
+      "Base",
+      "Solana"
+    ],
+    "url": "https://portal.bouncebit.io/",
+    "github": [],
+    "twitter": "bounce_bit",
+    "oracles": []
+  },
+  {
+    "rank": 130,
+    "name": "Aave Horizon RWA",
+    "slug": "aave-horizon-rwa",
+    "tvl": 300693029,
+    "category": "RWA Lending",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://app.aave.com/markets/?marketName=proto_horizon_v3",
+    "github": [],
+    "twitter": "aave",
+    "oracles": []
+  },
+  {
+    "rank": 131,
+    "name": "PancakeSwap AMM V3",
+    "slug": "pancakeswap-amm-v3",
+    "tvl": 300021546,
+    "category": "Dexs",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Base",
+      "Solana",
+      "Arbitrum",
+      "Monad",
+      "zkSync Era",
+      "Linea",
+      "Polygon zkEVM",
+      "Op_Bnb"
+    ],
+    "url": "https://pancakeswap.finance/swap",
+    "github": [],
+    "twitter": "PancakeSwap",
+    "oracles": []
+  },
+  {
+    "rank": 132,
+    "name": "Phemex",
+    "slug": "phemex",
+    "tvl": 291406208,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Tron",
+      "Ripple",
+      "Solana",
+      "Binance",
+      "Avalanche",
+      "Arbitrum",
+      "Polygon",
+      "Base",
+      "Optimism",
+      "zkSync Era",
+      "Linea",
+      "Sui",
+      "Fantom",
+      "Polkadot"
+    ],
+    "url": "https://phemex.com",
+    "github": [],
+    "twitter": "Phemex_official",
+    "oracles": []
+  },
+  {
+    "rank": 133,
+    "name": "Linea Bridge",
+    "slug": "linea-bridge",
+    "tvl": 285046614,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://bridge.linea.build",
+    "github": [],
+    "twitter": "LineaBuild",
+    "oracles": []
+  },
+  {
+    "rank": 134,
+    "name": "Dswap",
+    "slug": "dswap",
+    "tvl": 284825107,
+    "category": "Dexs",
+    "chains": [
+      "ENI"
+    ],
+    "url": "https://daoaas.io/swap",
+    "github": [],
+    "twitter": "DAOaaS_Official",
+    "oracles": []
+  },
+  {
+    "rank": 135,
+    "name": "CIAN Yield Layer",
+    "slug": "cian-yield-layer",
+    "tvl": 278611131,
+    "category": "Yield Aggregator",
+    "chains": [
+      "Ethereum",
+      "Mantle",
+      "Arbitrum",
+      "Optimism",
+      "Base",
+      "Binance",
+      "Scroll"
+    ],
+    "url": "https://yieldlayer.cian.app/vaults/0xB13aa2d0345b0439b064f26B82D8dCf3f508775d?chainId=1&utm_source=TPFDZE",
+    "github": [],
+    "twitter": "CIAN_protocol",
+    "oracles": []
+  },
+  {
+    "rank": 136,
+    "name": "Euler V2",
+    "slug": "euler-v2",
+    "tvl": 269604680,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "Monad",
+      "Plasma",
+      "Base",
+      "Avalanche",
+      "BOB",
+      "Hyperliquid L1",
+      "Unichain",
+      "Arbitrum",
+      "Sonic",
+      "Binance",
+      "TAC",
+      "Berachain",
+      "Linea",
+      "Swellchain",
+      "Mantle"
+    ],
+    "url": "https://www.euler.finance",
+    "github": [],
+    "twitter": "eulerfinance",
+    "oracles": []
+  },
+  {
+    "rank": 137,
+    "name": "Free Protocol",
+    "slug": "free-protocol",
+    "tvl": 268006933,
+    "category": "Bridge",
+    "chains": [
+      "Merlin",
+      "Ethereum",
+      "Binance",
+      "Arbitrum",
+      "Manta",
+      "Kroma",
+      "Polygon",
+      "Hemi"
+    ],
+    "url": "",
+    "github": [],
+    "twitter": "FreeLayer2",
+    "oracles": []
+  },
+  {
+    "rank": 138,
+    "name": "Bedrock uniBTC",
+    "slug": "bedrock-unibtc",
+    "tvl": 267900038,
+    "category": "Anchor BTC",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Merlin",
+      "Binance",
+      "Mantle",
+      "Arbitrum",
+      "Berachain",
+      "Bitlayer",
+      "Base",
+      "BSquared",
+      "ZetaChain",
+      "Optimism",
+      "RSK",
+      "Mode",
+      "Hemi",
+      "TAC",
+      "Taiko",
+      "BOB"
+    ],
+    "url": "https://app.bedrock.technology/",
+    "github": [],
+    "twitter": "Bedrock_DeFi",
+    "oracles": []
+  },
+  {
+    "rank": 139,
+    "name": "Coinbase Wrapped Staked ETH",
+    "slug": "coinbase-wrapped-staked-eth",
+    "tvl": 262586799,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.coinbase.com/price/coinbase-wrapped-staked-eth",
+    "github": [
+      "coinbase"
+    ],
+    "twitter": "coinbase",
+    "oracles": []
+  },
+  {
+    "rank": 140,
+    "name": "Re",
+    "slug": "re",
+    "tvl": 255607713,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Avalanche",
+      "Arbitrum"
+    ],
+    "url": "https://app.re.xyz",
+    "github": [],
+    "twitter": "re",
+    "oracles": []
+  },
+  {
+    "rank": 141,
+    "name": "cap",
+    "slug": "cap",
+    "tvl": 250629746,
+    "category": "Lending",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://cap.app/",
+    "github": [
+      "cap-labs-dev"
+    ],
+    "twitter": "CapApp",
+    "oracles": []
+  },
+  {
+    "rank": 142,
+    "name": "xDAI Stake Bridge",
+    "slug": "xdai-stake-bridge",
+    "tvl": 250197865,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.gnosis.io/",
+    "github": [],
+    "twitter": "gnosischain",
+    "oracles": []
+  },
+  {
+    "rank": 143,
+    "name": "Orca DEX",
+    "slug": "orca-dex",
+    "tvl": 249452235,
+    "category": "Dexs",
+    "chains": [
+      "Solana",
+      "Eclipse"
+    ],
+    "url": "https://www.orca.so",
+    "github": [],
+    "twitter": "orca_so",
+    "oracles": []
+  },
+  {
+    "rank": 144,
+    "name": "Upshift",
+    "slug": "upshift",
+    "tvl": 244881030,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ethereum",
+      "Flare",
+      "Fluent",
+      "Monad",
+      "Hyperliquid L1",
+      "Stellar",
+      "Avalanche",
+      "Plasma",
+      "Mezo",
+      "Base",
+      "Binance",
+      "Sui",
+      "Ink"
+    ],
+    "url": "https://app.upshift.finance",
+    "github": [],
+    "twitter": "upshift_fi",
+    "oracles": []
+  },
+  {
+    "rank": 145,
+    "name": "Fluid DEX",
+    "slug": "fluid-dex",
+    "tvl": 236587858,
+    "category": "Dexs",
+    "chains": [
+      "Ethereum",
+      "Plasma",
+      "Arbitrum",
+      "Base",
+      "Polygon"
+    ],
+    "url": "https://fluid.io/stats/1/dex",
+    "github": [],
+    "twitter": "0xfluid",
+    "oracles": []
+  },
+  {
+    "rank": 146,
+    "name": "B2 Buzz",
+    "slug": "b2-buzz",
+    "tvl": 235573796,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Polygon",
+      "Binance"
+    ],
+    "url": "https://www.bsquared.network",
+    "github": [
+      "b2network"
+    ],
+    "twitter": "BSquaredNetwork",
+    "oracles": []
+  },
+  {
+    "rank": 147,
+    "name": "Stader",
+    "slug": "stader",
+    "tvl": 230305435,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum",
+      "Hedera",
+      "Binance",
+      "Fantom",
+      "Terra2",
+      "Near"
+    ],
+    "url": "https://staderlabs.com",
+    "github": [
+      "stader-labs"
+    ],
+    "twitter": "staderlabs",
+    "oracles": []
+  },
+  {
+    "rank": 148,
+    "name": "AFI Protocol",
+    "slug": "afi-protocol",
+    "tvl": 225351156,
+    "category": "Farm",
+    "chains": [
+      "Base",
+      "Ethereum",
+      "Monad"
+    ],
+    "url": "https://afiprotocol.xyz/",
+    "github": [
+      "Artificial-Financial-Intelligence"
+    ],
+    "twitter": "afiprotocol_xyz",
+    "oracles": []
+  },
+  {
+    "rank": 149,
+    "name": "BitFi Basis",
+    "slug": "bitfi-basis",
+    "tvl": 222826688,
+    "category": "Basis Trading",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Hemi",
+      "Base",
+      "CORE",
+      "Bitlayer"
+    ],
+    "url": "https://www.bitfi.one",
+    "github": [],
+    "twitter": "Bitfi_Org",
+    "oracles": []
+  },
+  {
+    "rank": 150,
+    "name": "GTBTC",
+    "slug": "gtbtc",
+    "tvl": 220391203,
+    "category": "Restaked BTC",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://www.gate.com/staking/BTC",
+    "github": [],
+    "twitter": "Gate",
+    "oracles": []
+  },
+  {
+    "rank": 151,
+    "name": "OpenEden TBILL",
+    "slug": "openeden-tbill",
+    "tvl": 216302044,
+    "category": "RWA",
+    "chains": [
+      "Binance",
+      "Ripple",
+      "Ethereum",
+      "Solana",
+      "Arbitrum"
+    ],
+    "url": "https://portal.openeden.com",
+    "github": [],
+    "twitter": "OpenEden_X",
+    "oracles": []
+  },
+  {
+    "rank": 152,
+    "name": "UniRouter",
+    "slug": "unirouter",
+    "tvl": 212587388,
+    "category": "Bridge",
+    "chains": [
+      "BSquared"
+    ],
+    "url": "https://www.unirouter.io",
+    "github": [
+      "UniRouter"
+    ],
+    "twitter": "UniRouterBTC",
+    "oracles": []
+  },
+  {
+    "rank": 153,
+    "name": "Bitwise USCC",
+    "slug": "bitwise-uscc",
+    "tvl": 208386862,
+    "category": "Basis Trading",
+    "chains": [
+      "Ethereum",
+      "Solana",
+      "Plume Mainnet"
+    ],
+    "url": "https://superstate.com/",
+    "github": [],
+    "twitter": "superstatefunds",
+    "oracles": []
+  },
+  {
+    "rank": 154,
+    "name": "SUNSwap V3",
+    "slug": "sunswap-v3",
+    "tvl": 208104775,
+    "category": "Dexs",
+    "chains": [
+      "Tron"
+    ],
+    "url": "https://sunswap.com/#/home",
+    "github": [],
+    "twitter": "OfficialSUNio",
+    "oracles": []
+  },
+  {
+    "rank": 155,
+    "name": "b14g",
+    "slug": "b14g",
+    "tvl": 207786158,
+    "category": "Restaking",
+    "chains": [
+      "Bitcoin",
+      "CORE",
+      "Babylon Genesis"
+    ],
+    "url": "https://www.b14g.xyz/",
+    "github": [
+      "b14glabs"
+    ],
+    "twitter": "b14g_network",
+    "oracles": []
+  },
+  {
+    "rank": 156,
+    "name": "K3 Capital",
+    "slug": "k3-capital",
+    "tvl": 207392375,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum",
+      "Monad",
+      "Avalanche",
+      "Plasma",
+      "Arbitrum",
+      "Binance",
+      "Unichain",
+      "BOB"
+    ],
+    "url": "https://k3.capital",
+    "github": [],
+    "twitter": "k3_capital",
+    "oracles": []
+  },
+  {
+    "rank": 157,
+    "name": "Saturn",
+    "slug": "saturn",
+    "tvl": 205225348,
+    "category": "Stablecoin Wrapper",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://app.saturn.credit/",
+    "github": [],
+    "twitter": "saturn_credit",
+    "oracles": []
+  },
+  {
+    "rank": 158,
+    "name": "Buzz Farming",
+    "slug": "buzz-farming",
+    "tvl": 205071695,
+    "category": "Farm",
+    "chains": [
+      "BSquared"
+    ],
+    "url": "https://buzz.bsquared.network/farming",
+    "github": [],
+    "twitter": "BSquaredNetwork",
+    "oracles": []
+  },
+  {
+    "rank": 159,
+    "name": "USD AI",
+    "slug": "usd-ai",
+    "tvl": 201155021,
+    "category": "RWA Lending",
+    "chains": [
+      "Arbitrum"
+    ],
+    "url": "https://usd.ai/",
+    "github": [],
+    "twitter": "USDai_Official",
+    "oracles": []
+  },
+  {
+    "rank": 160,
+    "name": "Defi Saver Asset Management",
+    "slug": "defi-saver-asset-management",
+    "tvl": 200992196,
+    "category": "CDP Manager",
+    "chains": [
+      "Ethereum",
+      "Arbitrum",
+      "Optimism",
+      "Base"
+    ],
+    "url": "https://defisaver.com/",
+    "github": [],
+    "twitter": "DefiSaver",
+    "oracles": []
+  },
+  {
+    "rank": 161,
+    "name": "PumpSwap",
+    "slug": "pumpswap",
+    "tvl": 199101178,
+    "category": "Dexs",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://swap.pump.fun",
+    "github": [],
+    "twitter": "Pumpfun",
+    "oracles": []
+  },
+  {
+    "rank": 162,
+    "name": "Bitunix",
+    "slug": "bitunix",
+    "tvl": 198188584,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Tron",
+      "Solana",
+      "Binance",
+      "Base",
+      "Arbitrum",
+      "Avalanche",
+      "Ripple",
+      "Litecoin",
+      "Polygon",
+      "TON",
+      "Cardano",
+      "Optimism"
+    ],
+    "url": "https://www.bitunix.com",
+    "github": [],
+    "twitter": "BitunixOfficial",
+    "oracles": []
+  },
+  {
+    "rank": 163,
+    "name": "Mantle Bridge",
+    "slug": "mantle-bridge",
+    "tvl": 196626904,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://app.mantle.xyz/bridge",
+    "github": [],
+    "twitter": "Mantle_Official",
+    "oracles": []
+  },
+  {
+    "rank": 164,
+    "name": "OnRe",
+    "slug": "onre",
+    "tvl": 193253451,
+    "category": "RWA",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://app.onre.finance",
+    "github": [
+      "onre-finance"
+    ],
+    "twitter": "onrefinance",
+    "oracles": []
+  },
+  {
+    "rank": 165,
+    "name": "Marinade Select",
+    "slug": "marinade-select",
+    "tvl": 192838397,
+    "category": "Staking Pool",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://app.marinade.finance/",
+    "github": [],
+    "twitter": "MarinadeFinance",
+    "oracles": []
+  },
+  {
+    "rank": 166,
+    "name": "Cooler Loans",
+    "slug": "cooler-loans",
+    "tvl": 191247035,
+    "category": "Lending",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://app.olympusdao.finance/#/lending/cooler",
+    "github": [],
+    "twitter": "OlympusDAO",
+    "oracles": []
+  },
+  {
+    "rank": 167,
+    "name": "FAssets",
+    "slug": "fassets",
+    "tvl": 190017705,
+    "category": "Bridge",
+    "chains": [
+      "Ripple",
+      "Flare"
+    ],
+    "url": "https://fassets.au.cc/",
+    "github": [],
+    "twitter": "FlareNetworks",
+    "oracles": []
+  },
+  {
+    "rank": 168,
+    "name": "Meteora DLMM",
+    "slug": "meteora-dlmm",
+    "tvl": 189813669,
+    "category": "Dexs",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://app.meteora.ag/",
+    "github": [],
+    "twitter": "MeteoraAG",
+    "oracles": []
+  },
+  {
+    "rank": 169,
+    "name": "WEEX",
+    "slug": "weex",
+    "tvl": 188735692,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Bitcoin",
+      "Tron",
+      "Binance",
+      "Solana",
+      "Optimism",
+      "Avalanche",
+      "Arbitrum",
+      "Base",
+      "Polygon",
+      "TON"
+    ],
+    "url": "https://www.weex.com/",
+    "github": [],
+    "twitter": "WEEX_Official",
+    "oracles": []
+  },
+  {
+    "rank": 170,
+    "name": "Drift Staked SOL",
+    "slug": "drift-staked-sol",
+    "tvl": 188214590,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://app.drift.trade",
+    "github": [],
+    "twitter": "DriftProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 171,
+    "name": "Stacks sBTC",
+    "slug": "stacks-sbtc",
+    "tvl": 188029041,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://docs.stacks.co/more-guides/sbtc",
+    "github": [],
+    "twitter": "Stacks",
+    "oracles": []
+  },
+  {
+    "rank": 172,
+    "name": "Nexus BTC",
+    "slug": "nexus-btc",
+    "tvl": 187456908,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://www.bit.com/",
+    "github": [],
+    "twitter": "Matrixport_EN",
+    "oracles": []
+  },
+  {
+    "rank": 173,
+    "name": "Pareto Credit",
+    "slug": "pareto-credit",
+    "tvl": 182788165,
+    "category": "RWA Lending",
+    "chains": [
+      "Ethereum",
+      "Polygon",
+      "Arbitrum",
+      "Optimism"
+    ],
+    "url": "https://pareto.credit/",
+    "github": [],
+    "twitter": "paretocredit",
+    "oracles": []
+  },
+  {
+    "rank": 174,
+    "name": "OpenTrade",
+    "slug": "opentrade",
+    "tvl": 182670326,
+    "category": "RWA",
+    "chains": [
+      "Avalanche",
+      "Ethereum",
+      "Plume Mainnet"
+    ],
+    "url": "https://www.opentrade.io",
+    "github": [],
+    "twitter": "opentrade_io",
+    "oracles": []
+  },
+  {
+    "rank": 175,
+    "name": "DigiFT",
+    "slug": "digift",
+    "tvl": 181526476,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Binance",
+      "Arbitrum",
+      "Plume Mainnet"
+    ],
+    "url": "https://www.digift.io/",
+    "github": [],
+    "twitter": "DigiFTTech",
+    "oracles": []
+  },
+  {
+    "rank": 176,
+    "name": "Starknet Bridge",
+    "slug": "starknet-bridge",
+    "tvl": 181125519,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://starkgate.starknet.io",
+    "github": [],
+    "twitter": "Starknet",
+    "oracles": []
+  },
+  {
+    "rank": 177,
+    "name": "Lombard BTC.b",
+    "slug": "lombard-btc.b",
+    "tvl": 178588715,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://www.lombard.finance/app/stake/?referrer=ssybnl",
+    "github": [],
+    "twitter": "Lombard_Finance",
+    "oracles": []
+  },
+  {
+    "rank": 178,
+    "name": "Hyperliquid Spot Orderbook",
+    "slug": "hyperliquid-spot-orderbook",
+    "tvl": 176897497,
+    "category": "Dexs",
+    "chains": [
+      "Hyperliquid L1"
+    ],
+    "url": "https://app.hyperliquid.xyz",
+    "github": [],
+    "twitter": "HyperliquidX",
+    "oracles": []
+  },
+  {
+    "rank": 179,
+    "name": "Benqi Staked Avax",
+    "slug": "benqi-staked-avax",
+    "tvl": 176427056,
+    "category": "Liquid Staking",
+    "chains": [
+      "Avalanche"
+    ],
+    "url": "https://app.benqi.fi/savax",
+    "github": [],
+    "twitter": "BenqiFinance",
+    "oracles": []
+  },
+  {
+    "rank": 180,
+    "name": "Marinade Native",
+    "slug": "marinade-native",
+    "tvl": 172994675,
+    "category": "Staking Pool",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://app.marinade.finance/",
+    "github": [],
+    "twitter": "MarinadeFinance",
+    "oracles": []
+  },
+  {
+    "rank": 181,
+    "name": "ether.fi Liquid",
+    "slug": "ether.fi-liquid",
+    "tvl": 172781834,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.ether.fi",
+    "github": [],
+    "twitter": "ether_fi",
+    "oracles": []
+  },
+  {
+    "rank": 182,
+    "name": "Marinade Liquid Staking",
+    "slug": "marinade-liquid-staking",
+    "tvl": 170888869,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://marinade.finance",
+    "github": [],
+    "twitter": "MarinadeFinance",
+    "oracles": []
+  },
+  {
+    "rank": 183,
+    "name": "Fraxtal",
+    "slug": "fraxtal",
+    "tvl": 167320174,
+    "category": "Chain",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://frax.com/",
+    "github": [],
+    "twitter": "fraxfinance",
+    "oracles": []
+  },
+  {
+    "rank": 184,
+    "name": "Huma Finance V2",
+    "slug": "huma-finance-v2",
+    "tvl": 162869924,
+    "category": "Yield",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://app.huma.finance",
+    "github": [
+      "00labs"
+    ],
+    "twitter": "humafinance",
+    "oracles": []
+  },
+  {
+    "rank": 185,
+    "name": "VALR",
+    "slug": "valr",
+    "tvl": 161299813,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Ripple",
+      "Tron",
+      "Avalanche",
+      "Solana",
+      "Binance"
+    ],
+    "url": "https://valr.com/",
+    "github": [],
+    "twitter": "VALRdotcom",
+    "oracles": []
+  },
+  {
+    "rank": 186,
+    "name": "GMX V2 Perps",
+    "slug": "gmx-v2-perps",
+    "tvl": 160946603,
+    "category": "Derivatives",
+    "chains": [
+      "Arbitrum",
+      "Avalanche",
+      "MegaETH",
+      "Botanix"
+    ],
+    "url": "https://gmx.io/#/?ref=defillama",
+    "github": [],
+    "twitter": "GMX_IO",
+    "oracles": []
+  },
+  {
+    "rank": 187,
+    "name": "Tonstakers LSD",
+    "slug": "tonstakers-lsd",
+    "tvl": 159800241,
+    "category": "Liquid Staking",
+    "chains": [
+      "TON"
+    ],
+    "url": "https://tonstakers.com",
+    "github": [],
+    "twitter": "tonstakers",
+    "oracles": []
+  },
+  {
+    "rank": 188,
+    "name": "Solv Basis Trading",
+    "slug": "solv-basis-trading",
+    "tvl": 159714433,
+    "category": "Basis Trading",
+    "chains": [
+      "Binance",
+      "Soneium",
+      "Arbitrum",
+      "Ethereum",
+      "Mantle",
+      "Polygon",
+      "Solana",
+      "Merlin"
+    ],
+    "url": "https://solv.finance/",
+    "github": [],
+    "twitter": "SolvProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 189,
+    "name": "Aerodrome Slipstream",
+    "slug": "aerodrome-slipstream",
+    "tvl": 159468730,
+    "category": "Dexs",
+    "chains": [
+      "Base"
+    ],
+    "url": "https://aerodrome.finance/",
+    "github": [],
+    "twitter": "aerodromefi",
+    "oracles": []
+  },
+  {
+    "rank": 190,
+    "name": "Noble",
+    "slug": "noble",
+    "tvl": 157156709,
+    "category": "Chain",
+    "chains": [
+      "Noble"
+    ],
+    "url": "https://www.noble.xyz",
+    "github": [
+      "noble-assets"
+    ],
+    "twitter": "noble_xyz",
+    "oracles": []
+  },
+  {
+    "rank": 191,
+    "name": "stHYPE",
+    "slug": "sthype",
+    "tvl": 157143075,
+    "category": "Liquid Staking",
+    "chains": [
+      "Hyperliquid L1"
+    ],
+    "url": "https://app.valantis.xyz",
+    "github": [],
+    "twitter": "stakedhype",
+    "oracles": []
+  },
+  {
+    "rank": 192,
+    "name": "RealT Tokens",
+    "slug": "realt-tokens",
+    "tvl": 156791072,
+    "category": "RWA",
+    "chains": [
+      "xDai"
+    ],
+    "url": "https://realt.co",
+    "github": [],
+    "twitter": "RealTPlatform",
+    "oracles": []
+  },
+  {
+    "rank": 193,
+    "name": "Lorenzo sUSD1+",
+    "slug": "lorenzo-susd1+",
+    "tvl": 156275228,
+    "category": "Yield",
+    "chains": [
+      "Binance",
+      "Ethereum"
+    ],
+    "url": "https://lorenzo-protocol.xyz/home",
+    "github": [],
+    "twitter": "LorenzoProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 194,
+    "name": "Yearn Finance",
+    "slug": "yearn-finance",
+    "tvl": 151466763,
+    "category": "Yield Aggregator",
+    "chains": [
+      "Ethereum",
+      "Katana",
+      "Base",
+      "Optimism",
+      "Polygon",
+      "Arbitrum",
+      "Fantom"
+    ],
+    "url": "https://yearn.fi/",
+    "github": [],
+    "twitter": "yearnfi",
+    "oracles": []
+  },
+  {
+    "rank": 195,
+    "name": "CoinEx",
+    "slug": "coinex",
+    "tvl": 150379938,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Tron",
+      "Starknet"
+    ],
+    "url": "https://www.coinex.com/en",
+    "github": [],
+    "twitter": "coinexcom",
+    "oracles": []
+  },
+  {
+    "rank": 196,
+    "name": "EtherFi Borrowing Market",
+    "slug": "etherfi-borrowing-market",
+    "tvl": 149942043,
+    "category": "Lending",
+    "chains": [
+      "Optimism",
+      "Scroll"
+    ],
+    "url": "https://www.ether.fi/refer/04bb2542",
+    "github": [],
+    "twitter": "ether_fi",
+    "oracles": []
+  },
+  {
+    "rank": 197,
+    "name": "Bitrue",
+    "slug": "bitrue",
+    "tvl": 149744746,
+    "category": "CEX",
+    "chains": [
+      "Ripple",
+      "Ethereum",
+      "Tron",
+      "Hedera",
+      "Solana",
+      "XDC",
+      "Binance",
+      "Bitcoin",
+      "Flare",
+      "Cosmos",
+      "Polygon",
+      "VeChain",
+      "Mantle",
+      "Cardano",
+      "Scroll",
+      "zkSync Era",
+      "Linea",
+      "CORE",
+      "Taiko",
+      "Sui",
+      "Polkadot"
+    ],
+    "url": "https://www.bitrue.com",
+    "github": [],
+    "twitter": "BitrueOfficial",
+    "oracles": []
+  },
+  {
+    "rank": 198,
+    "name": "PinkSale",
+    "slug": "pinksale",
+    "tvl": 148481673,
+    "category": "Launchpad",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Polygon",
+      "Cronos",
+      "Avalanche",
+      "Fantom"
+    ],
+    "url": "https://www.pinksale.finance",
+    "github": [],
+    "twitter": "pinkecosystem",
+    "oracles": []
+  },
+  {
+    "rank": 199,
+    "name": "KPK",
+    "slug": "kpk",
+    "tvl": 147628874,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum",
+      "xDai",
+      "Arbitrum",
+      "Binance",
+      "Base",
+      "Optimism",
+      "Polygon"
+    ],
+    "url": "https://kpk.io/",
+    "github": [
+      "karpatkey"
+    ],
+    "twitter": "kpk_io",
+    "oracles": []
+  },
+  {
+    "rank": 200,
+    "name": "Echo Bridge",
+    "slug": "echo-bridge",
+    "tvl": 143264755,
+    "category": "Bridge",
+    "chains": [
+      "BSquared",
+      "Bitcoin"
+    ],
+    "url": "https://www.echo-protocol.xyz",
+    "github": [],
+    "twitter": "EchoProtocol_",
+    "oracles": []
+  },
+  {
+    "rank": 201,
+    "name": "Axelar",
+    "slug": "axelar",
+    "tvl": 143159017,
+    "category": "Bridge",
+    "chains": [
+      "Ethereum",
+      "Binance",
+      "Ripple",
+      "Optimism",
+      "Fantom",
+      "Arbitrum",
+      "Polygon",
+      "Regen",
+      "Osmosis",
+      "Avalanche",
+      "Cosmos",
+      "Base",
+      "Stride",
+      "Celestia",
+      "Persistence",
+      "Agoric",
+      "Chihuahua",
+      "Secret",
+      "Sei",
+      "Stargaze",
+      "Juno",
+      "Mantle",
+      "XRPL EVM",
+      "Carbon",
+      "Umee",
+      "Blast",
+      "Evmos",
+      "Kujira",
+      "Migaloo",
+      "Archway",
+      "Dymension",
+      "Injective",
+      "Neutron",
+      "Terra2",
+      "XPLA",
+      "Aurora",
+      "Immutable zkEVM",
+      "Celo",
+      "Kava",
+      "Fraxtal",
+      "Linea",
+      "Scroll",
+      "Moonbeam",
+      "Filecoin"
+    ],
+    "url": "https://axelar.network",
+    "github": [],
+    "twitter": "axelar",
+    "oracles": []
+  },
+  {
+    "rank": 202,
+    "name": "Extended",
+    "slug": "extended",
+    "tvl": 140616286,
+    "category": "Derivatives",
+    "chains": [
+      "Starknet",
+      "Ethereum"
+    ],
+    "url": "https://app.extended.exchange",
+    "github": [],
+    "twitter": "extendedapp",
+    "oracles": []
+  },
+  {
+    "rank": 203,
+    "name": "Lagoon",
+    "slug": "lagoon",
+    "tvl": 139082256,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ethereum",
+      "Arbitrum",
+      "Base",
+      "TAC",
+      "Avalanche",
+      "Hyperliquid L1",
+      "Plasma",
+      "Linea",
+      "Monad",
+      "Optimism",
+      "Katana",
+      "Sonic",
+      "Mantle",
+      "Polygon",
+      "Berachain",
+      "World Chain",
+      "Unichain"
+    ],
+    "url": "https://lagoon.finance",
+    "github": [
+      "hopperlabsxyz"
+    ],
+    "twitter": "lagoon_finance",
+    "oracles": []
+  },
+  {
+    "rank": 204,
+    "name": "exSat Staking BTC",
+    "slug": "exsat-staking-btc",
+    "tvl": 139000737,
+    "category": "Bridge",
+    "chains": [
+      "Bitcoin"
+    ],
+    "url": "https://esbtc.exsat.network/",
+    "github": [],
+    "twitter": "exSatNetwork",
+    "oracles": []
+  },
+  {
+    "rank": 205,
+    "name": "CoinDCX",
+    "slug": "coindcx",
+    "tvl": 138563767,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Ripple",
+      "Cardano",
+      "Binance",
+      "Tron",
+      "Litecoin",
+      "Avalanche",
+      "Solana",
+      "Arbitrum",
+      "Polygon",
+      "Optimism",
+      "Fantom"
+    ],
+    "url": "https://coindcx.com",
+    "github": [],
+    "twitter": "CoinDCX",
+    "oracles": []
+  },
+  {
+    "rank": 206,
+    "name": "Sanctum Infinity",
+    "slug": "sanctum-infinity",
+    "tvl": 136113793,
+    "category": "Dexs",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://www.sanctum.so",
+    "github": [],
+    "twitter": "sanctumso",
+    "oracles": []
+  },
+  {
+    "rank": 207,
+    "name": "Telos Consilium",
+    "slug": "telos-consilium",
+    "tvl": 136007480,
+    "category": "Risk Curators",
+    "chains": [
+      "Plasma",
+      "Ethereum"
+    ],
+    "url": "https://telosc.com/",
+    "github": [],
+    "twitter": "TelosConsilium",
+    "oracles": []
+  },
+  {
+    "rank": 208,
+    "name": "Kamino Liquidity",
+    "slug": "kamino-liquidity",
+    "tvl": 134053488,
+    "category": "Liquidity Manager",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://kamino.com/liquidity",
+    "github": [],
+    "twitter": "Kamino",
+    "oracles": []
+  },
+  {
+    "rank": 209,
+    "name": "Dolomite",
+    "slug": "dolomite",
+    "tvl": 129380776,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "Berachain",
+      "Arbitrum",
+      "Mantle",
+      "Polygon zkEVM",
+      "Botanix",
+      "X Layer"
+    ],
+    "url": "https://dolomite.io",
+    "github": [
+      "dolomite-exchange"
+    ],
+    "twitter": "Dolomite_io",
+    "oracles": []
+  },
+  {
+    "rank": 210,
+    "name": "Clearstar",
+    "slug": "clearstar",
+    "tvl": 129131881,
+    "category": "Risk Curators",
+    "chains": [
+      "Flare",
+      "Base",
+      "Ethereum",
+      "Monad",
+      "Hyperliquid L1",
+      "Hemi",
+      "Starknet",
+      "Arbitrum",
+      "Katana",
+      "Unichain",
+      "Polygon"
+    ],
+    "url": "https://clearstar.xyz",
+    "github": [],
+    "twitter": "ClearstarLabs",
+    "oracles": []
+  },
+  {
+    "rank": 211,
+    "name": "Sky Money",
+    "slug": "sky-money",
+    "tvl": 126997258,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://app.sky.money/?network=ethereum&widget=vaults",
+    "github": [],
+    "twitter": "SkyMoney",
+    "oracles": []
+  },
+  {
+    "rank": 212,
+    "name": "Biconomy.com",
+    "slug": "biconomy.com",
+    "tvl": 126945477,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Polygon",
+      "Tron",
+      "Bitcoin"
+    ],
+    "url": "https://www.biconomy.com",
+    "github": [],
+    "twitter": "BiconomyCom",
+    "oracles": []
+  },
+  {
+    "rank": 213,
+    "name": "GAIB",
+    "slug": "gaib",
+    "tvl": 126484085,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Sei",
+      "Arbitrum",
+      "Binance",
+      "Base",
+      "Story"
+    ],
+    "url": "https://aid.gaib.ai",
+    "github": [
+      "gaib-ai"
+    ],
+    "twitter": "gaib_ai",
+    "oracles": []
+  },
+  {
+    "rank": 214,
+    "name": "NAVI Lending",
+    "slug": "navi-lending",
+    "tvl": 126025140,
+    "category": "Lending",
+    "chains": [
+      "Sui"
+    ],
+    "url": "https://www.naviprotocol.io/",
+    "github": [],
+    "twitter": "navi_protocol",
+    "oracles": [
+      "Supra",
+      "Pyth"
+    ]
+  },
+  {
+    "rank": 215,
+    "name": "Liquity V1",
+    "slug": "liquity-v1",
+    "tvl": 124541129,
+    "category": "CDP",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.liquity.org/",
+    "github": [],
+    "twitter": "LiquityProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 216,
+    "name": "EtherFi Cash Liquid",
+    "slug": "etherfi-cash-liquid",
+    "tvl": 123112188,
+    "category": "Crypto Card Issuer",
+    "chains": [
+      "Optimism",
+      "Scroll"
+    ],
+    "url": "https://www.ether.fi/refer/04bb2542",
+    "github": [],
+    "twitter": "ether_fi",
+    "oracles": []
+  },
+  {
+    "rank": 217,
+    "name": "Blend Pools V2",
+    "slug": "blend-pools-v2",
+    "tvl": 122614328,
+    "category": "Lending",
+    "chains": [
+      "Stellar"
+    ],
+    "url": "https://www.blend.capital",
+    "github": [],
+    "twitter": null,
+    "oracles": []
+  },
+  {
+    "rank": 218,
+    "name": "Yield Basis",
+    "slug": "yield-basis",
+    "tvl": 120697369,
+    "category": "Leveraged Farming",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://yieldbasis.com/",
+    "github": [],
+    "twitter": "yieldbasis",
+    "oracles": []
+  },
+  {
+    "rank": 219,
+    "name": "Aster asBNB",
+    "slug": "aster-asbnb",
+    "tvl": 119948183,
+    "category": "Yield",
+    "chains": [
+      "Binance"
+    ],
+    "url": "https://www.asterdex.com/en/earn",
+    "github": [],
+    "twitter": "Aster_DEX",
+    "oracles": []
+  },
+  {
+    "rank": 220,
+    "name": "Tectonic",
+    "slug": "tectonic",
+    "tvl": 118621976,
+    "category": "Lending",
+    "chains": [
+      "Cronos"
+    ],
+    "url": "https://tectonic.finance/",
+    "github": [],
+    "twitter": "TectonicFi",
+    "oracles": []
+  },
+  {
+    "rank": 221,
+    "name": "Fluid Lite",
+    "slug": "fluid-lite",
+    "tvl": 117626763,
+    "category": "Yield Aggregator",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://fluid.io/lite/1",
+    "github": [],
+    "twitter": "0xfluid",
+    "oracles": []
+  },
+  {
+    "rank": 222,
+    "name": "Aave V4",
+    "slug": "aave-v4",
+    "tvl": 116359606,
+    "category": "Lending",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://aave.com",
+    "github": [],
+    "twitter": "aave",
+    "oracles": []
+  },
+  {
+    "rank": 223,
+    "name": "Aster USDF",
+    "slug": "aster-usdf",
+    "tvl": 115278743,
+    "category": "Basis Trading",
+    "chains": [
+      "Binance"
+    ],
+    "url": "https://www.asterdex.com/en/usdf",
+    "github": [],
+    "twitter": "Aster_DEX",
+    "oracles": []
+  },
+  {
+    "rank": 224,
+    "name": "Theo Network thBill",
+    "slug": "theo-network-thbill",
+    "tvl": 114988762,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Arbitrum",
+      "Solana"
+    ],
+    "url": "https://app.theo.xyz/invite?invite=defillama",
+    "github": [],
+    "twitter": "Theo_Network",
+    "oracles": []
+  },
+  {
+    "rank": 225,
+    "name": "Aerodrome V1",
+    "slug": "aerodrome-v1",
+    "tvl": 114976602,
+    "category": "Dexs",
+    "chains": [
+      "Base"
+    ],
+    "url": "https://aerodrome.finance/",
+    "github": [],
+    "twitter": "aerodromefi",
+    "oracles": []
+  },
+  {
+    "rank": 226,
+    "name": "Stake DAO",
+    "slug": "stake-dao",
+    "tvl": 114429427,
+    "category": "Yield",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Arbitrum",
+      "Fraxtal",
+      "Polygon",
+      "Avalanche",
+      "Sonic",
+      "Optimism",
+      "xDai",
+      "Linea"
+    ],
+    "url": "https://stakedao.org/",
+    "github": [
+      "stake-dao"
+    ],
+    "twitter": "StakeDAOHQ",
+    "oracles": []
+  },
+  {
+    "rank": 227,
+    "name": "Avalanche Core Bridge",
+    "slug": "avalanche-core-bridge",
+    "tvl": 114177740,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum",
+      "Bitcoin"
+    ],
+    "url": "https://core.app/bridge/",
+    "github": [],
+    "twitter": "coreapp",
+    "oracles": []
+  },
+  {
+    "rank": 228,
+    "name": "Suilend",
+    "slug": "suilend",
+    "tvl": 111848032,
+    "category": "Lending",
+    "chains": [
+      "Sui"
+    ],
+    "url": "https://www.suilend.fi",
+    "github": [],
+    "twitter": "suilendprotocol",
+    "oracles": []
+  },
+  {
+    "rank": 229,
+    "name": "RAAC",
+    "slug": "raac",
+    "tvl": 111599495,
+    "category": "RWA",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://raac.io/",
+    "github": [],
+    "twitter": "Raacfi",
+    "oracles": []
+  },
+  {
+    "rank": 230,
+    "name": "Mantle Index Four Fund",
+    "slug": "mantle-index-four-fund",
+    "tvl": 110633192,
+    "category": "RWA",
+    "chains": [
+      "Mantle"
+    ],
+    "url": "https://securitize.io/primary-market/mantle-index-four-fund",
+    "github": [],
+    "twitter": "Mantle_Official",
+    "oracles": []
+  },
+  {
+    "rank": 231,
+    "name": "zkSync Era txBridge",
+    "slug": "zksync-era-txbridge",
+    "tvl": 110422321,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "",
+    "github": [],
+    "twitter": "txSync_io",
+    "oracles": []
+  },
+  {
+    "rank": 232,
+    "name": "Beefy",
+    "slug": "beefy",
+    "tvl": 110346069,
+    "category": "Yield Aggregator",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Arbitrum",
+      "Binance",
+      "Fraxtal",
+      "Polygon",
+      "Optimism",
+      "Fantom",
+      "Avalanche",
+      "Monad",
+      "Cronos",
+      "Plasma",
+      "Hyperliquid L1",
+      "Sonic",
+      "Metis",
+      "MegaETH",
+      "Linea",
+      "zkSync Era",
+      "RSK",
+      "Lisk",
+      "xDai",
+      "Sei",
+      "Berachain",
+      "Harmony",
+      "Kava",
+      "Mantle",
+      "Moonbeam",
+      "Aurora",
+      "Moonriver",
+      "Celo",
+      "Fuse",
+      "Mode",
+      "Oasis",
+      "Manta",
+      "Scroll",
+      "Heco",
+      "Saga",
+      "Canto",
+      "re.al",
+      "Polygon zkEVM"
+    ],
+    "url": "https://beefy.com",
+    "github": [
+      "beefyfinance"
+    ],
+    "twitter": "beefyfinance",
+    "oracles": []
+  },
+  {
+    "rank": 233,
+    "name": "Homora V2",
+    "slug": "homora-v2",
+    "tvl": 110273717,
+    "category": "Leveraged Farming",
+    "chains": [
+      "Ethereum",
+      "Binance",
+      "Avalanche",
+      "Fantom",
+      "Optimism"
+    ],
+    "url": "https://homora-v2.alphaventuredao.io/",
+    "github": [],
+    "twitter": "Alpha_HomoraV2",
+    "oracles": [
+      "Band",
+      "Chainlink"
+    ]
+  },
+  {
+    "rank": 234,
+    "name": "Derive V2",
+    "slug": "derive-v2",
+    "tvl": 110126181,
+    "category": "Derivatives",
+    "chains": [
+      "Hyperliquid L1",
+      "Optimism",
+      "Arbitrum",
+      "Base",
+      "Ethereum",
+      "Blast",
+      "Mode"
+    ],
+    "url": "https://app.derive.xyz",
+    "github": [],
+    "twitter": "derivexyz",
+    "oracles": []
+  },
+  {
+    "rank": 235,
+    "name": "Doppler Finance",
+    "slug": "doppler-finance",
+    "tvl": 109889741,
+    "category": "CeDeFi",
+    "chains": [
+      "Ripple",
+      "Ethereum"
+    ],
+    "url": "https://app.doppler.finance",
+    "github": [
+      "girin-app"
+    ],
+    "twitter": "doppler_fi",
+    "oracles": []
+  },
+  {
+    "rank": 236,
+    "name": "Hyperithm",
+    "slug": "hyperithm",
+    "tvl": 108988406,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum",
+      "Monad",
+      "Solana",
+      "Arbitrum",
+      "Plasma",
+      "Stable",
+      "Hyperliquid L1",
+      "Katana",
+      "XRPL EVM",
+      "Binance"
+    ],
+    "url": "https://www.hyperithm.com",
+    "github": [],
+    "twitter": "hyperithm",
+    "oracles": []
+  },
+  {
+    "rank": 237,
+    "name": "Aave V2",
+    "slug": "aave-v2",
+    "tvl": 107674077,
+    "category": "Lending",
+    "chains": [
+      "Ethereum",
+      "Polygon",
+      "Avalanche"
+    ],
+    "url": "https://aave.com",
+    "github": [],
+    "twitter": "aave",
+    "oracles": []
+  },
+  {
+    "rank": 238,
+    "name": "UNCX Network V2",
+    "slug": "uncx-network-v2",
+    "tvl": 106551151,
+    "category": "Token Locker",
+    "chains": [
+      "Ethereum",
+      "Binance",
+      "Base",
+      "Polygon",
+      "Arbitrum",
+      "Avalanche",
+      "xDai"
+    ],
+    "url": "https://uncx.network/",
+    "github": [],
+    "twitter": "UNCX_token",
+    "oracles": []
+  },
+  {
+    "rank": 239,
+    "name": "edgeX Bridge",
+    "slug": "edgex-bridge",
+    "tvl": 106175359,
+    "category": "Bridge",
+    "chains": [
+      "Ethereum",
+      "edgeX L1",
+      "Arbitrum",
+      "Binance"
+    ],
+    "url": "https://pro.edgex.exchange",
+    "github": [],
+    "twitter": "edgeX_exchange",
+    "oracles": []
+  },
+  {
+    "rank": 240,
+    "name": "BloFin",
+    "slug": "blofin",
+    "tvl": 106083489,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Tron",
+      "Bitcoin",
+      "Solana",
+      "Ripple",
+      "Binance",
+      "Arbitrum",
+      "Optimism",
+      "Base",
+      "Polygon",
+      "Avalanche",
+      "Aptos",
+      "Cardano",
+      "Litecoin",
+      "Hyperliquid L1",
+      "Doge",
+      "Sonic",
+      "TON",
+      "Mantle",
+      "Berachain",
+      "Algorand"
+    ],
+    "url": "https://blofin.com",
+    "github": [],
+    "twitter": "BloFin_Official",
+    "oracles": []
+  },
+  {
+    "rank": 241,
+    "name": "Mellow Core",
+    "slug": "mellow-core",
+    "tvl": 105505064,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ethereum",
+      "RSK",
+      "Monad",
+      "Mezo"
+    ],
+    "url": "https://app.mellow.finance/vaults",
+    "github": [],
+    "twitter": "mellowprotocol",
+    "oracles": []
+  },
+  {
+    "rank": 242,
+    "name": "Midas RWA",
+    "slug": "midas-rwa",
+    "tvl": 105339770,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Plasma",
+      "Monad",
+      "Arbitrum",
+      "Hyperliquid L1",
+      "Etherlink",
+      "Base",
+      "Plume Mainnet",
+      "RSK",
+      "Flare",
+      "Binance",
+      "Katana",
+      "Optimism",
+      "Linea",
+      "Sonic",
+      "Unichain",
+      "Avalanche",
+      "TAC",
+      "Mantle",
+      "Ink",
+      "Celo",
+      "Sei",
+      "Berachain",
+      "0G",
+      "Polygon",
+      "Bitcoin",
+      "Sapphire",
+      "Scroll",
+      "XRPL EVM",
+      "Solana",
+      "Sui"
+    ],
+    "url": "https://midas.app",
+    "github": [],
+    "twitter": "MidasRWA",
+    "oracles": []
+  },
+  {
+    "rank": 243,
+    "name": "RockawayX",
+    "slug": "rockawayx",
+    "tvl": 104756550,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum",
+      "Solana",
+      "Sei",
+      "Binance",
+      "Etherlink",
+      "Plume Mainnet",
+      "Base"
+    ],
+    "url": "https://rockawayx.com/",
+    "github": [],
+    "twitter": "Rockaway_X",
+    "oracles": []
+  },
+  {
+    "rank": 244,
+    "name": "Avant avUSD",
+    "slug": "avant-avusd",
+    "tvl": 103459448,
+    "category": "Basis Trading",
+    "chains": [
+      "Avalanche"
+    ],
+    "url": "https://app.avantprotocol.com/rewards?ref=defillama",
+    "github": [],
+    "twitter": "avantprotocol",
+    "oracles": []
+  },
+  {
+    "rank": 245,
+    "name": "Figure Markets Democratized Prime",
+    "slug": "figure-markets-democratized-prime",
+    "tvl": 103341503,
+    "category": "RWA Lending",
+    "chains": [
+      "Provenance"
+    ],
+    "url": "https://www.figure.com/crypto-backed-loan/",
+    "github": [],
+    "twitter": "figuremarkets",
+    "oracles": []
+  },
+  {
+    "rank": 246,
+    "name": "Securitize Tokenized AAA CLO Fund",
+    "slug": "securitize-tokenized-aaa-clo-fund",
+    "tvl": 102239160,
+    "category": "RWA",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.bny.com/corporate/global/en/about-us/newsroom/company-news/securitize-launches-tokenized-aaa-clo-fund-with-services-provided-by-bny-bringing-institutional-structured-credit-on-chain.html",
+    "github": [],
+    "twitter": "Securitize",
+    "oracles": []
+  },
+  {
+    "rank": 247,
+    "name": "Ember Protocol",
+    "slug": "ember-protocol",
+    "tvl": 101994901,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Ethereum",
+      "Sui",
+      "Pharos"
+    ],
+    "url": "https://ember.so/",
+    "github": [],
+    "twitter": "EmberProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 248,
+    "name": "Phantom SOL",
+    "slug": "phantom-sol",
+    "tvl": 101258832,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://phantom.com/",
+    "github": [],
+    "twitter": "phantom",
+    "oracles": []
+  },
+  {
+    "rank": 249,
+    "name": "VVS Standard",
+    "slug": "vvs-standard",
+    "tvl": 100707260,
+    "category": "Dexs",
+    "chains": [
+      "Cronos"
+    ],
+    "url": "https://vvs.finance",
+    "github": [],
+    "twitter": "VVS_finance",
+    "oracles": []
+  },
+  {
+    "rank": 250,
+    "name": "Lofty",
+    "slug": "lofty",
+    "tvl": 99689908,
+    "category": "RWA",
+    "chains": [
+      "Algorand"
+    ],
+    "url": "https://www.lofty.ai",
+    "github": [],
+    "twitter": "lofty_ai",
+    "oracles": []
+  },
+  {
+    "rank": 251,
+    "name": "Pionex",
+    "slug": "pionex",
+    "tvl": 98535396,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Binance",
+      "Tron",
+      "Arbitrum",
+      "Solana",
+      "Optimism",
+      "Avalanche"
+    ],
+    "url": "https://www.pionex.com/en",
+    "github": [],
+    "twitter": "pionex",
+    "oracles": []
+  },
+  {
+    "rank": 252,
+    "name": "Renzo",
+    "slug": "renzo",
+    "tvl": 98180757,
+    "category": "Liquid Restaking",
+    "chains": [
+      "Ethereum",
+      "Linea",
+      "Solana",
+      "Arbitrum",
+      "Zircuit",
+      "Mode",
+      "Monad",
+      "Base",
+      "Optimism",
+      "Blast",
+      "Fraxtal",
+      "Binance",
+      "Sei"
+    ],
+    "url": "https://app.renzoprotocol.com/restake",
+    "github": [
+      "Renzo-Protocol"
+    ],
+    "twitter": "RenzoProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 253,
+    "name": "Aera V3",
+    "slug": "aera-v3",
+    "tvl": 97641135,
+    "category": "Onchain Capital Allocator",
+    "chains": [
+      "Base",
+      "Ethereum"
+    ],
+    "url": "https://www.aera.finance",
+    "github": [],
+    "twitter": "aerafinance",
+    "oracles": []
+  },
+  {
+    "rank": 254,
+    "name": "dYdX V4",
+    "slug": "dydx-v4",
+    "tvl": 95846227,
+    "category": "Derivatives",
+    "chains": [
+      "dYdX"
+    ],
+    "url": "https://dydx.trade",
+    "github": [],
+    "twitter": "dYdX",
+    "oracles": []
+  },
+  {
+    "rank": 255,
+    "name": "Vault Bridge",
+    "slug": "vault-bridge",
+    "tvl": 95190565,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.agglayer.dev/",
+    "github": [],
+    "twitter": "Agglayer",
+    "oracles": []
+  },
+  {
+    "rank": 256,
+    "name": "Usual USD0",
+    "slug": "usual-usd0",
+    "tvl": 95074732,
+    "category": "RWA",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://usual.money",
+    "github": [],
+    "twitter": "usualmoney",
+    "oracles": []
+  },
+  {
+    "rank": 257,
+    "name": "Hyperlane",
+    "slug": "hyperlane",
+    "tvl": 94067574,
+    "category": "Cross Chain Bridge",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Base",
+      "Arbitrum",
+      "Optimism",
+      "Polygon",
+      "Unichain",
+      "Hyperliquid L1",
+      "Avalanche",
+      "Ink",
+      "Plasma",
+      "Linea",
+      "BSquared",
+      "Blast",
+      "Metis",
+      "Mantle",
+      "Scroll",
+      "Mode",
+      "xDai",
+      "Zora",
+      "Mint",
+      "Celo",
+      "Sei",
+      "Sonic",
+      "Vana",
+      "Swellchain"
+    ],
+    "url": "https://www.hyperlane.xyz/",
+    "github": [],
+    "twitter": "hyperlane",
+    "oracles": []
+  },
+  {
+    "rank": 258,
+    "name": "R25",
+    "slug": "r25",
+    "tvl": 93795494,
+    "category": "RWA",
+    "chains": [
+      "Pharos"
+    ],
+    "url": "https://www.r25.xyz/",
+    "github": [],
+    "twitter": "R25Official",
+    "oracles": []
+  },
+  {
+    "rank": 259,
+    "name": "Frax Ether",
+    "slug": "frax-ether",
+    "tvl": 92216578,
+    "category": "Liquid Staking",
+    "chains": [
+      "Ethereum",
+      "Fraxtal"
+    ],
+    "url": "https://frax.com/",
+    "github": [],
+    "twitter": "fraxfinance",
+    "oracles": []
+  },
+  {
+    "rank": 260,
+    "name": "Balancer V3",
+    "slug": "balancer-v3",
+    "tvl": 92077469,
+    "category": "Dexs",
+    "chains": [
+      "Ethereum",
+      "Monad",
+      "Arbitrum",
+      "Hyperliquid L1",
+      "Base",
+      "Avalanche",
+      "Optimism",
+      "Plasma",
+      "xDai"
+    ],
+    "url": "https://balancer.fi/",
+    "github": [],
+    "twitter": "Balancer",
+    "oracles": []
+  },
+  {
+    "rank": 261,
+    "name": "Bitlayer YBTC Family",
+    "slug": "bitlayer-ybtc-family",
+    "tvl": 90960947,
+    "category": "Anchor BTC",
+    "chains": [
+      "Bitcoin",
+      "Ethereum"
+    ],
+    "url": "https://www.bitlayer.org/bridge",
+    "github": [],
+    "twitter": "BitlayerLabs",
+    "oracles": []
+  },
+  {
+    "rank": 262,
+    "name": "Apollo Diversified Credit Securitize Fund",
+    "slug": "apollo-diversified-credit-securitize-fund",
+    "tvl": 89965860,
+    "category": "RWA",
+    "chains": [
+      "Ethereum",
+      "Aptos",
+      "Sei",
+      "Ink",
+      "Avalanche",
+      "Polygon",
+      "Solana"
+    ],
+    "url": "https://securitize.io/primary-market/apollo-diversified-credit-securitize-fund",
+    "github": [],
+    "twitter": "securitize",
+    "oracles": []
+  },
+  {
+    "rank": 263,
+    "name": "Compound V2",
+    "slug": "compound-v2",
+    "tvl": 89946167,
+    "category": "Lending",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://compound.finance",
+    "github": [],
+    "twitter": "Compound_xyz",
+    "oracles": []
+  },
+  {
+    "rank": 264,
+    "name": "Ourbit",
+    "slug": "ourbit",
+    "tvl": 89877550,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Solana",
+      "Binance",
+      "Ethereum",
+      "Tron",
+      "Arbitrum",
+      "Avalanche",
+      "Optimism"
+    ],
+    "url": "https://www.ourbit.com",
+    "github": [],
+    "twitter": "Ourbit_Official",
+    "oracles": []
+  },
+  {
+    "rank": 265,
+    "name": "The Vault Liquid Staking",
+    "slug": "the-vault-liquid-staking",
+    "tvl": 89554203,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://thevault.finance",
+    "github": [],
+    "twitter": "thevaultfinance",
+    "oracles": []
+  },
+  {
+    "rank": 266,
+    "name": "Strata Markets",
+    "slug": "strata-markets",
+    "tvl": 89072033,
+    "category": "Yield",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://strata.money",
+    "github": [],
+    "twitter": "strata_markets",
+    "oracles": []
+  },
+  {
+    "rank": 267,
+    "name": "fx Protocol",
+    "slug": "fx-protocol",
+    "tvl": 88614852,
+    "category": "Dual-Token Stablecoin",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://fx.aladdin.club",
+    "github": [],
+    "twitter": "protocol_fx",
+    "oracles": []
+  },
+  {
+    "rank": 268,
+    "name": "Rhea Lend",
+    "slug": "rhea-lend",
+    "tvl": 88282384,
+    "category": "Lending",
+    "chains": [
+      "Near"
+    ],
+    "url": "https://lending.rhea.finance/",
+    "github": [],
+    "twitter": "rhea_finance",
+    "oracles": [
+      "Pyth"
+    ]
+  },
+  {
+    "rank": 269,
+    "name": "Avalon CeDeFi",
+    "slug": "avalon-cedefi",
+    "tvl": 86925228,
+    "category": "Anchor BTC",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.avalonfinance.xyz",
+    "github": [],
+    "twitter": "avalonfinance_",
+    "oracles": []
+  },
+  {
+    "rank": 270,
+    "name": "JPool",
+    "slug": "jpool",
+    "tvl": 86747130,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://app.jpool.one",
+    "github": [],
+    "twitter": "JPoolSolana",
+    "oracles": []
+  },
+  {
+    "rank": 271,
+    "name": "OSL",
+    "slug": "osl",
+    "tvl": 86435855,
+    "category": "CEX",
+    "chains": [
+      "Ethereum",
+      "Solana",
+      "Bitcoin",
+      "Polygon",
+      "Tron",
+      "Avalanche",
+      "Ripple",
+      "Binance",
+      "TON",
+      "Scroll",
+      "Doge",
+      "Stellar",
+      "Litecoin",
+      "Injective"
+    ],
+    "url": "https://www.osl.com/en",
+    "github": [],
+    "twitter": "OSLdotcom",
+    "oracles": []
+  },
+  {
+    "rank": 272,
+    "name": "Benqi Lending",
+    "slug": "benqi-lending",
+    "tvl": 85600589,
+    "category": "Lending",
+    "chains": [
+      "Avalanche"
+    ],
+    "url": "https://benqi.fi",
+    "github": [],
+    "twitter": "BenqiFinance",
+    "oracles": []
+  },
+  {
+    "rank": 273,
+    "name": "NEAR Intents",
+    "slug": "near-intents",
+    "tvl": 85437069,
+    "category": "Cross Chain Bridge",
+    "chains": [
+      "Near",
+      "Ethereum",
+      "Bitcoin",
+      "Tron",
+      "Solana",
+      "Arbitrum",
+      "Binance",
+      "Polygon",
+      "xDai",
+      "TON",
+      "Base",
+      "Litecoin",
+      "Ripple",
+      "Doge",
+      "Optimism",
+      "Avalanche",
+      "Monad",
+      "Sui",
+      "Cardano",
+      "Aptos",
+      "Berachain",
+      "Dash",
+      "Stellar",
+      "X Layer",
+      "Aurora"
+    ],
+    "url": "https://near.com/",
+    "github": [],
+    "twitter": "NEARProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 274,
+    "name": "Re7 Labs",
+    "slug": "re7-labs",
+    "tvl": 85426647,
+    "category": "Risk Curators",
+    "chains": [
+      "World Chain",
+      "Avalanche",
+      "Plasma",
+      "Ethereum",
+      "Binance",
+      "Starknet",
+      "Plume Mainnet",
+      "Base",
+      "Linea",
+      "Sonic",
+      "Unichain",
+      "TAC",
+      "Polygon",
+      "BOB",
+      "Berachain"
+    ],
+    "url": "https://www.re7labs.xyz",
+    "github": [],
+    "twitter": "Re7Labs",
+    "oracles": []
+  },
+  {
+    "rank": 275,
+    "name": "Sky RWA",
+    "slug": "sky-rwa",
+    "tvl": 84086030,
+    "category": "RWA",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://sky.money/",
+    "github": [],
+    "twitter": "SkyEcosystem",
+    "oracles": []
+  },
+  {
+    "rank": 276,
+    "name": "AlphaPing",
+    "slug": "alphaping",
+    "tvl": 82933612,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://alphaping.ch/",
+    "github": [],
+    "twitter": "0xAlphaping",
+    "oracles": []
+  },
+  {
+    "rank": 277,
+    "name": "Mainstreet",
+    "slug": "mainstreet",
+    "tvl": 81944175,
+    "category": "Basis Trading",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://mainstreet.finance/",
+    "github": [],
+    "twitter": "Main_St_Finance",
+    "oracles": []
+  },
+  {
+    "rank": 278,
+    "name": "Railgun",
+    "slug": "railgun",
+    "tvl": 81640037,
+    "category": "Privacy",
+    "chains": [
+      "Ethereum",
+      "Arbitrum",
+      "Binance",
+      "Polygon"
+    ],
+    "url": "https://railgun.org",
+    "github": [
+      "Railgun-Privacy",
+      "Railgun-Community"
+    ],
+    "twitter": "railgun_project",
+    "oracles": []
+  },
+  {
+    "rank": 279,
+    "name": "Bybit Staked SOL",
+    "slug": "bybit-staked-sol",
+    "tvl": 81165345,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://www.bybit.com/en/web3/staking/BybitSOL",
+    "github": [],
+    "twitter": "Bybit_Web3",
+    "oracles": []
+  },
+  {
+    "rank": 280,
+    "name": "SoSoValue Indexes",
+    "slug": "sosovalue-indexes",
+    "tvl": 80273430,
+    "category": "Indexes",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Ripple",
+      "Binance",
+      "Doge",
+      "Solana",
+      "Cardano",
+      "Hyperliquid L1"
+    ],
+    "url": "https://ssi.sosovalue.com/share/MAG7.ssi/0TC050BY?tid=ssi-invite-share-0TC050BY",
+    "github": [],
+    "twitter": "SoSoValueCrypto",
+    "oracles": []
+  },
+  {
+    "rank": 281,
+    "name": "River Omni-CDP",
+    "slug": "river-omni-cdp",
+    "tvl": 79694678,
+    "category": "CeDeFi",
+    "chains": [
+      "Binance",
+      "Base",
+      "BSquared",
+      "Ethereum",
+      "BOB",
+      "Bitlayer",
+      "Hemi",
+      "X Layer",
+      "Arbitrum",
+      "Sonic",
+      "BEVM",
+      "Bitcoin"
+    ],
+    "url": "https://app.river.inc/",
+    "github": [],
+    "twitter": "RiverdotInc",
+    "oracles": []
+  },
+  {
+    "rank": 282,
+    "name": "infiniFi",
+    "slug": "infinifi",
+    "tvl": 79350801,
+    "category": "Yield",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://infinifi.xyz",
+    "github": [
+      "InfiniFi-Labs"
+    ],
+    "twitter": "infiniFi",
+    "oracles": []
+  },
+  {
+    "rank": 283,
+    "name": "Nexus Mutual",
+    "slug": "nexus-mutual",
+    "tvl": 79291753,
+    "category": "Insurance",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://nexusmutual.io/",
+    "github": [
+      "NexusMutual"
+    ],
+    "twitter": "NexusMutual",
+    "oracles": []
+  },
+  {
+    "rank": 284,
+    "name": "PancakeSwap Infinity",
+    "slug": "pancakeswap-infinity",
+    "tvl": 78711668,
+    "category": "Dexs",
+    "chains": [
+      "Binance",
+      "Base"
+    ],
+    "url": "https://pancakeswap.finance/",
+    "github": [],
+    "twitter": "PancakeSwap",
+    "oracles": []
+  },
+  {
+    "rank": 285,
+    "name": "Lulo",
+    "slug": "lulo",
+    "tvl": 77674585,
+    "category": "Yield Aggregator",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://lulo.fi/",
+    "github": [],
+    "twitter": "uselulo",
+    "oracles": []
+  },
+  {
+    "rank": 286,
+    "name": "Loopscale",
+    "slug": "loopscale",
+    "tvl": 76338377,
+    "category": "Lending",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://loop.sl",
+    "github": [
+      "LoopscaleLabs"
+    ],
+    "twitter": "Loopscale",
+    "oracles": []
+  },
+  {
+    "rank": 287,
+    "name": "Enzyme Finance",
+    "slug": "enzyme-finance",
+    "tvl": 75862032,
+    "category": "Indexes",
+    "chains": [
+      "Ethereum",
+      "Polygon",
+      "Arbitrum"
+    ],
+    "url": "https://enzyme.finance/",
+    "github": [
+      "enzymefinance"
+    ],
+    "twitter": "enzymefinance",
+    "oracles": []
+  },
+  {
+    "rank": 288,
+    "name": "APX Bridge",
+    "slug": "apx-bridge",
+    "tvl": 75484470,
+    "category": "Bridge",
+    "chains": [
+      "Binance",
+      "Ethereum",
+      "Arbitrum",
+      "Manta",
+      "Base",
+      "Op_Bnb",
+      "zkSync Era"
+    ],
+    "url": "https://www.asterdex.com/en/referral/c6eF10",
+    "github": [],
+    "twitter": "APX_Finance",
+    "oracles": []
+  },
+  {
+    "rank": 289,
+    "name": "Stargate V2",
+    "slug": "stargate-v2",
+    "tvl": 73368271,
+    "category": "Cross Chain Bridge",
+    "chains": [
+      "Ethereum",
+      "Binance",
+      "Arbitrum",
+      "Base",
+      "xDai",
+      "Optimism",
+      "Scroll",
+      "Avalanche",
+      "Mantle",
+      "Soneium",
+      "Unichain",
+      "Abstract",
+      "Kava",
+      "Metis",
+      "Aurora",
+      "Polygon",
+      "Linea",
+      "Sonic",
+      "LightLink",
+      "Hemi",
+      "Manta",
+      "Sei",
+      "Swellchain",
+      "Stable"
+    ],
+    "url": "https://stargate.finance/",
+    "github": [],
+    "twitter": "StargateFinance",
+    "oracles": []
+  },
+  {
+    "rank": 290,
+    "name": "Frax USD",
+    "slug": "frax-usd",
+    "tvl": 73311168,
+    "category": "RWA",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://frax.com/",
+    "github": [],
+    "twitter": "fraxfinance",
+    "oracles": []
+  },
+  {
+    "rank": 291,
+    "name": "BYDFi",
+    "slug": "bydfi",
+    "tvl": 72804796,
+    "category": "CEX",
+    "chains": [
+      "Bitcoin",
+      "Ethereum",
+      "Ripple"
+    ],
+    "url": "https://www.bydfi.com/en",
+    "github": [],
+    "twitter": "BYDFi",
+    "oracles": []
+  },
+  {
+    "rank": 292,
+    "name": "Liquity V2",
+    "slug": "liquity-v2",
+    "tvl": 71732553,
+    "category": "CDP",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://www.liquity.org/",
+    "github": [],
+    "twitter": "LiquityProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 293,
+    "name": "Polygon zkEVM Bridge",
+    "slug": "polygon-zkevm-bridge",
+    "tvl": 71552621,
+    "category": "Canonical Bridge",
+    "chains": [
+      "Ethereum"
+    ],
+    "url": "https://portal.polygon.technology/bridge",
+    "github": [],
+    "twitter": "0xPolygon",
+    "oracles": []
+  },
+  {
+    "rank": 294,
+    "name": "BlazeStake",
+    "slug": "blazestake",
+    "tvl": 71238745,
+    "category": "Liquid Staking",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://stake.solblaze.org/",
+    "github": [],
+    "twitter": "solblaze_org",
+    "oracles": []
+  },
+  {
+    "rank": 295,
+    "name": "Project 0",
+    "slug": "project-0",
+    "tvl": 71207642,
+    "category": "Lending",
+    "chains": [
+      "Solana"
+    ],
+    "url": "https://app.0.xyz",
+    "github": [],
+    "twitter": "project0",
+    "oracles": []
+  },
+  {
+    "rank": 296,
+    "name": "Zest V2",
+    "slug": "zest-v2",
+    "tvl": 70879961,
+    "category": "Lending",
+    "chains": [
+      "Stacks"
+    ],
+    "url": "https://www.zestprotocol.com/",
+    "github": [],
+    "twitter": "ZestProtocol",
+    "oracles": []
+  },
+  {
+    "rank": 297,
+    "name": "sDAI",
+    "slug": "sdai",
+    "tvl": 70717565,
+    "category": "Yield",
+    "chains": [
+      "xDai"
+    ],
+    "url": "",
+    "github": [],
+    "twitter": "gnosis_",
+    "oracles": []
+  },
+  {
+    "rank": 298,
+    "name": "YBTC.B",
+    "slug": "ybtc.b",
+    "tvl": 70532846,
+    "category": "Anchor BTC",
+    "chains": [
+      "Bitlayer"
+    ],
+    "url": "https://www.bitlayer.org/",
+    "github": [],
+    "twitter": "BitlayerLabs",
+    "oracles": []
+  },
+  {
+    "rank": 299,
+    "name": "Galaxy Curation",
+    "slug": "galaxy-curation",
+    "tvl": 70278695,
+    "category": "Risk Curators",
+    "chains": [
+      "Ethereum",
+      "Base"
+    ],
+    "url": "https://www.galaxy.com/",
+    "github": [],
+    "twitter": "galaxyhq",
+    "oracles": []
+  },
+  {
+    "rank": 300,
+    "name": "Arrakis Modular",
+    "slug": "arrakis-modular",
+    "tvl": 69981629,
+    "category": "Liquidity Manager",
+    "chains": [
+      "Ethereum",
+      "Base",
+      "Arbitrum",
+      "Plasma",
+      "Binance"
+    ],
+    "url": "https://arrakis.finance/",
+    "github": [],
+    "twitter": "ArrakisFinance",
+    "oracles": []
+  }
+]
