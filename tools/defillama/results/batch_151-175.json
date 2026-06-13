@@ -1,0 +1,276 @@
+[
+  {
+    "rank": 151,
+    "name": "OpenEden TBILL",
+    "slug": "openeden-tbill",
+    "category": "RWA",
+    "tvl_usd": 216302044,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Tokenized T-Bill RWA vault. Official org OpenEdenHQ (github.com/OpenEdenHQ) contains only smart-contract and audit repos (openeden.vault.audit, openeden.smartcontract.audit, openeden.tbill.solana, ds-contracts) plus token-info repos; no subgraph/indexer. No community indexer found."
+  },
+  {
+    "rank": 152,
+    "name": "UniRouter",
+    "slug": "unirouter",
+    "category": "Bridge",
+    "tvl_usd": 212587388,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "BTC liquid-staking/bridge on B2 Network. Official org github.com/unirouter has only Solidity contract repos (unirouter-bridge-contract, unirouter-staking-contract) and a DefiLlama-Adapters fork; no subgraph/indexer. Bridge/wrapper type, low indexer likelihood."
+  },
+  {
+    "rank": 153,
+    "name": "Bitwise USCC",
+    "slug": "bitwise-uscc",
+    "category": "Basis Trading",
+    "tvl_usd": 208386862,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Bitwise/Superstate Crypto Carry tokenized fund (USCC). Onchain infra (token issuance, transfer agent, smart contracts) operated by Superstate's FundOS; no public Superstate/Bitwise subgraph or indexer repo found. Permissioned RWA fund token."
+  },
+  {
+    "rank": 154,
+    "name": "SUNSwap V3",
+    "slug": "sunswap-v3",
+    "category": "Dexs",
+    "tvl_usd": 208104775,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Tron AMM DEX. Official org github.com/sun-protocol (25 repos) has sunswap-v3-contracts plus V2/V4 contracts, SDKs, router, but NO subgraph/indexer repo. The Graph does not support Tron; only a community python_sunswap example exists (not an indexer). No public indexer verified."
+  },
+  {
+    "rank": 155,
+    "name": "b14g",
+    "slug": "b14g",
+    "category": "Restaking",
+    "tvl_usd": 207786158,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/b14glabs/b14g-core-subgraph",
+        "type": "subgraph",
+        "scope": "b14g Bitcoin merge-restaking / dual-staking on Core Chain",
+        "maintained": "active",
+        "verified": "Found in official org github.com/b14glabs (verified via org repo listing); named b14g-core-subgraph, TypeScript, last updated ~Feb 2026 (org page). Matches the protocol's Core Chain restaking product."
+      }
+    ],
+    "notes": "Official b14glabs org hosts b14g-core-subgraph (The Graph subgraph) for the Core Chain restaking deployment, alongside staking tools and a DefiLlama-Adapters fork."
+  },
+  {
+    "rank": 156,
+    "name": "K3 Capital",
+    "slug": "k3-capital",
+    "category": "Risk Curators",
+    "tvl_usd": 207392375,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Risk curator managing curated vaults across Morpho, Euler, Pendle, etc. As a curator it has no protocol of its own to index; its positions are surfaced by the underlying venues' indexers (e.g. morpho-org/morpho-positions-indexer-subgraph). No dedicated K3 public indexer repo found."
+  },
+  {
+    "rank": 157,
+    "name": "Saturn",
+    "slug": "saturn",
+    "category": "Stablecoin Wrapper",
+    "tvl_usd": 205225348,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "USDat/sUSDat stablecoin wrapper built on Strategy's STRC (ERC-4626 vault). Found contract repo (saturnlend/protocol) but no subgraph/indexer. Launched 2026; stablecoin-wrapper type, low indexer likelihood. No public indexer verified."
+  },
+  {
+    "rank": 158,
+    "name": "Buzz Farming",
+    "slug": "buzz-farming",
+    "category": "Farm",
+    "tvl_usd": 205071695,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Farming product on B2 (BSquared) Network, run by BSquared. No standalone github handle in dataset; no public subgraph/indexer repo found. Farm/incentive product."
+  },
+  {
+    "rank": 159,
+    "name": "USD AI",
+    "slug": "usd-ai",
+    "category": "RWA Lending",
+    "tvl_usd": 201155021,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "USDai GPU/AI-hardware-backed synthetic dollar lending protocol by Permian Labs on Arbitrum. No public Permian Labs github org or subgraph/indexer repo located. No public indexer verified."
+  },
+  {
+    "rank": 160,
+    "name": "Defi Saver Asset Management",
+    "slug": "defi-saver-asset-management",
+    "category": "CDP Manager",
+    "tvl_usd": 200992196,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Position manager over Maker/Aave/Compound/etc. Official org github.com/defisaver (11 repos) provides SDKs that read positions on-chain (defisaver-positions-sdk, defisaver-sdk, automation-sdk) rather than a subgraph/indexer. No subgraph repo found; positions read via SDK/RPC."
+  },
+  {
+    "rank": 161,
+    "name": "PumpSwap",
+    "slug": "pumpswap",
+    "category": "Dexs",
+    "tvl_usd": 199101178,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana AMM (pump.fun). Official pump-fun/pump-public-docs publishes program IDLs (pump_amm.json) but is docs, not an indexer. Community substreams exist (substreams.dev pumpswap packages, 0xbolt/solana-substreams) but no OFFICIAL public indexer/subgraph. Marked false (no official indexer; community-only)."
+  },
+  {
+    "rank": 162,
+    "name": "Bitunix",
+    "slug": "bitunix",
+    "category": "CEX",
+    "tvl_usd": 198188584,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange. Custodial CEX wallets/reserves; no public EVM indexer applicable. No repo found."
+  },
+  {
+    "rank": 163,
+    "name": "Mantle Bridge",
+    "slug": "mantle-bridge",
+    "category": "Canonical Bridge",
+    "tvl_usd": 196626904,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Canonical L1<->L2 bridge. Org github.com/mantlenetworkio has only mantle-example-subgraph (forked example, testnet) and a data-transport-layer service for chain data; no production bridge-specific subgraph/indexer. Canonical bridge type. No verified protocol indexer."
+  },
+  {
+    "rank": 164,
+    "name": "OnRe",
+    "slug": "onre",
+    "category": "RWA",
+    "tvl_usd": 193253451,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Tokenized (re)insurance pools on Solana (ONe token). Official org github.com/onre-finance has onre-sol (Anchor Solana program) only; no subgraph/indexer repo. No public indexer found."
+  },
+  {
+    "rank": 165,
+    "name": "Marinade Select",
+    "slug": "marinade-select",
+    "category": "Staking Pool",
+    "tvl_usd": 192838397,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana staking-pool product by Marinade. Marinade open-sources its Solana programs/SDKs but no dedicated subgraph/indexer for the Select product; The Graph Solana support is via community substreams only. No protocol-specific public indexer verified."
+  },
+  {
+    "rank": 166,
+    "name": "Cooler Loans",
+    "slug": "cooler-loans",
+    "category": "Lending",
+    "tvl_usd": 191247035,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/OlympusDAO/cooler-loans-subgraph",
+        "type": "subgraph",
+        "scope": "Olympus Cooler Loans (loan requests, clearing, repay, default, rollover)",
+        "maintained": "stale",
+        "verified": "Repo contains subgraph.yaml + schema.graphql; indexes Cooler Loan contract events (loan request creation/rescission, clearing, repayment, defaulted-loan claims, rollover). Official OlympusDAO org. 78 commits, no releases; appears low-activity/stale but is the official Cooler indexer."
+      }
+    ],
+    "notes": "Official OlympusDAO subgraph dedicated to the Cooler Loans product. Contract code at ohmzeus/Cooler. Subgraph stores event snapshots for frontend consumption."
+  },
+  {
+    "rank": 167,
+    "name": "FAssets",
+    "slug": "fassets",
+    "category": "Bridge",
+    "tvl_usd": 190017705,
+    "has_public_indexer": true,
+    "repos": [
+      {
+        "url": "https://github.com/flare-foundation/fasset-indexer",
+        "type": "custom",
+        "scope": "FAsset protocol (FXRP etc.) operations on Flare/Songbird/Coston",
+        "maintained": "active",
+        "verified": "Official Flare Foundation repo. Custom event-based indexer ('indexing the FAsset protocol smart contract operations'); two workspaces (core scraper + NestJS API) plus price/agent watchdog. Supports coston/coston2/songbird/flare (mainnet). 710 commits, 88 releases -> actively maintained."
+      }
+    ],
+    "notes": "FAssets brings non-smart-contract assets (e.g. XRP) onto Flare. Flare Foundation maintains a dedicated custom indexer (fasset-indexer). flare-labs-ltd also mirrors fassets + fasset-indexer."
+  },
+  {
+    "rank": 168,
+    "name": "Meteora DLMM",
+    "slug": "meteora-dlmm",
+    "category": "Dexs",
+    "tvl_usd": 189813669,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Solana DLMM concentrated-liquidity DEX. Official org github.com/MeteoraAg has dlmm-sdk and program repos but NO indexer/subgraph. Community substreams package exists (substreams.dev/packages/meteora-dlmm by 0xMukesh) but no official public indexer. Marked false (community-only)."
+  },
+  {
+    "rank": 169,
+    "name": "WEEX",
+    "slug": "weex",
+    "category": "CEX",
+    "tvl_usd": 188735692,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Centralized exchange. Custodial CEX; no public EVM indexer applicable. No repo found."
+  },
+  {
+    "rank": 170,
+    "name": "Drift Staked SOL",
+    "slug": "drift-staked-sol",
+    "category": "Liquid Staking",
+    "tvl_usd": 188214590,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "dSOL Solana liquid-staking token by Drift. Drift open-sources protocol programs/SDK (drift-labs) but no dedicated subgraph/indexer for the dSOL stake pool; Solana indexing is community-substreams only. No protocol-specific public indexer verified."
+  },
+  {
+    "rank": 171,
+    "name": "Stacks sBTC",
+    "slug": "stacks-sbtc",
+    "category": "Bridge",
+    "tvl_usd": 188029041,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "1:1 BTC-backed asset on Stacks. Public repos (stacks-sbtc/sbtc signer/protocol, stacks-archive/sbtc-developer-release) are node/signer/primitives, not a subgraph/indexer. Non-EVM (Stacks/Bitcoin) bridge; no The Graph-style indexer. No protocol indexer verified."
+  },
+  {
+    "rank": 172,
+    "name": "Nexus BTC",
+    "slug": "nexus-btc",
+    "category": "Bridge",
+    "tvl_usd": 187456908,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Custodial BTC product by Matrixport/BIT (bit.com). Custodial bridge/wrapper; no public github org or indexer/subgraph found. Low indexer likelihood."
+  },
+  {
+    "rank": 173,
+    "name": "Pareto Credit",
+    "slug": "pareto-credit",
+    "category": "RWA Lending",
+    "tvl_usd": 182788165,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Institutional private-credit / USP synthetic dollar (rebrand of Idle Finance). Current org github.com/pareto-credit (USP, governance, docs, USP contracts) has NO subgraph. Legacy Idle-Labs/idle-tranches-subgraph (subgraph.yaml+schema.graphql) indexes the OLD Idle CDO tranches and references only 'idle-finance', not Pareto/USP -> does not verifiably index the current Pareto Credit product. Marked false; legacy Idle tranches subgraph noted as the only related/historical indexer."
+  },
+  {
+    "rank": 174,
+    "name": "OpenTrade",
+    "slug": "opentrade",
+    "category": "RWA",
+    "tvl_usd": 182670326,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Stablecoin-yield RWA built on a private fork of Circle's Perimeter Protocol (circlefin/perimeter-protocol). OpenTrade's fork is maintained by Open Trade Technology Ltd but is NOT public; no OpenTrade github org or subgraph/indexer found. No public indexer verified."
+  },
+  {
+    "rank": 175,
+    "name": "DigiFT",
+    "slug": "digift",
+    "category": "RWA",
+    "tvl_usd": 181526476,
+    "has_public_indexer": false,
+    "repos": [],
+    "notes": "Regulated on-chain RWA exchange / security-token AMM (MAS/SFC licensed). No public DigiFTTech github org repositories or subgraph/indexer located. Regulated/permissioned RWA; no public indexer verified."
+  }
+]
