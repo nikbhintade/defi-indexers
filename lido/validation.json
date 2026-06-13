@@ -1,0 +1,252 @@
+{
+  "subgraph": {
+    "url": "https://gateway.thegraph.com/api/subgraphs/id/HXfMc1jPHfFQoccWd7VMv66km75FoxVHDMvsJj5vG5vf",
+    "authEnv": "GRAPH_API_KEY"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 11473216, "end": 11523216 },
+  "entities": [
+    {
+      "subgraphName": "totals",
+      "localName": "Totals",
+      "fields": ["id", "totalPooledEther", "totalShares"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "stats",
+      "localName": "Stats",
+      "fields": ["id", "uniqueHolders", "uniqueAnytimeHolders", "lastOracleCompletedId"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "lidoSubmissions",
+      "localName": "LidoSubmission",
+      "fields": [
+        "id",
+        "sender",
+        "amount",
+        "referral",
+        "shares",
+        "sharesBefore",
+        "sharesAfter",
+        "totalPooledEtherBefore",
+        "totalPooledEtherAfter",
+        "totalSharesBefore",
+        "totalSharesAfter",
+        "balanceAfter",
+        "block",
+        "blockTime",
+        "transactionHash",
+        "transactionIndex",
+        "logIndex"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "lidoTransfers",
+      "localName": "LidoTransfer",
+      "fields": [
+        "id",
+        "from",
+        "to",
+        "value",
+        "shares",
+        "sharesBeforeDecrease",
+        "sharesAfterDecrease",
+        "sharesBeforeIncrease",
+        "sharesAfterIncrease",
+        "totalPooledEther",
+        "totalShares",
+        "balanceAfterDecrease",
+        "balanceAfterIncrease",
+        "block",
+        "blockTime",
+        "transactionHash",
+        "transactionIndex",
+        "logIndex"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "shares",
+      "localName": "Shares",
+      "fields": ["id", "shares"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "holders",
+      "localName": "Holder",
+      "fields": ["id", "address", "hasBalance"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "lidoApprovals",
+      "localName": "LidoApproval",
+      "fields": ["id", "owner", "spender", "value"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "currentFees",
+      "localName": "CurrentFees",
+      "fields": [
+        "id",
+        "feeBasisPoints",
+        "treasuryFeeBasisPoints",
+        "insuranceFeeBasisPoints",
+        "operatorsFeeBasisPoints"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "totalRewards",
+      "localName": "TotalReward",
+      "fields": [
+        "id",
+        "totalRewards",
+        "totalRewardsWithFees",
+        "mevFee",
+        "feeBasis",
+        "treasuryFeeBasisPoints",
+        "insuranceFeeBasisPoints",
+        "operatorsFeeBasisPoints",
+        "totalFee",
+        "insuranceFee",
+        "operatorsFee",
+        "treasuryFee",
+        "dust",
+        "shares2mint",
+        "sharesToTreasury",
+        "sharesToInsuranceFund",
+        "sharesToOperators",
+        "dustSharesToTreasury",
+        "totalPooledEtherBefore",
+        "totalPooledEtherAfter",
+        "totalSharesBefore",
+        "totalSharesAfter",
+        "timeElapsed",
+        "aprRaw",
+        "aprBeforeFees",
+        "apr",
+        "block",
+        "blockTime",
+        "transactionHash",
+        "transactionIndex",
+        "logIndex"
+      ],
+      "decimalFields": ["aprRaw", "aprBeforeFees", "apr"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "nodeOperatorsShares",
+      "localName": "NodeOperatorsShares",
+      "fields": ["id", "address", "shares"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "oracleCompleteds",
+      "localName": "OracleCompleted",
+      "fields": [
+        "id",
+        "epochId",
+        "beaconBalance",
+        "beaconValidators",
+        "block",
+        "blockTime",
+        "transactionHash",
+        "logIndex"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "beaconReports",
+      "localName": "BeaconReport",
+      "fields": ["id", "epochId", "beaconBalance", "beaconValidators", "caller"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "oracleConfigs",
+      "localName": "OracleConfig",
+      "fields": [
+        "id",
+        "quorum",
+        "contractVersion",
+        "allowedBeaconBalanceAnnualRelativeIncrease",
+        "allowedBeaconBalanceRelativeDecrease",
+        "epochsPerFrame",
+        "slotsPerEpoch",
+        "secondsPerSlot",
+        "genesisTime",
+        "beaconReportReceiver"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "oracleMembers",
+      "localName": "OracleMember",
+      "fields": ["id", "member", "removed", "block", "blockTime", "transactionHash", "logIndex"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "nodeOperators",
+      "localName": "NodeOperator",
+      "fields": [
+        "id",
+        "name",
+        "rewardAddress",
+        "stakingLimit",
+        "active",
+        "totalStoppedValidators",
+        "totalKeysTrimmed",
+        "nonce"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "nodeOperatorSigningKeys",
+      "localName": "NodeOperatorSigningKey",
+      "fields": ["id", "operatorId", "pubkey", "removed"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "lidoConfigs",
+      "localName": "LidoConfig",
+      "fields": [
+        "id",
+        "insuranceFund",
+        "oracle",
+        "treasury",
+        "isStopped",
+        "isStakingPaused",
+        "maxStakeLimit",
+        "stakeLimitIncreasePerBlock",
+        "elRewardsVault",
+        "elRewardsWithdrawalLimitPoints",
+        "withdrawalCredentials",
+        "wcSetBy",
+        "lidoLocator"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "appVersions",
+      "localName": "AppVersion",
+      "fields": ["id", "major", "minor", "patch", "impl"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "votings",
+      "localName": "Voting",
+      "fields": ["id", "index", "creator", "metadata", "executed"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "votes",
+      "localName": "Vote",
+      "fields": ["id", "voting", "voter", "supports", "stake"],
+      "orderBy": "id"
+    }
+  ]
+}

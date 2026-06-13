@@ -20,7 +20,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 8 | ether.fi | public `etherfi-v2` subgraph | `etherfi/` | ⏭️ skipped (no public source; deployed artifacts network-blocked) |
 | 9 | Anemoy Capital | [centrifuge/api-v3](https://github.com/centrifuge/api-v3) indexer + public GraphQL | `anemoy-centrifuge/` | ✅ ported (mainnet core slice), builds + offline tests pass |
 | 10 | Spiko | [spiko-tech/morpho-blue-subgraph](https://github.com/spiko-tech/morpho-blue-subgraph) | `spiko-morpho/` | ✅ ported, builds + offline tests pass |
-| 11 | Lido (#4) | [lidofinance/lido-subgraph](https://github.com/lidofinance/lido-subgraph) | `lido/` | queued |
+| 11 | Lido (#4) | [lidofinance/lido-subgraph](https://github.com/lidofinance/lido-subgraph) | `lido/` | ✅ ported, builds + offline tests pass |
 | 12 | SSV Network (#6) | [ssvlabs/ssv-subgraph](https://github.com/ssvlabs/ssv-subgraph) | `ssv-network/` | queued |
 | 13 | Aave V3 (#7) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-v3/` | queued |
 | 14 | Sky Lending (#13) | [messari/subgraphs/tree/master/subgraphs/makerdao](https://github.com/messari/subgraphs/tree/master/subgraphs/makerdao) | `sky-lending/` | queued |

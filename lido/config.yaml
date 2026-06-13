@@ -1,0 +1,265 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: lido-indexer
+description: Lido on Ethereum (stETH/wstETH liquid staking) subgraph ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  # ---- LidoDAO (Aragon Kernel) — AppRepo-driven app versioning ----
+  - name: LidoDAO
+    abi_file_path: ./abis/LidoDAO.json
+    events:
+      - event: "SetApp(bytes32 indexed namespace, bytes32 indexed appId, address app)"
+        field_selection:
+          transaction_fields: [hash]
+
+  # ---- Lido / stETH core token ----
+  # NB: the manifest only declares a subset of these in eventHandlers; the
+  # original mappings additionally *parse the tx receipt* to read Transfer,
+  # TransferShares, SharesBurnt, ETHDistributed, TokenRebased, Submitted,
+  # ELRewardsReceived, MevTxFeeReceived, ExternalShares*. HyperIndex does not
+  # expose the receipt, so every event the parser needed is registered here as
+  # a first-class handler and correlated via per-tx ordered processing.
+  - name: Lido
+    abi_file_path: ./abis/Lido.json
+    events:
+      - event: "Submitted(address indexed sender, uint256 amount, address referral)"
+        field_selection:
+          transaction_fields: [hash, from, transactionIndex]
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash, transactionIndex]
+      - event: "TransferShares(address indexed from, address indexed to, uint256 sharesValue)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "SharesBurnt(address indexed account, uint256 preRebaseTokenAmount, uint256 postRebaseTokenAmount, uint256 sharesAmount)"
+        field_selection:
+          transaction_fields: [hash, transactionIndex]
+      - event: "ETHDistributed(uint256 indexed reportTimestamp, uint256 preCLBalance, uint256 postCLBalance, uint256 withdrawalsWithdrawn, uint256 executionLayerRewardsWithdrawn, uint256 postBufferedEther)"
+        field_selection:
+          transaction_fields: [hash, from, transactionIndex]
+      - event: "TokenRebased(uint256 indexed reportTimestamp, uint256 timeElapsed, uint256 preTotalShares, uint256 preTotalEther, uint256 postTotalShares, uint256 postTotalEther, uint256 sharesMintedAsFees)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ELRewardsReceived(uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MevTxFeeReceived(uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Approval(address indexed owner, address indexed spender, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "LidoLocatorSet(address lidoLocator)"
+      - event: "Stopped()"
+      - event: "Resumed()"
+      - event: "StakingLimitRemoved()"
+      - event: "StakingLimitSet(uint256 maxStakeLimit, uint256 stakeLimitIncreasePerBlock)"
+      - event: "StakingResumed()"
+      - event: "StakingPaused()"
+      - event: "FeeSet(uint16 feeBasisPoints)"
+      - event: "FeeDistributionSet(uint16 treasuryFeeBasisPoints, uint16 insuranceFeeBasisPoints, uint16 operatorsFeeBasisPoints)"
+      - event: "WithdrawalCredentialsSet(bytes32 withdrawalCredentials)"
+      - event: "ProtocolContactsSet(address oracle, address treasury, address insuranceFund)"
+      - event: "ELRewardsWithdrawalLimitSet(uint256 limitPoints)"
+      - event: "ELRewardsVaultSet(address executionLayerRewardsVault)"
+      - event: "BeaconValidatorsUpdated(uint256 beaconValidators)"
+
+  # ---- LidoV3 (same address as Lido) ----
+  - name: LidoV3
+    abi_file_path: ./abis/LidoV3.json
+    events:
+      - event: "ExternalSharesMinted(address indexed receiver, uint256 amountOfShares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ExternalSharesBurnt(uint256 amountOfShares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ExternalEtherTransferredToBuffer(uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ExternalBadDebtInternalized(uint256 amountOfShares)"
+        field_selection:
+          transaction_fields: [hash]
+
+  # ---- LegacyOracle ----
+  - name: LegacyOracle
+    abi_file_path: ./abis/LegacyOracle.json
+    events:
+      - event: "Completed(uint256 epochId, uint128 beaconBalance, uint128 beaconValidators)"
+        field_selection:
+          transaction_fields: [hash, from, transactionIndex]
+      - event: "PostTotalShares(uint256 postTotalPooledEther, uint256 preTotalPooledEther, uint256 timeElapsed, uint256 totalShares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MemberAdded(address member)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MemberRemoved(address member)"
+      - event: "ContractVersionSet(uint256 version)"
+      - event: "QuorumChanged(uint256 quorum)"
+      - event: "BeaconSpecSet(uint64 epochsPerFrame, uint64 slotsPerEpoch, uint64 secondsPerSlot, uint64 genesisTime)"
+      - event: "BeaconReportReceiverSet(address callback)"
+      - event: "AllowedBeaconBalanceRelativeDecreaseSet(uint256 value)"
+      - event: "AllowedBeaconBalanceAnnualRelativeIncreaseSet(uint256 value)"
+
+  # ---- NodeOperatorsRegistry ----
+  - name: NodeOperatorsRegistry
+    abi_file_path: ./abis/NodeOperatorsRegistry.json
+    events:
+      - event: "NodeOperatorAdded(uint256 id, string name, address rewardAddress, uint64 stakingLimit)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "NodeOperatorActiveSet(uint256 indexed id, bool active)"
+      - event: "NodeOperatorNameSet(uint256 indexed id, string name)"
+      - event: "NodeOperatorRewardAddressSet(uint256 indexed id, address rewardAddress)"
+      - event: "SigningKeyAdded(uint256 indexed operatorId, bytes pubkey)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "SigningKeyRemoved(uint256 indexed operatorId, bytes pubkey)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "NodeOperatorTotalKeysTrimmed(uint256 indexed id, uint64 totalKeysTrimmed)"
+      - event: "KeysOpIndexSet(uint256 keysOpIndex)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "NodeOperatorStakingLimitSet(uint256 indexed id, uint64 stakingLimit)"
+      - event: "NodeOperatorTotalStoppedValidatorsReported(uint256 indexed id, uint64 totalStopped)"
+
+  # ---- Voting ----
+  - name: Voting
+    abi_file_path: ./abis/Voting.json
+    events:
+      - event: "StartVote(uint256 indexed voteId, address indexed creator, string metadata)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "CastVote(uint256 indexed voteId, address indexed voter, bool supports, uint256 stake)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "CastObjection(uint256 indexed voteId, address indexed voter, uint256 stake)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ExecuteVote(uint256 indexed voteId)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ChangeSupportRequired(uint64 supportRequiredPct)"
+      - event: "ChangeMinQuorum(uint64 minAcceptQuorumPct)"
+      - event: "ChangeVoteTime(uint64 voteTime)"
+      - event: "ChangeObjectionPhaseTime(uint64 objectionPhaseTime)"
+
+  # ---- EasyTrack ----
+  - name: EasyTrack
+    abi_file_path: ./abis/EasyTrack.json
+    events:
+      - event: "EVMScriptExecutorChanged(address indexed _evmScriptExecutor)"
+      - event: "EVMScriptFactoryAdded(address indexed _evmScriptFactory, bytes _permissions)"
+      - event: "EVMScriptFactoryRemoved(address indexed _evmScriptFactory)"
+      - event: "MotionCanceled(uint256 indexed _motionId)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MotionCreated(uint256 indexed _motionId, address _creator, address indexed _evmScriptFactory, bytes _evmScriptCallData, bytes _evmScript)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MotionDurationChanged(uint256 _motionDuration)"
+      - event: "MotionEnacted(uint256 indexed _motionId)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MotionObjected(uint256 indexed _motionId, address indexed _objector, uint256 _weight, uint256 _newObjectionsAmount, uint256 _newObjectionsAmountPct)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MotionRejected(uint256 indexed _motionId)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MotionsCountLimitChanged(uint256 _newMotionsCountLimit)"
+      - event: "ObjectionsThresholdChanged(uint256 _newThreshold)"
+      - event: "Paused(address account)"
+      - event: "Unpaused(address account)"
+
+  # ---- StakingRouter ----
+  - name: StakingRouter
+    abi_file_path: ./abis/StakingRouter.json
+    events:
+      - event: "WithdrawalCredentialsSet(bytes32 withdrawalCredentials, address setBy)"
+
+  # ---- AccountingOracle ----
+  - name: AccountingOracle
+    abi_file_path: ./abis/AccountingOracle.json
+    events:
+      - event: "ProcessingStarted(uint256 indexed refSlot, bytes32 hash)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ExtraDataSubmitted(uint256 indexed refSlot, uint256 itemsProcessed, uint256 itemsCount)"
+        field_selection:
+          transaction_fields: [hash]
+
+  # ---- WithdrawalQueue ----
+  - name: WithdrawalQueue
+    abi_file_path: ./abis/WithdrawalQueue.json
+    events:
+      - event: "BunkerModeDisabled()"
+      - event: "BunkerModeEnabled(uint256 _sinceTimestamp)"
+      - event: "ContractVersionSet(uint256 version)"
+      - event: "Paused(uint256 duration)"
+      - event: "Resumed()"
+      - event: "WithdrawalClaimed(uint256 indexed requestId, address indexed owner, address indexed receiver, uint256 amountOfETH)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "WithdrawalRequested(uint256 indexed requestId, address indexed requestor, address indexed owner, uint256 amountOfStETH, uint256 amountOfShares)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "WithdrawalsFinalized(uint256 indexed from, uint256 indexed to, uint256 amountOfETHLocked, uint256 sharesToBurn, uint256 timestamp)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "WithdrawalBatchFinalized(uint256 indexed from, uint256 indexed to, uint256 amountOfETHLocked, uint256 sharesToBurn, uint256 timestamp)"
+        field_selection:
+          transaction_fields: [hash]
+
+  # ---- HashConsensus ----
+  - name: HashConsensus
+    abi_file_path: ./abis/HashConsensus.json
+    events:
+      - event: "FrameConfigSet(uint256 newInitialEpoch, uint256 newEpochsPerFrame)"
+
+  # ---- NodeOperatorsRegistry V2 modules (CSM era) ----
+  - name: NodeOperatorsRegistryV2CuratedModule
+    abi_file_path: ./abis/NodeOperatorsRegistryV2CuratedModule.json
+    events:
+      - event: "RewardDistributionStateChanged(uint8 state)"
+        field_selection:
+          transaction_fields: [hash]
+  - name: NodeOperatorsRegistryV2SimpleDVTModule
+    abi_file_path: ./abis/NodeOperatorsRegistryV2SimpleDVTModule.json
+    events:
+      - event: "RewardDistributionStateChanged(uint8 state)"
+        field_selection:
+          transaction_fields: [hash]
+
+chains:
+  - id: 1
+    start_block: 11473216
+    # end_block: 11523216   # 11473216 + 50k — uncomment for bounded validation runs
+    contracts:
+      - name: LidoDAO
+        address: "0xb8FFC3Cd6e7Cf5a098A1c92F48009765B24088Dc"
+      - name: Lido
+        address: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
+      - name: LidoV3
+        address: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
+      - name: LegacyOracle
+        address: "0x442af784A788A5bd6F42A01Ebe9F287a871243fb"
+      - name: NodeOperatorsRegistry
+        address: "0x55032650b14df07b85bF18A3a3eC8E0Af2e028d5"
+      - name: Voting
+        address: "0x2e59A20f205bB85a89C53f1936454680651E618e"
+      - name: EasyTrack
+        address: "0xF0211b7660680B49De1A7E9f25C65660F0a13Fea"
+      - name: StakingRouter
+        address: "0xFdDf38947aFB03C621C71b06C9C70bce73f12999"
+      - name: AccountingOracle
+        address: "0x852deD011285fe67063a08005c71a85690503Cee"
+      - name: WithdrawalQueue
+        address: "0x889edC2eDab5f40e902b864aD4d7AdE8E412F9B1"
+      - name: HashConsensus
+        address: "0xD624B08C83bAECF0807Dd2c6880C3154a5F0B288"
+      - name: NodeOperatorsRegistryV2CuratedModule
+        address: "0x55032650b14df07b85bF18A3a3eC8E0Af2e028d5"
+      - name: NodeOperatorsRegistryV2SimpleDVTModule
+        address: "0xaE7B191A31f627b4eB1d4DaC64eaB9976995b433"

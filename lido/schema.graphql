@@ -1,0 +1,513 @@
+"""
+Lido
+"""
+type LidoConfig {
+  id: ID!
+
+  insuranceFund: String
+  oracle: String
+  treasury: String
+
+  isStopped: Boolean!
+  isStakingPaused: Boolean!
+
+  maxStakeLimit: BigInt!
+  stakeLimitIncreasePerBlock: BigInt!
+
+  elRewardsVault: String
+  elRewardsWithdrawalLimitPoints: BigInt!
+
+  withdrawalCredentials: String!
+  wcSetBy: String
+  lidoLocator: String
+}
+
+type LidoTransfer {
+  id: ID!
+
+  from: String!
+  to: String!
+  value: BigInt!
+
+  shares: BigInt!
+  sharesBeforeDecrease: BigInt
+  sharesAfterDecrease: BigInt
+  sharesBeforeIncrease: BigInt
+  sharesAfterIncrease: BigInt
+
+  totalPooledEther: BigInt!
+  totalShares: BigInt!
+
+  balanceAfterDecrease: BigInt
+  balanceAfterIncrease: BigInt
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  transactionIndex: BigInt!
+  logIndex: BigInt!
+}
+
+type LidoApproval {
+  id: ID!
+
+  owner: String!
+  spender: String!
+  value: BigInt!
+}
+
+type LidoSubmission {
+  id: ID!
+
+  sender: String!
+  amount: BigInt!
+  referral: String!
+
+  shares: BigInt!
+  sharesBefore: BigInt!
+  sharesAfter: BigInt!
+
+  totalPooledEtherBefore: BigInt!
+  totalPooledEtherAfter: BigInt!
+  totalSharesBefore: BigInt!
+  totalSharesAfter: BigInt!
+
+  balanceAfter: BigInt!
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  transactionIndex: BigInt!
+  logIndex: BigInt!
+}
+
+type NodeOperatorFees {
+  id: ID!
+  totalReward: TotalReward!
+
+  address: String!
+  fee: BigInt!
+}
+
+type NodeOperatorsShares {
+  id: ID!
+  totalReward: TotalReward!
+
+  address: String!
+  shares: BigInt!
+}
+
+type Totals {
+  id: ID!
+
+  totalPooledEther: BigInt!
+  totalShares: BigInt!
+  maxPositivePooledEtherDrift: BigInt!
+}
+
+type Stats {
+  id: ID!
+
+  uniqueHolders: BigInt!
+  uniqueAnytimeHolders: BigInt!
+  lastOracleCompletedId: BigInt!
+}
+
+type Shares {
+  id: ID!
+
+  shares: BigInt!
+}
+
+type Holder {
+  id: ID!
+
+  address: String!
+  hasBalance: Boolean!
+}
+
+type CurrentFees {
+  id: ID!
+
+  feeBasisPoints: BigInt!
+  treasuryFeeBasisPoints: BigInt!
+  insuranceFeeBasisPoints: BigInt!
+  operatorsFeeBasisPoints: BigInt!
+}
+
+type SharesBurn {
+  id: ID!
+
+  account: String!
+  postRebaseTokenAmount: BigInt!
+  preRebaseTokenAmount: BigInt!
+  sharesAmount: BigInt!
+}
+
+# Helper (not in the original subgraph): buffers TransferShares logs keyed by
+# the matching Transfer id so a same-tx Transfer can read its paired shares
+# value, replacing the subgraph's tx-receipt parsing. See MIGRATION.md.
+type TransferSharesLog {
+  id: ID!
+  from: String!
+  to: String!
+  sharesValue: BigInt!
+}
+
+# Helper (not in the original subgraph): buffers Lido EL/MEV reward amounts per
+# transaction so the LegacyOracle.Completed handler can read the MEV fee that
+# the subgraph parsed from the tx receipt. See MIGRATION.md.
+type TxMevFee {
+  id: ID!
+  amount: BigInt!
+  source: String!
+}
+
+"""
+Oracle
+"""
+type OracleConfig {
+  id: ID!
+
+  quorum: BigInt!
+  contractVersion: BigInt!
+  allowedBeaconBalanceAnnualRelativeIncrease: BigInt!
+  allowedBeaconBalanceRelativeDecrease: BigInt!
+
+  epochsPerFrame: BigInt!
+  slotsPerEpoch: BigInt!
+  secondsPerSlot: BigInt!
+  genesisTime: BigInt!
+
+  beaconReportReceiver: String!
+}
+
+type OracleReport {
+  "v2 oracle report refSlot = ID"
+  id: ID!
+
+  totalReward: TotalReward!
+  hash: String!
+  itemsProcessed: BigInt!
+  itemsCount: BigInt!
+}
+
+type OracleCompleted {
+  id: ID!
+
+  epochId: BigInt!
+  beaconBalance: BigInt!
+  beaconValidators: BigInt!
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+type TotalReward {
+  "transactionHash"
+  id: ID!
+
+  "Total user rewards"
+  totalRewards: BigInt!
+  "Total user rewards + fees"
+  totalRewardsWithFees: BigInt!
+
+  "Fees received via validator MEV"
+  mevFee: BigInt!
+
+  "Fee basis points eg fractions of total fees"
+  feeBasis: BigInt!
+  treasuryFeeBasisPoints: BigInt!
+  insuranceFeeBasisPoints: BigInt!
+  operatorsFeeBasisPoints: BigInt!
+
+  "Fees and leftover dust after rounding"
+  totalFee: BigInt!
+  nodeOperatorFees: [NodeOperatorFees!]! @derivedFrom(field: "totalReward")
+  insuranceFee: BigInt!
+  operatorsFee: BigInt!
+  treasuryFee: BigInt!
+  dust: BigInt!
+
+  "Total shares that were minted for distribution"
+  shares2mint: BigInt!
+
+  "Shares distributed to each destination"
+  sharesToTreasury: BigInt!
+  sharesToInsuranceFund: BigInt!
+  sharesToOperators: BigInt!
+  nodeOperatorsShares: [NodeOperatorsShares!]! @derivedFrom(field: "totalReward")
+  dustSharesToTreasury: BigInt!
+
+  "State of the pool before and after rewards"
+  totalPooledEtherBefore: BigInt!
+  totalPooledEtherAfter: BigInt!
+  totalSharesBefore: BigInt!
+  totalSharesAfter: BigInt!
+
+  "Data for easy APR calculations"
+  timeElapsed: BigInt!
+
+  "Raw APR from validator balances"
+  aprRaw: BigDecimal!
+  "Time-compensated APR eg account for a missed day of rewards between reports"
+  aprBeforeFees: BigDecimal!
+  "User APR after fees and time correction"
+  apr: BigDecimal!
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  transactionIndex: BigInt!
+  logIndex: BigInt!
+}
+
+type OracleMember {
+  id: ID!
+
+  member: String!
+  removed: Boolean!
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+type OracleExpectedEpoch {
+  id: ID!
+
+  epochId: BigInt!
+}
+
+type BeaconReport {
+  id: ID!
+
+  epochId: BigInt!
+  beaconBalance: BigInt!
+  beaconValidators: BigInt!
+  caller: String!
+}
+
+type NodeOperatorSigningKey {
+  id: ID!
+
+  operatorId: BigInt!
+  pubkey: String!
+  removed: Boolean!
+
+  operator: NodeOperator!
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+type NodeOperator {
+  id: ID!
+
+  name: String!
+  rewardAddress: String!
+  stakingLimit: BigInt!
+  active: Boolean!
+  totalStoppedValidators: BigInt
+  totalKeysTrimmed: BigInt!
+  nonce: BigInt!
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+type NodeOperatorKeysOpIndex {
+  id: ID!
+
+  index: BigInt!
+}
+
+"""
+Voting
+"""
+type VotingConfig {
+  id: ID!
+
+  supportRequiredPct: BigInt!
+  minAcceptQuorumPct: BigInt!
+  voteTime: BigInt!
+  objectionPhaseTime: BigInt!
+}
+
+type Voting {
+  id: ID!
+
+  index: Int!
+  creator: String!
+  metadata: String!
+  executed: Boolean!
+
+  votes: [Vote!]! @derivedFrom(field: "voting")
+  objections: [VotingObjection!]! @derivedFrom(field: "voting")
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+type Vote {
+  id: ID!
+
+  voting: Voting! @index
+  voter: String!
+  supports: Boolean!
+  stake: BigInt!
+}
+
+type VotingObjection {
+  id: ID!
+
+  voting: Voting! @index
+  voter: String!
+  stake: BigInt!
+}
+
+"""
+EasyTrack
+"""
+type Motion {
+  id: ID!
+
+  creator: String!
+  evmScriptFactory: String!
+  duration: BigInt
+  startDate: BigInt!
+  snapshotBlock: BigInt!
+  objectionsAmount: BigInt!
+  objectionsAmountPct: BigInt!
+  objectionsThreshold: BigInt
+  evmScriptHash: String!
+  evmScriptCalldata: String!
+  status: String!
+  enacted_at: BigInt
+  canceled_at: BigInt
+  rejected_at: BigInt
+
+  objections: [Objection!]! @derivedFrom(field: "motion")
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+type EasyTrackConfig {
+  id: ID!
+
+  evmScriptExecutor: String!
+  motionDuration: BigInt!
+  motionsCountLimit: BigInt!
+  objectionsThreshold: BigInt!
+  isPaused: Boolean!
+}
+
+type Role {
+  id: ID!
+
+  role: String!
+  address: String!
+  creator: String!
+  isActive: Boolean!
+}
+
+type EVMScriptFactory {
+  id: ID!
+
+  address: String!
+  permissions: String!
+  isActive: Boolean!
+}
+
+type Objection {
+  id: ID!
+
+  motionId: BigInt!
+  objector: String!
+  weight: BigInt!
+
+  motion: Motion! @index
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+"""
+Lido DAO
+"""
+type AppVersion {
+  id: ID!
+  major: Int!
+  minor: Int!
+  patch: Int!
+  impl: String!
+
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+# WithdrawalQueue
+
+type WithdrawalQueueConfig {
+  id: ID!
+
+  isBunkerMode: Boolean!
+  bunkerModeSince: BigInt!
+  contractVersion: BigInt!
+  isPaused: Boolean!
+  pauseDuration: BigInt!
+}
+
+type WithdrawalClaimed {
+  id: ID!
+  requestId: BigInt!
+  owner: String!
+  receiver: String!
+  amountOfETH: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+type WithdrawalRequested {
+  id: ID!
+  requestId: BigInt!
+  requestor: String!
+  owner: String!
+  amountOfStETH: BigInt!
+  amountOfShares: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
+
+type WithdrawalsFinalized {
+  id: ID!
+  from: BigInt!
+  to: BigInt!
+  amountOfETHLocked: BigInt!
+  sharesToBurn: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+  logIndex: BigInt!
+}
