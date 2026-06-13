@@ -1,0 +1,94 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The Venus repo deploys this core-pool subgraph to Subgraph Studio as 'venus-core-pool-subgraph' (package.json deploy:bsc -> `graph deploy --studio venus-core-pool-subgraph`); the README only links the deprecated hosted-service page (https://thegraph.com/explorer/subgraph/venusprotocol/venus-subgraph). Replace TODO with the decentralized-network gateway URL: https://gateway.thegraph.com/api/subgraphs/id/<ID> where <ID> is the 'Venus Core Pool' deployment id (look it up on https://thegraph.com/explorer by searching 'Venus Core Pool'). Note Messari also publishes a Venus subgraph with a different, incompatible schema."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 2471512, "end": 2521512 },
+  "entities": [
+    {
+      "subgraphName": "comptrollers",
+      "localName": "Comptroller",
+      "fields": ["id", "address", "priceOracle", "closeFactorMantissa", "liquidationIncentive"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "address", "name", "symbol", "decimals"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "markets",
+      "localName": "Market",
+      "fields": [
+        "id",
+        "address",
+        "vTokenDecimals",
+        "name",
+        "symbol",
+        "isListed",
+        "borrowRateMantissa",
+        "cashMantissa",
+        "collateralFactorMantissa",
+        "exchangeRateMantissa",
+        "interestRateModelAddress",
+        "reservesMantissa",
+        "supplyRateMantissa",
+        "totalBorrowsMantissa",
+        "totalSupplyVTokenMantissa",
+        "xvsSupplyStateBlock",
+        "xvsSupplyStateIndex",
+        "xvsBorrowStateBlock",
+        "xvsBorrowStateIndex",
+        "xvsSupplySpeed",
+        "xvsBorrowSpeed",
+        "accrualBlockNumber",
+        "borrowIndex",
+        "reserveFactorMantissa",
+        "lastUnderlyingPriceCents",
+        "lastUnderlyingPriceBlockNumber",
+        "totalXvsDistributedMantissa",
+        "supplierCount",
+        "borrowerCount"
+      ],
+      "decimalFields": [],
+      "orderBy": "id",
+      "_note": "underlyingToken is a relation (Token.id). Compare via underlyingToken { id } in the subgraph vs Market.underlyingToken_id locally if the compare tool supports nested relation selection."
+    },
+    {
+      "subgraphName": "accounts",
+      "localName": "Account",
+      "fields": ["id", "address", "countLiquidated", "countLiquidator", "hasBorrowed"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "marketPositions",
+      "localName": "MarketPosition",
+      "fields": [
+        "id",
+        "accrualBlockNumber",
+        "borrowIndex",
+        "enteredMarket",
+        "vTokenBalanceMantissa",
+        "totalUnderlyingRedeemedMantissa",
+        "totalUnderlyingRepaidMantissa",
+        "storedBorrowBalanceMantissa"
+      ],
+      "decimalFields": [],
+      "orderBy": "id",
+      "_note": "market and account are relations (market_id / account_id locally)."
+    },
+    {
+      "subgraphName": "transactions",
+      "localName": "Transaction",
+      "fields": ["id", "type", "from", "amountMantissa", "to", "blockNumber", "blockTime"],
+      "decimalFields": [],
+      "orderBy": "id"
+    }
+  ]
+}

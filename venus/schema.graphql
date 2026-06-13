@@ -1,0 +1,179 @@
+"""
+The Comptroller type has protocol level variables stored
+"""
+type Comptroller {
+    "ID is set to comptroller address (Bytes in the subgraph; lowercase hex string here)"
+    id: ID!
+    "Comptroller Address"
+    address: String!
+    "Address of price oracle the comptroller uses"
+    priceOracle: String!
+    "Factor used to determine repayAmount for liquidating"
+    closeFactorMantissa: BigInt!
+    "The percent bonus liquidators get for liquidating"
+    liquidationIncentive: BigInt!
+}
+
+"""
+ERC20 Token
+"""
+type Token {
+    "Address of the asset"
+    id: ID!
+    "Address of the asset"
+    address: String!
+    "Name of the asset"
+    name: String!
+    "Symbol of the asset"
+    symbol: String
+    "Decimals of the asset"
+    decimals: Int!
+}
+
+"""
+Market stores all high level variables for a vToken market
+"""
+type Market {
+    "VToken address"
+    id: ID!
+    "Vtoken Address"
+    address: String!
+    "vToken decimal length"
+    vTokenDecimals: Int!
+    "Name of the vToken"
+    name: String!
+    "VToken symbol"
+    symbol: String!
+    "Flag indicating if the market is listed"
+    isListed: Boolean!
+    "Borrow rate per block"
+    borrowRateMantissa: BigInt!
+    "The vToken contract balance of BEP20 or BNB"
+    cashMantissa: BigInt!
+    "Collateral factor determining how much one can borrow"
+    collateralFactorMantissa: BigInt!
+    "Exchange rate of tokens / vTokens"
+    exchangeRateMantissa:  BigInt!
+    "Address of the interest rate model"
+    interestRateModelAddress: String!
+    "Reserves stored in the contract"
+    reservesMantissa: BigInt!
+    "Supply rate per block"
+    supplyRateMantissa: BigInt!
+    "Borrows in the market"
+    totalBorrowsMantissa: BigInt!
+    "Total vToken supplied"
+    totalSupplyVTokenMantissa: BigInt!
+    "Underlying Token"
+    underlyingToken: Token!
+    "XVS Supply Distribution Block"
+    xvsSupplyStateBlock:  BigInt!
+    "XVS Supply Distribution Index"
+    xvsSupplyStateIndex:  BigInt!
+    "XVS Reward Distribution Block"
+    xvsBorrowStateBlock:  BigInt!
+    "XVS Reward Distribution Index"
+    xvsBorrowStateIndex:  BigInt!
+    "The rate at which XVS is distributed to the corresponding supply market (per block)"
+    xvsSupplySpeed: BigInt!
+    "The rate at which XVS is distributed to the corresponding borrow market (per block)"
+    xvsBorrowSpeed: BigInt!
+
+    "Block the market is updated to"
+    accrualBlockNumber: BigInt!
+    "The history of the markets borrow index return (Think S&P 500)"
+    borrowIndex: BigInt!
+    "The factor determining interest that goes to reserves"
+    reserveFactorMantissa: BigInt!
+    "Last recorded Underlying token price in USD cents"
+    lastUnderlyingPriceCents: BigInt!
+    "Block price was last updated"
+    lastUnderlyingPriceBlockNumber: BigInt!
+    "Total XVS Distributed for this market"
+    totalXvsDistributedMantissa: BigInt!
+
+    "Number of accounts currently supplying to this market"
+    supplierCount: BigInt!
+
+    "Number of accounts currently borrowing from this market"
+    borrowerCount: BigInt!
+
+    "Accounts who participate in this market"
+    accounts: [MarketPosition!]! @derivedFrom(field:"market")
+}
+
+"""
+Account is an BNB address, with a list of all vToken markets the account has
+participated in, along with liquidation information.
+"""
+type Account {
+    "Account address"
+    id: ID!
+    "Account address"
+    address: String!
+    "Array of VTokens user is in"
+    tokens: [MarketPosition!]! @derivedFrom(field: "account")
+    "Count user has been liquidated"
+    countLiquidated: Int!
+    "Count user has liquidated others"
+    countLiquidator: Int!
+    "True if user has ever borrowed"
+    hasBorrowed: Boolean!
+}
+
+"""
+MarketPosition is a single account within a single vToken market
+"""
+type MarketPosition {
+    "Concatenation of VToken address and user address"
+    id: ID!
+    "Relation to market"
+    market: Market! @index
+    "Relation to user"
+    account: Account! @index
+    "Block the position is updated to"
+    accrualBlockNumber: BigInt!
+    "Borrow Index this position last accrued interest"
+    borrowIndex: BigInt!
+    "True if user is entered, false if they are exited"
+    enteredMarket: Boolean!
+    "VToken balance of the user"
+    vTokenBalanceMantissa: BigInt!
+    "Total amount of underlying redeemed"
+    totalUnderlyingRedeemedMantissa: BigInt!
+    "Total amount underlying repaid"
+    totalUnderlyingRepaidMantissa: BigInt!
+    "Stored borrow balance stored in contract (exclusive of interest since accrualBlockNumber)"
+    storedBorrowBalanceMantissa: BigInt!
+}
+
+enum EventType {
+    MINT
+    MINT_BEHALF
+    REDEEM
+    BORROW
+    TRANSFER
+    LIQUIDATE
+    REPAY
+}
+
+"""
+An interface for a transfer of any vToken. TransferEvent, MintEvent,
+RedeemEvent, and LiquidationEvent all use this interface
+"""
+type Transaction {
+    "Transaction hash concatenated with log index"
+    id: ID!
+    "enum of event type"
+    type: EventType!
+    "The account that sent the tokens, usually vToken"
+    from: String!
+    "count of vTokens transferred"
+    amountMantissa: BigInt!
+    "Account that received tokens"
+    to: String!
+    "Block number"
+    blockNumber: Int!
+    "Block time"
+    blockTime: Int!
+}

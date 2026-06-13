@@ -14,7 +14,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 2 | Compound v2 | [graphprotocol/compound-v2-subgraph](https://github.com/graphprotocol/compound-v2-subgraph) | `compound-v2/` | ✅ ported, builds + offline tests pass |
 | 3 | Compound v3 | [papercliplabs/compound-v3-subgraph](https://github.com/papercliplabs/compound-v3-subgraph) | `compound-v3/` | ✅ ported, builds + offline tests pass |
 | 4 | PancakeSwap | [pancakeswap/pancake-subgraph](https://github.com/pancakeswap/pancake-subgraph) (exchange, BSC) | `pancakeswap-exchange/` | ✅ ported, builds + offline tests pass |
-| 5 | Venus | [VenusProtocol/venus-protocol-subgraphs](https://github.com/VenusProtocol/venus-protocol-subgraphs) | `venus/` | pending |
+| 5 | Venus | [VenusProtocol/venus-protocol-subgraphs](https://github.com/VenusProtocol/venus-protocol-subgraphs) | `venus/` | ✅ ported, builds + offline tests pass |
 | 6 | Pendle | public Pendle subgraphs | `pendle/` | pending |
 | 7 | Convex Finance | [convex-community/convex-subgraph](https://github.com/convex-community/convex-subgraph) | `convex/` | pending |
 | 8 | ether.fi | public `etherfi-v2` subgraph | `etherfi/` | pending |
