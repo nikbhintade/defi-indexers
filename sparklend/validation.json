@@ -1,0 +1,153 @@
+{
+  "subgraph": {
+    "url": "https://gateway.thegraph.com/api/subgraphs/id/GbKdmBe4ycCYCQLQSjqGg6UHYoYfbyJyq5WrG35pv1si",
+    "authEnv": "GRAPH_API_KEY",
+    "note": "SparkLend (\"Spark Lend Ethereum\") on The Graph decentralized network. Subgraph id discovered via Graph Explorer search; confirm the id resolves to the Ethereum-mainnet SparkLend market before running tools/compare (the explorer page is gated behind an API key in this offline environment)."
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 16776389, "end": 16826389 },
+  "entities": [
+    {
+      "subgraphName": "pools",
+      "localName": "Pool",
+      "fields": [
+        "id",
+        "addressProviderId",
+        "pool",
+        "poolConfigurator",
+        "active",
+        "paused",
+        "lastUpdateTimestamp"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "reserves",
+      "localName": "Reserve",
+      "fields": [
+        "id",
+        "underlyingAsset",
+        "symbol",
+        "name",
+        "decimals",
+        "usageAsCollateralEnabled",
+        "borrowingEnabled",
+        "isActive",
+        "isFrozen",
+        "liquidityRate",
+        "variableBorrowRate",
+        "stableBorrowRate",
+        "liquidityIndex",
+        "variableBorrowIndex",
+        "totalATokenSupply",
+        "availableLiquidity",
+        "totalScaledVariableDebt",
+        "totalPrincipalStableDebt",
+        "totalLiquidity",
+        "accruedToTreasury",
+        "reserveFactor",
+        "aToken",
+        "vToken",
+        "sToken",
+        "lifetimeLiquidity",
+        "lifetimeBorrows",
+        "lifetimeRepayments",
+        "lifetimeWithdrawals",
+        "lifetimeFlashLoans"
+      ],
+      "decimalFields": ["utilizationRate"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "userReserves",
+      "localName": "UserReserve",
+      "fields": [
+        "id",
+        "scaledATokenBalance",
+        "currentATokenBalance",
+        "scaledVariableDebt",
+        "currentVariableDebt",
+        "principalStableDebt",
+        "currentStableDebt",
+        "currentTotalDebt",
+        "usageAsCollateralEnabledOnUser",
+        "stableBorrowRate",
+        "liquidityRate",
+        "variableBorrowIndex"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "users",
+      "localName": "User",
+      "fields": ["id", "borrowedReservesCount", "unclaimedRewards", "lifetimeRewards"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "subTokens",
+      "localName": "SubToken",
+      "fields": ["id", "underlyingAssetAddress", "underlyingAssetDecimals"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "supplies",
+      "localName": "Supply",
+      "fields": ["id", "txHash", "amount", "reserve", "user", "caller", "timestamp"],
+      "decimalFields": ["assetPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "borrows",
+      "localName": "Borrow",
+      "fields": [
+        "id",
+        "txHash",
+        "amount",
+        "borrowRate",
+        "borrowRateMode",
+        "reserve",
+        "user",
+        "stableTokenDebt",
+        "variableTokenDebt",
+        "timestamp"
+      ],
+      "decimalFields": ["assetPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "repays",
+      "localName": "Repay",
+      "fields": ["id", "txHash", "amount", "useATokens", "reserve", "user", "repayer", "timestamp"],
+      "decimalFields": ["assetPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "reserveParamsHistoryItems",
+      "localName": "ReserveParamsHistoryItem",
+      "fields": [
+        "id",
+        "variableBorrowRate",
+        "variableBorrowIndex",
+        "liquidityRate",
+        "liquidityIndex",
+        "totalATokenSupply",
+        "availableLiquidity",
+        "totalScaledVariableDebt",
+        "totalPrincipalStableDebt",
+        "accruedToTreasury",
+        "timestamp"
+      ],
+      "decimalFields": ["utilizationRate"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "priceOracleAssets",
+      "localName": "PriceOracleAsset",
+      "fields": ["id", "priceInEth", "priceSource", "isFallbackRequired", "type"],
+      "orderBy": "id"
+    }
+  ]
+}
