@@ -1,0 +1,153 @@
+{
+  "subgraph": {
+    "url": "TODO: no public Aave Horizon subgraph id confirmed. Replace with https://gateway.thegraph.com/api/subgraphs/id/<HORIZON_SUBGRAPH_ID> once an Aave Horizon (Ethereum-mainnet, Aave v3.3 RWA) subgraph is located on The Graph decentralized network.",
+    "authEnv": "GRAPH_API_KEY",
+    "note": "Aave Horizon is a permissioned/licensed Aave V3 instance; at port time no Aave-published Horizon subgraph id was discoverable from GitHub/WebSearch (only the canonical Aave V3 mainnet subgraphs were found). The entity map below is the standard Aave V3 subgraph schema and applies once a Horizon endpoint is available; until then tools/compare cannot diff. authEnv GRAPH_API_KEY."
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 23125530, "end": 23175530 },
+  "entities": [
+    {
+      "subgraphName": "pools",
+      "localName": "Pool",
+      "fields": [
+        "id",
+        "addressProviderId",
+        "pool",
+        "poolConfigurator",
+        "active",
+        "paused",
+        "lastUpdateTimestamp"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "reserves",
+      "localName": "Reserve",
+      "fields": [
+        "id",
+        "underlyingAsset",
+        "symbol",
+        "name",
+        "decimals",
+        "usageAsCollateralEnabled",
+        "borrowingEnabled",
+        "isActive",
+        "isFrozen",
+        "liquidityRate",
+        "variableBorrowRate",
+        "stableBorrowRate",
+        "liquidityIndex",
+        "variableBorrowIndex",
+        "totalATokenSupply",
+        "availableLiquidity",
+        "totalScaledVariableDebt",
+        "totalPrincipalStableDebt",
+        "totalLiquidity",
+        "accruedToTreasury",
+        "reserveFactor",
+        "aToken",
+        "vToken",
+        "sToken",
+        "lifetimeLiquidity",
+        "lifetimeBorrows",
+        "lifetimeRepayments",
+        "lifetimeWithdrawals",
+        "lifetimeFlashLoans"
+      ],
+      "decimalFields": ["utilizationRate"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "userReserves",
+      "localName": "UserReserve",
+      "fields": [
+        "id",
+        "scaledATokenBalance",
+        "currentATokenBalance",
+        "scaledVariableDebt",
+        "currentVariableDebt",
+        "principalStableDebt",
+        "currentStableDebt",
+        "currentTotalDebt",
+        "usageAsCollateralEnabledOnUser",
+        "stableBorrowRate",
+        "liquidityRate",
+        "variableBorrowIndex"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "users",
+      "localName": "User",
+      "fields": ["id", "borrowedReservesCount", "unclaimedRewards", "lifetimeRewards"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "subTokens",
+      "localName": "SubToken",
+      "fields": ["id", "underlyingAssetAddress", "underlyingAssetDecimals"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "supplies",
+      "localName": "Supply",
+      "fields": ["id", "txHash", "amount", "reserve", "user", "caller", "timestamp"],
+      "decimalFields": ["assetPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "borrows",
+      "localName": "Borrow",
+      "fields": [
+        "id",
+        "txHash",
+        "amount",
+        "borrowRate",
+        "borrowRateMode",
+        "reserve",
+        "user",
+        "stableTokenDebt",
+        "variableTokenDebt",
+        "timestamp"
+      ],
+      "decimalFields": ["assetPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "repays",
+      "localName": "Repay",
+      "fields": ["id", "txHash", "amount", "useATokens", "reserve", "user", "repayer", "timestamp"],
+      "decimalFields": ["assetPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "reserveParamsHistoryItems",
+      "localName": "ReserveParamsHistoryItem",
+      "fields": [
+        "id",
+        "variableBorrowRate",
+        "variableBorrowIndex",
+        "liquidityRate",
+        "liquidityIndex",
+        "totalATokenSupply",
+        "availableLiquidity",
+        "totalScaledVariableDebt",
+        "totalPrincipalStableDebt",
+        "accruedToTreasury",
+        "timestamp"
+      ],
+      "decimalFields": ["utilizationRate"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "priceOracleAssets",
+      "localName": "PriceOracleAsset",
+      "fields": ["id", "priceInEth", "priceSource", "isFallbackRequired", "type"],
+      "orderBy": "id"
+    }
+  ]
+}

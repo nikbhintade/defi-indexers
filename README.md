@@ -35,7 +35,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 23 | M0 (#122) | [m0-foundation/subgraphs](https://github.com/m0-foundation/subgraphs) | `m0/` | ✅ ported (protocol subgraph), builds + offline tests pass |
 | 24 | tBTC (#123) | [threshold-network/tbtc-subgraph](https://github.com/threshold-network/tbtc-subgraph) | `tbtc/` | ✅ ported, builds + offline tests pass (incl. BTC-utils byte-parity) |
 | 25 | Quickswap Dex (#124) | [QuickSwap/QuickSwap-subgraph](https://github.com/QuickSwap/QuickSwap-subgraph) | `quickswap/` | ✅ ported (Polygon), builds + offline tests pass |
-| 26 | Aave Horizon RWA (#130) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-horizon/` | queued |
+| 26 | Aave Horizon RWA (#130) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-horizon/` | ✅ ported (Aave v3.3 RWA), builds + offline tests pass |
 | 27 | PancakeSwap AMM V3 (#131) | [pancakeswap/exchange-v3-subgraphs](https://github.com/pancakeswap/exchange-v3-subgraphs) | `pancakeswap-v3/` | queued |
 | 28 | Euler V2 (#136) | [euler-xyz/euler-subgraph](https://github.com/euler-xyz/euler-subgraph) | `euler-v2/` | queued |
 | 29 | b14g (#155) | [b14glabs/b14g-core-subgraph](https://github.com/b14glabs/b14g-core-subgraph) | `b14g/` | queued |
