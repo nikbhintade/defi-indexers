@@ -1,0 +1,151 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The Cooler Loans subgraph is deployed to The Graph Studio under the slug 'cooler-loans' (OlympusDAO/cooler-loans-subgraph package.json: `graph deploy --studio cooler-loans`). No concrete decentralized-network subgraph id is committed in the repo. Set url to https://gateway.thegraph.com/api/subgraphs/id/<ID> once the published id is found on Graph Explorer (auth via GRAPH_API_KEY). NOTE: the timeseries/aggregation entities (ClearinghouseSnapshot, RepayLoanEvent, ExtendLoanEvent, ClaimDefaultedLoanEvent, MonoCooler* snapshots/origination/liquidation, *Stats aggregations) use graph-node auto-incrementing Int8 ids that this port reconstructs as deterministic strings -> they are intentionally excluded from the entity diff below (id columns won't match). The entities below all have byte-for-byte stable ids."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 18185779, "end": 18235779 },
+  "entities": [
+    {
+      "subgraphName": "clearinghouses",
+      "localName": "Clearinghouse",
+      "fields": [
+        "id",
+        "createdBlock",
+        "createdTimestamp",
+        "address",
+        "version",
+        "coolerFactoryAddress",
+        "collateralToken",
+        "collateralTokenDecimals",
+        "reserveToken",
+        "reserveTokenDecimals",
+        "sReserveToken",
+        "sReserveTokenDecimals",
+        "interestRate",
+        "duration",
+        "fundCadence",
+        "fundAmount",
+        "loanToCollateral"
+      ],
+      "decimalFields": ["interestRate", "fundAmount", "loanToCollateral"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "coolerLoanRequests",
+      "localName": "CoolerLoanRequest",
+      "fields": [
+        "id",
+        "createdBlock",
+        "createdTimestamp",
+        "createdTransaction",
+        "cooler",
+        "requestId",
+        "borrower",
+        "collateralToken",
+        "debtToken",
+        "amount",
+        "interestPercentage",
+        "loanToCollateralRatio",
+        "durationSeconds",
+        "isRescinded"
+      ],
+      "decimalFields": ["amount", "interestPercentage", "loanToCollateralRatio"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "coolerLoans",
+      "localName": "CoolerLoan",
+      "fields": [
+        "id",
+        "createdBlock",
+        "createdTimestamp",
+        "createdTransaction",
+        "cooler",
+        "loanId",
+        "interest",
+        "principal",
+        "collateral",
+        "originalExpiryTimestamp",
+        "currentExpiryTimestamp",
+        "hasCallback"
+      ],
+      "decimalFields": ["interest", "principal", "collateral"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "borrowerStats",
+      "localName": "BorrowerStats",
+      "fields": [
+        "id",
+        "borrower",
+        "totalLoans",
+        "totalDefaultedLoans",
+        "totalRepaidLoans",
+        "activeLoans",
+        "maxActiveLoans",
+        "maxBorrowedValue",
+        "currentBorrowed",
+        "currentInterestDue",
+        "currentCollateral",
+        "totalLoanExtensions"
+      ],
+      "decimalFields": ["maxBorrowedValue", "currentBorrowed", "currentInterestDue", "currentCollateral"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "clearinghouseCumulativeStats",
+      "localName": "ClearinghouseCumulativeStats",
+      "fields": [
+        "id",
+        "totalUniqueBorrowers",
+        "totalLoopers",
+        "currentActiveBorrowers",
+        "currentActiveLoopers",
+        "totalLoans",
+        "currentActiveLoans",
+        "totalDefaultedLoans",
+        "totalRepaidLoans",
+        "totalLoanExtensions"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "requestLoanEvents",
+      "localName": "RequestLoanEvent",
+      "fields": ["id", "date", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "rescindLoanRequestEvents",
+      "localName": "RescindLoanRequestEvent",
+      "fields": ["id", "date", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "clearLoanRequestEvents",
+      "localName": "ClearLoanRequestEvent",
+      "fields": ["id", "date", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "rebalanceEvents",
+      "localName": "RebalanceEvent",
+      "fields": ["id", "date", "blockNumber", "blockTimestamp", "transactionHash", "amount"],
+      "decimalFields": ["amount"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "defundEvents",
+      "localName": "DefundEvent",
+      "fields": ["id", "date", "blockNumber", "blockTimestamp", "transactionHash", "amount"],
+      "decimalFields": ["amount"],
+      "orderBy": "id"
+    }
+  ]
+}

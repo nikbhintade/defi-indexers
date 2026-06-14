@@ -1,0 +1,89 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: cooler-loans
+description: OlympusDAO Cooler Loans subgraph (mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  # ---- Clearinghouse (all versions share the V1 event shapes) ----
+  - name: Clearinghouse
+    abi_file_path: ./abis/Clearinghouse.json
+    events:
+      - event: "Rebalance(bool defund, uint256 daiAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Defund(address token, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+  # ---- CoolerFactory: drives the loan lifecycle (re-emits Cooler events) ----
+  - name: CoolerFactory
+    abi_file_path: ./abis/CoolerFactory.json
+    events:
+      - event: "RequestLoan(address indexed cooler, address collateral, address debt, uint256 reqID)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RescindRequest(address indexed cooler, uint256 reqID)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClearRequest(address indexed cooler, uint256 reqID, uint256 loanID)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "DefaultLoan(address indexed cooler, uint256 loanID, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RepayLoan(address indexed cooler, uint256 loanID, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ExtendLoan(address indexed cooler, uint256 loanID, uint8 times)"
+        field_selection:
+          transaction_fields: [hash]
+  # ---- MonoCooler v2 ----
+  - name: MonoCooler
+    abi_file_path: ./abis/MonoCooler.json
+    events:
+      - event: "CollateralAdded(address indexed caller, address indexed onBehalfOf, uint128 collateralAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "CollateralWithdrawn(address indexed caller, address indexed onBehalfOf, address indexed recipient, uint128 collateralAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Borrow(address indexed caller, address indexed onBehalfOf, address indexed recipient, uint128 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Repay(address indexed caller, address indexed onBehalfOf, uint128 repayAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Liquidated(address indexed caller, address indexed account, uint128 collateralSeized, uint128 debtWiped, uint128 incentives)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "InterestRateSet(uint96 interestRateWad)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "LtvOracleSet(address indexed oracle)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "LiquidationsPausedSet(bool isPaused)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "BorrowPausedSet(bool isPaused)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "TreasuryBorrowerSet(address indexed treasuryBorrower)"
+        field_selection:
+          transaction_fields: [hash]
+chains:
+  - id: 1
+    start_block: 18185633 # earliest source (CoolerFactory_V1)
+    # end_block: 18235779   # uncomment for bounded validation runs (Clearinghouse_V1 start 18185779 + 50k)
+    contracts:
+      # Clearinghouse V1, V1.1, V1.2 (all use the same Clearinghouse event shapes)
+      - name: Clearinghouse
+        address:
+          - "0xd6a6e8d9e82534bd65821142fccd91ec9cf31880" # V1 @ 18185779
+          - "0xE6343ad0675C9b8D3f32679ae6aDbA0766A2ab4c" # V1.1 @ 18234505
+          - "0x1e094fE00E13Fd06D64EeA4FB3cD912893606fE0" # V1.2 @ 21216656
+      # CoolerFactory V1 + V1.1
+      - name: CoolerFactory
+        address:
+          - "0xDE3e735d37A8498AD2F141F603A6d0F976A6F772" # V1 @ 18185633
+          - "0x30Ce56e80aA96EbbA1E1a74bC5c0FEB5B0dB4216" # V1.1 @ 18234504
+      - name: MonoCooler
+        address: "0xdb591Ea2e5Db886dA872654D58f6cc584b68e7cC" # @ 22423121

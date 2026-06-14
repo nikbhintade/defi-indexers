@@ -1,0 +1,359 @@
+# Ported from OlympusDAO/cooler-loans-subgraph schema.graphql.
+#
+# Deviations (see MIGRATION.md):
+#  * @entity directives stripped; Bytes -> String (lowercase 0x hex).
+#  * Timeseries entities (`@entity(timeseries: true)`) -> plain entities with a
+#    deterministic String `id` (txHash-logIndex or address-block-logIndex) and an
+#    explicit `timestamp: BigInt`, since HyperIndex has no auto-incrementing Int8
+#    timeseries id / auto timestamp.
+#  * @aggregation types (DefaultStats, RepaymentStats, ExtensionStats,
+#    ClearinghouseSnapshotStats, MonoCooler*Stats) are dropped — HyperIndex has
+#    no graph-node aggregation primitive. They are pure read-time rollups of the
+#    timeseries source entities, which are all ported, so no source data is lost.
+
+type ClearinghouseSingleton {
+  id: ID!
+  clearinghouses: [Clearinghouse!]! @derivedFrom(field: "singleton")
+}
+
+type Clearinghouse {
+  id: ID!
+  createdBlock: BigInt!
+  createdTimestamp: BigInt!
+  address: String!
+  version: String!
+  singleton: ClearinghouseSingleton! @index
+  coolerFactoryAddress: String!
+  collateralToken: String!
+  collateralTokenDecimals: Int!
+  reserveToken: String!
+  reserveTokenDecimals: Int!
+  sReserveToken: String!
+  sReserveTokenDecimals: Int!
+  interestRate: BigDecimal!
+  duration: BigInt!
+  fundCadence: BigInt!
+  fundAmount: BigDecimal!
+  loanToCollateral: BigDecimal!
+  loans: [CoolerLoan!]! @derivedFrom(field: "clearinghouse")
+  snapshots: [ClearinghouseSnapshot!]! @derivedFrom(field: "clearinghouse")
+}
+
+type CoolerLoanRequest {
+  id: ID!
+  createdBlock: BigInt!
+  createdTimestamp: BigInt!
+  createdTransaction: String!
+  cooler: String!
+  requestId: BigInt!
+  borrower: String!
+  collateralToken: String!
+  debtToken: String!
+  amount: BigDecimal!
+  interestPercentage: BigDecimal!
+  loanToCollateralRatio: BigDecimal!
+  durationSeconds: BigInt!
+  isRescinded: Boolean!
+  requestEvents: [RequestLoanEvent!]! @derivedFrom(field: "request")
+  rescindEvents: [RescindLoanRequestEvent!]! @derivedFrom(field: "request")
+  clearEvents: [ClearLoanRequestEvent!]! @derivedFrom(field: "request")
+  loans: [CoolerLoan!]! @derivedFrom(field: "request")
+}
+
+type CoolerLoan {
+  id: ID!
+  createdBlock: BigInt!
+  createdTimestamp: BigInt!
+  createdTransaction: String!
+  cooler: String!
+  request: CoolerLoanRequest!
+  loanId: BigInt!
+  borrower: BorrowerStats!
+  clearinghouse: Clearinghouse!
+  interest: BigDecimal!
+  principal: BigDecimal!
+  collateral: BigDecimal!
+  originalExpiryTimestamp: BigInt!
+  currentExpiryTimestamp: BigInt!
+  hasCallback: Boolean!
+  creationEvents: [ClearLoanRequestEvent!]! @derivedFrom(field: "loan")
+  defaultedClaimEvents: [ClaimDefaultedLoanEvent!]! @derivedFrom(field: "loan")
+  repaymentEvents: [RepayLoanEvent!]! @derivedFrom(field: "loan")
+  extendEvents: [ExtendLoanEvent!]! @derivedFrom(field: "loan")
+}
+
+# was @entity(timeseries: true)
+type ClearinghouseSnapshot {
+  id: ID!
+  timestamp: BigInt!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  clearinghouse: Clearinghouse!
+  isActive: Boolean!
+  nextRebalanceTimestamp: BigInt!
+  interestReceivables: BigDecimal!
+  principalReceivables: BigDecimal!
+  reserveToken: String!
+  sReserveToken: String!
+  reserveBalance: BigDecimal!
+  sReserveBalance: BigDecimal!
+  sReserveInReserveBalance: BigDecimal!
+  treasuryReserveBalance: BigDecimal!
+  treasurySReserveBalance: BigDecimal!
+  treasurySReserveInReserveBalance: BigDecimal!
+}
+
+### Clearinghouse Events
+
+type RebalanceEvent {
+  id: ID!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  clearinghouse: Clearinghouse!
+  amount: BigDecimal!
+}
+
+type DefundEvent {
+  id: ID!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  clearinghouse: Clearinghouse!
+  amount: BigDecimal!
+}
+
+### Loan Events
+
+type RequestLoanEvent {
+  id: ID!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  request: CoolerLoanRequest!
+}
+
+type RescindLoanRequestEvent {
+  id: ID!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  request: CoolerLoanRequest!
+}
+
+type ClearLoanRequestEvent {
+  id: ID!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  request: CoolerLoanRequest!
+  loan: CoolerLoan!
+}
+
+# was @entity(timeseries: true)
+type ClaimDefaultedLoanEvent {
+  id: ID!
+  timestamp: BigInt!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  collateralQuantityClaimed: BigDecimal!
+  collateralPrice: BigDecimal!
+  collateralValueClaimed: BigDecimal!
+  loan: CoolerLoan!
+  secondsSinceExpiry: BigInt!
+  defaultedPrincipal: BigDecimal!
+}
+
+# was @entity(timeseries: true)
+type RepayLoanEvent {
+  id: ID!
+  timestamp: BigInt!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  amountPaid: BigDecimal!
+  principalPaid: BigDecimal!
+  interestPaid: BigDecimal!
+  loan: CoolerLoan!
+  secondsToExpiry: BigInt!
+}
+
+# was @entity(timeseries: true)
+type ExtendLoanEvent {
+  id: ID!
+  timestamp: BigInt!
+  date: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+  periods: Int!
+  loan: CoolerLoan!
+  expiryTimestamp: BigInt!
+  interestDue: BigDecimal!
+}
+
+type BorrowerStats {
+  id: ID!
+  borrower: String!
+  clearinghouse: Clearinghouse!
+  totalLoans: Int!
+  totalDefaultedLoans: Int!
+  totalRepaidLoans: Int!
+  activeLoans: Int!
+  maxActiveLoans: Int!
+  maxBorrowedValue: BigDecimal!
+  currentBorrowed: BigDecimal!
+  currentInterestDue: BigDecimal!
+  currentCollateral: BigDecimal!
+  lastUpdateBlock: BigInt!
+  lastUpdateTimestamp: BigInt!
+  totalLoanExtensions: Int!
+  loans: [CoolerLoan!]! @derivedFrom(field: "borrower")
+}
+
+type ClearinghouseCumulativeStats {
+  id: ID!
+  clearinghouse: Clearinghouse!
+  totalUniqueBorrowers: Int!
+  totalLoopers: Int!
+  currentActiveBorrowers: Int!
+  currentActiveLoopers: Int!
+  totalLoans: Int!
+  currentActiveLoans: Int!
+  totalDefaultedLoans: Int!
+  totalRepaidLoans: Int!
+  totalLoanExtensions: Int!
+  lastUpdateBlock: BigInt!
+  lastUpdateTimestamp: BigInt!
+}
+
+# =====================
+# MonoCooler v2 Entities
+# =====================
+
+type MonoCoolerAccount {
+  id: ID!
+  address: String!
+  collateral: BigInt!
+  debt: BigInt!
+  interestAccumulatorRay: BigInt!
+  ltv: BigInt!
+  healthFactor: BigInt!
+  updatedAt: BigInt!
+  snapshots: [MonoCoolerAccountSnapshot!]! @derivedFrom(field: "account")
+  activities: [MonoCoolerActivity!]! @derivedFrom(field: "account")
+}
+
+type MonoCoolerGlobalState {
+  id: ID!
+  totalCollateral: BigInt!
+  totalDebt: BigInt!
+  interestAccumulatorRay: BigInt!
+  interestRateWad: BigInt!
+  ltvOracle: String!
+  liquidationPaused: Boolean!
+  borrowsPaused: Boolean!
+  treasuryBorrower: String!
+  updatedAt: BigInt!
+  snapshots: [MonoCoolerGlobalSnapshot!]! @derivedFrom(field: "globalState")
+  ltvOracleChanges: [MonoCoolerLtvOracleChange!]! @derivedFrom(field: "globalState")
+}
+
+# was @entity(timeseries: true)
+type MonoCoolerAccountSnapshot {
+  id: ID!
+  timestamp: BigInt!
+  account: MonoCoolerAccount!
+  collateral: BigInt!
+  debt: BigInt!
+  ltv: BigInt!
+  healthFactor: BigInt!
+  maxOriginationLtv: BigInt!
+  liquidationLtv: BigInt!
+}
+
+# was @entity(timeseries: true)
+type MonoCoolerGlobalSnapshot {
+  id: ID!
+  timestamp: BigInt!
+  globalState: MonoCoolerGlobalState!
+  totalCollateral: BigInt!
+  totalDebt: BigInt!
+  interestRateWad: BigInt!
+  maxOriginationLtv: BigInt!
+  liquidationLtv: BigInt!
+}
+
+type MonoCoolerActivity {
+  id: ID!
+  type: String!
+  account: MonoCoolerAccount!
+  amount: BigInt!
+  collateral: BigInt
+  debt: BigInt
+  ltv: BigInt
+  maxOriginationLtv: BigInt
+  liquidationLtv: BigInt
+  txHash: String!
+  timestamp: BigInt!
+  liquidationIncentive: BigInt
+  collateralSeized: BigInt
+  debtWiped: BigInt
+}
+
+type MonoCoolerLtvOracleChange {
+  id: ID!
+  globalState: MonoCoolerGlobalState!
+  oldOracle: String!
+  newOracle: String!
+  oldMaxOriginationLtv: BigInt!
+  oldLiquidationLtv: BigInt!
+  newMaxOriginationLtv: BigInt!
+  newLiquidationLtv: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+# was @entity(timeseries: true)
+type MonoCoolerLoanOrigination {
+  id: ID!
+  timestamp: BigInt!
+  account: MonoCoolerAccount!
+  borrowAmount: BigInt!
+  resultingLtv: BigInt!
+  maxOriginationLtv: BigInt!
+  liquidationLtv: BigInt!
+  collateralAtTime: BigInt!
+  debtAtTime: BigInt!
+  healthFactor: BigInt!
+  utilizationRatio: BigInt!
+  txHash: String!
+}
+
+# was @entity(timeseries: true)
+type MonoCoolerLiquidation {
+  id: ID!
+  timestamp: BigInt!
+  account: MonoCoolerAccount!
+  liquidator: String!
+  collateralSeized: BigInt!
+  debtWiped: BigInt!
+  incentiveReceived: BigInt!
+  ltvAtLiquidation: BigInt!
+  maxOriginationLtv: BigInt!
+  liquidationLtv: BigInt!
+  excessLtv: BigInt!
+  healthFactorAtLiquidation: BigInt!
+  txHash: String!
+}
