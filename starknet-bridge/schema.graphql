@@ -1,0 +1,75 @@
+###############
+### DEPOSIT ###
+###############
+
+type DepositEvent {
+  "uniq ID: txHash-logIndex"
+  id: ID!
+  bridgeAddressL1: String!
+  bridgeAddressL2: String!
+  l2Recipient: String!
+  amount: BigInt!
+  status: TransferStatus!
+  createdAtBlock: BigInt!
+  createdTxHash: String!
+  finishedAtBlock: BigInt
+  finishedAtDate: BigInt
+  finishedTxHash: String
+}
+
+type UnfinishedDeposit {
+  "[bridgeL1Address, ...payload].join('-')"
+  id: ID!
+  # Stored as an ordered, mutable list of DepositEvent IDs (scalar [String!]!)
+  # rather than [DepositEvent!]!: the original subgraph keeps an explicit ordered
+  # array and mutates it (addUniq / slice(1)). HyperIndex only allows
+  # [Entity!]! via read-only @derivedFrom, which cannot express that ordered
+  # FIFO queue, so we preserve the exact id-list values as strings.
+  depositEvents: [String!]!
+}
+
+##################
+### WITHDRAWAL ###
+##################
+
+type WithdrawalEvent {
+  "uniq ID: txHash-logIndex"
+  id: ID!
+  bridgeAddressL1: String!
+  bridgeAddressL2: String!
+  l1Recipient: String!
+  amount: BigInt!
+  status: TransferStatus!
+  createdAtBlock: BigInt!
+  createdTxHash: String!
+  finishedAtBlock: BigInt
+  finishedAtDate: BigInt
+  finishedTxHash: String
+}
+
+type UnfinishedWithdrawal {
+  "[bridgeL1Address, ...payload].join('-')"
+  id: ID!
+  # See UnfinishedDeposit.depositEvents — stored as scalar [String!]! id list.
+  withdrawalEvents: [String!]!
+}
+
+#############
+### OTHER ###
+#############
+
+enum TransferStatus {
+  PENDING
+  FINISHED
+}
+
+# Declared in the original subgraph schema but never written by any mapping
+# (dead entity, kept for 1:1 schema parity). The ERC20Detailed ABI in the
+# source was likewise unused — no eth_calls are made, so no Effects are needed.
+type Token {
+  "address"
+  id: ID!
+  name: String!
+  symbol: String!
+  decimals: Int!
+}

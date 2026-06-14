@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: starknet-bridge
+description: >-
+  StarkNet core bridge (StarknetMessaging) L1<->L2 message indexer — port of
+  kaonone/starknet-bridge-subgraph (Ethereum L1 mainnet variant).
+contracts:
+  - name: StarknetMessaging
+    events:
+      # L1 -> L2 deposit messages
+      - event: "LogMessageToL2(address indexed from_address, uint256 indexed to_address, uint256 indexed selector, uint256[] payload, uint256 nonce)"
+        field_selection:
+          transaction_fields:
+            - hash
+      - event: "ConsumedMessageToL2(address indexed from_address, uint256 indexed to_address, uint256 indexed selector, uint256[] payload, uint256 nonce)"
+        field_selection:
+          transaction_fields:
+            - hash
+      # L2 -> L1 withdrawal messages
+      - event: "LogMessageToL1(uint256 indexed from_address, address indexed to_address, uint256[] payload)"
+        field_selection:
+          transaction_fields:
+            - hash
+      - event: "ConsumedMessageToL1(uint256 indexed from_address, address indexed to_address, uint256[] payload)"
+        field_selection:
+          transaction_fields:
+            - hash
+chains:
+  - id: 1
+    start_block: 13620297 # StarkNet Core proxy 0xc662...8c4 deployment block (Nov 2021)
+    # end_block: 13670297  # uncomment for bounded validation runs (start + 50k)
+    contracts:
+      - name: StarknetMessaging
+        address:
+          - 0xc662c410C0ECf747543f5bA90660f6ABeBD9C8c4
+rollback_on_reorg: false

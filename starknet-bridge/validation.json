@@ -1,0 +1,59 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "No concrete The Graph deployment id was found in the source repo (kaonone/starknet-bridge-subgraph) or its config. The subgraph names in config/ are 'in19farkt/starknet-bridge-stable' (mainnet, hosted-service style) and 'in19farkt/starknet-bridge-staging' (goerli). The hosted service is deprecated and these are community-maintained (kaonone) and stale (last source commit 2022-02-02), so a live decentralized-network endpoint may not exist. To validate, deploy/locate the subgraph, set url to https://gateway.thegraph.com/api/subgraphs/id/<ID> and provide GRAPH_API_KEY. NOTE: the source ships NO mainnet bridge-address config (config/stable.json is all zero-addresses), so the original mainnet deployment, if any, used a different rendered bridge set than this port's StarkGate registry — filtered entity sets may differ. See MIGRATION.md."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 13620297, "end": 13670297 },
+  "entities": [
+    {
+      "subgraphName": "depositEvents",
+      "localName": "DepositEvent",
+      "fields": [
+        "id",
+        "bridgeAddressL1",
+        "bridgeAddressL2",
+        "l2Recipient",
+        "amount",
+        "status",
+        "createdAtBlock",
+        "createdTxHash",
+        "finishedAtBlock",
+        "finishedAtDate",
+        "finishedTxHash"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "withdrawalEvents",
+      "localName": "WithdrawalEvent",
+      "fields": [
+        "id",
+        "bridgeAddressL1",
+        "bridgeAddressL2",
+        "l1Recipient",
+        "amount",
+        "status",
+        "createdAtBlock",
+        "createdTxHash",
+        "finishedAtBlock",
+        "finishedAtDate",
+        "finishedTxHash"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "unfinishedDeposits",
+      "localName": "UnfinishedDeposit",
+      "fields": ["id", "depositEvents"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "unfinishedWithdrawals",
+      "localName": "UnfinishedWithdrawal",
+      "fields": ["id", "withdrawalEvents"],
+      "orderBy": "id"
+    }
+  ]
+}
