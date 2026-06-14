@@ -43,7 +43,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 31 | FAssets (#167) | [flare-foundation/fasset-indexer](https://github.com/flare-foundation/fasset-indexer) | `fassets/` | ✅ ported (core EVM slice, Flare), builds + offline tests pass |
 | 32 | Starknet Bridge (#176) | [kaonone/starknet-bridge-subgraph](https://github.com/kaonone/starknet-bridge-subgraph) | `starknet-bridge/` | ✅ ported (L1 EVM side), builds + offline tests pass |
 | 33 | GMX V2 Perps (#186) | [gmx-io/gmx-subgraph](https://github.com/gmx-io/gmx-subgraph) | `gmx-v2/` | ✅ ported (Arbitrum), builds + offline tests pass |
-| 34 | RealT Tokens (#192) | [realtoken-thegraph/protocol-subgraphs](https://github.com/realtoken-thegraph/protocol-subgraphs) | `realt/` | queued |
+| 34 | RealT Tokens (#192) | [realtoken-thegraph/protocol-subgraphs](https://github.com/realtoken-thegraph/protocol-subgraphs) | `realt/` | ✅ ported (RMM Aave V2, Gnosis), builds + offline tests pass |
 | 35 | Yearn Finance (#194) | [yearn/kong](https://github.com/yearn/kong) | `yearn/` | queued |
 | 36 | Dolomite (#209) | [dolomite-exchange/dolomite-subgraph](https://github.com/dolomite-exchange/dolomite-subgraph) | `dolomite/` | queued |
 | 37 | NAVI Lending (#214) | [naviprotocol/sentio-processors](https://github.com/naviprotocol/sentio-processors) | `navi/` | ⏭️ skipped (non-EVM: Sui) |

@@ -1,0 +1,152 @@
+{
+  "subgraph": {
+    "url": "TODO: gateway endpoint for the RealT RMM v2 (Gnosis) subgraph. The source repo deploys slug 'rmm-realt-v2-gnosis' (decentralized) / 'realtoken-thegraph/rmm-realt-v2' (hosted) but does not pin a concrete decentralized deployment id. Once the subgraph id is known, set: https://gateway.thegraph.com/api/subgraphs/id/<ID>",
+    "authEnv": "GRAPH_API_KEY"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 20206000, "end": 20256000 },
+  "entities": [
+    {
+      "subgraphName": "pools",
+      "localName": "Pool",
+      "fields": [
+        "id",
+        "lendingPool",
+        "lendingPoolConfigurator",
+        "active",
+        "paused",
+        "lastUpdateTimestamp"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "reserves",
+      "localName": "Reserve",
+      "fields": [
+        "id",
+        "underlyingAsset",
+        "symbol",
+        "name",
+        "decimals",
+        "usageAsCollateralEnabled",
+        "borrowingEnabled",
+        "stableBorrowRateEnabled",
+        "isActive",
+        "isFrozen",
+        "liquidityRate",
+        "variableBorrowRate",
+        "stableBorrowRate",
+        "liquidityIndex",
+        "variableBorrowIndex",
+        "totalATokenSupply",
+        "availableLiquidity",
+        "totalScaledVariableDebt",
+        "totalCurrentVariableDebt",
+        "totalPrincipalStableDebt",
+        "totalLiquidity",
+        "totalDeposits",
+        "reserveFactor",
+        "baseLTVasCollateral",
+        "reserveLiquidationThreshold",
+        "reserveLiquidationBonus",
+        "optimalUtilisationRate",
+        "variableRateSlope1",
+        "variableRateSlope2",
+        "stableRateSlope1",
+        "stableRateSlope2",
+        "baseVariableBorrowRate",
+        "lifetimeLiquidity",
+        "lifetimeBorrows",
+        "lifetimeRepayments",
+        "lifetimeWithdrawals",
+        "lifetimeLiquidated",
+        "lifetimeFlashLoans",
+        "lifetimeFlashLoanPremium",
+        "lifetimeDepositorsInterestEarned"
+      ],
+      "decimalFields": ["utilizationRate"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "userReserves",
+      "localName": "UserReserve",
+      "fields": [
+        "id",
+        "scaledATokenBalance",
+        "currentATokenBalance",
+        "scaledVariableDebt",
+        "currentVariableDebt",
+        "principalStableDebt",
+        "currentStableDebt",
+        "currentTotalDebt",
+        "usageAsCollateralEnabledOnUser",
+        "stableBorrowRate",
+        "oldStableBorrowRate",
+        "liquidityRate",
+        "variableBorrowIndex"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "users",
+      "localName": "User",
+      "fields": ["id", "borrowedReservesCount", "unclaimedRewards", "lifetimeRewards"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "atokens",
+      "localName": "AToken",
+      "fields": ["id", "underlyingAssetAddress", "underlyingAssetDecimals", "pool"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "deposits",
+      "localName": "Deposit",
+      "fields": ["id", "amount", "reserve", "user", "caller", "timestamp"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "borrows",
+      "localName": "Borrow",
+      "fields": [
+        "id",
+        "amount",
+        "borrowRate",
+        "borrowRateMode",
+        "reserve",
+        "user",
+        "stableTokenDebt",
+        "variableTokenDebt",
+        "timestamp"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "repays",
+      "localName": "Repay",
+      "fields": ["id", "amount", "reserve", "user", "repayer", "timestamp"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "reserveParamsHistoryItems",
+      "localName": "ReserveParamsHistoryItem",
+      "fields": [
+        "id",
+        "variableBorrowRate",
+        "variableBorrowIndex",
+        "liquidityRate",
+        "liquidityIndex",
+        "totalATokenSupply",
+        "availableLiquidity",
+        "totalScaledVariableDebt",
+        "totalPrincipalStableDebt",
+        "timestamp"
+      ],
+      "decimalFields": ["utilizationRate"],
+      "orderBy": "id"
+    }
+  ]
+}

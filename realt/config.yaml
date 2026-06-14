@@ -1,0 +1,113 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: realt
+description: RealT RMM (Aave V2 fork money market) on Gnosis Chain, ported to HyperIndex
+rollback_on_reorg: false
+# Many history-entity ids are built from tx hash + tx index; several handlers
+# read event.transaction.hash. Select these globally for every event.
+field_selection:
+  transaction_fields:
+    - hash
+    - transactionIndex
+contracts:
+  # ============== STATIC DATA SOURCES ==============
+  - name: AaveOracle
+    abi_file_path: abis/AaveOracle.json
+    events:
+      - event: "AssetSourceUpdated(address indexed asset, address indexed source)"
+      - event: "FallbackOracleUpdated(address indexed fallbackOracle)"
+  - name: LendingPoolAddressesProviderRegistry
+    abi_file_path: abis/LendingPoolAddressesProviderRegistry.json
+    events:
+      - event: "AddressesProviderRegistered(address indexed newAddress)"
+      - event: "AddressesProviderUnregistered(address indexed newAddress)"
+
+  # ============== DYNAMIC TEMPLATES (no static address) ==============
+  # AToken / StableDebtToken / VariableDebtToken: separate entries (handlers differ).
+  - name: AToken
+    abi_file_path: abis/AToken.json
+    events:
+      - event: "BurnAndMintByGovernance(address indexed oldWallet, address indexed newWallet, uint256 indexed amount)"
+      - event: "Burn(address indexed from, address indexed target, uint256 value, uint256 index)"
+      - event: "BalanceTransfer(address indexed from, address indexed to, uint256 value, uint256 index)"
+      - event: "Mint(address indexed from, uint256 value, uint256 index)"
+      - event: "Initialized(address indexed underlyingAsset, address indexed pool, address treasury, address incentivesController, uint8 aTokenDecimals, string aTokenName, string aTokenSymbol, bytes params)"
+  - name: StableDebtToken
+    abi_file_path: abis/StableDebtToken.json
+    events:
+      - event: "Burn(address indexed user, uint256 amount, uint256 currentBalance, uint256 balanceIncrease, uint256 avgStableRate, uint256 newTotalSupply)"
+      - event: "Mint(address indexed user, address indexed onBehalfOf, uint256 amount, uint256 currentBalance, uint256 balanceIncrease, uint256 newRate, uint256 avgStableRate, uint256 newTotalSupply)"
+      - event: "BorrowAllowanceDelegated(address indexed fromUser, address indexed toUser, address asset, uint256 amount)"
+      - event: "Initialized(address indexed underlyingAsset, address indexed pool, address incentivesController, uint8 debtTokenDecimals, string debtTokenName, string debtTokenSymbol, bytes params)"
+  - name: VariableDebtToken
+    abi_file_path: abis/VariableDebtToken.json
+    events:
+      - event: "Burn(address indexed user, uint256 amount, uint256 index)"
+      - event: "Mint(address indexed from, address indexed onBehalfOf, uint256 value, uint256 index)"
+      - event: "BorrowAllowanceDelegated(address indexed fromUser, address indexed toUser, address asset, uint256 amount)"
+      - event: "Initialized(address indexed underlyingAsset, address indexed pool, address incentivesController, uint8 debtTokenDecimals, string debtTokenName, string debtTokenSymbol, bytes params)"
+
+  # Configurations
+  - name: LendingPoolAddressesProvider
+    abi_file_path: abis/LendingPoolAddressesProvider.json
+    events:
+      - event: "ProxyCreated(bytes32 id, address indexed newAddress)"
+      - event: "PriceOracleUpdated(address indexed newAddress)"
+      - event: "LendingRateOracleUpdated(address indexed newAddress)"
+      - event: "LendingPoolUpdated(address indexed newAddress)"
+      - event: "LendingPoolConfiguratorUpdated(address indexed newAddress)"
+      - event: "LendingPoolCollateralManagerUpdated(address indexed newAddress)"
+      - event: "ConfigurationAdminUpdated(address indexed newAddress)"
+      - event: "EmergencyAdminUpdated(address indexed newAddress)"
+      - event: "AddressSet(bytes32 id, address indexed newAddress, bool hasProxy)"
+  - name: LendingPoolConfigurator
+    abi_file_path: abis/LendingPoolConfigurator.json
+    events:
+      - event: "ReserveInitialized(address indexed asset, address indexed aToken, address stableDebtToken, address variableDebtToken, address interestRateStrategyAddress)"
+      - event: "BorrowingEnabledOnReserve(address indexed asset, bool stableRateEnabled)"
+      - event: "BorrowingDisabledOnReserve(address indexed asset)"
+      - event: "CollateralConfigurationChanged(address indexed asset, uint256 ltv, uint256 liquidationThreshold, uint256 liquidationBonus)"
+      - event: "StableRateEnabledOnReserve(address indexed asset)"
+      - event: "StableRateDisabledOnReserve(address indexed asset)"
+      - event: "ReserveActivated(address indexed asset)"
+      - event: "ReserveDeactivated(address indexed asset)"
+      - event: "ReserveFrozen(address indexed asset)"
+      - event: "ReserveUnfrozen(address indexed asset)"
+      - event: "ReserveFactorChanged(address indexed asset, uint256 factor)"
+      - event: "ReserveDecimalsChanged(address indexed asset, uint256 decimals)"
+      - event: "ReserveInterestRateStrategyChanged(address indexed asset, address strategy)"
+      - event: "ATokenUpgraded(address indexed asset, address indexed proxy, address indexed implementation)"
+      - event: "StableDebtTokenUpgraded(address indexed asset, address indexed proxy, address indexed implementation)"
+      - event: "VariableDebtTokenUpgraded(address indexed asset, address indexed proxy, address indexed implementation)"
+  - name: LendingPool
+    abi_file_path: abis/LendingPool.json
+    events:
+      - event: "Deposit(address indexed reserve, address user, address indexed onBehalfOf, uint256 amount, uint16 indexed referral)"
+      - event: "Withdraw(address indexed reserve, address indexed user, address indexed to, uint256 amount)"
+      - event: "Borrow(address indexed reserve, address user, address indexed onBehalfOf, uint256 amount, uint256 borrowRateMode, uint256 borrowRate, uint16 indexed referral)"
+      - event: "Repay(address indexed reserve, address indexed user, address indexed repayer, uint256 amount)"
+      - event: "Swap(address indexed reserve, address indexed user, uint256 rateMode)"
+      - event: "ReserveUsedAsCollateralEnabled(address indexed reserve, address indexed user)"
+      - event: "ReserveUsedAsCollateralDisabled(address indexed reserve, address indexed user)"
+      - event: "RebalanceStableBorrowRate(address indexed reserve, address indexed user)"
+      - event: "FlashLoan(address indexed target, address indexed initiator, address indexed asset, uint256 amount, uint256 premium, uint16 referralCode)"
+      - event: "LiquidationCall(address indexed collateralAsset, address indexed debtAsset, address indexed user, uint256 debtToCover, uint256 liquidatedCollateralAmount, address liquidator, bool receiveAToken)"
+      - event: "Paused()"
+      - event: "Unpaused()"
+      - event: "ReserveDataUpdated(address indexed reserve, uint256 liquidityRate, uint256 stableBorrowRate, uint256 variableBorrowRate, uint256 liquidityIndex, uint256 variableBorrowIndex)"
+chains:
+  - id: 100
+    # Earliest of the static start blocks (LendingPoolAddressesProviderRegistry @ 20206000).
+    start_block: 20206000
+    # end_block: 20256000   # uncomment for bounded validation runs (start + 50k)
+    contracts:
+      - name: AaveOracle
+        address: "0x1a88d967936a73326562d2310062eCE226Ed6664"
+      - name: LendingPoolAddressesProviderRegistry
+        address: "0xae6933231Fb83257696E29B050cA6068D6E6Cc84"
+      # dynamically registered templates (no static address)
+      - name: AToken
+      - name: StableDebtToken
+      - name: VariableDebtToken
+      - name: LendingPoolAddressesProvider
+      - name: LendingPoolConfigurator
+      - name: LendingPool
