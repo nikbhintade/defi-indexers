@@ -27,7 +27,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 15 | EigenCloud (#17) | [Layr-Labs/sidecar](https://github.com/Layr-Labs/sidecar) | `eigenlayer/` | ✅ ported (core on-chain slice), builds + offline tests pass |
 | 16 | USDT0 (#25) | [enviodev/usdt0-indexer](https://github.com/enviodev/usdt0-indexer) | `usdt0/` | ✅ upgraded v2→v3, builds + offline tests pass |
 | 17 | SparkLend (#26) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `sparklend/` | ✅ ported (Aave V3 fork), builds + offline tests pass |
-| 18 | Babylon Protocol (#27) | [babylonlabs-io/babylon-staking-indexer](https://github.com/babylonlabs-io/babylon-staking-indexer) | `babylon/` | queued ⚠️ non-EVM (Bitcoin+Cosmos) — may not be HyperIndex-portable |
+| 18 | Babylon Protocol (#27) | [babylonlabs-io/babylon-staking-indexer](https://github.com/babylonlabs-io/babylon-staking-indexer) | `babylon/` | ⏭️ skipped (non-EVM: Bitcoin+Cosmos) |
 | 19 | Maple (#41) | [maple-labs/maple-core-v2](https://github.com/maple-labs/maple-core-v2) | `maple/` | ⏭️ skipped (live subgraph, no public source — like ether.fi) |
 | 20 | Steakhouse Financial (#42) | [morpho-org/morpho-blue-subgraph](https://github.com/morpho-org/morpho-blue-subgraph) | `steakhouse/` | ✅ covered by `morpho-blue/` (curator vaults indexed by Morpho Blue subgraph) |
 | 21 | Rocket Pool (#74) | [rocket-pool/rocket-pool-subgraph](https://github.com/rocket-pool/rocket-pool-subgraph) | `rocket-pool/` | ✅ ported, builds + offline tests pass |
@@ -46,18 +46,18 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 34 | RealT Tokens (#192) | [realtoken-thegraph/protocol-subgraphs](https://github.com/realtoken-thegraph/protocol-subgraphs) | `realt/` | queued |
 | 35 | Yearn Finance (#194) | [yearn/kong](https://github.com/yearn/kong) | `yearn/` | queued |
 | 36 | Dolomite (#209) | [dolomite-exchange/dolomite-subgraph](https://github.com/dolomite-exchange/dolomite-subgraph) | `dolomite/` | queued |
-| 37 | NAVI Lending (#214) | [naviprotocol/sentio-processors](https://github.com/naviprotocol/sentio-processors) | `navi/` | queued ⚠️ non-EVM (Sui) — may not be HyperIndex-portable |
+| 37 | NAVI Lending (#214) | [naviprotocol/sentio-processors](https://github.com/naviprotocol/sentio-processors) | `navi/` | ⏭️ skipped (non-EVM: Sui) |
 | 38 | Liquity V1 (#215) | [liquity/dev/tree/main/packages/subgraph](https://github.com/liquity/dev/tree/main/packages/subgraph) | `liquity-v1/` | queued |
 | 39 | Beefy (#232) | [beefyfinance/cowcentrated-subgraph](https://github.com/beefyfinance/cowcentrated-subgraph) | `beefy/` | queued |
 | 40 | Aave V2 (#237) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-v2/` | queued |
 | 41 | UNCX Network V2 (#238) | [uncx-network](https://github.com/uncx-network) | `uncx-v2/` | queued |
 | 42 | Renzo (#252) | [messari/subgraphs/tree/master/subgraphs/renzo](https://github.com/messari/subgraphs/tree/master/subgraphs/renzo) | `renzo/` | queued |
-| 43 | dYdX V4 (#254) | [dydxprotocol/v4-chain/tree/main/indexer](https://github.com/dydxprotocol/v4-chain/tree/main/indexer) | `dydx-v4/` | queued ⚠️ non-EVM (Cosmos appchain) — may not be HyperIndex-portable |
-| 44 | Hyperlane (#257) | [hyperlane-xyz/hyperlane-monorepo/tree/main/rust/main/agents/scraper](https://github.com/hyperlane-xyz/hyperlane-monorepo/tree/main/rust/main/agents/scraper) | `hyperlane/` | queued ⚠️ non-EVM (multi-chain incl. non-EVM) — may not be HyperIndex-portable |
+| 43 | dYdX V4 (#254) | [dydxprotocol/v4-chain/tree/main/indexer](https://github.com/dydxprotocol/v4-chain/tree/main/indexer) | `dydx-v4/` | ⏭️ skipped (non-EVM: Cosmos appchain) |
+| 44 | Hyperlane (#257) | [hyperlane-xyz/hyperlane-monorepo/tree/main/rust/main/agents/scraper](https://github.com/hyperlane-xyz/hyperlane-monorepo/tree/main/rust/main/agents/scraper) | `hyperlane/` | ⏭️ skipped (non-EVM: multi-chain incl. non-EVM) |
 | 45 | Balancer V3 (#260) | [balancer/balancer-subgraph-v3](https://github.com/balancer/balancer-subgraph-v3) | `balancer-v3/` | queued |
 | 46 | fx Protocol (#267) | [messari/subgraphs/tree/master/subgraphs/fx-protocol](https://github.com/messari/subgraphs/tree/master/subgraphs/fx-protocol) | `fx-protocol/` | queued |
 | 47 | Benqi Lending (#272) | [messari/subgraphs/tree/master/subgraphs/compound-forks/protocols/benqi](https://github.com/messari/subgraphs/tree/master/subgraphs/compound-forks/protocols/benqi) | `benqi/` | queued |
-| 48 | NEAR Intents (#273) | [defuse-protocol/rust-near-indexer](https://github.com/defuse-protocol/rust-near-indexer) | `near-intents/` | queued ⚠️ non-EVM (NEAR) — may not be HyperIndex-portable |
+| 48 | NEAR Intents (#273) | [defuse-protocol/rust-near-indexer](https://github.com/defuse-protocol/rust-near-indexer) | `near-intents/` | ⏭️ skipped (non-EVM: NEAR) |
 | 49 | Sky RWA (#275) | [messari/subgraphs/tree/master/subgraphs/makerdao](https://github.com/messari/subgraphs/tree/master/subgraphs/makerdao) | `sky-rwa/` | ✅ covered by `sky-lending/` (same Messari MakerDAO subgraph) |
 | 50 | Railgun (#278) | [Railgun-Community/subgraph-v3-template](https://github.com/Railgun-Community/subgraph-v3-template) | `railgun/` | queued |
 | 51 | PancakeSwap Infinity (#284) | [pancakeswap/exchange-v3-subgraphs](https://github.com/pancakeswap/exchange-v3-subgraphs) | `pancakeswap-infinity/` | queued |
