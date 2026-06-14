@@ -1,0 +1,283 @@
+"""
+Liquity V1 schema, ported 1:1 from liquity/dev packages/subgraph/schema.graphql.
+
+Deviations from the subgraph schema (documented in MIGRATION.md):
+  - @entity / @entity(immutable: ...) directives removed (HyperIndex types are
+    plain `type X`).
+  - The `Change` GraphQL interface is dropped (HyperIndex has no interface
+    support). Each implementing entity (TroveChange, StabilityDepositChange,
+    PriceChange, CollSurplusChange, LqtyStakeChange) becomes a standalone type
+    carrying the same fields the interface declared (id, sequenceNumber,
+    transaction, systemStateBefore, systemStateAfter). The
+    `SystemState.cause: Change @derivedFrom` field is therefore removed.
+  - @derivedFrom collections that the mappings never read are dropped (envio
+    requires a concrete target type and they are query-only conveniences).
+  - Bytes ids stored as lowercase 0x hex strings.
+"""
+
+type Global {
+  "There should be only one Global entity with an ID of 'only'"
+  id: ID!
+
+  systemStateCount: Int!
+  transactionCount: Int!
+  changeCount: Int!
+  liquidationCount: Int!
+  redemptionCount: Int!
+
+  numberOfOpenTroves: Int!
+  numberOfLiquidatedTroves: Int!
+  numberOfRedeemedTroves: Int!
+  numberOfTrovesClosedByOwner: Int!
+  totalNumberOfTroves: Int!
+
+  totalNumberOfLQTYStakes: Int!
+  numberOfActiveLQTYStakes: Int!
+
+  "Total amount of LUSD paid as borrowing fees"
+  totalBorrowingFeesPaid: BigDecimal!
+  "Total amount of ETH paid as redemption fees"
+  totalRedemptionFeesPaid: BigDecimal!
+
+  "Total redistributed per-stake collateral"
+  rawTotalRedistributedCollateral: BigInt!
+
+  "Total redistributed per-stake debt"
+  rawTotalRedistributedDebt: BigInt!
+
+  currentSystemState_id: String
+
+  "Only used internally as temporary storage. Will always be null in queries"
+  currentLiquidation_id: String
+
+  "Only used internally as temporary storage. Will always be null in queries"
+  currentRedemption_id: String
+
+  "Only used internally as temporary storage. Will always be null in queries"
+  tmpDepositUpdate: BigInt
+}
+
+type SystemState {
+  "Sequence number as an ID (string)"
+  id: ID!
+
+  "Can be used to chronologically sort SystemStates"
+  sequenceNumber: Int!
+
+  price: BigDecimal
+
+  totalCollateral: BigDecimal!
+  totalDebt: BigDecimal!
+  totalCollateralRatio: BigDecimal
+
+  tokensInStabilityPool: BigDecimal!
+  collSurplusPoolBalance: BigDecimal!
+  totalLQTYTokensStaked: BigDecimal!
+}
+
+type User {
+  "User's Ethereum address as a hex-string"
+  id: ID!
+
+  trove_id: String
+  stabilityDeposit_id: String
+  stake_id: String
+  frontend_id: String
+
+  collSurplus: BigDecimal!
+}
+
+type Trove {
+  "Owner's ID + '-' + an incremented integer"
+  id: ID!
+
+  owner_id: String!
+  "TroveStatus: one of open | closedByOwner | closedByLiquidation | closedByRedemption (stored as String; 'open' is a reserved enum keyword in envio)"
+  status: String!
+
+  collateral: BigDecimal!
+  debt: BigDecimal!
+
+  rawCollateral: BigInt!
+  rawDebt: BigInt!
+  rawStake: BigInt!
+
+  "The value of total redistributed per-stake collateral the last time rewards were applied"
+  rawSnapshotOfTotalRedistributedCollateral: BigInt!
+
+  "The value of total redistributed per-stake debt the last time rewards were applied"
+  rawSnapshotOfTotalRedistributedDebt: BigInt!
+
+  "Ordering by this field will result in the same ordering as collateral ratio (except reversed)"
+  collateralRatioSortKey: BigInt
+}
+
+type StabilityDeposit {
+  "Owner's ID + '-' + an incremented integer"
+  id: ID!
+
+  owner_id: String!
+
+  depositedAmount: BigDecimal!
+
+  frontend_id: String
+}
+
+type Transaction {
+  "Transaction hash"
+  id: ID!
+
+  "Can be used to correctly sort transactions even if they were mined in the same block"
+  sequenceNumber: Int!
+
+  blockNumber: Int!
+
+  "Timestamp of block that included this transaction (seconds since epoch)"
+  timestamp: Int!
+}
+
+type TroveChange {
+  id: ID!
+  sequenceNumber: Int!
+  transaction_id: String!
+  systemStateBefore_id: String!
+  systemStateAfter_id: String!
+
+  trove_id: String!
+  troveOperation: String!
+
+  collateralBefore: BigDecimal!
+  collateralChange: BigDecimal!
+  collateralAfter: BigDecimal!
+
+  debtBefore: BigDecimal!
+  debtChange: BigDecimal!
+  debtAfter: BigDecimal!
+
+  borrowingFee: BigDecimal
+
+  collateralRatioBefore: BigDecimal
+  collateralRatioAfter: BigDecimal
+
+  liquidation_id: String
+  redemption_id: String
+}
+
+type StabilityDepositChange {
+  id: ID!
+  sequenceNumber: Int!
+  transaction_id: String!
+  systemStateBefore_id: String!
+  systemStateAfter_id: String!
+
+  stabilityDeposit_id: String!
+  stabilityDepositOperation: String!
+
+  depositedAmountBefore: BigDecimal!
+  depositedAmountChange: BigDecimal!
+  depositedAmountAfter: BigDecimal!
+
+  collateralGain: BigDecimal
+}
+
+type PriceChange {
+  id: ID!
+  sequenceNumber: Int!
+  transaction_id: String!
+  systemStateBefore_id: String!
+  systemStateAfter_id: String!
+
+  priceChange: BigDecimal!
+}
+
+type Liquidation {
+  id: ID!
+  sequenceNumber: Int!
+  transaction_id: String!
+  liquidator_id: String!
+
+  liquidatedDebt: BigDecimal!
+  liquidatedCollateral: BigDecimal!
+  collGasCompensation: BigDecimal!
+  tokenGasCompensation: BigDecimal!
+}
+
+type Redemption {
+  id: ID!
+  sequenceNumber: Int!
+  transaction_id: String!
+  redeemer_id: String!
+
+  tokensAttemptedToRedeem: BigDecimal!
+  tokensActuallyRedeemed: BigDecimal!
+  collateralRedeemed: BigDecimal!
+  partial: Boolean!
+
+  fee: BigDecimal!
+}
+
+type CollSurplusChange {
+  id: ID!
+  sequenceNumber: Int!
+  transaction_id: String!
+  systemStateBefore_id: String!
+  systemStateAfter_id: String!
+
+  user_id: String!
+
+  collSurplusBefore: BigDecimal!
+  collSurplusChange: BigDecimal!
+  collSurplusAfter: BigDecimal!
+}
+
+type LqtyStake {
+  id: ID!
+  owner_id: String!
+  amount: BigDecimal!
+}
+
+type LqtyStakeChange {
+  id: ID!
+  sequenceNumber: Int!
+  transaction_id: String!
+  systemStateBefore_id: String!
+  systemStateAfter_id: String!
+
+  stake_id: String!
+  stakeOperation: String!
+
+  stakedAmountBefore: BigDecimal!
+  stakedAmountChange: BigDecimal!
+  stakedAmountAfter: BigDecimal!
+
+  issuanceGain: BigDecimal!
+  redemptionGain: BigDecimal!
+}
+
+type Token {
+  id: ID!
+  name: String!
+  symbol: String!
+  totalSupply: BigInt!
+}
+
+type TokenBalance {
+  id: ID!
+  token_id: String!
+  owner_id: String!
+  balance: BigInt!
+}
+
+type TokenAllowance {
+  id: ID!
+  token_id: String!
+  owner_id: String!
+  spender_id: String!
+  value: BigInt!
+}
+
+type Frontend {
+  id: ID!
+  owner_id: String!
+  kickbackRate: BigDecimal!
+}

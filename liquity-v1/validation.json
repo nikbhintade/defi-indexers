@@ -1,0 +1,277 @@
+{
+  "_comment": "Validation config for tools/compare. Source: liquity/dev packages/subgraph @ commit 3e64ee1b52c50d51587c64c1cf75e0ba82934979 (mainnet). Addresses + startBlock resolved from @liquity/lib-ethers deployments/default/mainnet.json (startBlock 12178551).",
+  "subgraph": {
+    "_comment_url": "TODO: the Liquity V1 subgraph was published to The Graph under the legacy hosted-service slug 'liquity/liquity' (see packages/subgraph/package.json deploy script). The repo does not contain a decentralized-network deployment id. Replace <SUBGRAPH_ID> with the Liquity V1 subgraph's decentralized-network id (gateway endpoint pattern below) and provide GRAPH_API_KEY.",
+    "url": "https://gateway.thegraph.com/api/subgraphs/id/<SUBGRAPH_ID>",
+    "authEnv": "GRAPH_API_KEY"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": {
+    "_comment": "Mainnet deployment start block (12178551) -> +50k. Uncomment end_block in config.yaml for a matching bounded run.",
+    "start": 12178551,
+    "end": 12228551
+  },
+  "entities": [
+    {
+      "subgraphName": "globals",
+      "localName": "Global",
+      "fields": [
+        "id",
+        "systemStateCount",
+        "transactionCount",
+        "changeCount",
+        "liquidationCount",
+        "redemptionCount",
+        "numberOfOpenTroves",
+        "numberOfLiquidatedTroves",
+        "numberOfRedeemedTroves",
+        "numberOfTrovesClosedByOwner",
+        "totalNumberOfTroves",
+        "totalNumberOfLQTYStakes",
+        "numberOfActiveLQTYStakes",
+        "totalBorrowingFeesPaid",
+        "totalRedemptionFeesPaid",
+        "rawTotalRedistributedCollateral",
+        "rawTotalRedistributedDebt"
+      ],
+      "decimalFields": ["totalBorrowingFeesPaid", "totalRedemptionFeesPaid"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "troves",
+      "localName": "Trove",
+      "fields": [
+        "id",
+        "owner",
+        "status",
+        "collateral",
+        "debt",
+        "rawCollateral",
+        "rawDebt",
+        "rawStake",
+        "rawSnapshotOfTotalRedistributedCollateral",
+        "rawSnapshotOfTotalRedistributedDebt",
+        "collateralRatioSortKey"
+      ],
+      "decimalFields": ["collateral", "debt"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "troveChanges",
+      "localName": "TroveChange",
+      "fields": [
+        "id",
+        "sequenceNumber",
+        "trove",
+        "troveOperation",
+        "collateralBefore",
+        "collateralChange",
+        "collateralAfter",
+        "debtBefore",
+        "debtChange",
+        "debtAfter",
+        "borrowingFee",
+        "collateralRatioBefore",
+        "collateralRatioAfter"
+      ],
+      "decimalFields": [
+        "collateralBefore",
+        "collateralChange",
+        "collateralAfter",
+        "debtBefore",
+        "debtChange",
+        "debtAfter",
+        "borrowingFee",
+        "collateralRatioBefore",
+        "collateralRatioAfter"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "systemStates",
+      "localName": "SystemState",
+      "fields": [
+        "id",
+        "sequenceNumber",
+        "price",
+        "totalCollateral",
+        "totalDebt",
+        "totalCollateralRatio",
+        "tokensInStabilityPool",
+        "collSurplusPoolBalance",
+        "totalLQTYTokensStaked"
+      ],
+      "decimalFields": [
+        "price",
+        "totalCollateral",
+        "totalDebt",
+        "totalCollateralRatio",
+        "tokensInStabilityPool",
+        "collSurplusPoolBalance",
+        "totalLQTYTokensStaked"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "stabilityDeposits",
+      "localName": "StabilityDeposit",
+      "fields": ["id", "owner", "depositedAmount", "frontend"],
+      "decimalFields": ["depositedAmount"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "stabilityDepositChanges",
+      "localName": "StabilityDepositChange",
+      "fields": [
+        "id",
+        "sequenceNumber",
+        "stabilityDeposit",
+        "stabilityDepositOperation",
+        "depositedAmountBefore",
+        "depositedAmountChange",
+        "depositedAmountAfter",
+        "collateralGain"
+      ],
+      "decimalFields": [
+        "depositedAmountBefore",
+        "depositedAmountChange",
+        "depositedAmountAfter",
+        "collateralGain"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidations",
+      "localName": "Liquidation",
+      "fields": [
+        "id",
+        "sequenceNumber",
+        "liquidator",
+        "liquidatedDebt",
+        "liquidatedCollateral",
+        "collGasCompensation",
+        "tokenGasCompensation"
+      ],
+      "decimalFields": [
+        "liquidatedDebt",
+        "liquidatedCollateral",
+        "collGasCompensation",
+        "tokenGasCompensation"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redemptions",
+      "localName": "Redemption",
+      "fields": [
+        "id",
+        "sequenceNumber",
+        "redeemer",
+        "tokensAttemptedToRedeem",
+        "tokensActuallyRedeemed",
+        "collateralRedeemed",
+        "partial",
+        "fee"
+      ],
+      "decimalFields": [
+        "tokensAttemptedToRedeem",
+        "tokensActuallyRedeemed",
+        "collateralRedeemed",
+        "fee"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "lqtyStakes",
+      "localName": "LqtyStake",
+      "fields": ["id", "owner", "amount"],
+      "decimalFields": ["amount"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "lqtyStakeChanges",
+      "localName": "LqtyStakeChange",
+      "fields": [
+        "id",
+        "sequenceNumber",
+        "stake",
+        "stakeOperation",
+        "stakedAmountBefore",
+        "stakedAmountChange",
+        "stakedAmountAfter",
+        "issuanceGain",
+        "redemptionGain"
+      ],
+      "decimalFields": [
+        "stakedAmountBefore",
+        "stakedAmountChange",
+        "stakedAmountAfter",
+        "issuanceGain",
+        "redemptionGain"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "priceChanges",
+      "localName": "PriceChange",
+      "fields": ["id", "sequenceNumber", "priceChange"],
+      "decimalFields": ["priceChange"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "collSurplusChanges",
+      "localName": "CollSurplusChange",
+      "fields": [
+        "id",
+        "sequenceNumber",
+        "user",
+        "collSurplusBefore",
+        "collSurplusChange",
+        "collSurplusAfter"
+      ],
+      "decimalFields": ["collSurplusBefore", "collSurplusChange", "collSurplusAfter"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "users",
+      "localName": "User",
+      "fields": ["id", "trove", "stabilityDeposit", "stake", "frontend", "collSurplus"],
+      "decimalFields": ["collSurplus"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "frontends",
+      "localName": "Frontend",
+      "fields": ["id", "owner", "kickbackRate"],
+      "decimalFields": ["kickbackRate"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transactions",
+      "localName": "Transaction",
+      "fields": ["id", "sequenceNumber", "blockNumber", "timestamp"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "name", "symbol", "totalSupply"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenBalances",
+      "localName": "TokenBalance",
+      "fields": ["id", "token", "owner", "balance"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenAllowances",
+      "localName": "TokenAllowance",
+      "fields": ["id", "token", "owner", "spender", "value"],
+      "orderBy": "id"
+    }
+  ]
+}

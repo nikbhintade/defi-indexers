@@ -47,7 +47,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 35 | Yearn Finance (#194) | [yearn/kong](https://github.com/yearn/kong) | `yearn/` | ✅ ported (V2 vaults), builds + offline tests pass |
 | 36 | Dolomite (#209) | [dolomite-exchange/dolomite-subgraph](https://github.com/dolomite-exchange/dolomite-subgraph) | `dolomite/` | ✅ ported (Arbitrum), builds + offline tests pass |
 | 37 | NAVI Lending (#214) | [naviprotocol/sentio-processors](https://github.com/naviprotocol/sentio-processors) | `navi/` | ⏭️ skipped (non-EVM: Sui) |
-| 38 | Liquity V1 (#215) | [liquity/dev/tree/main/packages/subgraph](https://github.com/liquity/dev/tree/main/packages/subgraph) | `liquity-v1/` | queued |
+| 38 | Liquity V1 (#215) | [liquity/dev/tree/main/packages/subgraph](https://github.com/liquity/dev/tree/main/packages/subgraph) | `liquity-v1/` | ✅ ported, builds + offline tests pass |
 | 39 | Beefy (#232) | [beefyfinance/cowcentrated-subgraph](https://github.com/beefyfinance/cowcentrated-subgraph) | `beefy/` | queued |
 | 40 | Aave V2 (#237) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-v2/` | queued |
 | 41 | UNCX Network V2 (#238) | [uncx-network](https://github.com/uncx-network) | `uncx-v2/` | queued |

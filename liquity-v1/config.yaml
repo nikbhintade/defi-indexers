@@ -1,0 +1,100 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: liquity-v1
+description: Liquity V1 subgraph (Ethereum mainnet) ported to HyperIndex
+rollback_on_reorg: false
+handlers: src/mappings
+contracts:
+  - name: TroveManager
+    events:
+      - event: "TroveUpdated(address indexed _borrower, uint256 _debt, uint256 _coll, uint256 _stake, uint8 _operation)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "TroveLiquidated(address indexed _borrower, uint256 _debt, uint256 _coll, uint8 _operation)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "Liquidation(uint256 _liquidatedDebt, uint256 _liquidatedColl, uint256 _collGasCompensation, uint256 _LUSDGasCompensation)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "Redemption(uint256 _attemptedLUSDAmount, uint256 _actualLUSDAmount, uint256 _ETHSent, uint256 _ETHFee)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "LTermsUpdated(uint256 _L_ETH, uint256 _L_LUSDDebt)"
+        field_selection:
+          transaction_fields: [hash, from]
+  - name: BorrowerOperations
+    events:
+      - event: "TroveUpdated(address indexed _borrower, uint256 _debt, uint256 _coll, uint256 stake, uint8 operation)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "LUSDBorrowingFeePaid(address indexed _borrower, uint256 _LUSDFee)"
+        field_selection:
+          transaction_fields: [hash, from]
+  - name: PriceFeed
+    events:
+      - event: "LastGoodPriceUpdated(uint256 _lastGoodPrice)"
+        field_selection:
+          transaction_fields: [hash, from]
+  - name: StabilityPool
+    events:
+      - event: "UserDepositChanged(address indexed _depositor, uint256 _newDeposit)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "ETHGainWithdrawn(address indexed _depositor, uint256 _ETH, uint256 _LUSDLoss)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "FrontEndRegistered(address indexed _frontEnd, uint256 _kickbackRate)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "FrontEndTagSet(address indexed _depositor, address indexed _frontEnd)"
+        field_selection:
+          transaction_fields: [hash, from]
+  - name: CollSurplusPool
+    events:
+      - event: "CollBalanceUpdated(address indexed _account, uint256 _newBalance)"
+        field_selection:
+          transaction_fields: [hash, from]
+  - name: LQTYStaking
+    events:
+      - event: "StakeChanged(address indexed staker, uint256 newStake)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "StakingGainsWithdrawn(address indexed staker, uint256 LUSDGain, uint256 ETHGain)"
+        field_selection:
+          transaction_fields: [hash, from]
+  - name: LUSDToken
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "Approval(address indexed owner, address indexed spender, uint256 value)"
+        field_selection:
+          transaction_fields: [hash, from]
+  - name: LQTYToken
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "Approval(address indexed owner, address indexed spender, uint256 value)"
+        field_selection:
+          transaction_fields: [hash, from]
+chains:
+  - id: 1
+    start_block: 12178551
+    # end_block: 12228551   # uncomment for bounded validation runs (start + 50k)
+    contracts:
+      - name: TroveManager
+        address: "0xA39739EF8b0231DbFA0DcdA07d7e29faAbCf4bb2"
+      - name: BorrowerOperations
+        address: "0x24179CD81c9e782A4096035f7eC97fB8B783e007"
+      - name: PriceFeed
+        address: "0x4c517D4e2C851CA76d7eC94B805269Df0f2201De"
+      - name: StabilityPool
+        address: "0x66017D22b0f8556afDd19FC67041899Eb65a21bb"
+      - name: CollSurplusPool
+        address: "0x3D32e8b97Ed5881324241Cf03b2DA5E2EBcE5521"
+      - name: LQTYStaking
+        address: "0x4f9Fbb3f1E99B56e0Fe2892e623Ed36A76Fc605d"
+      - name: LUSDToken
+        address: "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0"
+      - name: LQTYToken
+        address: "0x6DEA81C8171D0bA574754EF6F8b412F2Ed88c54D"
