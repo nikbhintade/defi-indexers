@@ -1,0 +1,557 @@
+type AmmFactory {
+  id: ID!
+  pairCount: Int!
+  totalAmmVolumeUSD: BigDecimal!
+  ammLiquidityUSD: BigDecimal!
+  transactionCount: BigInt!
+  ammTradeCount: BigInt!
+  ammMintCount: BigInt!
+  ammBurnCount: BigInt!
+}
+
+type DolomiteMargin {
+  id: ID!
+  numberOfMarkets: Int!
+  liquidationRatio: BigDecimal!
+  liquidationReward: BigDecimal!
+  earningsRate: BigDecimal!
+  minBorrowedValue: BigDecimal!
+  accountMaxNumberOfMarketsWithBalances: BigInt!
+  expiryRampTime: BigInt!
+  oracleSentinel: String
+  callbackGasLimit: BigInt
+  defaultAccountRiskOverrideSetter: String
+  supplyLiquidityUSD: BigDecimal!
+  borrowLiquidityUSD: BigDecimal!
+  lastTransactionHash: String!
+  totalBorrowVolumeUSD: BigDecimal!
+  totalLiquidationVolumeUSD: BigDecimal!
+  totalSupplyVolumeUSD: BigDecimal!
+  totalTradeVolumeUSD: BigDecimal!
+  totalVaporizationVolumeUSD: BigDecimal!
+  totalZapVolumeUSD: BigDecimal!
+  userCount: BigInt!
+  marginPositionCount: BigInt!
+  borrowPositionCount: BigInt!
+  actionCount: BigInt!
+  liquidationCount: BigInt!
+  tradeCount: BigInt!
+  transactionCount: BigInt!
+  vaporizationCount: BigInt!
+  zapCount: BigInt!
+  vestingPositionTransferCount: BigInt!
+}
+
+type GlobalOperator {
+  id: ID!
+}
+
+type SpecialAutoTrader {
+  id: ID!
+}
+
+type Token {
+  id: ID!
+  chainId: Int!
+  symbol: String!
+  name: String!
+  decimals: BigInt!
+  isIsolationMode: Boolean!
+  marketId: BigInt!
+  tradeVolume: BigDecimal!
+  tradeVolumeUSD: BigDecimal!
+  transactionCount: BigInt!
+  ammTradeLiquidity: BigDecimal!
+  supplyLiquidity: BigDecimal!
+  supplyLiquidityUSD: BigDecimal!
+  borrowLiquidity: BigDecimal!
+  borrowLiquidityUSD: BigDecimal!
+  derivedETH: BigDecimal
+}
+
+type TokenMarketIdReverseLookup {
+  id: ID!
+  token: Token!
+}
+
+type IsolationModeVaultReverseLookup {
+  id: ID!
+  token: Token!
+  vault: User!
+  owner: User!
+}
+
+type AmmPairReverseLookup {
+  id: ID!
+  pair: AmmPair!
+}
+
+type AmmPair {
+  id: ID!
+  token0: Token!
+  token1: Token!
+  reserve0: BigDecimal!
+  reserve1: BigDecimal!
+  totalSupply: BigDecimal!
+  reserveETH: BigDecimal!
+  reserveUSD: BigDecimal!
+  trackedReserveETH: BigDecimal!
+  token0Price: BigDecimal!
+  token1Price: BigDecimal!
+  volumeToken0: BigDecimal!
+  volumeToken1: BigDecimal!
+  volumeUSD: BigDecimal!
+  transactionCount: BigInt!
+  createdAtTimestamp: BigInt!
+  createdAtBlockNumber: BigInt!
+  liquidityProviderCount: BigInt!
+}
+
+type User {
+  id: ID!
+  effectiveUser: User!
+  accountRiskOverrideSetter: String
+  totalBorrowVolumeOriginatedUSD: BigDecimal!
+  totalCollateralLiquidatedUSD: BigDecimal!
+  totalTradeVolumeUSD: BigDecimal!
+  totalZapVolumeUSD: BigDecimal!
+  totalBorrowPositionCount: BigInt!
+  totalLiquidationCount: BigInt!
+  totalMarginPositionCount: BigInt!
+  totalTradeCount: BigInt!
+  totalZapCount: BigInt!
+  isEffectiveUser: Boolean!
+  isolationModeVault: Token
+}
+
+type UserParValue {
+  id: ID!
+  user: User!
+  token: Token!
+  totalSupplyPar: BigDecimal!
+  totalBorrowPar: BigDecimal!
+}
+
+type AmmLiquidityPosition {
+  id: ID!
+  user: User!
+  effectiveUser: User!
+  pair: AmmPair!
+  liquidityTokenBalance: BigDecimal!
+}
+
+type AmmLiquidityPositionSnapshot {
+  id: ID!
+  liquidityPosition: AmmLiquidityPosition!
+  timestamp: Int!
+  block: Int!
+  user: User!
+  effectiveUser: User!
+  pair: AmmPair!
+  token0PriceUSD: BigDecimal!
+  token1PriceUSD: BigDecimal!
+  reserve0: BigDecimal!
+  reserve1: BigDecimal!
+  reserveUSD: BigDecimal!
+  liquidityTokenTotalSupply: BigDecimal!
+  liquidityTokenBalance: BigDecimal!
+  token0InterestIndex: InterestIndexSnapshot!
+  token1InterestIndex: InterestIndexSnapshot!
+}
+
+type Transaction {
+  id: ID!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  intermittentAmmMints: [String!]!
+  intermittentAmmBurns: [String!]!
+  intermittentAmmTrades: [String!]!
+}
+
+type AmmMint {
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt!
+  serialId: BigInt!
+  pair: AmmPair!
+  to: String!
+  liquidity: BigDecimal!
+  sender: String
+  amount0: BigDecimal
+  amount1: BigDecimal
+  logIndex: BigInt
+  amountUSD: BigDecimal
+  feeTo: String
+  feeLiquidity: BigDecimal
+}
+
+type AmmBurn {
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt!
+  pair: AmmPair!
+  serialId: BigInt!
+  liquidity: BigDecimal!
+  sender: String
+  amount0: BigDecimal
+  amount1: BigDecimal
+  to: String
+  logIndex: BigInt
+  amountUSD: BigDecimal
+  needsComplete: Boolean!
+  feeTo: String
+  feeLiquidity: BigDecimal
+}
+
+type AmmTrade {
+  id: ID!
+  transaction: Transaction!
+  timestamp: BigInt!
+  pair: AmmPair!
+  sender: String!
+  from: String!
+  amount0In: BigDecimal!
+  amount1In: BigDecimal!
+  amount0Out: BigDecimal!
+  amount1Out: BigDecimal!
+  to: String!
+  logIndex: BigInt!
+  serialId: BigInt!
+  amountUSD: BigDecimal!
+}
+
+type Bundle {
+  id: ID!
+  ethPrice: BigDecimal!
+}
+
+type OraclePrice {
+  id: ID!
+  price: BigDecimal!
+  token: Token!
+  blockNumber: BigInt!
+  blockHash: String!
+}
+
+type InterestIndex {
+  id: ID!
+  token: Token! @index
+  borrowIndex: BigDecimal!
+  supplyIndex: BigDecimal!
+  lastUpdate: BigInt!
+}
+
+type InterestIndexSnapshot {
+  id: ID!
+  token: Token!
+  borrowIndex: BigDecimal!
+  supplyIndex: BigDecimal!
+  updateTimestamp: BigInt!
+}
+
+type InterestRate {
+  id: ID!
+  interestSetter: String!
+  optimalUtilizationRate: BigInt!
+  lowerOptimalRate: BigInt!
+  upperOptimalRate: BigInt!
+  token: Token! @index
+  borrowInterestRate: BigDecimal!
+  supplyInterestRate: BigDecimal!
+}
+
+type MarketRiskInfo {
+  id: ID!
+  token: Token! @index
+  marginPremium: BigDecimal!
+  liquidationRewardPremium: BigDecimal!
+  isBorrowingDisabled: Boolean!
+  supplyMaxWei: BigDecimal
+  borrowMaxWei: BigDecimal
+  earningsRateOverride: BigDecimal
+  oracle: String!
+}
+
+type TotalPar {
+  id: ID!
+  token: Token! @index
+  borrowPar: BigDecimal!
+  supplyPar: BigDecimal!
+}
+
+type MarginAccount {
+  id: ID!
+  user: User! @index
+  effectiveUser: User!
+  accountNumber: BigInt!
+  lastUpdatedTimestamp: BigInt!
+  lastUpdatedBlockNumber: BigInt!
+  borrowTokens: [String!]!
+  supplyTokens: [String!]!
+  expirationTokens: [String!]!
+  hasBorrowValue: Boolean!
+  hasSupplyValue: Boolean!
+  hasExpiration: Boolean!
+}
+
+type MarginAccountTokenValue {
+  id: ID!
+  marginAccount: MarginAccount! @index
+  effectiveUser: User!
+  token: Token!
+  valuePar: BigDecimal!
+  expirationTimestamp: BigInt
+  expiryAddress: String
+}
+
+type Deposit {
+  id: ID!
+  transaction: Transaction!
+  logIndex: BigInt!
+  serialId: BigInt!
+  effectiveUser: User!
+  marginAccount: MarginAccount!
+  token: Token!
+  from: String!
+  amountDeltaWei: BigDecimal!
+  amountDeltaPar: BigDecimal!
+  interestIndex: InterestIndexSnapshot!
+  amountUSDDeltaWei: BigDecimal!
+}
+
+type Withdrawal {
+  id: ID!
+  transaction: Transaction!
+  logIndex: BigInt!
+  serialId: BigInt!
+  effectiveUser: User!
+  marginAccount: MarginAccount!
+  token: Token!
+  to: String!
+  amountDeltaWei: BigDecimal!
+  amountDeltaPar: BigDecimal!
+  interestIndex: InterestIndexSnapshot!
+  amountUSDDeltaWei: BigDecimal!
+}
+
+type Transfer {
+  id: ID!
+  transaction: Transaction!
+  logIndex: BigInt!
+  serialId: BigInt!
+  fromEffectiveUser: User!
+  fromMarginAccount: MarginAccount!
+  toEffectiveUser: User!
+  toMarginAccount: MarginAccount!
+  isSelfTransfer: Boolean!
+  walletsConcatenated: String!
+  effectiveWalletsConcatenated: String!
+  isTransferForMarginPosition: Boolean!
+  effectiveUsers: [String!]!
+  token: Token!
+  interestIndex: InterestIndexSnapshot!
+  amountDeltaWei: BigDecimal!
+  fromAmountDeltaPar: BigDecimal!
+  toAmountDeltaPar: BigDecimal!
+  amountUSDDeltaWei: BigDecimal!
+}
+
+type Liquidation {
+  id: ID!
+  transaction: Transaction!
+  logIndex: BigInt!
+  serialId: BigInt!
+  solidEffectiveUser: User!
+  solidMarginAccount: MarginAccount!
+  liquidEffectiveUser: User!
+  liquidMarginAccount: MarginAccount!
+  heldToken: Token!
+  borrowedToken: Token!
+  effectiveUsers: [String!]!
+  heldTokenAmountDeltaWei: BigDecimal!
+  borrowedTokenAmountDeltaWei: BigDecimal!
+  solidBorrowedTokenAmountDeltaPar: BigDecimal!
+  solidHeldTokenAmountDeltaPar: BigDecimal!
+  liquidBorrowedTokenAmountDeltaPar: BigDecimal!
+  liquidHeldTokenAmountDeltaPar: BigDecimal!
+  heldTokenLiquidationRewardWei: BigDecimal!
+  heldInterestIndex: InterestIndexSnapshot!
+  borrowedInterestIndex: InterestIndexSnapshot!
+  borrowedTokenAmountUSD: BigDecimal!
+  heldTokenAmountUSD: BigDecimal!
+  heldTokenLiquidationRewardUSD: BigDecimal!
+}
+
+type Vaporization {
+  id: ID!
+  transaction: Transaction!
+  logIndex: BigInt!
+  serialId: BigInt!
+  solidEffectiveUser: User!
+  solidMarginAccount: MarginAccount!
+  vaporEffectiveUser: User!
+  vaporMarginAccount: MarginAccount!
+  effectiveUsers: [String!]!
+  heldToken: Token!
+  borrowedToken: Token!
+  borrowedTokenAmountDeltaWei: BigDecimal!
+  heldTokenAmountDeltaWei: BigDecimal!
+  heldInterestIndex: InterestIndexSnapshot!
+  borrowedInterestIndex: InterestIndexSnapshot!
+  vaporBorrowedTokenAmountDeltaPar: BigDecimal!
+  solidHeldTokenAmountDeltaPar: BigDecimal!
+  solidBorrowedTokenAmountDeltaPar: BigDecimal!
+  amountUSDVaporized: BigDecimal!
+}
+
+type Trade {
+  id: ID!
+  transaction: Transaction!
+  logIndex: BigInt!
+  serialId: BigInt!
+  traderAddress: String!
+  timestamp: BigInt!
+  takerEffectiveUser: User!
+  takerMarginAccount: MarginAccount!
+  makerEffectiveUser: User
+  makerMarginAccount: MarginAccount
+  walletsConcatenated: String!
+  effectiveWalletsConcatenated: String!
+  effectiveUsers: [String!]!
+  takerToken: Token!
+  makerToken: Token!
+  takerInterestIndex: InterestIndexSnapshot!
+  makerInterestIndex: InterestIndexSnapshot!
+  takerTokenDeltaWei: BigDecimal!
+  makerTokenDeltaWei: BigDecimal!
+  takerInputTokenDeltaPar: BigDecimal!
+  takerOutputTokenDeltaPar: BigDecimal!
+  makerInputTokenDeltaPar: BigDecimal
+  makerOutputTokenDeltaPar: BigDecimal
+  amountUSD: BigDecimal!
+  takerAmountUSD: BigDecimal!
+  makerAmountUSD: BigDecimal!
+  liquidationType: String
+}
+
+type IntermediateTrade {
+  id: ID!
+  serialId: BigInt!
+  traderAddress: String!
+  takerEffectiveUser: User!
+  takerMarginAccount: MarginAccount!
+  makerEffectiveUser: User
+  makerMarginAccount: MarginAccount
+  walletsConcatenated: String!
+  effectiveWalletsConcatenated: String!
+  effectiveUsers: [String!]!
+  takerInputDeltaPar: BigDecimal!
+  takerInputDeltaWei: BigDecimal!
+  takerOutputDeltaPar: BigDecimal!
+  takerOutputDeltaWei: BigDecimal!
+  makerInputDeltaPar: BigDecimal
+  makerInputDeltaWei: BigDecimal
+  makerOutputDeltaPar: BigDecimal
+  makerOutputDeltaWei: BigDecimal
+}
+
+type MostRecentTrade {
+  id: ID!
+  trade: Trade!
+}
+
+type MarginPosition {
+  id: ID!
+  effectiveUser: User!
+  marginAccount: MarginAccount!
+  isInitialized: Boolean!
+  openTimestamp: BigInt!
+  openTransaction: Transaction!
+  heldToken: Token
+  marginDeposit: BigDecimal!
+  marginDepositUSD: BigDecimal!
+  initialMarginDeposit: BigDecimal!
+  initialMarginDepositUSD: BigDecimal!
+  initialHeldAmountPar: BigDecimal!
+  initialHeldAmountWei: BigDecimal!
+  initialHeldAmountUSD: BigDecimal!
+  initialHeldPrice: BigDecimal!
+  initialHeldPriceUSD: BigDecimal!
+  closeHeldPrice: BigDecimal
+  closeHeldPriceUSD: BigDecimal
+  closeHeldAmountWei: BigDecimal
+  closeHeldAmountUSD: BigDecimal
+  closeHeldAmountSeized: BigDecimal
+  closeHeldAmountSeizedUSD: BigDecimal
+  heldAmountPar: BigDecimal!
+  owedToken: Token
+  initialOwedAmountPar: BigDecimal!
+  initialOwedAmountWei: BigDecimal!
+  initialOwedAmountUSD: BigDecimal!
+  initialOwedPrice: BigDecimal!
+  initialOwedPriceUSD: BigDecimal!
+  closeOwedPrice: BigDecimal
+  closeOwedPriceUSD: BigDecimal
+  closeOwedAmountWei: BigDecimal
+  closeOwedAmountUSD: BigDecimal
+  owedAmountPar: BigDecimal!
+  status: String!
+  closeTimestamp: BigInt
+  closeTransaction: Transaction
+  expirationTimestamp: BigInt
+}
+
+type BorrowPositionAmount {
+  id: ID!
+  token: Token!
+  amountWei: BigDecimal!
+  amountPar: BigDecimal!
+  expirationTimestamp: BigInt
+}
+
+type BorrowPosition {
+  id: ID!
+  effectiveUser: User!
+  marginAccount: MarginAccount!
+  openTimestamp: BigInt!
+  closeTimestamp: BigInt
+  status: String!
+  openTransaction: Transaction!
+  closeTransaction: Transaction
+  amounts: [String!]!
+  allTokens: [String!]!
+  supplyTokens: [String!]!
+  borrowTokens: [String!]!
+  effectiveSupplyTokens: [String!]!
+  effectiveBorrowTokens: [String!]!
+  strategy: StrategyPosition
+}
+
+type DolomiteSetting {
+  id: ID!
+  dolomite: DolomiteMargin!
+  key: String!
+  value: String!
+}
+
+type UserSetting {
+  id: ID!
+  effectiveUser: User!
+  key: String!
+  value: String!
+}
+
+type TokenSetting {
+  id: ID!
+  token: Token!
+  key: String!
+  value: String!
+}
+
+type StrategyPosition {
+  id: ID!
+  effectiveUser: User!
+  marginAccount: MarginAccount!
+  strategyId: BigInt!
+  positionId: BigInt!
+}

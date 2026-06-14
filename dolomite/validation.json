@@ -1,0 +1,114 @@
+{
+  "subgraph": {
+    "url": "https://subgraph.api.dolomite.io/api/public/1301d2d1-7a9d-4be4-9e9a-061cb8611549/subgraphs/dolomite-arbitrum/v0.1.4/gn",
+    "authEnv": null,
+    "note": "Public gn endpoint from config/subgraph-endpoints.json (chain 42161). No API key needed. Goldsky mirror: https://api.goldsky.com/api/public/project_clyuw4gvq4d5801tegx0aafpu/subgraphs/dolomite-arbitrum/v0.1.4/gn"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": {
+    "start": 28220369,
+    "end": 28270369
+  },
+  "entities": [
+    {
+      "subgraphName": "dolomiteMargins",
+      "localName": "DolomiteMargin",
+      "fields": ["id", "numberOfMarkets", "userCount", "actionCount", "transactionCount", "tradeCount", "liquidationCount", "vaporizationCount", "supplyLiquidityUSD", "borrowLiquidityUSD", "totalSupplyVolumeUSD", "totalTradeVolumeUSD"],
+      "decimalFields": ["supplyLiquidityUSD", "borrowLiquidityUSD", "totalSupplyVolumeUSD", "totalTradeVolumeUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "symbol", "name", "decimals", "marketId", "isIsolationMode", "supplyLiquidity", "borrowLiquidity", "supplyLiquidityUSD", "borrowLiquidityUSD", "tradeVolume"],
+      "decimalFields": ["supplyLiquidity", "borrowLiquidity", "supplyLiquidityUSD", "borrowLiquidityUSD", "tradeVolume"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "interestIndexes",
+      "localName": "InterestIndex",
+      "fields": ["id", "borrowIndex", "supplyIndex", "lastUpdate"],
+      "decimalFields": ["borrowIndex", "supplyIndex"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "totalPars",
+      "localName": "TotalPar",
+      "fields": ["id", "borrowPar", "supplyPar"],
+      "decimalFields": ["borrowPar", "supplyPar"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "marginAccountTokenValues",
+      "localName": "MarginAccountTokenValue",
+      "fields": ["id", "valuePar", "expirationTimestamp"],
+      "decimalFields": ["valuePar"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "deposits",
+      "localName": "Deposit",
+      "fields": ["id", "serialId", "amountDeltaWei", "amountDeltaPar", "amountUSDDeltaWei"],
+      "decimalFields": ["amountDeltaWei", "amountDeltaPar", "amountUSDDeltaWei"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "withdrawals",
+      "localName": "Withdrawal",
+      "fields": ["id", "serialId", "amountDeltaWei", "amountDeltaPar", "amountUSDDeltaWei"],
+      "decimalFields": ["amountDeltaWei", "amountDeltaPar", "amountUSDDeltaWei"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "trades",
+      "localName": "Trade",
+      "fields": ["id", "serialId", "takerTokenDeltaWei", "makerTokenDeltaWei", "amountUSD", "takerAmountUSD", "makerAmountUSD"],
+      "decimalFields": ["takerTokenDeltaWei", "makerTokenDeltaWei", "amountUSD", "takerAmountUSD", "makerAmountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidations",
+      "localName": "Liquidation",
+      "fields": ["id", "serialId", "heldTokenAmountDeltaWei", "borrowedTokenAmountDeltaWei", "heldTokenLiquidationRewardWei", "borrowedTokenAmountUSD", "heldTokenAmountUSD"],
+      "decimalFields": ["heldTokenAmountDeltaWei", "borrowedTokenAmountDeltaWei", "heldTokenLiquidationRewardWei", "borrowedTokenAmountUSD", "heldTokenAmountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "ammPairs",
+      "localName": "AmmPair",
+      "fields": ["id", "reserve0", "reserve1", "totalSupply", "token0Price", "token1Price", "volumeUSD", "volumeToken0", "volumeToken1", "transactionCount"],
+      "decimalFields": ["reserve0", "reserve1", "totalSupply", "token0Price", "token1Price", "volumeUSD", "volumeToken0", "volumeToken1"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "ammFactories",
+      "localName": "AmmFactory",
+      "fields": ["id", "pairCount", "totalAmmVolumeUSD", "ammLiquidityUSD", "ammTradeCount", "ammMintCount", "ammBurnCount"],
+      "decimalFields": ["totalAmmVolumeUSD", "ammLiquidityUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "ammTrades",
+      "localName": "AmmTrade",
+      "fields": ["id", "serialId", "amount0In", "amount1In", "amount0Out", "amount1Out", "amountUSD"],
+      "decimalFields": ["amount0In", "amount1In", "amount0Out", "amount1Out", "amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "borrowPositions",
+      "localName": "BorrowPosition",
+      "fields": ["id", "status", "openTimestamp", "closeTimestamp"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "marginPositions",
+      "localName": "MarginPosition",
+      "fields": ["id", "status", "isInitialized", "marginDeposit", "marginDepositUSD", "initialOwedAmountPar", "initialHeldAmountPar", "owedAmountPar", "heldAmountPar"],
+      "decimalFields": ["marginDeposit", "marginDepositUSD", "initialOwedAmountPar", "initialHeldAmountPar", "owedAmountPar", "heldAmountPar"],
+      "orderBy": "id"
+    }
+  ]
+}

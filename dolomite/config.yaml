@@ -1,0 +1,122 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: dolomite
+description: Dolomite Margin (margin/lending + Dolomite AMM) ported to HyperIndex, scoped to Arbitrum One (42161)
+rollback_on_reorg: false
+
+# Handlers build entity ids from event.transaction.hash and read event.transaction.from
+# (the AMM Swap "from" EOA). Select these tx fields globally for every event.
+field_selection:
+  transaction_fields: [hash, from]
+
+contracts:
+  # ---- AMM factory (static) ----
+  - name: AmmFactory
+    abi_file_path: ./abis/dolomite-amm-factory.json
+    events:
+      - event: "PairCreated(address indexed token0, address indexed token1, address pair, uint256 pairIndex)"
+
+  # ---- DolomiteMargin core accounting (static, the heart) ----
+  - name: MarginCore
+    abi_file_path: ./abis/dolomite-margin.json
+    events:
+      - event: "LogIndexUpdate(uint256 indexed market, (uint96 borrow, uint96 supply, uint32 lastUpdate) index)"
+      - event: "LogIndexUpdate(uint256 indexed market, (uint112 borrow, uint112 supply, uint32 lastUpdate) index)"
+      - event: "LogOraclePrice(uint256 indexed market, (uint256 value) price)"
+      - event: "LogDeposit(address indexed accountOwner, uint256 accountNumber, uint256 market, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) update, address from)"
+      - event: "LogWithdraw(address indexed accountOwner, uint256 accountNumber, uint256 market, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) update, address to)"
+      - event: "LogTransfer(address indexed accountOneOwner, uint256 accountOneNumber, address indexed accountTwoOwner, uint256 accountTwoNumber, uint256 market, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) updateOne, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) updateTwo)"
+      - event: "LogBuy(address indexed accountOwner, uint256 accountNumber, uint256 takerMarket, uint256 makerMarket, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) takerUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) makerUpdate, address exchangeWrapper)"
+      - event: "LogSell(address indexed accountOwner, uint256 accountNumber, uint256 takerMarket, uint256 makerMarket, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) takerUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) makerUpdate, address exchangeWrapper)"
+      - event: "LogTrade(address indexed takerAccountOwner, uint256 takerAccountNumber, address indexed makerAccountOwner, uint256 makerAccountNumber, uint256 inputMarket, uint256 outputMarket, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) takerInputUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) takerOutputUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) makerInputUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) makerOutputUpdate, address autoTrader)"
+      - event: "LogLiquidate(address indexed solidAccountOwner, uint256 solidAccountNumber, address indexed liquidAccountOwner, uint256 liquidAccountNumber, uint256 heldMarket, uint256 owedMarket, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) solidHeldUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) solidOwedUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) liquidHeldUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) liquidOwedUpdate)"
+      - event: "LogVaporize(address indexed solidAccountOwner, uint256 solidAccountNumber, address indexed vaporAccountOwner, uint256 vaporAccountNumber, uint256 heldMarket, uint256 owedMarket, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) solidHeldUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) solidOwedUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) vaporOwedUpdate)"
+      - event: "LogCall(address indexed accountOwner, uint256 accountNumber, address callee)"
+
+  # ---- DolomiteMargin admin (static; market/token/risk setup) ----
+  - name: MarginAdmin
+    abi_file_path: ./abis/dolomite-margin.json
+    events:
+      - event: "LogAddMarket(uint256 marketId, address token)"
+      - event: "LogRemoveMarket(uint256 marketId, address token)"
+      - event: "LogSetIsClosing(uint256 marketId, bool isClosing)"
+      - event: "LogSetPriceOracle(uint256 marketId, address priceOracle)"
+      - event: "LogSetInterestSetter(uint256 marketId, address interestSetter)"
+      - event: "LogSetMarginPremium(uint256 marketId, (uint256 value) marginPremium)"
+      - event: "LogSetSpreadPremium(uint256 marketId, (uint256 value) spreadPremium)"
+      - event: "LogSetLiquidationSpreadPremium(uint256 marketId, (uint256 value) liquidationSpreadPremium)"
+      - event: "LogSetMaxWei(uint256 marketId, (bool sign, uint256 value) maxWei)"
+      - event: "LogSetMaxSupplyWei(uint256 marketId, (bool sign, uint256 value) maxSupplyWei)"
+      - event: "LogSetMaxBorrowWei(uint256 marketId, (bool sign, uint256 value) maxBorrowWei)"
+      - event: "LogSetEarningsRateOverride(uint256 marketId, (uint256 value) earningsRateOverride)"
+      - event: "LogSetMarginRatio((uint256 value) marginRatio)"
+      - event: "LogSetLiquidationSpread((uint256 value) liquidationSpread)"
+      - event: "LogSetEarningsRate((uint256 value) earningsRate)"
+      - event: "LogSetMinBorrowedValue((uint256 value) minBorrowedValue)"
+      - event: "LogSetAccountMaxNumberOfMarketsWithBalances(uint256 accountMaxNumberOfMarketsWithBalances)"
+      - event: "LogSetOracleSentinel(address oracleSentinel)"
+      - event: "LogSetCallbackGasLimit(uint256 callbackGasLimit)"
+      - event: "LogSetDefaultAccountRiskOverrideSetter(address defaultAccountRiskOverrideSetter)"
+      - event: "LogSetAccountRiskOverrideSetter(address accountOwner, address accountRiskOverrideSetter)"
+      - event: "LogSetGlobalOperator(address operator, bool approved)"
+      - event: "LogSetAutoTraderIsSpecial(address autoTrader, bool isSpecial)"
+
+  # ---- Margin position router (dynamic-by-address guarded) ----
+  - name: DolomiteAmmRouter
+    abi_file_path: ./abis/dolomite-amm-router-proxy.json
+    events:
+      - event: "MarginPositionOpen(address indexed user, uint256 indexed accountIndex, address inputToken, address outputToken, address depositToken, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) inputBalanceUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) outputBalanceUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) marginDepositUpdate)"
+      - event: "MarginPositionClose(address indexed user, uint256 indexed accountIndex, address inputToken, address outputToken, address withdrawalToken, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) inputBalanceUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) outputBalanceUpdate, ((bool sign, uint256 value) deltaWei, (bool sign, uint128 value) newPar) marginWithdrawalUpdate)"
+
+  # ---- Expiry (static) ----
+  - name: MarginExpiry
+    abi_file_path: ./abis/dolomite-margin-expiry.json
+    events:
+      - event: "ExpirySet(address owner, uint256 number, uint256 marketId, uint32 time)"
+      - event: "LogExpiryRampTimeSet(uint256 expiryRampTime)"
+
+  # ---- Borrow position proxy v1/v2 (static) ----
+  - name: BorrowPositionProxy
+    abi_file_path: ./abis/borrow-position-proxy.json
+    events:
+      - event: "BorrowPositionOpen(address indexed accountOwner, uint256 indexed accountIndex)"
+
+  # ---- AMM pair (dynamic template via PairCreated) ----
+  - name: AmmPair
+    abi_file_path: ./abis/amm-pair.json
+    events:
+      - event: "Mint(address indexed sender, uint256 amount0Wei, uint256 amount1Wei)"
+      - event: "Burn(address indexed sender, uint256 amount0Wei, uint256 amount1Wei, address indexed to)"
+      - event: "Swap(address indexed sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out, address indexed to)"
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+      - event: "Sync(uint112 reserve0, uint112 reserve1)"
+
+  # ---- Isolation-mode vault factory (dynamic template; registration only, see MIGRATION.md) ----
+  - name: IsolationModeVault
+    abi_file_path: ./abis/isolation-mode-vault-factory.json
+    events:
+      - event: "VaultCreated(address indexed account, address vault)"
+
+chains:
+  - id: 42161
+    start_block: 28220369
+    # end_block: 28270369   # uncomment (~startBlock + 50k) for bounded validation runs
+    contracts:
+      - name: AmmFactory
+        address: "0xD99c21C96103F36BC1FA26DD6448af4DA030c1EF"
+      - name: MarginCore
+        address: "0x6Bd780E7fDf01D77e4d475c821f1e7AE05409072"
+      - name: MarginAdmin
+        address: "0x6Bd780E7fDf01D77e4d475c821f1e7AE05409072"
+      - name: DolomiteAmmRouter
+        address:
+          - "0xa09B4a3FC92965E587a94539ee8B35ECf42D5A08"
+          - "0xD8F9C59176AE25414FC4180f6433Fc45b0cbb632"
+      - name: MarginExpiry
+        address: "0xDEc1ae3b570ac3c57871BBD7bFeacC807f973Bea"
+      - name: BorrowPositionProxy
+        address:
+          - "0xe43638797513ef7A6d326a95E8647d86d2f5a099"
+          - "0x38E49A617305101216eC6306e3a18065D14Bf3a7"
+      # AmmPair + IsolationModeVault are address-less dynamic templates (registered at runtime)
+      - name: AmmPair
+      - name: IsolationModeVault
