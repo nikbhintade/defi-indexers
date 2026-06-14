@@ -45,6 +45,12 @@ rollback_on_reorg: false   # deterministic bounded runs for validation
   param names from the ABI, since param names become `event.params.*`).
 - If two contracts share an event signature but need different handlers, they are
   separate contract entries.
+- **Contract `name:` values MUST be PascalCase too.** codegen PascalCases the
+  chain-side contract names but not the top-level `contracts:` definitions, so a
+  lowercase contract name (e.g. `name: rocketTokenRETH`) silently produces an
+  empty event list and `indexer.onEvent({contract:"rocketTokenRETH", …})` matches
+  nothing (tests fail with "event not found"). Name every contract PascalCase in
+  `config.yaml`, handlers, and tests.
 - Subgraph `templates:` → contract entry with **no address** + `indexer.contractRegister`.
 
 ## schema.graphql

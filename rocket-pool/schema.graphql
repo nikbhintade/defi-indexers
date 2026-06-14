@@ -1,0 +1,270 @@
+# Ported 1:1 from the Rocket Pool subgraph schema.graphql.
+# Bytes -> String (lowercase 0x hex), @entity(immutable:..) directives removed,
+# @derivedFrom kept, @index added where handlers query via getWhere.
+
+# Entity that represents the RocketPool protocol.
+type RocketPoolProtocol {
+  id: ID!
+  stakersWithETHRewards: [String!]!
+  activeStakers: [String!]!
+  stakers: [String!]!
+  lastNetworkStakerBalanceCheckPoint: String
+  nodes: [String!]!
+  nodeTimezones: [String!]!
+  lastRPLRewardInterval: String
+  lastNetworkNodeBalanceCheckPoint: String
+  networkNodeBalanceCheckpoints: [String!]!
+  stakersWithAnRETHBalance: BigInt!
+}
+
+# An address that is/was associated with an rETH balance.
+type Staker {
+  id: ID!
+  rETHBalance: BigInt!
+  avgEntry: BigInt!
+  AvgEntryTime: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+# Tracks the mint, burn and transfers of rETH.
+type RocketETHTransaction {
+  id: ID!
+  from: Staker!
+  amount: BigInt!
+  to: Staker!
+  block: BigInt!
+  blockTime: BigInt!
+  transactionHash: String!
+}
+
+type RocketETHDailySnapshot {
+  id: ID!
+  stakerETHActivelyStaking: BigInt!
+  stakerETHWaitingInDepositPool: BigInt!
+  stakerETHInRocketETHContract: BigInt!
+  stakerETHInProtocol: BigInt!
+  averageStakerETHRewards: BigInt!
+  stakersWithAnRETHBalance: BigInt!
+  totalRETHSupply: BigInt!
+  rETHExchangeRate: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+# Summarizes staker related balances at a specific block and timestamp.
+type NetworkStakerBalanceCheckpoint {
+  id: ID!
+  previousCheckpointId: String
+  nextCheckpointId: String
+  stakerETHActivelyStaking: BigInt!
+  stakerETHWaitingInDepositPool: BigInt!
+  stakerETHInRocketETHContract: BigInt!
+  stakerETHInProtocol: BigInt!
+  averageStakerETHRewards: BigInt!
+  stakersWithAnRETHBalance: BigInt!
+  totalRETHSupply: BigInt!
+  rETHExchangeRate: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+# A node address that was registered by a node operator.
+type Node {
+  id: ID!
+  timezone: NetworkNodeTimezone!
+  isOracleNode: Boolean!
+  oracleNodeRPLBond: BigInt
+  oracleNodeBlockTime: BigInt
+  rplStaked: BigInt!
+  effectiveRPLStaked: BigInt!
+  totalRPLSlashed: BigInt!
+  totalODAORewardsClaimed: BigInt!
+  totalNodeRewardsClaimed: BigInt!
+  averageODAORewardClaim: BigInt!
+  averageNodeRewardClaim: BigInt!
+  odaoRewardClaimCount: BigInt!
+  nodeRewardClaimCount: BigInt!
+  minimumEffectiveRPL: BigInt!
+  maximumEffectiveRPL: BigInt!
+  queuedMinipools: BigInt!
+  stakingMinipools: BigInt!
+  stakingUnbondedMinipools: BigInt!
+  withdrawableMinipools: BigInt!
+  totalFinalizedMinipools: BigInt!
+  averageFeeForActiveMinipools: BigInt!
+  lastNodeBalanceCheckpoint: String
+  minipoolIds: [String!]
+  minipools: [Minipool!]! @derivedFrom(field: "node")
+  smoothingPool: Boolean!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+enum NodeRPLStakeTransactionType {
+  Staked
+  Withdrawal
+  Slashed
+}
+
+# Keeps track of the RPL staking transactions for a node.
+type NodeRPLStakeTransaction {
+  id: ID!
+  node: Node!
+  amount: BigInt!
+  ethAmount: BigInt!
+  type: NodeRPLStakeTransactionType!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+# Represents an reward interval during which RPL can be claimed by different types of claimers.
+type RPLRewardInterval {
+  id: ID!
+  previousIntervalId: String
+  nextIntervalId: String
+  claimableRewards: BigInt!
+  claimableRewardsFromPreviousInterval: BigInt!
+  claimablePDAORewards: BigInt!
+  claimableODAORewards: BigInt!
+  claimableNodeRewards: BigInt!
+  totalRPLClaimed: BigInt!
+  totalPDAORewardsClaimed: BigInt!
+  totalODAORewardsClaimed: BigInt!
+  totalNodeRewardsClaimed: BigInt!
+  averageODAORewardClaim: BigInt!
+  averageNodeRewardClaim: BigInt!
+  odaoRewardClaimCount: BigInt!
+  nodeRewardClaimCount: BigInt!
+  rplRewardClaims: [String!]!
+  isClosed: Boolean!
+  intervalStartTime: BigInt!
+  intervalClosedTime: BigInt
+  intervalDuration: BigInt!
+  intervalDurationActual: BigInt
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+type RPLRewardSubmitted {
+  id: ID!
+  rewardIndex: BigInt!
+  executionBlock: BigInt!
+  consensusBlock: BigInt!
+  merkleRoot: String!
+  merkleTreeCID: String!
+  intervalsPassed: BigInt!
+  treasuryRPL: BigInt!
+  trustedNodeRPL: [BigInt!]!
+  nodeRPL: [BigInt!]!
+  nodeETH: [BigInt!]!
+  userETH: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+enum RPLRewardClaimerType {
+  PDAO
+  ODAO
+  Node
+}
+
+# Represents an RPL reward that has been claimed by an address.
+type RPLRewardClaim {
+  id: ID!
+  rplRewardIntervalId: String!
+  claimer: String!
+  claimerType: RPLRewardClaimerType!
+  amount: BigInt!
+  ethAmount: BigInt!
+  transactionHash: String!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+# Represents the network timezones and the registered node(s).
+type NetworkNodeTimezone {
+  id: ID!
+  totalRegisteredNodes: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+# Represents a network balance checkpoint for all nodes.
+type NetworkNodeBalanceCheckpoint {
+  id: ID!
+  previousCheckpointId: String
+  nextCheckpointId: String
+  nodesRegistered: BigInt!
+  oracleNodesRegistered: BigInt!
+  rplStaked: BigInt!
+  effectiveRPLStaked: BigInt!
+  minimumEffectiveRPL: BigInt!
+  maximumEffectiveRPL: BigInt!
+  minimumEffectiveRPLNewMinipool: BigInt!
+  maximumEffectiveRPLNewMinipool: BigInt!
+  totalRPLSlashed: BigInt!
+  totalODAORewardsClaimed: BigInt!
+  totalNodeRewardsClaimed: BigInt!
+  averageTotalODAORewardsClaimed: BigInt!
+  averageODAORewardClaim: BigInt!
+  averageNodeTotalRewardsClaimed: BigInt!
+  averageNodeRewardClaim: BigInt!
+  rplPriceInETH: BigInt!
+  averageRplPriceInETH: BigInt!
+  queuedMinipools: BigInt!
+  stakingMinipools: BigInt!
+  stakingUnbondedMinipools: BigInt!
+  withdrawableMinipools: BigInt!
+  totalFinalizedMinipools: BigInt!
+  averageFeeForActiveMinipools: BigInt!
+  newMinipoolFee: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+# Represents a balance checkpoint for a node.
+type NodeBalanceCheckpoint {
+  id: ID!
+  Node: Node!
+  NetworkNodeBalanceCheckpoint: NetworkNodeBalanceCheckpoint!
+  isOracleNode: Boolean!
+  oracleNodeRPLBond: BigInt
+  oracleNodeBlockTime: BigInt
+  rplStaked: BigInt!
+  effectiveRPLStaked: BigInt!
+  minimumEffectiveRPL: BigInt!
+  maximumEffectiveRPL: BigInt!
+  totalRPLSlashed: BigInt!
+  totalODAORewardsClaimed: BigInt!
+  totalNodeRewardsClaimed: BigInt!
+  averageODAORewardClaim: BigInt!
+  averageNodeRewardClaim: BigInt!
+  odaoRewardClaimCount: BigInt!
+  nodeRewardClaimCount: BigInt!
+  queuedMinipools: BigInt!
+  stakingMinipools: BigInt!
+  stakingUnbondedMinipools: BigInt!
+  withdrawableMinipools: BigInt!
+  totalFinalizedMinipools: BigInt!
+  averageFeeForActiveMinipools: BigInt!
+  block: BigInt!
+  blockTime: BigInt!
+}
+
+# Represents a minipool for a node.
+type Minipool {
+  id: ID!
+  node: Node!
+  fee: BigInt!
+  nodeDepositETHAmount: BigInt!
+  nodeDepositBlockTime: BigInt!
+  userDepositETHAmount: BigInt!
+  userDepositBlockTime: BigInt!
+  queuedBlockTime: BigInt!
+  dequeuedBlockTime: BigInt!
+  destroyedBlockTime: BigInt!
+  stakingBlockTime: BigInt!
+  withdrawableBlockTime: BigInt!
+  finalizedBlockTime: BigInt!
+}

@@ -1,0 +1,146 @@
+{
+  "subgraph": {
+    "url": "https://gateway.thegraph.com/api/subgraphs/id/S9ihna8D733WTEShJ1KctSTCvY1VJ7gdVwhUujq4Ejo",
+    "authEnv": "GRAPH_API_KEY"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 13325250, "end": 13375250 },
+  "entities": [
+    {
+      "subgraphName": "stakers",
+      "localName": "Staker",
+      "fields": ["id", "rETHBalance", "avgEntry", "AvgEntryTime", "block", "blockTime"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "rocketETHTransactions",
+      "localName": "RocketETHTransaction",
+      "fields": [
+        "id",
+        "from",
+        "to",
+        "amount",
+        "block",
+        "blockTime",
+        "transactionHash"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "networkStakerBalanceCheckpoints",
+      "localName": "NetworkStakerBalanceCheckpoint",
+      "fields": [
+        "id",
+        "previousCheckpointId",
+        "nextCheckpointId",
+        "stakerETHActivelyStaking",
+        "stakerETHWaitingInDepositPool",
+        "stakerETHInRocketETHContract",
+        "stakerETHInProtocol",
+        "averageStakerETHRewards",
+        "stakersWithAnRETHBalance",
+        "totalRETHSupply",
+        "rETHExchangeRate",
+        "block",
+        "blockTime"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "rocketETHDailySnapshots",
+      "localName": "RocketETHDailySnapshot",
+      "fields": [
+        "id",
+        "stakerETHActivelyStaking",
+        "stakerETHWaitingInDepositPool",
+        "stakerETHInRocketETHContract",
+        "stakerETHInProtocol",
+        "averageStakerETHRewards",
+        "stakersWithAnRETHBalance",
+        "totalRETHSupply",
+        "rETHExchangeRate",
+        "block",
+        "blockTime"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "nodes",
+      "localName": "Node",
+      "fields": [
+        "id",
+        "timezone",
+        "isOracleNode",
+        "rplStaked",
+        "effectiveRPLStaked",
+        "totalRPLSlashed",
+        "queuedMinipools",
+        "stakingMinipools",
+        "withdrawableMinipools",
+        "totalFinalizedMinipools",
+        "averageFeeForActiveMinipools",
+        "smoothingPool",
+        "block",
+        "blockTime"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "networkNodeTimezones",
+      "localName": "NetworkNodeTimezone",
+      "fields": ["id", "totalRegisteredNodes", "block", "blockTime"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "nodeRPLStakeTransactions",
+      "localName": "NodeRPLStakeTransaction",
+      "fields": ["id", "node", "amount", "ethAmount", "type", "block", "blockTime"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "minipools",
+      "localName": "Minipool",
+      "fields": [
+        "id",
+        "node",
+        "fee",
+        "nodeDepositETHAmount",
+        "nodeDepositBlockTime",
+        "userDepositETHAmount",
+        "userDepositBlockTime",
+        "queuedBlockTime",
+        "dequeuedBlockTime",
+        "destroyedBlockTime",
+        "stakingBlockTime",
+        "withdrawableBlockTime",
+        "finalizedBlockTime"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "networkNodeBalanceCheckpoints",
+      "localName": "NetworkNodeBalanceCheckpoint",
+      "fields": [
+        "id",
+        "previousCheckpointId",
+        "nextCheckpointId",
+        "nodesRegistered",
+        "oracleNodesRegistered",
+        "rplStaked",
+        "effectiveRPLStaked",
+        "minimumEffectiveRPL",
+        "maximumEffectiveRPL",
+        "rplPriceInETH",
+        "averageRplPriceInETH",
+        "newMinipoolFee",
+        "block",
+        "blockTime"
+      ],
+      "decimalFields": ["averageRplPriceInETH"],
+      "orderBy": "id"
+    }
+  ]
+}

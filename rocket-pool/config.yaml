@@ -1,0 +1,140 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: rocket-pool-indexer
+description: Rocket Pool (rETH liquid staking, node operators, minipools) subgraph ported to HyperIndex
+rollback_on_reorg: false
+# Most entity ids are `txHash-logIndex` and several entities also store the tx
+# hash, so transaction.hash is required network-wide.
+field_selection:
+  transaction_fields: [hash]
+contracts:
+  # ---- rETH token ----
+  - name: RocketTokenRETH
+    abi_file_path: ./abis/rocketTokenRETH.json
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+
+  # ---- Network balances (legacy + Atlas share the same event/handler) ----
+  - name: RocketNetworkBalances
+    abi_file_path: ./abis/rocketNetworkBalances.json
+    events:
+      - event: "BalancesUpdated(uint256 block, uint256 totalEth, uint256 stakingEth, uint256 rethSupply, uint256 time)"
+
+  # ---- Node manager (V1 + Redstone + V3 all share NodeRegistered/NodeTimezoneLocationSet) ----
+  - name: RocketNodeManager
+    abi_file_path: ./abis/rocketNodeManager.json
+    events:
+      - event: "NodeRegistered(address indexed node, uint256 time)"
+      - event: "NodeTimezoneLocationSet(address indexed node, uint256 time)"
+
+  # ---- Node staking (legacy + Redstone + Atlas) ----
+  - name: RocketNodeStaking
+    abi_file_path: ./abis/rocketNodeStaking.json
+    events:
+      - event: "RPLStaked(address indexed from, uint256 amount, uint256 time)"
+      - event: "RPLWithdrawn(address indexed to, uint256 amount, uint256 time)"
+      - event: "RPLSlashed(address indexed node, uint256 amount, uint256 ethValue, uint256 time)"
+
+  # ---- Rewards pool (legacy RPLTokensClaimed) ----
+  - name: RocketRewardsPool
+    abi_file_path: ./abis/rocketRewardsPool.json
+    events:
+      - event: "RPLTokensClaimed(address indexed claimingContract, address indexed claimingAddress, uint256 amount, uint256 time)"
+
+  # ---- Rewards pool Redstone/Atlas (RewardSnapshot) ----
+  - name: RocketRewardsPoolRedstone
+    abi_file_path: ./abis/rocketRewardsPoolRedstone.json
+    events:
+      - event: "RewardSnapshot(uint256 indexed rewardIndex, (uint256 rewardIndex, uint256 executionBlock, uint256 consensusBlock, bytes32 merkleRoot, string merkleTreeCID, uint256 intervalsPassed, uint256 treasuryRPL, uint256[] trustedNodeRPL, uint256[] nodeRPL, uint256[] nodeETH, uint256 userETH) submission, uint256 intervalStartTime, uint256 intervalEndTime, uint256 time)"
+
+  # ---- Network prices (legacy PricesUpdated, 4 args) ----
+  - name: RocketNetworkPrices
+    abi_file_path: ./abis/rocketNetworkPrices.json
+    events:
+      - event: "PricesUpdated(uint256 block, uint256 rplPrice, uint256 effectiveRplStake, uint256 time)"
+
+  # ---- Network prices Atlas (PricesUpdated, 3 args) ----
+  - name: RocketNetworkPricesAtlas
+    abi_file_path: ./abis/rocketNetworkPrices.json
+    events:
+      - event: "PricesUpdated(uint256 block, uint256 rplPrice, uint256 time)"
+
+  # ---- Minipool manager (V1 + V2 + Redstone + Atlas) ----
+  - name: RocketMinipoolManager
+    abi_file_path: ./abis/rocketMinipoolManager.json
+    events:
+      - event: "MinipoolCreated(address indexed minipool, address indexed node, uint256 time)"
+      - event: "MinipoolDestroyed(address indexed minipool, address indexed node, uint256 time)"
+
+  # ---- Minipool queue ----
+  - name: RocketMinipoolQueue
+    abi_file_path: ./abis/rocketMinipoolQueue.json
+    events:
+      - event: "MinipoolEnqueued(address indexed minipool, bytes32 indexed queueId, uint256 time)"
+      - event: "MinipoolDequeued(address indexed minipool, bytes32 indexed queueId, uint256 time)"
+
+  # ---- DAO node trusted actions (ODAO membership) ----
+  - name: RocketDAONodeTrustedActions
+    abi_file_path: ./abis/rocketDAONodeTrustedActions.json
+    events:
+      - event: "ActionJoined(address indexed nodeAddress, uint256 rplBondAmount, uint256 time)"
+      - event: "ActionLeave(address indexed nodeAddress, uint256 rplBondAmount, uint256 time)"
+      - event: "ActionKick(address indexed nodeAddress, uint256 rplBondAmount, uint256 time)"
+      - event: "ActionChallengeDecided(address indexed nodeChallengedAddress, address indexed nodeChallengeDeciderAddress, bool success, uint256 time)"
+
+  # ---- Smoothing pool ----
+  - name: RocketSmoothingPool
+    abi_file_path: ./abis/rocketSmoothingPool.json
+    events:
+      - event: "NodeSmoothingPoolStateChanged(address indexed node, bool state)"
+
+  # ---- Minipool delegate (subgraph template; dynamically registered on MinipoolCreated) ----
+  - name: RocketMinipoolDelegate
+    abi_file_path: ./abis/rocketMinipoolDelegate.json
+    events:
+      - event: "StatusUpdated(uint8 indexed status, uint256 time)"
+      - event: "EtherDeposited(address indexed from, uint256 amount, uint256 time)"
+
+chains:
+  - id: 1
+    start_block: 13325241
+    # end_block: 13375250   # 13325250 + 50k — uncomment for bounded validation runs (see validation.json)
+    contracts:
+      - name: RocketTokenRETH
+        address: "0xae78736Cd615f374D3085123A210448E74Fc6393"
+      - name: RocketNetworkBalances
+        address:
+          - "0x138313f102cE9a0662F826fCA977E3ab4D6e5539" # legacy @ 13325250
+          - "0x07FCaBCbe4ff0d80c2b1eb42855C0131b6cba2F4" # Atlas @ 17002382
+      - name: RocketNodeManager
+        address:
+          - "0x4477Fbf4Af5b34E49662d9217681a763dDc0a322" # V1 @ 13325266
+          - "0x372236c940f572020c0c0eb1ac7212460e4e5a33" # Redstone @ 15786583
+          - "0x89F478E6Cc24f052103628f36598D4C14Da3D287" # V3 @ 17002372
+      - name: RocketNodeStaking
+        address:
+          - "0x3019227b2b8493e45Bf5d25302139c9a2713BF15" # legacy/Redstone
+          - "0x0d8D8f8541B12A0e1194B7CC4b6D954b90AB82ec" # Atlas @ 17002373
+      - name: RocketRewardsPool
+        address: "0xA3a18348e6E2d3897B6f2671bb8c120e36554802" # legacy @ 13325257
+      - name: RocketRewardsPoolRedstone
+        address:
+          - "0x594Fb75D3dc2DFa0150Ad03F99F97817747dd4E1" # Redstone @ 13325257
+          - "0xA805d68b61956BC92d556F2bE6d18747adAeEe82" # Atlas @ 17002383
+      - name: RocketNetworkPrices
+        address: "0xd3f500F550F46e504A4D2153127B47e007e11166" # legacy @ 13325254
+      - name: RocketNetworkPricesAtlas
+        address: "0x751826b107672360b764327631cC5764515fFC37" # Atlas @ 17002377
+      - name: RocketMinipoolManager
+        address:
+          - "0xFc1a4a1eaF9e80FA5380ce45d9D12bdF7A81ca18" # V1 @ 13325241
+          - "0x6293b8abc1f36afb22406be5f96d893072a8cf3a" # V2 @ 13535419
+          - "0x84d11b65e026f7aa08f5497dd3593fb083410b71" # Redstone @ 15342719
+          - "0x6d010C43d4e96D74C422f2e27370AF48711B49bF" # Atlas @ 17002372
+      - name: RocketMinipoolQueue
+        address: "0x5870dA524635D1310Dc0e6F256Ce331012C9C19E" # @ 13325244
+      - name: RocketDAONodeTrustedActions
+        address: "0x5b9B2494060138470a2b834f6003c0343a585349" # @ 13325274
+      - name: RocketSmoothingPool
+        address: "0x372236c940f572020c0c0eB1Ac7212460e4E5a33" # @ 15786583
+      # rocketMinipoolDelegate — no address; registered dynamically via contractRegister on MinipoolCreated
+      - name: RocketMinipoolDelegate
