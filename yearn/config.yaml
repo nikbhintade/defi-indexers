@@ -1,0 +1,161 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: yearn
+description: Yearn V2 Vaults subgraph (Ethereum mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  # --- Registries (NewVault/NewExperimentalVault/NewRelease/VaultTagged -> create Vault + register Vault template) ---
+  - name: Registry
+    abi_file_path: ./abis/Registry.json
+    events:
+      - event: "NewRelease(uint256 indexed release_id, address template, string api_version)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "NewVault(address indexed token, uint256 indexed deployment_id, address vault, string api_version)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "NewVault(address indexed token, uint256 indexed vaultId, uint256 vaultType, address vault, string apiVersion)"
+        name: NewVaultV2
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "NewExperimentalVault(address indexed token, address indexed deployer, address vault, string api_version)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "VaultTagged(address vault, string tag)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+  - name: RegistryV3
+    abi_file_path: ./abis/RegistryV3.json
+    events:
+      - event: "NewVault(address indexed token, uint256 indexed vaultId, uint256 vaultType, address vault, string apiVersion)"
+        name: NewVaultV3
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+
+  # --- Vault: bootstrap vaults declared statically + dynamically registered template instances ---
+  - name: Vault
+    abi_file_path: ./abis/Vault.json
+    events:
+      - event: "StrategyReported(address indexed strategy, uint256 gain, uint256 loss, uint256 totalGain, uint256 totalLoss, uint256 totalDebt, uint256 debtAdded, uint256 debtLimit)"
+        name: StrategyReportedV030
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyReported(address indexed strategy, uint256 gain, uint256 loss, uint256 debtPaid, uint256 totalGain, uint256 totalLoss, uint256 totalDebt, uint256 debtAdded, uint256 debtRatio)"
+        name: StrategyReported
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyMigrated(address indexed oldVersion, address indexed newVersion)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "Transfer(address indexed sender, address indexed receiver, uint256 value)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdatePerformanceFee(uint256 performanceFee)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdateManagementFee(uint256 managementFee)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyAddedToQueue(address indexed strategy)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyRemovedFromQueue(address indexed strategy)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdateWithdrawalQueue(address[20] queue)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdateRewards(address rewards)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "Deposit(address indexed recipient, uint256 shares, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "Withdraw(address indexed recipient, uint256 shares, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyAdded(address indexed strategy, uint256 debtLimit, uint256 rateLimit, uint256 performanceFee)"
+        name: StrategyAddedV1
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyAdded(address indexed strategy, uint256 debtRatio, uint256 minDebtPerHarvest, uint256 maxDebtPerHarvest, uint256 performanceFee)"
+        name: StrategyAddedV2
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdateHealthCheck(address indexed healthCheck)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdateGuardian(address guardian)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdateManagement(address management)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdateGovernance(address governance)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdateDepositLimit(uint256 depositLimit)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyUpdateMinDebtPerHarvest(address indexed strategy, uint256 minDebtPerHarvest)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyUpdateMaxDebtPerHarvest(address indexed strategy, uint256 maxDebtPerHarvest)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "StrategyUpdatePerformanceFee(address indexed strategy, uint256 performanceFee)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "EmergencyShutdown(bool active)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+
+  # --- Strategy template (registered per strategy on StrategyAdded) ---
+  - name: Strategy
+    abi_file_path: ./abis/StrategyAPI.json
+    events:
+      - event: "Harvested(uint256 profit, uint256 loss, uint256 debtPayment, uint256 debtOutstanding)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "Cloned(address indexed clone)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "SetHealthCheck(address healthCheckAddress)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "SetDoHealthCheck(bool doHealthCheck)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "EmergencyExitEnabled()"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdatedKeeper(address newKeeper)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdatedStrategist(address newStrategist)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+      - event: "UpdatedRewards(address rewards)"
+        field_selection:
+          transaction_fields: [hash, from, to, gas, gasPrice, value, transactionIndex]
+field_selection:
+  block_fields: [gasLimit]
+chains:
+  - id: 1
+    start_block: 11390000
+    # end_block: 11440000  # uncomment for bounded validation runs (earliest registry start 11390000 + 50k)
+    contracts:
+      - name: Registry
+        address:
+          - "0xe15461b18ee31b7379019dc523231c57d1cbc18c" # V1 registry, start 11390000
+          - "0x50c1a2eA0a861A967D9d0FFE2AE4012c2E053804" # V2 registry, start 12045550
+      - name: RegistryV3
+        address: "0xaF1f5e1c19cB68B30aAD73846eFfDf78a5863319" # start 16215500
+      - name: Vault
+        # Bootstrap vaults from config/mainnet.json (manualVaults + vaultsWithPreregisteredStrategies).
+        # Also receives dynamically registered template instances via contractRegister.
+        address:
+          - "0xA696a63cc78DfFa1a63E9E50587C197387FF6C7E" # YvWBTCVault, start 12185980
+          - "0x671a912c10bba0cfa74cfc2d6fba9ba1ed9530b2" # YvLinkVault, start 12542630
+          - "0x986b4AFF588a109c09B50A03f42E4110E29D353F" # CurveSETHVault, start 11870013
+      - name: Strategy
+        # no address — registered via contractRegister on StrategyAdded

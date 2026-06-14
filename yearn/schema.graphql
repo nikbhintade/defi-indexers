@@ -1,0 +1,550 @@
+type Transaction {
+  "Transaction hash + Log Index"
+  id: ID!
+  "Log index related to the event. A Transaction might contain multiple events."
+  logIndex: BigInt!
+  "The event name / call stacktrace"
+  event: String!
+  "The transaction sender"
+  from: String!
+  "Gas price used in the transaction"
+  gasPrice: BigInt!
+  "Gas limit used in the transaction"
+  gasLimit: BigInt!
+  "Transaction hash"
+  hash: String!
+  "The transaction index"
+  index: BigInt!
+  "Address that received the transaction"
+  to: String!
+  "Ether value sent in the transaction"
+  value: BigInt!
+  "Timestamp when the transaction was executed"
+  timestamp: BigInt!
+  "Gas limit used in the current block"
+  blockGasLimit: BigInt!
+  "Block number"
+  blockNumber: BigInt!
+}
+
+type Token {
+  "Token address"
+  id: ID!
+  "Number of decimals for this Token"
+  decimals: Int!
+  "Name of the Token"
+  name: String!
+  "Symbol of the Token"
+  symbol: String!
+}
+
+type TokenFee {
+  "Token address"
+  id: ID!
+  vault: Vault!
+  "The token which the fees are denominated in. Equivalent to vault.token."
+  token: Token!
+  "All time fees paid using this token to the treasury. Denominated in the vault's want token."
+  totalTreasuryFees: BigInt!
+  "All time fees paid using this token to strategists.  Denominated in the vault's want token."
+  totalStrategyFees: BigInt!
+  "All time fees paid using this token to strategists and the treasury.  Denominated in the vault's want token."
+  totalFees: BigInt!
+
+  "Internal field used by VaultUpdate. The amount of treasury fees paid using this token that has yet to be recognized by the subgraph's accounting logic."
+  unrecognizedTreasuryFees: BigInt!
+  "Internal field used by VaultUpdate. The amount of strategist fees paid using this token that has yet to be recognized by the subgraph's accounting logic."
+  unrecognizedStrategyFees: BigInt!
+}
+
+enum VaultClassification {
+  Endorsed
+  Experimental
+  Released
+}
+
+type Registry {
+  "Registry address"
+  id: ID!
+  "Transaction timestamp"
+  timestamp: BigInt!
+  "Transaction/Block Block number"
+  blockNumber: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "Vaults registered in the registry."
+  vaults: [Vault!]! @derivedFrom(field: "registry")
+}
+
+type Vault {
+  "Vault address"
+  id: ID!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "Vault type defined in Registry v3. Default/legacy value is 99999999"
+  type: BigInt!
+  "The registry address"
+  registry: Registry! @index
+  "Token this Vault will accrue"
+  token: Token!
+  "Token representing Shares in the Vault"
+  shareToken: Token!
+  "Vault classification"
+  classification: VaultClassification!
+  "Latest Vault Update"
+  latestUpdate: VaultUpdate
+  vaultDayData: [VaultDayData!]! @derivedFrom(field: "vault")
+  "All Vault Updates"
+  historicalUpdates: [VaultUpdate!]! @derivedFrom(field: "vault")
+  "Strategies for this Vault"
+  strategies: [Strategy!]! @derivedFrom(field: "vault")
+  "Strategy Ids for this vault"
+  strategyIds: [String!]!
+  "Token deposits into the Vault"
+  deposits: [Deposit!]! @derivedFrom(field: "vault")
+  "Token withdrawals from the Vault"
+  withdrawals: [Withdrawal!]! @derivedFrom(field: "vault")
+  "withdrawl queue of strategies"
+  withdrawalQueue: [String!]!
+  "Transfers of Vault Shares"
+  transfers: [Transfer!]! @derivedFrom(field: "vault")
+  "Tags attached to the Vault"
+  tags: [String!]!
+  "Balance of Tokens in the Vault and its Strategies"
+  balanceTokens: BigInt!
+  "Current idle Token balance"
+  balanceTokensIdle: BigInt!
+  "Current supply of Shares"
+  sharesSupply: BigInt!
+  "Management fee in basis points"
+  managementFeeBps: Int!
+  "Performance fee in basis points"
+  performanceFeeBps: Int!
+  "The address where management fees are paid to"
+  rewards: String!
+  "This technical field defines whether this vault is a custom item (created by a custom handler) or not (created by the registry dynamically)."
+  isTemplateListening: Boolean!
+  "Creation timestamp"
+  activation: BigInt!
+  "The API version."
+  apiVersion: String!
+  "The vault's health check contract."
+  healthCheck: HealthCheck @index
+  "The address authorized for guardian interactions in the new Vault"
+  guardian: String!
+  "The management address of the Vault to assert privileged functions that can only be called by management"
+  management: String!
+  "The governance address of the Vault to assert privileged functions that can only be called by governance"
+  governance: String!
+  "The maximum amount of underlying that can be deposited"
+  availableDepositLimit: BigInt!
+  "The maximum amount of tokens that can be deposited in this Vault"
+  depositLimit: BigInt!
+  "Is vault in emergency shutdown"
+  emergencyShutdown: Boolean!
+  "Block.timestamp of contract deployment"
+  activationBlockNumber: BigInt!
+}
+
+type VaultUpdate {
+  "Vault-Transaction-Log"
+  id: ID!
+  "Timestamp of update"
+  timestamp: BigInt!
+  "Block number of update"
+  blockNumber: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "Vault this update is for"
+  vault: Vault! @index
+
+  "Sum of tokens deposited"
+  tokensDeposited: BigInt!
+  "Sum of tokens withdrawn"
+  tokensWithdrawn: BigInt!
+  "Sum of Shares minted over all time"
+  sharesMinted: BigInt!
+  "Sum of Shares burnt over all time"
+  sharesBurnt: BigInt!
+  "The current balance position defined as: (vault.totalAssets() * (vault.pricePerShare() / 10**vault.decimals()))."
+  balancePosition: BigInt!
+
+  "Returns generated in Tokens"
+  returnsGenerated: BigInt!
+  "Total fees accrued over the lifetime of the vault. Denominated in want tokens."
+  totalFees: BigInt!
+
+  "Price per full share at the time of the update. Denominated in want tokens."
+  pricePerShare: BigInt!
+  "Balance of Tokens in the Vault and its Strategies at the time of update. "
+  currentBalanceTokens: BigInt!
+
+  "Management fee at time of update, in basis points. If this value has not been changed since the last VaultEvent, it will be null."
+  newManagementFee: BigInt
+  "New Performance fee at time of update, in basis points. If this value has not been changed since the last VaultEvent, it will be null."
+  newPerformanceFee: BigInt
+  "The new Rewards address that management fees will be paid to. If this value has not been changed since the last VaultEvent, it will be null."
+  newRewards: String
+  "The vault's new health check contract. If this value has not been changed since the last VaultEvent, it will be null."
+  newHealthCheck: HealthCheck
+  "The maximum amount of underlying that can be deposited"
+  availableDepositLimit: BigInt!
+  "The maximum amount of tokens that can be deposited in this Vault"
+  depositLimit: BigInt!
+
+  "The address authorized for guardian interactions in the new Vault"
+  guardian: String!
+  "The management address of the Vault to assert privileged functions that can only be called by management"
+  management: String!
+  "The governance address of the Vault to assert privileged functions that can only be called by governance"
+  governance: String!
+}
+
+type HealthCheck {
+  "Health Check Address"
+  id: ID!
+  "Vaults that use this health check contract."
+  vaults: [Vault!]! @derivedFrom(field: "healthCheck")
+}
+
+type Account {
+  "Account address"
+  id: ID!
+
+  "Vault deposits"
+  deposits: [Deposit!]! @derivedFrom(field: "account")
+  "Vault withdrawals"
+  withdrawals: [Withdrawal!]! @derivedFrom(field: "account")
+  "Vault positions"
+  vaultPositions: [AccountVaultPosition!]! @derivedFrom(field: "account")
+
+  "Incoming share transfers"
+  sharesReceived: [Transfer!]! @derivedFrom(field: "to")
+  "Outgoing share transfers"
+  sharesSent: [Transfer!]! @derivedFrom(field: "from")
+}
+
+type Deposit {
+  "Transaction-Log"
+  id: ID!
+  "Timestamp of update"
+  timestamp: BigInt!
+  "Block number of update"
+  blockNumber: BigInt!
+  "Account making Deposit"
+  account: Account! @index
+  "Vault deposited into"
+  vault: Vault! @index
+  "Number of Tokens deposited into Vault"
+  tokenAmount: BigInt!
+  "Number of new Vault Shares minted"
+  sharesMinted: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "Vault Update"
+  vaultUpdate: VaultUpdate!
+}
+
+type Withdrawal {
+  "Transaction-Log"
+  id: ID!
+  "Timestamp of update"
+  timestamp: BigInt!
+  "Block number of update"
+  blockNumber: BigInt!
+  "Account making withdraw"
+  account: Account! @index
+  "Vault withdrawn from"
+  vault: Vault! @index
+  "Number of Tokens withdrawn from Vault"
+  tokenAmount: BigInt!
+  "Number of Vault Shares burnt"
+  sharesBurnt: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "Vault Update"
+  vaultUpdate: VaultUpdate!
+}
+
+type Transfer {
+  "Transaction-Log"
+  id: ID!
+  "Vault"
+  vault: Vault! @index
+  "Sender"
+  from: Account! @index
+  "Receiver"
+  to: Account! @index
+  "Vault Share Token"
+  shareToken: Token!
+  "Number of Vault Shares transferred"
+  shareAmount: BigInt!
+  "Vault Token"
+  token: Token!
+  "Number of Tokens redeemable for shares transferred"
+  tokenAmount: BigInt!
+  "Token Amount in USDC, 0 if the transaction was before the oracle was deployed at 12198044"
+  tokenAmountUsdc: BigInt!
+  "Timestamp of Transfer"
+  timestamp: BigInt!
+  "Block number of Transfer"
+  blockNumber: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "Whether the transfer was used to pay a fee to the vault's rewards address"
+  isFeeToTreasury: Boolean!
+  "Whether the transfer was used to pay a fee to a strategy"
+  isFeeToStrategy: Boolean!
+}
+
+type AccountVaultPosition {
+  "Account-Vault"
+  id: ID!
+  "Vault"
+  vault: Vault!
+  "Account"
+  account: Account! @index
+  "Vault token"
+  token: Token!
+  "Vault share token"
+  shareToken: Token!
+  "Created in transaction"
+  transaction: Transaction!
+  "Latest account update for this Vault"
+  latestUpdate: AccountVaultPositionUpdate!
+  "Account updates over time"
+  updates: [AccountVaultPositionUpdate!]! @derivedFrom(field: "accountVaultPosition")
+
+  "Share balance"
+  balanceShares: BigInt!
+  "The current balance of tokens defined as: sum(deposits) - sum(withdrawals) + sum(received transfers) - sum(sent transfers)."
+  balanceTokens: BigInt!
+  "The current balance position defined as: (vault.balanceOf(account) * (vault.pricePerShare() / 10**vault.decimals()))."
+  balancePosition: BigInt!
+  "The accumulated profit balance for the account/vault. It is only calculated when the user withdraws all the shares."
+  balanceProfit: BigInt!
+}
+
+type AccountVaultPositionUpdate {
+  "Account-Vault-Order"
+  id: ID!
+  "Incremental value for the same account/vault."
+  order: BigInt!
+  "Timestamp"
+  timestamp: BigInt!
+  "Block number"
+  blockNumber: BigInt!
+  "Account that owns position update"
+  account: Account! @index
+  "The account vault position that this update applies to"
+  accountVaultPosition: AccountVaultPosition! @index
+  "Ethereum Transaction"
+  transaction: Transaction!
+
+  "Sum of token deposits"
+  deposits: BigInt!
+  "Sum of token withdrawals"
+  withdrawals: BigInt!
+
+  "Sum of share tokens minted"
+  sharesMinted: BigInt!
+  "Sum of share tokens burnt"
+  sharesBurnt: BigInt!
+
+  tokensSent: BigInt!
+  tokensReceived: BigInt!
+  sharesSent: BigInt!
+  sharesReceived: BigInt!
+  balanceShares: BigInt!
+  "The balance position."
+  balancePosition: BigInt!
+  "Vault Update"
+  vaultUpdate: VaultUpdate!
+}
+
+enum StrategyStatus {
+  Active
+  Retired
+}
+
+type Strategy {
+  "Strategy address"
+  id: ID!
+  "Strategy name."
+  name: String!
+  "Timestamp the vault information was most recently updated."
+  timestamp: BigInt!
+  "Blocknumber the vault information was most recently updated."
+  blockNumber: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "The Strategy address."
+  address: String!
+  "The health check contract address."
+  healthCheck: String
+  "Defines whether the strategy will call the health check or not."
+  doHealthCheck: Boolean!
+  "Defines whether this strategy is within the vault queue"
+  inQueue: Boolean!
+  "The Vault"
+  vault: Vault! @index
+  "Strategy reference used to clone this strategy."
+  clonedFrom: Strategy
+  "Defines the maximum borrow amount. In strategies <v0.3.5 it is debtRatio."
+  debtLimit: BigInt!
+  "Lower limit on the increase of debt since last harvest."
+  minDebtPerHarvest: BigInt!
+  "Upper limit on the increase of debt since last harvest."
+  maxDebtPerHarvest: BigInt!
+  "It is the current rate limit. It increases/decreases per block. This field is currently only populated on strategy create"
+  rateLimit: BigInt!
+  "Defines the strategist's fee (basis points)."
+  performanceFeeBps: BigInt!
+  "The latest report for this Strategy"
+  latestReport: StrategyReport
+  "The reports created by this strategy."
+  reports: [StrategyReport!]! @derivedFrom(field: "strategy")
+  "harvest() calls"
+  harvests: [Harvest!]! @derivedFrom(field: "strategy")
+  "Used to track the deployed version of this contract"
+  apiVersion: String!
+  "Determines if strategy is in emergency exit"
+  emergencyExit: Boolean!
+  "keeper is the only address that may call tend() or harvest(), other than governance() or strategist"
+  keeper: String!
+  "The address of the strategist"
+  strategist: String!
+  "The address for rewards"
+  rewards: String!
+  "The amount of assets this strategy manages that should not be included in Yearn's Total Value Locked (TVL) calculation across it's ecosystem."
+  delegatedAssets: BigInt!
+}
+
+type StrategyMigration {
+  "The Strategy Migration ID."
+  id: ID!
+  "Old Strategy"
+  oldStrategy: Strategy!
+  "New Strategy"
+  newStrategy: Strategy!
+  "Blocknumber the migration was created."
+  blockNumber: BigInt!
+  "Timestamp the migration was created."
+  timestamp: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+}
+
+type StrategyReport {
+  "The Strategy Report ID."
+  id: ID!
+  "Timestamp the strategy report was most recently updated."
+  timestamp: BigInt!
+  "Blocknumber the strategy report was most recently updated."
+  blockNumber: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "The Strategy reference."
+  strategy: Strategy! @index
+  "The reported gain amount for the strategy."
+  gain: BigInt!
+  "The reported loss amount for the strategy."
+  loss: BigInt!
+  "The reported total gain amount for the strategy."
+  totalGain: BigInt!
+  "The reported total loss amount for the strategy."
+  totalLoss: BigInt!
+  "The reported total debt amount for the strategy."
+  totalDebt: BigInt!
+  "The reported debt added amount for the strategy."
+  debtAdded: BigInt!
+  "The reported debt limit amount for the strategy."
+  debtLimit: BigInt!
+  "The reported debt paid for the strategy. This field is 0 for v0.3.0 or v0.3.1."
+  debtPaid: BigInt!
+  "The results created by this report. They are generated comparing the previous report and the current one."
+  results: [StrategyReportResult!]! @derivedFrom(field: "currentReport")
+}
+
+type StrategyReportResult {
+  "The Strategy Report Result ID."
+  id: ID!
+  "Timestamp the strategy report was most recently updated."
+  timestamp: BigInt!
+  "Blocknumber the strategy report was most recently updated."
+  blockNumber: BigInt!
+  "The current strategy report."
+  currentReport: StrategyReport! @index
+  "The previous strategy report."
+  previousReport: StrategyReport!
+  startTimestamp: BigInt!
+  endTimestamp: BigInt!
+  "The duration (in days) from the previous report."
+  duration: BigDecimal!
+  "Duration percentage rate."
+  durationPr: BigDecimal!
+  "Annual Percentage Rate."
+  apr: BigDecimal!
+  "Ethereum Transaction"
+  transaction: Transaction!
+}
+
+type Harvest {
+  "Strategy-Transaction-Log"
+  id: ID!
+  "Timestamp the strategy report was most recently updated."
+  timestamp: BigInt!
+  "Blocknumber the strategy report was most recently updated."
+  blockNumber: BigInt!
+  "Ethereum Transaction"
+  transaction: Transaction!
+  "Vault that owns the strategy"
+  vault: Vault!
+  "Strategy that harvested"
+  strategy: Strategy! @index
+  "Function caller"
+  harvester: String!
+
+  "The reported profit amount for the strategy at the time of the harvest."
+  profit: BigInt!
+  "The reported loss amount for the strategy at the time of the harvest."
+  loss: BigInt!
+  "The reported debt paid from strategy at the time of the harvest."
+  debtPayment: BigInt!
+  "The reported outstanding debt from strategy at the time of the harvest."
+  debtOutstanding: BigInt!
+}
+
+type VaultDayData {
+  id: ID!
+  "time in UTC"
+  timestamp: BigInt!
+  vault: Vault! @index
+  pricePerShare: BigInt!
+  "The amount of tokens deposited to this vault this day"
+  deposited: BigInt!
+  "The amount of tokens withdrawn from this vault this day"
+  withdrawn: BigInt!
+  "The total earnings generated for this vault up to and including this day"
+  totalReturnsGenerated: BigInt!
+  "The total earnings generated in USDC for this vault up to and including this day. These returns are priced using the token's USDC-denominated price at the time each harvest was performed."
+  totalReturnsGeneratedUSDC: BigInt!
+  "The earnings generated for this vault this day"
+  dayReturnsGenerated: BigInt!
+  "The earnings generated in USDC for this vault this day. These returns are priced using the token's USDC-denominated price at the time each harvest was performed."
+  dayReturnsGeneratedUSDC: BigInt!
+  "The price of one of the vault's underlying token"
+  tokenPriceUSDC: BigInt!
+  "Block number the day data aggregation occured on"
+  blockNumber: BigInt!
+}
+
+type Yearn {
+  id: ID!
+  "Only valid after the oracle was deployed at 12242339"
+  treasuryFeesUsdc: BigInt!
+  "Only valid after the oracle was deployed at 12242339"
+  strategyFeesUsdc: BigInt!
+  "Only valid after the oracle was deployed at 12242339"
+  totalFeesUsdc: BigInt!
+}

@@ -1,0 +1,159 @@
+{
+  "subgraph": {
+    "url": "TODO: Yearn V2 Vaults mainnet subgraph gateway endpoint. The original repo only references the (now-deprecated) hosted-service deployment `rareweasel/yearn-vaults-v2-subgraph-mainnet` and explorer id `0xf50b705e4eaba269dfe954f10c65bd34e6351e0c-0`; no decentralized-network gateway subgraph id was found in the repo/docs. To validate, deploy this subgraph (config/mainnet.json) to a hosted graph-node or locate its decentralized-network id and set: https://gateway.thegraph.com/api/subgraphs/id/<ID>",
+    "authEnv": "GRAPH_API_KEY"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": {
+    "start": 11390000,
+    "end": 11440000
+  },
+  "entities": [
+    {
+      "subgraphName": "registries",
+      "localName": "Registry",
+      "fields": ["id", "blockNumber"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "vaults",
+      "localName": "Vault",
+      "fields": [
+        "id",
+        "token",
+        "shareToken",
+        "registry",
+        "classification",
+        "apiVersion",
+        "managementFeeBps",
+        "performanceFeeBps",
+        "rewards",
+        "management",
+        "guardian",
+        "governance",
+        "depositLimit",
+        "activation",
+        "activationBlockNumber",
+        "emergencyShutdown",
+        "balanceTokens",
+        "balanceTokensIdle",
+        "sharesSupply",
+        "availableDepositLimit",
+        "type",
+        "tags",
+        "strategyIds",
+        "withdrawalQueue"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "decimals", "name", "symbol"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "vaultUpdates",
+      "localName": "VaultUpdate",
+      "fields": [
+        "id",
+        "vault",
+        "timestamp",
+        "blockNumber",
+        "tokensDeposited",
+        "tokensWithdrawn",
+        "sharesMinted",
+        "sharesBurnt",
+        "balancePosition",
+        "returnsGenerated",
+        "totalFees",
+        "pricePerShare",
+        "currentBalanceTokens",
+        "availableDepositLimit",
+        "depositLimit"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "deposits",
+      "localName": "Deposit",
+      "fields": ["id", "account", "vault", "tokenAmount", "sharesMinted", "blockNumber"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "withdrawals",
+      "localName": "Withdrawal",
+      "fields": ["id", "account", "vault", "tokenAmount", "sharesBurnt", "blockNumber"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "strategies",
+      "localName": "Strategy",
+      "fields": [
+        "id",
+        "name",
+        "vault",
+        "address",
+        "debtLimit",
+        "minDebtPerHarvest",
+        "maxDebtPerHarvest",
+        "rateLimit",
+        "performanceFeeBps",
+        "apiVersion",
+        "inQueue",
+        "emergencyExit",
+        "keeper",
+        "strategist",
+        "rewards",
+        "delegatedAssets"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "strategyReports",
+      "localName": "StrategyReport",
+      "fields": [
+        "id",
+        "strategy",
+        "gain",
+        "loss",
+        "totalGain",
+        "totalLoss",
+        "totalDebt",
+        "debtAdded",
+        "debtLimit",
+        "debtPaid",
+        "blockNumber"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "strategyReportResults",
+      "localName": "StrategyReportResult",
+      "fields": ["id", "currentReport", "previousReport", "startTimestamp", "endTimestamp", "duration", "durationPr", "apr"],
+      "decimalFields": ["duration", "durationPr", "apr"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "harvests",
+      "localName": "Harvest",
+      "fields": ["id", "vault", "strategy", "harvester", "profit", "loss", "debtPayment", "debtOutstanding"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transfers",
+      "localName": "Transfer",
+      "fields": ["id", "vault", "from", "to", "shareAmount", "tokenAmount", "tokenAmountUsdc", "isFeeToTreasury", "isFeeToStrategy"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "accountVaultPositions",
+      "localName": "AccountVaultPosition",
+      "fields": ["id", "vault", "account", "balanceShares", "balanceTokens", "balancePosition", "balanceProfit"],
+      "orderBy": "id"
+    }
+  ]
+}
