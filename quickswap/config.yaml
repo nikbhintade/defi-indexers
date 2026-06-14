@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: quickswap
+description: QuickSwap V2 (Uniswap-V2-style AMM) subgraph (Polygon/matic) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: Factory
+    events:
+      # subgraph: PairCreated(indexed address,indexed address,address,uint256)
+      # (the 4th uint256 param is unnamed in the Factory ABI; named here for codegen, unused)
+      - event: "PairCreated(address indexed token0, address indexed token1, address pair, uint256 pairIndex)"
+  # Subgraph template: Pair (registered dynamically on PairCreated)
+  - name: Pair
+    events:
+      - event: "Mint(address indexed sender, uint256 amount0, uint256 amount1)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Burn(address indexed sender, uint256 amount0, uint256 amount1, address indexed to)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Swap(address indexed sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out, address indexed to)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Sync(uint112 reserve0, uint112 reserve1)"
+chains:
+  - id: 137
+    start_block: 5484576
+    # end_block: 5534576   # uncomment for bounded validation runs (see validation.json)
+    contracts:
+      - name: Factory
+        address: "0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32"
+      # dynamically registered template (no static address)
+      - name: Pair

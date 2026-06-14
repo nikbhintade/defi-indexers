@@ -1,0 +1,298 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The QuickSwap-subgraph repo only deploys to the decommissioned hosted service (`sameepsi/quickswap`, see package.json deploy scripts) — there is no decentralized-network subgraph id in the repo or docs available offline. Replace TODO with the gateway URL of the QuickSwap V2 (Polygon) exchange subgraph: https://gateway.thegraph.com/api/subgraphs/id/<ID> (look it up on https://thegraph.com/explorer by searching 'quickswap' on Polygon; verify the deployment matches commit 47acf76 before use). The schema graft base (QmPUb1rWhd9C81XfiGTSEH3koXikC1bUZaUdMm84957aFv @ block 31025550) means a fresh-from-genesis local index will diverge from any grafted hosted deployment for entities mutated before the graft block; pick a validation block range AFTER 31025550 for a fair comparison if comparing against the grafted deployment."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 5484576, "end": 5534576 },
+  "entities": [
+    {
+      "subgraphName": "uniswapFactories",
+      "localName": "UniswapFactory",
+      "fields": [
+        "id",
+        "pairCount",
+        "totalVolumeUSD",
+        "totalVolumeETH",
+        "untrackedVolumeUSD",
+        "totalLiquidityUSD",
+        "totalLiquidityETH",
+        "txCount"
+      ],
+      "decimalFields": [
+        "totalVolumeUSD",
+        "totalVolumeETH",
+        "untrackedVolumeUSD",
+        "totalLiquidityUSD",
+        "totalLiquidityETH"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "bundles",
+      "localName": "Bundle",
+      "fields": ["id", "ethPrice"],
+      "decimalFields": ["ethPrice"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": [
+        "id",
+        "symbol",
+        "name",
+        "decimals",
+        "tradeVolume",
+        "tradeVolumeUSD",
+        "untrackedVolumeUSD",
+        "txCount",
+        "totalLiquidity",
+        "derivedETH"
+      ],
+      "decimalFields": ["tradeVolume", "tradeVolumeUSD", "untrackedVolumeUSD", "totalLiquidity", "derivedETH"],
+      "orderBy": "id",
+      "_note": "totalSupply intentionally omitted — the original mapping stores a non-deterministic value due to an AssemblyScript bug (see MIGRATION.md); this port stores the real decoded supply, so the field will not match."
+    },
+    {
+      "subgraphName": "pairs",
+      "localName": "Pair",
+      "fields": [
+        "id",
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveETH",
+        "reserveUSD",
+        "trackedReserveETH",
+        "token0Price",
+        "token1Price",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "untrackedVolumeUSD",
+        "txCount",
+        "createdAtTimestamp",
+        "createdAtBlockNumber",
+        "liquidityProviderCount"
+      ],
+      "decimalFields": [
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveETH",
+        "reserveUSD",
+        "trackedReserveETH",
+        "token0Price",
+        "token1Price",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "untrackedVolumeUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transactions",
+      "localName": "Transaction",
+      "fields": ["id", "blockNumber", "timestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mints",
+      "localName": "Mint",
+      "fields": [
+        "id",
+        "timestamp",
+        "to",
+        "liquidity",
+        "sender",
+        "amount0",
+        "amount1",
+        "logIndex",
+        "amountUSD",
+        "feeTo",
+        "feeLiquidity"
+      ],
+      "decimalFields": ["liquidity", "amount0", "amount1", "amountUSD", "feeLiquidity"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "burns",
+      "localName": "Burn",
+      "fields": [
+        "id",
+        "timestamp",
+        "liquidity",
+        "sender",
+        "amount0",
+        "amount1",
+        "to",
+        "logIndex",
+        "amountUSD",
+        "needsComplete",
+        "feeTo",
+        "feeLiquidity"
+      ],
+      "decimalFields": ["liquidity", "amount0", "amount1", "amountUSD", "feeLiquidity"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swaps",
+      "localName": "Swap",
+      "fields": [
+        "id",
+        "timestamp",
+        "sender",
+        "from",
+        "amount0In",
+        "amount1In",
+        "amount0Out",
+        "amount1Out",
+        "to",
+        "logIndex",
+        "amountUSD"
+      ],
+      "decimalFields": ["amount0In", "amount1In", "amount0Out", "amount1Out", "amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidityPositions",
+      "localName": "LiquidityPosition",
+      "fields": ["id", "user", "pair", "liquidityTokenBalance"],
+      "decimalFields": ["liquidityTokenBalance"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidityPositionSnapshots",
+      "localName": "LiquidityPositionSnapshot",
+      "fields": [
+        "id",
+        "timestamp",
+        "block",
+        "token0PriceUSD",
+        "token1PriceUSD",
+        "reserve0",
+        "reserve1",
+        "reserveUSD",
+        "liquidityTokenTotalSupply",
+        "liquidityTokenBalance"
+      ],
+      "decimalFields": [
+        "token0PriceUSD",
+        "token1PriceUSD",
+        "reserve0",
+        "reserve1",
+        "reserveUSD",
+        "liquidityTokenTotalSupply",
+        "liquidityTokenBalance"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "uniswapDayDatas",
+      "localName": "UniswapDayData",
+      "fields": [
+        "id",
+        "date",
+        "dailyVolumeETH",
+        "dailyVolumeUSD",
+        "dailyVolumeUntracked",
+        "totalVolumeETH",
+        "totalLiquidityETH",
+        "totalVolumeUSD",
+        "totalLiquidityUSD",
+        "txCount"
+      ],
+      "decimalFields": [
+        "dailyVolumeETH",
+        "dailyVolumeUSD",
+        "dailyVolumeUntracked",
+        "totalVolumeETH",
+        "totalLiquidityETH",
+        "totalVolumeUSD",
+        "totalLiquidityUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pairHourDatas",
+      "localName": "PairHourData",
+      "fields": [
+        "id",
+        "hourStartUnix",
+        "reserve0",
+        "reserve1",
+        "reserveUSD",
+        "hourlyVolumeToken0",
+        "hourlyVolumeToken1",
+        "hourlyVolumeUSD",
+        "hourlyTxns"
+      ],
+      "decimalFields": [
+        "reserve0",
+        "reserve1",
+        "reserveUSD",
+        "hourlyVolumeToken0",
+        "hourlyVolumeToken1",
+        "hourlyVolumeUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pairDayDatas",
+      "localName": "PairDayData",
+      "fields": [
+        "id",
+        "date",
+        "pairAddress",
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveUSD",
+        "dailyVolumeToken0",
+        "dailyVolumeToken1",
+        "dailyVolumeUSD",
+        "dailyTxns"
+      ],
+      "decimalFields": [
+        "reserve0",
+        "reserve1",
+        "totalSupply",
+        "reserveUSD",
+        "dailyVolumeToken0",
+        "dailyVolumeToken1",
+        "dailyVolumeUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenDayDatas",
+      "localName": "TokenDayData",
+      "fields": [
+        "id",
+        "date",
+        "dailyVolumeToken",
+        "dailyVolumeETH",
+        "dailyVolumeUSD",
+        "dailyTxns",
+        "totalLiquidityToken",
+        "totalLiquidityETH",
+        "totalLiquidityUSD",
+        "priceUSD"
+      ],
+      "decimalFields": [
+        "dailyVolumeToken",
+        "dailyVolumeETH",
+        "dailyVolumeUSD",
+        "totalLiquidityToken",
+        "totalLiquidityETH",
+        "totalLiquidityUSD",
+        "priceUSD"
+      ],
+      "orderBy": "id"
+    }
+  ]
+}
