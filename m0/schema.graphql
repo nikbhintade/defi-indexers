@@ -1,0 +1,265 @@
+#
+# M0 protocol subgraph -> HyperIndex port.
+# Type mapping: Bytes -> String (lowercase 0x hex), BigInt -> BigInt.
+# @entity(immutable: ...) directives removed (HyperIndex types are plain types).
+# All entity type names are PascalCase (required by envio 3.x).
+#
+#
+# MinterGateway events
+#
+type BurnExecuted {
+  id: ID!
+  minter: String! # address
+  principalAmount: BigInt # uint112
+  amount: BigInt! # uint240
+  payer: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type CollateralUpdated {
+  id: ID!
+  minter: String! # address
+  collateral: BigInt! # uint240
+  totalResolvedCollateralRetrieval: BigInt! # uint240
+  metadataHash: String! # bytes32
+  timestamp: BigInt! # uint40
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type IndexUpdated {
+  id: ID!
+  index: BigInt! # uint128
+  rate: BigInt! # uint32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MintCanceled {
+  id: ID!
+  mintId: BigInt! # uint48
+  minter: String! # address
+  canceller: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MintExecuted {
+  id: ID!
+  mintId: BigInt! # uint48
+  minter: String! # address
+  principalAmount: BigInt! # uint112
+  amount: BigInt! # uint240
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MintProposed {
+  id: ID!
+  mintId: BigInt! # uint48
+  minter: String! # address
+  amount: BigInt! # uint240
+  destination: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MinterActivated {
+  id: ID!
+  minter: String! # address
+  caller: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MinterDeactivated {
+  id: ID!
+  minter: String! # address
+  inactiveOwedM: BigInt! # uint240
+  caller: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MinterFrozen {
+  id: ID!
+  minter: String! # address
+  frozenUntil: BigInt! # uint40
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MissedIntervalsPenaltyImposed {
+  id: ID!
+  minter: String! # address
+  missedIntervals: BigInt! # uint40
+  penaltyAmount: BigInt! # uint240
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type RetrievalCreated {
+  id: ID!
+  retrievalId: BigInt! # uint48
+  minter: String! # address
+  amount: BigInt! # uint240
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type RetrievalResolved {
+  id: ID!
+  retrievalId: BigInt! # uint48
+  minter: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type UndercollateralizedPenaltyImposed {
+  id: ID!
+  minter: String! # address
+  excessOwedM: BigInt! # uint240
+  timeSpan: BigInt! # uint40
+  penaltyAmount: BigInt! # uint240
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+#
+# MinterGateway - NON events entities - timeseries - updated by handleNewBlock
+#
+type PrincipalOfTotalActiveOwedM {
+  id: ID!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type TotalOwedM {
+  id: ID!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type TotalActiveOwedM {
+  id: ID!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type TotalActiveOwedMDailySnapshot {
+  id: ID!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  timestamp: BigInt!
+}
+
+type TotalInactiveOwedM {
+  id: ID!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+# The difference between total owed M and M token total supply.
+type TotalExcessOwedM {
+  id: ID!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+#
+# Minter Entitites
+#
+type MinterActiveOwedMOf {
+  id: ID!
+  minter: String! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type MinterInactiveOwedMOf {
+  id: ID!
+  minter: String! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type MinterPrincipalOfActiveOwedMOf {
+  id: ID!
+  minter: String! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type MinterCollateralOf {
+  id: ID!
+  minter: String! # address
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+#
+# M token special events
+#
+type MTokenAuthorizationCanceled {
+  id: ID!
+  authorizer: String! # address
+  nonce: String! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MTokenAuthorizationUsed {
+  id: ID!
+  authorizer: String! # address
+  nonce: String! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MTokenIndexUpdated {
+  id: ID!
+  index: BigInt! # uint128
+  rate: BigInt! # uint32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MTokenStartedEarning {
+  id: ID!
+  account: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type MTokenStoppedEarning {
+  id: ID!
+  account: String! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}

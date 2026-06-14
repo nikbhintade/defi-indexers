@@ -1,0 +1,173 @@
+{
+  "subgraph": {
+    "url": "https://subgraph.satsuma-prod.com/the-things-team--3422500/protocol/api",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "The M0 `protocol` subgraph is deployed on Alchemy/Satsuma, NOT the The-Graph decentralized gateway. The repo README only lists the playground URL: https://subgraph.satsuma-prod.com/the-things-team--3422500/protocol/playground . The query endpoint above is the conventional Satsuma `/api` form derived from that playground path and is UNVERIFIED — confirm the live endpoint + whether it needs an API key (some Satsuma deployments are public, some gate behind a key passed as an `X-Api-Key` header / query param rather than the GRAPH_API_KEY bearer used here). If a key is required, tools/compare must be adapted to Satsuma auth. No `gateway.thegraph.com/api/subgraphs/id/<ID>` URL exists for this subgraph."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 19818438, "end": 19868438 },
+  "entities": [
+    {
+      "subgraphName": "minterActivateds",
+      "localName": "MinterActivated",
+      "fields": ["id", "minter", "caller", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "minterDeactivateds",
+      "localName": "MinterDeactivated",
+      "fields": ["id", "minter", "inactiveOwedM", "caller", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "minterFrozens",
+      "localName": "MinterFrozen",
+      "fields": ["id", "minter", "frozenUntil", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mintProposeds",
+      "localName": "MintProposed",
+      "fields": ["id", "mintId", "minter", "amount", "destination", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mintExecuteds",
+      "localName": "MintExecuted",
+      "fields": ["id", "mintId", "minter", "principalAmount", "amount", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mintCanceleds",
+      "localName": "MintCanceled",
+      "fields": ["id", "mintId", "minter", "canceller", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "burnExecuteds",
+      "localName": "BurnExecuted",
+      "fields": ["id", "minter", "principalAmount", "amount", "payer", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "collateralUpdateds",
+      "localName": "CollateralUpdated",
+      "fields": ["id", "minter", "collateral", "totalResolvedCollateralRetrieval", "metadataHash", "timestamp", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "indexUpdateds",
+      "localName": "IndexUpdated",
+      "fields": ["id", "index", "rate", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "missedIntervalsPenaltyImposeds",
+      "localName": "MissedIntervalsPenaltyImposed",
+      "fields": ["id", "minter", "missedIntervals", "penaltyAmount", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "undercollateralizedPenaltyImposeds",
+      "localName": "UndercollateralizedPenaltyImposed",
+      "fields": ["id", "minter", "excessOwedM", "timeSpan", "penaltyAmount", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "retrievalCreateds",
+      "localName": "RetrievalCreated",
+      "fields": ["id", "retrievalId", "minter", "amount", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "retrievalResolveds",
+      "localName": "RetrievalResolved",
+      "fields": ["id", "retrievalId", "minter", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "minterActiveOwedMOfs",
+      "localName": "MinterActiveOwedMOf",
+      "fields": ["id", "minter", "amount", "blockNumber", "blockTimestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "minterInactiveOwedMOfs",
+      "localName": "MinterInactiveOwedMOf",
+      "fields": ["id", "minter", "amount", "blockNumber", "blockTimestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "minterPrincipalOfActiveOwedMOfs",
+      "localName": "MinterPrincipalOfActiveOwedMOf",
+      "fields": ["id", "minter", "amount", "blockNumber", "blockTimestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "minterCollateralOfs",
+      "localName": "MinterCollateralOf",
+      "fields": ["id", "minter", "amount", "blockNumber", "blockTimestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "totalActiveOwedMDailySnapshots",
+      "localName": "TotalActiveOwedMDailySnapshot",
+      "fields": ["id", "amount", "blockNumber", "blockTimestamp", "timestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mtokenStartedEarnings",
+      "localName": "MTokenStartedEarning",
+      "fields": ["id", "account", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mtokenStoppedEarnings",
+      "localName": "MTokenStoppedEarning",
+      "fields": ["id", "account", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mtokenIndexUpdateds",
+      "localName": "MTokenIndexUpdated",
+      "fields": ["id", "index", "rate", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mtokenAuthorizationUseds",
+      "localName": "MTokenAuthorizationUsed",
+      "fields": ["id", "authorizer", "nonce", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mtokenAuthorizationCanceleds",
+      "localName": "MTokenAuthorizationCanceled",
+      "fields": ["id", "authorizer", "nonce", "blockNumber", "blockTimestamp", "transactionHash"],
+      "decimalFields": [],
+      "orderBy": "id"
+    }
+  ],
+  "_timeseriesNote": "The block.hash-keyed timeseries entities (TotalOwedM, TotalActiveOwedM, TotalInactiveOwedM, TotalExcessOwedM, PrincipalOfTotalActiveOwedM) are intentionally omitted from the diff set: in the subgraph they are written by BOTH the every-300-block polling block handler AND every minter event, whereas the HyperIndex port's polling path depends on an eth_getBlockByNumber effect (block.hash/timestamp are not exposed to onBlock). The per-minter-event writes of those same entities WILL match; the extra polling-block rows may differ in coverage. TotalActiveOwedMDailySnapshot (day-keyed, last-write-wins) is included as it converges per day. See MIGRATION.md."
+}

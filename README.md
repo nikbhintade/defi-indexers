@@ -32,7 +32,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 20 | Steakhouse Financial (#42) | [morpho-org/morpho-blue-subgraph](https://github.com/morpho-org/morpho-blue-subgraph) | `steakhouse/` | ✅ covered by `morpho-blue/` (curator vaults indexed by Morpho Blue subgraph) |
 | 21 | Rocket Pool (#74) | [rocket-pool/rocket-pool-subgraph](https://github.com/rocket-pool/rocket-pool-subgraph) | `rocket-pool/` | ✅ ported, builds + offline tests pass |
 | 22 | HyperLend Pooled (#110) | [hyperlendx/ponder-indexer](https://github.com/hyperlendx/ponder-indexer) | `hyperlend/` | ✅ ported (Ponder→v3, HyperEVM), builds + offline tests pass |
-| 23 | M0 (#122) | [m0-foundation/subgraphs](https://github.com/m0-foundation/subgraphs) | `m0/` | queued |
+| 23 | M0 (#122) | [m0-foundation/subgraphs](https://github.com/m0-foundation/subgraphs) | `m0/` | ✅ ported (protocol subgraph), builds + offline tests pass |
 | 24 | tBTC (#123) | [threshold-network/tbtc-subgraph](https://github.com/threshold-network/tbtc-subgraph) | `tbtc/` | queued |
 | 25 | Quickswap Dex (#124) | [QuickSwap/QuickSwap-subgraph](https://github.com/QuickSwap/QuickSwap-subgraph) | `quickswap/` | queued |
 | 26 | Aave Horizon RWA (#130) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-horizon/` | queued |

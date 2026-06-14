@@ -1,0 +1,85 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: m0
+description: M0 protocol subgraph (mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: MinterGateway
+    abi_file_path: ./abis/MinterGateway.json
+    events:
+      # Two BurnExecuted overloads -> distinct generated names.
+      - event: "BurnExecuted(address indexed minter, uint240 amount, address indexed payer)"
+        name: BurnExecuted
+        field_selection:
+          transaction_fields: [hash]
+      - event: "BurnExecuted(address indexed minter, uint112 principalAmount, uint240 amount, address indexed payer)"
+        name: BurnExecutedWithPrincipal
+        field_selection:
+          transaction_fields: [hash]
+      - event: "CollateralUpdated(address indexed minter, uint240 collateral, uint240 totalResolvedCollateralRetrieval, bytes32 indexed metadataHash, uint40 timestamp)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "IndexUpdated(uint128 indexed index, uint32 indexed rate)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MintCanceled(uint48 indexed mintId, address indexed minter, address indexed canceller)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MintExecuted(uint48 indexed mintId, address indexed minter, uint112 principalAmount, uint240 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MintProposed(uint48 indexed mintId, address indexed minter, uint240 amount, address indexed destination)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MinterActivated(address indexed minter, address indexed caller)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MinterDeactivated(address indexed minter, uint240 inactiveOwedM, address indexed caller)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MinterFrozen(address indexed minter, uint40 frozenUntil)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MissedIntervalsPenaltyImposed(address indexed minter, uint40 missedIntervals, uint240 penaltyAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RetrievalCreated(uint48 indexed retrievalId, address indexed minter, uint240 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "RetrievalResolved(uint48 indexed retrievalId, address indexed minter)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "UndercollateralizedPenaltyImposed(address indexed minter, uint240 excessOwedM, uint40 timeSpan, uint240 penaltyAmount)"
+        field_selection:
+          transaction_fields: [hash]
+  - name: MToken
+    abi_file_path: ./abis/MToken.json
+    events:
+      - event: "AuthorizationCanceled(address indexed authorizer, bytes32 indexed nonce)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "AuthorizationUsed(address indexed authorizer, bytes32 indexed nonce)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "IndexUpdated(uint128 indexed index, uint32 indexed rate)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "StartedEarning(address indexed account)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "StoppedEarning(address indexed account)"
+        field_selection:
+          transaction_fields: [hash]
+chains:
+  - id: 1
+    # MinterGateway starts at 19818447, MToken at 19818438. Use the earliest so
+    # both data sources are covered; per-contract addresses below pin the rest.
+    start_block: 19818438
+    # end_block: 19868438   # 19818438 + 50k -> uncomment for bounded validation runs
+    contracts:
+      - name: MinterGateway
+        address: "0xf7f9638cb444D65e5A40bF5ff98ebE4ff319F04E"
+      - name: MToken
+        address: "0x866A2BF4E572CbcF37D5071A7a58503Bfb36be1b"
+field_selection:
+  block_fields: []
+  transaction_fields: []
