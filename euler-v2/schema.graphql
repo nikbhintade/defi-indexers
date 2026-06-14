@@ -1,0 +1,30 @@
+# Ported 1:1 from euler-subgraph/schema.graphql.
+# Bytes -> String (lowercase 0x hex), @entity(immutable) directives removed.
+# Entity names kept PascalCase (already were in the source).
+
+type Vault {
+  id: ID! # vault address
+  factory: String! # factory that created this vault
+}
+
+type TrackingActiveAccount {
+  id: ID! # addressPrefix (first 19 bytes)
+  addressPrefix: String! # first 19 bytes shared by main address and all sub-accounts
+  deposits: [String!]! # account + vault
+  borrows: [String!]! # account + vault
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}
+
+type TrackingVaultBalance {
+  id: ID! # account + vault
+  vault: String!
+  addressPrefix: String! # first 19 bytes - links to TrackingActiveAccount
+  account: String!
+  balance: BigInt!
+  debt: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}

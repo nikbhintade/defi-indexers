@@ -1,0 +1,52 @@
+{
+  "subgraph": {
+    "url": "TODO: Goldsky private endpoint, not published in the source repo. The mainnet subgraph deploys as `euler-simple-mainnet` (scripts/deploy.ts: `euler-${PROTOCOL_VERSION}-${network}`, PROTOCOL_VERSION=\"simple\"). Its query URL is written to a generated, uncommitted deployments.json (verify/utils/utils.ts -> getSubgraphUrl). Public form is typically https://api.goldsky.com/api/public/<projectId>/subgraphs/euler-simple-mainnet/<version>/gn but <projectId>/<version> are not in the repo. Fill in once obtained from the Euler team / Goldsky dashboard.",
+    "authEnv": "GRAPH_API_KEY"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": {
+    "start": 20529207,
+    "end": 20579207
+  },
+  "entities": [
+    {
+      "subgraphName": "vaults",
+      "localName": "Vault",
+      "fields": ["id", "factory"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "trackingActiveAccounts",
+      "localName": "TrackingActiveAccount",
+      "fields": [
+        "id",
+        "addressPrefix",
+        "deposits",
+        "borrows",
+        "blockNumber",
+        "blockTimestamp",
+        "transactionHash"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "trackingVaultBalances",
+      "localName": "TrackingVaultBalance",
+      "fields": [
+        "id",
+        "vault",
+        "addressPrefix",
+        "account",
+        "balance",
+        "debt",
+        "blockNumber",
+        "blockTimestamp",
+        "transactionHash"
+      ],
+      "orderBy": "id"
+    }
+  ]
+}

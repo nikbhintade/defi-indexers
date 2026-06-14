@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: euler-v2
+description: Euler V2 subgraph (euler-xyz/euler-subgraph, Ethereum mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  # ---- Factory: EVK vault factory (GenericFactory) ----
+  # Subgraph dataSource EulerVaultFactory -> handleProxyCreated -> registers
+  # the EulerVault template at event.params.proxy.
+  - name: EulerVaultFactory
+    abi_file_path: ./abis/GenericFactory.json
+    events:
+      - event: "ProxyCreated(address indexed proxy, bool upgradeable, address implementation, bytes trailingData)"
+  # ---- Factory: EulerEarn (ERC4626) vault factory ----
+  # Subgraph dataSource EulerEarnFactory -> handleCreateEulerEarn -> registers
+  # the ERC4626Vault template at event.params.eulerEarn.
+  - name: EulerEarnFactory
+    abi_file_path: ./abis/EulerEarnFactory.json
+    events:
+      - event: "CreateEulerEarn(address indexed eulerEarn, address indexed caller, address initialOwner, uint256 initialTimelock, address indexed asset, string name, string symbol, bytes32 salt)"
+  # ---- Factory: Securitize ERC4626 EVC collateral factory ----
+  # Subgraph dataSource SecuritizeFactory -> handleContractDeployed -> registers
+  # the ERC4626Vault template at event.params.deployedContract.
+  - name: SecuritizeFactory
+    abi_file_path: ./abis/ERC4626EVCCollateralSecuritizeFactory.json
+    events:
+      - event: "ContractDeployed(address indexed deployedContract, address indexed deployer, uint256 deployedAt)"
+  # ---- Template: EulerVault (EVK vault) ----
+  # Dynamically registered (no static address) via contractRegister.
+  - name: EulerVault
+    abi_file_path: ./abis/EulerVault.json
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Borrow(address indexed account, uint256 assets)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Repay(address indexed account, uint256 assets)"
+        field_selection:
+          transaction_fields: [hash]
+  # ---- Template: ERC4626Vault (EulerEarn) ----
+  # Dynamically registered (no static address) via contractRegister.
+  - name: ERC4626Vault
+    abi_file_path: ./abis/EulerEarn.json
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+chains:
+  - id: 1
+    start_block: 20529207
+    # end_block: 20579207   # uncomment for bounded validation runs (start + 50k)
+    contracts:
+      - name: EulerVaultFactory
+        address: "0x29a56a1b8214D9Cf7c5561811750D5cBDb45CC8e"
+      - name: EulerEarnFactory
+        address: "0x59709B029B140C853FE28d277f83C3a65e308aF4"
+      - name: SecuritizeFactory
+        address: "0x5F51D980F15fE6075aE30394dc35De57A4f76Cbb"
+      - name: EulerVault       # registered via contractRegister (ProxyCreated)
+      - name: ERC4626Vault     # registered via contractRegister (CreateEulerEarn / ContractDeployed)
