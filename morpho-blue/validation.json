@@ -1,0 +1,130 @@
+{
+  "subgraph": {
+    "url": "TODO_GRAPH_GATEWAY_URL",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "Canonical source is morpho-org/morpho-blue-subgraph (The Graph). No concrete decentralized-network gateway subgraph id is confirmable offline. The repo's mainnet deploy target is `morpho-blue` (package.json deploy:studio:mainnet -> `graph deploy morpho-blue --network mainnet`) and the local deploy id is `morpho-org/morpho-blue`. Set url to 'https://gateway.thegraph.com/api/subgraphs/id/<ID>' once the concrete decentralized-network id is confirmed, and provide GRAPH_API_KEY. This port serves the 'Morpho Blue once' project: Morpho Blue (#11) and the curator migration rows (Steakhouse, Gauntlet, Sentora, ...) whose vaults are MetaMorpho vaults indexed here."
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 18883124, "end": 18933124 },
+  "entities": [
+    {
+      "subgraphName": "lendingProtocols",
+      "localName": "LendingProtocol",
+      "fields": [
+        "id",
+        "name",
+        "slug",
+        "totalPoolCount",
+        "cumulativeUniqueUsers",
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD"
+      ],
+      "decimalFields": [
+        "totalValueLockedUSD",
+        "totalDepositBalanceUSD",
+        "totalBorrowBalanceUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "markets",
+      "localName": "Market",
+      "fields": [
+        "id",
+        "name",
+        "inputToken",
+        "borrowedToken",
+        "lltv",
+        "maximumLTV",
+        "totalSupply",
+        "totalSupplyShares",
+        "totalBorrow",
+        "totalBorrowShares",
+        "totalCollateral",
+        "fee",
+        "totalValueLockedUSD",
+        "totalBorrowBalanceUSD"
+      ],
+      "decimalFields": [
+        "maximumLTV",
+        "totalValueLockedUSD",
+        "totalBorrowBalanceUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positions",
+      "localName": "Position",
+      "fields": [
+        "id",
+        "account",
+        "market",
+        "side",
+        "balance",
+        "principal",
+        "shares",
+        "depositCount",
+        "withdrawCount",
+        "borrowCount",
+        "repayCount"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": ["id", "name", "symbol", "decimals", "lastPriceUSD"],
+      "decimalFields": ["lastPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "metaMorphos",
+      "localName": "MetaMorpho",
+      "fields": [
+        "id",
+        "name",
+        "symbol",
+        "version",
+        "asset",
+        "owner",
+        "timelock",
+        "fee",
+        "lastTotalAssets",
+        "totalShares",
+        "hasPublicAllocator"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "metaMorphoMarkets",
+      "localName": "MetaMorphoMarket",
+      "fields": [
+        "id",
+        "metaMorpho",
+        "market",
+        "cap",
+        "enabled",
+        "isInSupplyQueue",
+        "isInWithdrawQueue"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "metaMorphoPublicAllocators",
+      "localName": "MetaMorphoPublicAllocator",
+      "fields": [
+        "id",
+        "metaMorpho",
+        "fee",
+        "accruedFee",
+        "claimableFee",
+        "claimedFee"
+      ],
+      "orderBy": "id"
+    }
+  ]
+}
