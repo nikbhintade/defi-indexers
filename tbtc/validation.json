@@ -1,0 +1,102 @@
+{
+  "subgraph": {
+    "url": "TODO: tBTC subgraph deploys to The Graph Studio as `tbtc-mainnet` (threshold-network/tbtc-subgraph, package.json `deploy-mainnet`). No concrete gateway subgraph id is committed in the source repo or docs. Set this to https://gateway.thegraph.com/api/subgraphs/id/<ID> once the published id is known.",
+    "authEnv": "GRAPH_API_KEY"
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": { "start": 16397413, "end": 16447413 },
+  "entities": [
+    {
+      "subgraphName": "deposits",
+      "localName": "Deposit",
+      "fields": [
+        "id",
+        "status",
+        "user",
+        "amount",
+        "newDebt",
+        "actualAmountReceived",
+        "treasuryFee",
+        "walletPubKeyHash",
+        "fundingTxHash",
+        "fundingOutputIndex",
+        "blindingFactor",
+        "refundPubKeyHash",
+        "refundLocktime",
+        "vault",
+        "sweptAt",
+        "depositTimestamp",
+        "updateTimestamp"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redemptions",
+      "localName": "Redemption",
+      "fields": [
+        "id",
+        "status",
+        "user",
+        "amount",
+        "walletPubKeyHash",
+        "redeemerOutputScript",
+        "redemptionTxHash",
+        "treasuryFee",
+        "txMaxFee",
+        "completedTxHash",
+        "redemptionTimestamp",
+        "updateTimestamp"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tbtctokens",
+      "localName": "TBTCToken",
+      "fields": [
+        "id",
+        "name",
+        "symbol",
+        "decimals",
+        "address",
+        "totalSupply",
+        "totalMint",
+        "totalBurn",
+        "currentTokenHolders"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "users",
+      "localName": "User",
+      "fields": [
+        "id",
+        "mintingDebt",
+        "tokenBalance",
+        "totalTokensHeld",
+        "isRedeemerBanned"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transactions",
+      "localName": "Transaction",
+      "fields": ["id", "txHash", "timestamp", "from", "to", "amount", "description"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "operators",
+      "localName": "Operator",
+      "fields": ["id", "stakedAmount", "stakedAt", "stakeType", "owner", "beneficiary", "authorizer"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "statsRecords",
+      "localName": "StatsRecord",
+      "fields": ["id", "numDeposits", "numRedemptions", "numOperators", "totalStaked", "mintingStatus"],
+      "orderBy": "id"
+    }
+  ]
+}

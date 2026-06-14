@@ -1,0 +1,86 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: tbtc
+description: tBTC v2 subgraph (Ethereum mainnet) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: Bridge
+    events:
+      # Deposit lifecycle
+      - event: "DepositRevealed(bytes32 fundingTxHash, uint32 fundingOutputIndex, address indexed depositor, uint64 amount, bytes8 blindingFactor, bytes20 indexed walletPubKeyHash, bytes20 refundPubKeyHash, bytes4 refundLocktime, address vault)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      # DepositsSwept is emitted by submitDepositSweepProof(); we decode the tx
+      # input to recover the swept deposit keys (subgraph used a callHandler).
+      - event: "DepositsSwept(bytes20 walletPubKeyHash, bytes32 sweepTxHash)"
+        field_selection:
+          transaction_fields: [hash, from, to, input]
+      # Redemption lifecycle
+      - event: "RedemptionRequested(bytes20 indexed walletPubKeyHash, bytes redeemerOutputScript, address indexed redeemer, uint64 requestedAmount, uint64 treasuryFee, uint64 txMaxFee)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      - event: "RedemptionTimedOut(bytes20 indexed walletPubKeyHash, bytes redeemerOutputScript)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      # RedemptionsCompleted is emitted by submitRedemptionProof(); we decode the
+      # tx input to mark matching redemptions COMPLETED (subgraph used a callHandler).
+      - event: "RedemptionsCompleted(bytes20 indexed walletPubKeyHash, bytes32 redemptionTxHash)"
+        field_selection:
+          transaction_fields: [hash, from, to, input]
+  - name: TBTCVault
+    events:
+      - event: "OptimisticMintingCancelled(address indexed guardian, uint256 indexed depositKey)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      - event: "OptimisticMintingDebtRepaid(address indexed depositor, uint256 optimisticMintingDebt)"
+      - event: "OptimisticMintingFinalized(address indexed minter, uint256 indexed depositKey, address indexed depositor, uint256 optimisticMintingDebt)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      - event: "OptimisticMintingRequested(address indexed minter, uint256 indexed depositKey, address indexed depositor, uint256 amount, bytes32 fundingTxHash, uint32 fundingOutputIndex)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      - event: "OptimisticMintingPaused()"
+      - event: "OptimisticMintingUnpaused()"
+      - event: "Minted(address indexed to, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Unminted(address indexed from, uint256 amount)"
+  - name: TBTC
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+  - name: TokenStaking
+    events:
+      - event: "OwnerRefreshed(address indexed stakingProvider, address indexed oldOwner, address indexed newOwner)"
+      - event: "Staked(uint8 indexed stakeType, address indexed owner, address indexed stakingProvider, address beneficiary, address authorizer, uint96 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      - event: "TokensSeized(address indexed stakingProvider, uint96 amount, bool indexed discrepancy)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      - event: "ToppedUp(address indexed stakingProvider, uint96 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      - event: "Unstaked(address indexed stakingProvider, uint96 amount)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+  - name: RedemptionWatchtower
+    events:
+      - event: "VetoFinalized(uint256 indexed redemptionKey)"
+        field_selection:
+          transaction_fields: [hash, from, to]
+      - event: "Banned(address indexed redeemer)"
+      - event: "Unbanned(address indexed redeemer)"
+chains:
+  - id: 1
+    start_block: 13042356
+    # end_block: 16447413   # uncomment for bounded validation runs (covers Bridge activity 16397413 -> +50k)
+    contracts:
+      - name: Bridge
+        address: "0x5e4861a80B55f035D899f66772117F00FA0E8e7B"
+      - name: TBTCVault
+        address: "0x9C070027cdC9dc8F82416B2e5314E11DFb4FE3CD"
+      - name: TBTC
+        address: "0x18084fbA666a33d37592fA2633fD49a74DD93a88"
+      - name: TokenStaking
+        address: "0x01B67b1194C75264d06F808A921228a95C765dd7"
+      - name: RedemptionWatchtower
+        address: "0xB8dF0A949aC45ff8f401553A1dcb742Feb38E6D3"

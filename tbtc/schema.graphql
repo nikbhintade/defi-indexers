@@ -1,0 +1,165 @@
+enum DepositStatus {
+  UNKNOWN
+  REVEALED
+  MINTING_REQUESTED
+  SWEPT
+  MINTING_FINALIZED
+  CANCELED
+  REFUNDED
+}
+
+enum RedemptionStatus {
+  UNKNOWN
+  REQUESTED
+  COMPLETED
+  TIMEDOUT
+  VETOED
+}
+
+type Transaction {
+  id: ID!
+  txHash: String!
+  timestamp: BigInt!
+  from: String!
+  to: String
+  amount: BigInt
+  description: String
+  deposits: [Deposit!]! @derivedFrom(field: "transactions")
+  redemptions: [Redemption!]! @derivedFrom(field: "transactions")
+}
+
+type User {
+  id: ID!
+  mintingDebt: BigInt!
+  tokenBalance: BigInt!
+  totalTokensHeld: BigInt!
+  tbtcToken: TBTCToken!
+  deposits: [String!]!
+  redemptions: [String!]!
+  isRedeemerBanned: Boolean!
+}
+
+type Deposit {
+  # keccak256(fundingTxHash | fundingOutputIndex)
+  id: ID!
+  status: DepositStatus
+  user: User!
+  amount: BigInt!
+  newDebt: BigInt!
+  actualAmountReceived: BigInt!
+  treasuryFee: BigInt!
+  walletPubKeyHash: String
+  fundingTxHash: String
+  fundingOutputIndex: BigInt
+  blindingFactor: String
+  refundPubKeyHash: String
+  refundLocktime: String
+  vault: String
+  transactions: [String!]! @index
+  sweptAt: BigInt
+  depositTimestamp: BigInt
+  updateTimestamp: BigInt
+}
+
+type Redemption {
+  # keccak256(keccak256(redeemerOutputScript) | walletPubKeyHash) + "-" + count
+  id: ID!
+  status: RedemptionStatus
+  user: User!
+  amount: BigInt!
+  walletPubKeyHash: String
+  redeemerOutputScript: String
+  redemptionTxHash: String
+  treasuryFee: BigInt
+  txMaxFee: BigInt
+  completedTxHash: String
+  transactions: [String!]! @index
+  redemptionTimestamp: BigInt
+  updateTimestamp: BigInt!
+}
+
+type TBTCToken {
+  id: ID!
+  name: String!
+  symbol: String!
+  decimals: Int!
+  address: String!
+  totalSupply: BigInt!
+  totalMint: BigInt!
+  totalBurn: BigInt!
+  currentTokenHolders: BigInt!
+  holders: [User!]! @derivedFrom(field: "tbtcToken")
+}
+
+enum TransactionEvent {
+  STAKED
+  TOPUP
+  UNSTAKE
+  AUTHORIZED_RANDOM_BEACON
+  AUTHORIZED_TBTC
+  AUTHORIZED_UNKNOW
+  DECREASE_AUTHORIZED_RANDOM_BEACON
+  DECREASE_AUTHORIZED_TBTC
+  REGISTERED_OPERATOR
+  BOND_OPERATOR
+  JOINED_SORTITION_POOL
+  SLASHED
+  WITHDRAW_REWARD
+}
+
+type Event {
+  # Hash of transaction (txHash-logIndex)
+  id: ID!
+  txHash: String!
+  timestamp: BigInt!
+  from: String!
+  to: String
+  amount: BigInt!
+  isRandomBeaconEvent: Boolean!
+  event: TransactionEvent!
+}
+
+type Operator {
+  # Staking Provider address
+  id: ID!
+  # Operator address
+  address: String!
+  registeredOperatorAddress: Int!
+  isBondRegisteredOperatorAddress: Boolean!
+  stakedAt: BigInt!
+  stakeType: Int!
+  owner: String
+  beneficiary: String
+  authorizer: String
+  randomBeaconAuthorized: Boolean!
+  tBTCAuthorized: Boolean!
+  tBTCAuthorizedAmount: BigInt!
+  randomBeaconAuthorizedAmount: BigInt!
+  stakedAmount: BigInt!
+  rewardDispensed: BigInt!
+  availableReward: BigInt!
+  misbehavedCount: Int!
+  totalSlashedAmount: BigInt!
+  poolRewardBanDuration: BigInt!
+  beaconGroupCount: Int!
+  events: [String!]!
+}
+
+type StatsRecord {
+  id: ID!
+  numOperators: Int!
+  numDeposits: Int!
+  numRedemptions: Int!
+  numOperatorsRegisteredNode: Int!
+  totalTBTCAuthorizedAmount: BigInt!
+  totalRandomBeaconAuthorizedAmount: BigInt!
+  totalStaked: BigInt!
+  mintingStatus: Boolean!
+}
+
+type StatusRecord {
+  id: ID!
+  pendingRedemptions: [String!]!
+  lastMintedInfo: [String!]!
+  lastMintedHash: String!
+}
