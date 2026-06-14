@@ -28,8 +28,8 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 16 | USDT0 (#25) | [enviodev/usdt0-indexer](https://github.com/enviodev/usdt0-indexer) | `usdt0/` | ✅ upgraded v2→v3, builds + offline tests pass |
 | 17 | SparkLend (#26) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `sparklend/` | ✅ ported (Aave V3 fork), builds + offline tests pass |
 | 18 | Babylon Protocol (#27) | [babylonlabs-io/babylon-staking-indexer](https://github.com/babylonlabs-io/babylon-staking-indexer) | `babylon/` | queued ⚠️ non-EVM (Bitcoin+Cosmos) — may not be HyperIndex-portable |
-| 19 | Maple (#41) | [maple-labs/maple-core-v2](https://github.com/maple-labs/maple-core-v2) | `maple/` | queued |
-| 20 | Steakhouse Financial (#42) | [morpho-org/morpho-blue-subgraph](https://github.com/morpho-org/morpho-blue-subgraph) | `steakhouse/` | queued |
+| 19 | Maple (#41) | [maple-labs/maple-core-v2](https://github.com/maple-labs/maple-core-v2) | `maple/` | ⏭️ skipped (live subgraph, no public source — like ether.fi) |
+| 20 | Steakhouse Financial (#42) | [morpho-org/morpho-blue-subgraph](https://github.com/morpho-org/morpho-blue-subgraph) | `steakhouse/` | ✅ covered by `morpho-blue/` (curator vaults indexed by Morpho Blue subgraph) |
 | 21 | Rocket Pool (#74) | [rocket-pool/rocket-pool-subgraph](https://github.com/rocket-pool/rocket-pool-subgraph) | `rocket-pool/` | queued |
 | 22 | HyperLend Pooled (#110) | [hyperlendx/ponder-indexer](https://github.com/hyperlendx/ponder-indexer) | `hyperlend/` | queued |
 | 23 | M0 (#122) | [m0-foundation/subgraphs](https://github.com/m0-foundation/subgraphs) | `m0/` | queued |
