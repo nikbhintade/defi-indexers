@@ -1,0 +1,304 @@
+# HyperLend (Aave-V3-style) — ported 1:1 from the Ponder `ponder.schema.ts`.
+# Mapping: t.hex() -> String (lowercase 0x hex), t.bigint() -> BigInt,
+# t.integer() -> Int, t.boolean() -> Boolean, t.text() -> String.
+# Entity ids are Ponder `event.log.id` = `${block.hash}-${logIndex}` (lowercase).
+# Price fields are nullable: the Ponder columns have no .notNull() and several
+# handlers swallow oracle-read failures into a null price.
+
+type Borrow {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  onBehalfOf: String @index
+  amount: BigInt
+  interestRateMode: Int
+  borrowRate: BigInt
+  referralCode: Int
+  timestamp: Int
+  price: BigInt
+}
+
+type Repay {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  repayer: String
+  amount: BigInt
+  useATokens: Boolean
+  timestamp: Int
+  price: BigInt
+}
+
+type Supply {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  onBehalfOf: String
+  amount: BigInt
+  referralCode: Int
+  timestamp: Int
+  price: BigInt
+}
+
+type Withdraw {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  to: String
+  amount: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type LiquidationCall {
+  id: ID!
+  txHash: String
+  pool: String
+  collateralAsset: String
+  debtAsset: String
+  user: String
+  debtToCover: BigInt
+  liquidatedCollateralAmount: BigInt
+  liquidator: String
+  receiveAToken: Boolean
+  timestamp: Int
+  priceCollateral: BigInt
+  priceDebt: BigInt
+}
+
+type FlashLoan {
+  id: ID!
+  txHash: String
+  pool: String
+  target: String
+  initiator: String
+  asset: String
+  amount: BigInt
+  interestRateMode: Int
+  premium: BigInt
+  referralCode: Int
+  timestamp: Int
+  price: BigInt
+}
+
+type ReserveDataUpdated {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  liquidityRate: BigInt
+  stableBorrowRate: BigInt
+  variableBorrowRate: BigInt
+  liquidityIndex: BigInt
+  variableBorrowIndex: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type ReserveUsedAsCollateralEnabled {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  timestamp: Int
+}
+
+type ReserveUsedAsCollateralDisabled {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  timestamp: Int
+}
+
+type SwapBorrowRateMode {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  interestRateMode: Int
+  timestamp: Int
+}
+
+type UserEModeSet {
+  id: ID!
+  txHash: String
+  pool: String
+  user: String
+  categoryId: Int
+  timestamp: Int
+}
+
+type MintedToTreasury {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  amountMinted: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type MintUnbacked {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  onBehalfOf: String
+  amount: BigInt
+  referralCode: Int
+  timestamp: Int
+  price: BigInt
+}
+
+type BackUnbacked {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  backer: String
+  amount: BigInt
+  fee: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type RebalanceStableBorrowRate {
+  id: ID!
+  txHash: String
+  pool: String
+  reserve: String
+  user: String
+  timestamp: Int
+}
+
+type IsolationModeTotalDebtUpdated {
+  id: ID!
+  txHash: String
+  pool: String
+  asset: String
+  totalDebt: BigInt
+  timestamp: Int
+}
+
+# hTOKENS
+type HTokenTransfer {
+  id: ID!
+  txHash: String
+  reserve: String
+  from: String
+  to: String
+  value: BigInt
+  index: BigInt
+}
+
+# ISOLATED POOLS
+type BorrowAssetIsolated {
+  id: ID!
+  txHash: String
+  pair: String
+  borrower: String @index
+  receiver: String @index
+  borrowAmount: BigInt
+  sharesAdded: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type RepayAssetIsolated {
+  id: ID!
+  txHash: String
+  pair: String
+  borrower: String @index
+  payer: String @index
+  amountToRepay: BigInt
+  shares: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type AddCollateralIsolated {
+  id: ID!
+  txHash: String
+  pair: String
+  borrower: String @index
+  sender: String @index
+  collateralAmount: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type RemoveCollateralIsolated {
+  id: ID!
+  txHash: String
+  pair: String
+  receiver: String @index
+  sender: String @index
+  borrower: String @index
+  collateralAmount: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type LiquidateIsolated {
+  id: ID!
+  txHash: String
+  pair: String
+  borrower: String @index
+  liquidator: String @index
+  collateralForLiquidator: BigInt
+  sharesToLiquidate: BigInt
+  amountLiquidatorToRepay: BigInt
+  feesAmount: BigInt
+  sharesToAdjust: BigInt
+  amountToAdjust: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type DepositIsolated {
+  id: ID!
+  txHash: String
+  pair: String
+  caller: String @index
+  owner: String @index
+  assets: BigInt
+  shares: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type WithdrawIsolated {
+  id: ID!
+  txHash: String
+  pair: String
+  caller: String @index
+  owner: String @index
+  receiver: String @index
+  assets: BigInt
+  shares: BigInt
+  timestamp: Int
+  price: BigInt
+}
+
+type StrategyDeployed {
+  id: ID!
+  txHash: String
+  owner: String @index
+  stratManager: String @index
+  pool: String
+  yieldAsset: String
+  debtAsset: String
+}

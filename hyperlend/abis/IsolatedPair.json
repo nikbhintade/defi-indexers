@@ -1,0 +1,35 @@
+[
+  {
+    "inputs": [],
+    "name": "exchangeRateInfo",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "oracle",
+        "type": "address"
+      },
+      {
+        "internalType": "uint32",
+        "name": "maxOracleDeviation",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint184",
+        "name": "lastTimestamp",
+        "type": "uint184"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lowExchangeRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "highExchangeRate",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

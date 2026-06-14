@@ -1,0 +1,75 @@
+{
+  "_comment": "Cross-validation config for tools/compare. HyperLend's Ponder indexer (hyperlendx/ponder-indexer) does not document a public GraphQL endpoint in its repo (no README, no api url), so the upstream target is left as a TODO with authEnv null. Fill `subgraph.url` once a HyperLend Ponder/GraphQL endpoint is known, then run tools/compare against a bounded local run (chain 999, blocks 787000 -> 837000).",
+  "subgraph": {
+    "url": "TODO: HyperLend Ponder GraphQL endpoint not documented in hyperlendx/ponder-indexer (no README / api url)",
+    "authEnv": null
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "chainId": 999,
+  "blockRange": { "start": 787000, "end": 837000 },
+  "entities": [
+    {
+      "subgraphName": "supplys",
+      "localName": "Supply",
+      "fields": ["id", "txHash", "pool", "reserve", "user", "onBehalfOf", "amount", "referralCode", "timestamp", "price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "withdraws",
+      "localName": "Withdraw",
+      "fields": ["id", "txHash", "pool", "reserve", "user", "to", "amount", "timestamp", "price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "borrows",
+      "localName": "Borrow",
+      "fields": ["id", "txHash", "pool", "reserve", "user", "onBehalfOf", "amount", "interestRateMode", "borrowRate", "referralCode", "timestamp", "price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "repays",
+      "localName": "Repay",
+      "fields": ["id", "txHash", "pool", "reserve", "user", "repayer", "amount", "useATokens", "timestamp", "price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidationCalls",
+      "localName": "LiquidationCall",
+      "fields": ["id", "txHash", "pool", "collateralAsset", "debtAsset", "user", "debtToCover", "liquidatedCollateralAmount", "liquidator", "receiveAToken", "timestamp", "priceCollateral", "priceDebt"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "flashLoans",
+      "localName": "FlashLoan",
+      "fields": ["id", "txHash", "pool", "target", "initiator", "asset", "amount", "interestRateMode", "premium", "referralCode", "timestamp", "price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "reserveDataUpdateds",
+      "localName": "ReserveDataUpdated",
+      "fields": ["id", "txHash", "pool", "reserve", "liquidityRate", "stableBorrowRate", "variableBorrowRate", "liquidityIndex", "variableBorrowIndex", "timestamp", "price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mintedToTreasurys",
+      "localName": "MintedToTreasury",
+      "fields": ["id", "txHash", "pool", "reserve", "amountMinted", "timestamp", "price"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "hTokenTransfers",
+      "localName": "HTokenTransfer",
+      "fields": ["id", "txHash", "reserve", "from", "to", "value", "index"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "strategyDeployeds",
+      "localName": "StrategyDeployed",
+      "fields": ["id", "txHash", "owner", "stratManager", "pool", "yieldAsset", "debtAsset"],
+      "orderBy": "id"
+    }
+  ]
+}

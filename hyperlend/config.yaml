@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: hyperlend
+description: HyperLend (Aave-V3-style lending protocol on HyperEVM, chain 999) Ponder indexer ported to HyperIndex
+# Deterministic bounded runs for validation.
+rollback_on_reorg: false
+# Entity ids replicate Ponder's `event.log.id` (block.hash + "-" + logIndex), so
+# the block hash must be selected. Many history rows store the tx hash. The
+# isolated-pair handlers read transaction.to / transaction.from.
+field_selection:
+  transaction_fields:
+    - hash
+    - to
+    - from
+contracts:
+  # ============== STATIC DATA SOURCES ==============
+  - name: CorePool
+    abi_file_path: abis/CorePool.json
+    events:
+      - event: "Supply(address indexed reserve, address user, address indexed onBehalfOf, uint256 amount, uint16 indexed referralCode)"
+      - event: "Withdraw(address indexed reserve, address indexed user, address indexed to, uint256 amount)"
+      - event: "Borrow(address indexed reserve, address user, address indexed onBehalfOf, uint256 amount, uint8 interestRateMode, uint256 borrowRate, uint16 indexed referralCode)"
+      - event: "Repay(address indexed reserve, address indexed user, address indexed repayer, uint256 amount, bool useATokens)"
+      - event: "SwapBorrowRateMode(address indexed reserve, address indexed user, uint8 interestRateMode)"
+      - event: "ReserveUsedAsCollateralEnabled(address indexed reserve, address indexed user)"
+      - event: "ReserveUsedAsCollateralDisabled(address indexed reserve, address indexed user)"
+      - event: "RebalanceStableBorrowRate(address indexed reserve, address indexed user)"
+      - event: "FlashLoan(address indexed target, address initiator, address indexed asset, uint256 amount, uint8 interestRateMode, uint256 premium, uint16 indexed referralCode)"
+      - event: "LiquidationCall(address indexed collateralAsset, address indexed debtAsset, address indexed user, uint256 debtToCover, uint256 liquidatedCollateralAmount, address liquidator, bool receiveAToken)"
+      - event: "ReserveDataUpdated(address indexed reserve, uint256 liquidityRate, uint256 stableBorrowRate, uint256 variableBorrowRate, uint256 liquidityIndex, uint256 variableBorrowIndex)"
+      - event: "MintUnbacked(address indexed reserve, address user, address indexed onBehalfOf, uint256 amount, uint16 indexed referralCode)"
+      - event: "BackUnbacked(address indexed reserve, address indexed backer, uint256 amount, uint256 fee)"
+      - event: "MintedToTreasury(address indexed reserve, uint256 amountMinted)"
+      - event: "UserEModeSet(address indexed user, uint8 categoryId)"
+      - event: "IsolationModeTotalDebtUpdated(address indexed asset, uint256 totalDebt)"
+  # The HToken factory (a configurator-style contract) emits ReserveInitialized,
+  # which registers the per-reserve aToken (HToken) child contracts below.
+  - name: HTokenFactory
+    abi_file_path: abis/HTokenFactory.json
+    events:
+      - event: "ReserveInitialized(address asset, address aToken, address stableDebtToken, address variableDebtToken, address interestRateStrategyAddress)"
+  # The isolated-pair registry emits AddPair, which registers IsolatedPair children.
+  - name: IsolatedPairRegistry
+    abi_file_path: abis/IsolatedPairRegistry.json
+    events:
+      - event: "AddPair(address pairAddress)"
+  - name: LoopingStrategyManagerFactory
+    abi_file_path: abis/LoopingStrategyManagerFactory.json
+    events:
+      - event: "StrategyDeployed(address indexed owner, address indexed stratManager, address pool, address yieldAsset, address debtAsset)"
+
+  # ============== DYNAMIC TEMPLATES (no static address) ==============
+  - name: HTokens
+    abi_file_path: abis/HToken.json
+    events:
+      - event: "BalanceTransfer(address indexed from, address indexed to, uint256 value, uint256 index)"
+  - name: IsolatedPair
+    abi_file_path: abis/IsolatedPairEvents.json
+    events:
+      - event: "BorrowAsset(address indexed _borrower, address indexed _receiver, uint256 _borrowAmount, uint256 _sharesAdded)"
+      - event: "RepayAsset(address indexed payer, address indexed borrower, uint256 amountToRepay, uint256 shares)"
+      - event: "AddCollateral(address indexed sender, address indexed borrower, uint256 collateralAmount)"
+      - event: "RemoveCollateral(address indexed _sender, uint256 _collateralAmount, address indexed _receiver, address indexed _borrower)"
+      - event: "Liquidate(address indexed _borrower, uint256 _collateralForLiquidator, uint256 _sharesToLiquidate, uint256 _amountLiquidatorToRepay, uint256 _feesAmount, uint256 _sharesToAdjust, uint256 _amountToAdjust)"
+      - event: "Deposit(address indexed caller, address indexed owner, uint256 assets, uint256 shares)"
+      - event: "Withdraw(address indexed caller, address indexed receiver, address indexed owner, uint256 assets, uint256 shares)"
+chains:
+  - id: 999
+    # Prompt-pinned start block (CorePool / Oracle / HToken factory deploy block).
+    start_block: 787000
+    # end_block: 837000   # uncomment for bounded validation runs (start + 50k)
+    contracts:
+      - name: CorePool
+        address: "0x00A89d7a5A02160f20150EbEA7a2b5E4879A1A8b"
+      - name: HTokenFactory
+        address: "0x8CB4310dD38F6fD59388C9DE225f328092bdC379"
+      - name: IsolatedPairRegistry
+        address: "0x9A32C32D7A0e13892Cd68E143AC890F6308304F5"
+      - name: LoopingStrategyManagerFactory
+        address: "0xc3Ed646181Ca80562e96d9e6CF4AF317d22F34b0"
+      # dynamically registered templates (no static address)
+      - name: HTokens
+      - name: IsolatedPair
