@@ -38,7 +38,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 26 | Aave Horizon RWA (#130) | [aave/protocol-subgraphs](https://github.com/aave/protocol-subgraphs) | `aave-horizon/` | ✅ ported (Aave v3.3 RWA), builds + offline tests pass |
 | 27 | PancakeSwap AMM V3 (#131) | [pancakeswap/exchange-v3-subgraphs](https://github.com/pancakeswap/exchange-v3-subgraphs) | `pancakeswap-v3/` | ✅ ported (BSC), builds + offline tests pass |
 | 28 | Euler V2 (#136) | [euler-xyz/euler-subgraph](https://github.com/euler-xyz/euler-subgraph) | `euler-v2/` | ✅ ported, builds + offline tests pass |
-| 29 | b14g (#155) | [b14glabs/b14g-core-subgraph](https://github.com/b14glabs/b14g-core-subgraph) | `b14g/` | queued |
+| 29 | b14g (#155) | [b14glabs/b14g-core-subgraph](https://github.com/b14glabs/b14g-core-subgraph) | `b14g/` | ✅ ported (Core Chain), builds + offline tests pass |
 | 30 | Cooler Loans (#166) | [OlympusDAO/cooler-loans-subgraph](https://github.com/OlympusDAO/cooler-loans-subgraph) | `cooler-loans/` | queued |
 | 31 | FAssets (#167) | [flare-foundation/fasset-indexer](https://github.com/flare-foundation/fasset-indexer) | `fassets/` | queued |
 | 32 | Starknet Bridge (#176) | [kaonone/starknet-bridge-subgraph](https://github.com/kaonone/starknet-bridge-subgraph) | `starknet-bridge/` | queued |

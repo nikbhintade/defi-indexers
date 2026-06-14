@@ -1,0 +1,172 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: b14g
+description: B14G BTC restaking / dualCORE subgraph (Core Chain) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: DualCoreToken
+    abi_file_path: ./abis/ERC20.json
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+
+  - name: Marketplace
+    abi_file_path: ./abis/marketplace.json
+    events:
+      - event: "CreateRewardReceiver(address indexed from, address indexed rewardReceiver, uint256 portion, uint256 time)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "StakeCoreProxy(address indexed receiver, address indexed from, address indexed candidate, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "WithdrawProxy(address indexed receiver, address indexed from, address indexed candidate, uint256 value)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClaimProxy(address indexed receiver, address indexed from, uint256 amount, bool indexed isBtcClaim)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "FeeUpdated(uint256 oldFee, uint256 newFee)"
+
+  - name: BitcoinStake
+    abi_file_path: ./abis/bitcoinStake.json
+    events:
+      - event: "delegated(bytes32 indexed txid, address indexed candidate, address indexed delegator, bytes script, uint32 outputIndex, uint64 amount, uint256 fee)"
+
+  - name: CoreVault
+    abi_file_path: ./abis/coreVault.json
+    events:
+      - event: "Stake(address indexed user, uint256 coreAmount, uint256 dualCoreAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "WithdrawDirect(address indexed user, uint256 dualCoreAmount, uint256 coreAmount, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Unbond(address indexed user, uint256 coreAmount, uint256 dualCoreAmount, uint256 unlockTime)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Withdraw(address indexed user, uint256 amount, uint256 strategyAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClaimReward(uint256 reward, uint256 fee)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ReInvest(bytes data)"
+        field_selection:
+          transaction_fields: [hash, from]
+
+  - name: Lottery
+    abi_file_path: ./abis/lottery.json
+    events:
+      - event: "Deposit(address indexed user, address indexed rewardReceiver)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Withdraw(address indexed user, address indexed rewardReceiver)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClaimReward(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Start(uint48 startTimestamp, uint256 round)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "EndRound(uint256 indexed round, uint256 originReward, uint256 feeAmount, uint256 reward, address[] winners)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "ClaimRewards(uint256[] amounts, uint256 start, uint256 end)"
+      - event: "RequestRandomness(bytes32 randomnessId)"
+        field_selection:
+          transaction_fields: [hash, from]
+      - event: "FullfillRandomness(uint256 randomNumber)"
+        field_selection:
+          transaction_fields: [hash, from]
+
+  - name: Yield
+    abi_file_path: ./abis/yieldBtc.json
+    events:
+      - event: "Transfer(address indexed from, address indexed to, uint256 indexed tokenId)"
+
+  - name: LendingVault
+    abi_file_path: ./abis/lendingVault.json
+    events:
+      - event: "Stake(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Redeem(address indexed user, uint256 stakedAmount, uint256 rewardAmount, uint256 unlockTime)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Withdraw(address indexed user, uint256 amount, uint256 coreReward)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "LendingInvest(uint256 lendAmount, bool isLend, uint256 healthFactor)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "CoreInvest(bytes coreAmount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClaimRewardFromStrategy(uint256 reward)"
+        field_selection:
+          transaction_fields: [hash]
+
+  - name: FairShare
+    abi_file_path: ./abis/fairShareOrder.json
+    events:
+      - event: "WithdrawCoreReward(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "UnbondReward(address indexed user, uint256 core, uint256 dualCore)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClaimReward(address indexed user, uint256 dualCore)"
+        field_selection:
+          transaction_fields: [hash]
+
+  - name: LendingVaultV2
+    abi_file_path: ./abis/lendingVaultV2.json
+    events:
+      - event: "Stake(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Redeem(address indexed user, uint256 amount, uint256 unlockTime)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "Withdraw(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "LendingInvest(uint256 amount, bool isBorrow, uint256 healthFactor)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "CoreInvest(bytes data)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "ClaimRewardFromStrategy(uint256 reward)"
+        field_selection:
+          transaction_fields: [hash]
+      - event: "MigrateStake(address indexed user, uint256 amount)"
+        field_selection:
+          transaction_fields: [hash]
+
+chains:
+  - id: 1116
+    hypersync_config:
+      url: https://1116.hypersync.xyz
+    start_block: 19942200
+    # end_block: 19992200   # uncomment for bounded validation runs (start + 50k)
+    contracts:
+      - name: DualCoreToken
+        address: "0xc5555eA27e63cd89f8b227deCe2a3916800c0f4F"
+      - name: Marketplace
+        address: "0x04EA61C431F7934d51fEd2aCb2c5F942213f8967"
+      - name: BitcoinStake
+        address: "0x0000000000000000000000000000000000001014"
+      - name: CoreVault
+        address: "0xee21ab613d30330823D35Cf91A84cE964808B83F"
+      - name: Lottery
+        address: "0x606499355875Aafe39cF0910962f2BE4b16D5566"
+      - name: Yield
+        address: "0xaC12840F51495F119290646824E503292607f679"
+      - name: LendingVault
+        address: "0xa3CD4D4A568b76CFF01048E134096D2Ba0171C27"
+      - name: FairShare
+        address: "0x13E3eC65EFeB0A4583c852F4FaF6b2Fb31Ff04b1"
+      - name: LendingVaultV2
+        address: "0xdf0335ADe9fc8eaac71953F290eC1B45b8D72481"

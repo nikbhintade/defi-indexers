@@ -1,0 +1,90 @@
+[
+  {
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "txid",
+        "internalType": "bytes32",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "name": "candidate",
+        "internalType": "address",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "delegator",
+        "internalType": "address",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "script",
+        "internalType": "bytes",
+        "type": "bytes"
+      },
+      {
+        "indexed": false,
+        "name": "outputIndex",
+        "internalType": "uint32",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "name": "amount",
+        "internalType": "uint64",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "name": "fee",
+        "internalType": "uint256",
+        "type": "uint256"
+      }
+    ],
+    "name": "delegated",
+    "anonymous": false,
+    "type": "event"
+  },
+  {
+    "outputs": [
+      {
+        "name": "amount",
+        "internalType": "uint64",
+        "type": "uint64"
+      },
+      {
+        "name": "outputIndex",
+        "internalType": "uint32",
+        "type": "uint32"
+      },
+      {
+        "name": "blockTimestamp",
+        "internalType": "uint64",
+        "type": "uint64"
+      },
+      {
+        "name": "lockTime",
+        "internalType": "uint32",
+        "type": "uint32"
+      },
+      {
+        "name": "usedHeight",
+        "internalType": "uint32",
+        "type": "uint32"
+      }
+    ],
+    "inputs": [
+      {
+        "name": "",
+        "internalType": "bytes32",
+        "type": "bytes32"
+      }
+    ],
+    "name": "btcTxMap",
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

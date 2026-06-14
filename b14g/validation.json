@@ -1,0 +1,95 @@
+{
+  "subgraph": {
+    "url": "https://thegraph.coredao.org/subgraphs/name/b14g-core-subgraph",
+    "authEnv": "GRAPH_API_KEY",
+    "note": "TODO: confirm endpoint. The b14g subgraph is deployed to Core DAO's self-hosted graph-node (package.json `deploy` -> https://thegraph.coredao.org/deploy/, subgraph name `b14g-core-subgraph`), NOT The Graph decentralized gateway, so there is no `gateway.thegraph.com/api/subgraphs/id/<ID>` endpoint. The hosted query URL follows the graph-node `/subgraphs/name/<name>` convention and is unauthenticated (GRAPH_API_KEY likely unused). Verify the exact path before running tools/compare."
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "blockRange": {
+    "start": 19942200,
+    "end": 19992200
+  },
+  "entities": [
+    {
+      "subgraphName": "users",
+      "localName": "User",
+      "fields": ["id", "dualCoreBalance", "coreStakedInOrder", "totalYeildDeposited", "createdAt", "totalValidOrder"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "orders",
+      "localName": "Order",
+      "fields": ["id", "owner", "user", "btcAmount", "unlockTime", "validator", "confirmTimestamp", "bitcoinLockTx", "fee", "rewardSharingPortion", "btcEarned", "coreEarned", "createdAt", "createdAtBlock", "realtimeTier", "realtimeStakeAmount", "total", "stake", "withdraw", "claimCore", "claimBtc", "type"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "stakedInOrders",
+      "localName": "StakedInOrder",
+      "fields": ["id", "amount", "user", "order", "validator"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "orderActionCounts",
+      "localName": "OrderActionCount",
+      "fields": ["id", "order", "user", "total", "stake", "withdraw", "claimCore", "claimBtc"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "vaults",
+      "localName": "Vault",
+      "fields": ["id", "totalStaked", "total", "stake", "unbond", "redeemInstantly", "withdraw", "reInvest", "claim", "borrowCore", "repayCore", "migrate"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "vaultActions",
+      "localName": "VaultAction",
+      "fields": ["id", "txHash", "blockNumber", "timestamp", "transaction", "type", "from", "toVault", "amount", "rewardAmount", "totalCoreStaked", "toLottery", "receiverAmount", "btcAmount", "round"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "orderActions",
+      "localName": "OrderAction",
+      "fields": ["id", "txHash", "blockNumber", "timestamp", "transaction", "type", "from", "order", "amount", "totalCoreStaked"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transactions",
+      "localName": "Transaction",
+      "fields": ["id", "blockNumber", "timestamp", "from", "txHash", "to", "type", "toType", "amount", "rewardAmount", "round", "receiverAmount"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "userActionCounts",
+      "localName": "UserActionCount",
+      "fields": ["id", "user", "to", "total", "stake", "withdraw", "claim", "unbond", "migrate", "withdrawDirect"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "dualCoreTransfers",
+      "localName": "DualCoreTransfer",
+      "fields": ["id", "transaction", "timestamp", "amount", "to", "from", "logIndex"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "btcTxLocks",
+      "localName": "BtcTxLock",
+      "fields": ["id", "amount", "timestamp"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "stats_collection",
+      "localName": "Stats",
+      "fields": ["id", "totalStaker", "totalCoreStaked", "totalDualCore", "vaultMaxCap", "totalEarned", "marketplaceFee"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "vaultExchangeRates",
+      "localName": "VaultExchangeRate",
+      "fields": ["id", "blockNumber", "timestamp", "value"],
+      "orderBy": "id"
+    }
+  ]
+}

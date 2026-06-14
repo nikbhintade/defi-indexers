@@ -1,0 +1,332 @@
+enum OrderActionType {
+  CreateOrder
+  StakeCoreToOrder
+  WithdrawCoreFromOrder
+  ClaimCoreForBTCHolder
+  ClaimCoreForCoreHolder
+}
+
+enum UserActionType {
+  Stake
+  Withdraw
+  ClaimReward
+  Redeem
+
+  # Vault-specific actions
+  RedeemInstantly
+  ReInvest
+  BorrowCore
+  RepayCore
+  CoreInvest
+  WithdrawCoreReward
+  Migrate
+
+  # Lottery-specific actions
+  StartRound
+  EndRound
+  RequestRandomness
+  FullfillRandomness
+}
+
+enum TransactionType {
+  Stake
+  Withdraw
+  ClaimReward
+  Redeem
+
+  # Vault-specific actions
+  RedeemInstantly
+  ReInvest
+  BorrowCore
+  RepayCore
+  CoreInvest
+  WithdrawCoreReward
+  Migrate
+
+  # Lottery-specific actions
+  StartRound
+  EndRound
+  RequestRandomness
+  FullfillRandomness
+
+  CreateOrder
+  ClaimCoreForBTCHolder
+  ClaimCoreForCoreHolder
+}
+
+enum ToType {
+  DualCoreVault
+  WbtcVault
+  MergeMarketplace
+  FairShare
+  Lottery
+}
+
+type User {
+  id: ID!
+  dualCoreBalance: BigInt!
+  coreStakedInOrder: BigInt!
+  stakedOrder: [StakedInOrder!]! @derivedFrom(field: "user")
+  orderActionActivities: [OrderAction!]! @derivedFrom(field: "from")
+  userActions: [VaultAction!]! @derivedFrom(field: "from")
+  yieldBtcs: [YieldBTC!]! @derivedFrom(field: "user")
+  totalYeildDeposited: BigInt!
+  createdAt: BigInt!
+  orders: [Order!]! @derivedFrom(field: "user")
+
+  # action counts
+  userActionCount: [UserActionCount!]! @derivedFrom(field: "user")
+  # order
+  orderActionCount: [OrderActionCount!]! @derivedFrom(field: "user")
+  #fairShare
+  # NOTE: original subgraph declared this as a single nullable derived field
+  # (`FairShareActionCount @derivedFrom`). envio requires @derivedFrom targets to
+  # be a non-null list, so it is widened to a list here. Derived fields are not
+  # stored/queried in handlers, so this does not affect entity data parity.
+  fairShareActionCount: [FairShareActionCount!]! @derivedFrom(field: "user")
+
+  totalValidOrder: Int!
+
+  transactions: [Transaction!]! @derivedFrom(field: "from")
+}
+
+type Transaction {
+  id: ID!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  from: User!
+  txHash: String!
+  to: String!
+  type: TransactionType!
+  toType: ToType!
+  amount: BigInt!
+  rewardAmount: BigInt
+  round: BigInt
+  receiverAmount: Int
+}
+
+type StakedInOrder {
+  id: ID! #orderId+userId+validator
+  amount: BigInt!
+  user: User!
+  order: Order!
+  validator: String
+}
+
+type Vault {
+  id: ID!
+  totalStaked: BigInt!
+  total: Int!
+  stake: Int!
+  unbond: Int!
+  redeemInstantly: Int!
+  withdraw: Int!
+  reInvest: Int!
+  claim: Int!
+  borrowCore: Int!
+  repayCore: Int!
+  migrate: Int
+  activities: [VaultAction!]! @derivedFrom(field: "toVault")
+}
+
+enum OrderType {
+  MERGE_ORDER
+  FAIR_SHARE_ORDER
+}
+type Order {
+  id: ID!
+  owner: String!
+  user: User!
+  btcAmount: BigInt!
+  unlockTime: Int
+  validator: String
+  confirmTimestamp: BigInt
+  bitcoinLockTx: String!
+  fee: BigInt!
+  rewardSharingPortion: BigInt!
+  btcEarned: BigInt!
+  coreEarned: BigInt!
+  createdAt: BigInt!
+  createdAtBlock: BigInt!
+
+  realtimeTier: BigInt!
+  realtimeStakeAmount: BigInt!
+  # creation stats
+  total: Int!
+  stake: Int!
+  withdraw: Int!
+  claimCore: Int!
+  claimBtc: Int!
+  activities: [OrderAction!]! @derivedFrom(field: "order")
+
+  orderActionCounts: [OrderActionCount!]! @derivedFrom(field: "order")
+  stakedInOrder: [StakedInOrder!]! @derivedFrom(field: "order")
+
+  # NOTE: original declared `yieldBtc: YieldBTC! @derivedFrom`; widened to a list
+  # to satisfy envio's @derivedFrom list requirement (does not affect stored data).
+  yieldBtc: [YieldBTC!]! @derivedFrom(field: "order")
+  type: OrderType!
+}
+
+type Lottery {
+  id: ID!
+  currentRound: BigInt!
+  round: [LotteryRound!]! @derivedFrom(field: "lottery")
+  totalReward: BigInt!
+  totalFee: BigInt!
+
+  activities: [VaultAction!]! @derivedFrom(field: "toLottery")
+  total: Int!
+  stake: Int!
+  withdraw: Int!
+  claim: Int!
+  requestRandomness: Int!
+  fullfillRandomness: Int!
+  endRound: Int!
+  startRound: Int!
+
+  totalParticipants: BigInt!
+  totalYields: BigInt!
+}
+
+type LotteryRound {
+  id: ID!
+  lottery: Lottery!
+  startTime: BigInt!
+  endTime: BigInt!
+  round: BigInt!
+  winners: [String!]!
+  rewardAmount: BigInt!
+  feeAmount: BigInt!
+  totalParticipants: BigInt!
+  totalYields: BigInt!
+  timestamp: BigInt!
+  endRoundTx: String!
+  randomnessId: String!
+}
+
+type OrderAction {
+  id: ID!
+  txHash: String!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  transaction: Transaction!
+  type: OrderActionType!
+  from: User!
+  order: Order!
+  amount: BigInt
+  totalCoreStaked: BigInt!
+}
+
+type VaultAction {
+  id: ID!
+  txHash: String!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  transaction: Transaction!
+  type: UserActionType!
+  from: User!
+
+  # Vault-specific fields
+  toVault: Vault
+  amount: BigInt
+  rewardAmount: BigInt
+  totalCoreStaked: BigInt
+
+  # Lottery-specific fields
+  toLottery: Lottery
+  receiverAmount: Int
+  btcAmount: BigInt
+  round: BigInt
+}
+
+type VaultExchangeRate {
+  id: ID!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  value: BigInt!
+}
+
+type DualCoreTransfer {
+  # transaction hash + "-" + index in mints Transaction array
+  id: ID!
+  transaction: String!
+  timestamp: BigInt! # need this to pull recent txns for specific token or pair
+  amount: BigInt
+  to: String
+  from: String
+  logIndex: BigInt
+}
+
+type Stats {
+  id: ID!
+  totalStaker: Int!
+  totalCoreStaked: BigInt!
+  totalDualCore: BigInt!
+  vaultMaxCap: BigInt!
+  #   totalBtcStaked: BigInt!
+  #   listOrder: [Order!]!
+  totalEarned: BigInt!
+  marketplaceFee: BigInt
+}
+
+type OrderActionCount {
+  id: ID! # orderId + userId
+  order: Order!
+  user: User!
+
+  total: Int!
+  stake: Int!
+  withdraw: Int!
+  claimCore: Int!
+  claimBtc: Int!
+}
+
+type FairShareActionCount {
+  id: ID!
+  user: User!
+  total: Int!
+  claimDualCore: Int!
+  unbond: Int!
+  withdrawCore: Int
+}
+
+type UserActionCount {
+  id: ID!
+  user: User!
+  to: String!
+
+  total: Int!
+  stake: Int!
+  withdraw: Int!
+  claim: Int!
+  unbond: Int!
+  migrate: Int
+  withdrawDirect: Int!
+}
+
+type YieldBTC {
+  id: ID!
+  tokenId: BigInt!
+  isDeposited: Boolean!
+  user: User!
+  order: Order!
+  roundReward: BigInt!
+  updatedRound: BigInt!
+}
+
+type LendingVaultApy {
+  id: ID!
+  vault: Vault!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  apy: BigInt!
+  colendApy: BigInt!
+  boostApy: BigInt!
+}
+
+type BtcTxLock {
+  id: ID!
+  amount: BigInt!
+  timestamp: BigInt!
+}
