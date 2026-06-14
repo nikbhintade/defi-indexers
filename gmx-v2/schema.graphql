@@ -1,0 +1,570 @@
+enum OrderStatus {
+  Created
+  Executed
+  Cancelled
+  Frozen
+}
+
+enum ClaimActionType {
+  ClaimPriceImpact
+  ClaimFunding
+  SettleFundingFeeCreated
+  SettleFundingFeeExecuted
+  SettleFundingFeeCancelled
+}
+
+enum GlvOrMarketType {
+  Glv
+  Market
+}
+
+type AffiliateRewardUpdate {
+  id: ID!
+  affiliate: String!
+  marketAddress: String!
+  tokenAddress: String!
+  delta: BigInt!
+  nextValue: BigInt!
+  nextPoolValue: BigInt!
+  transaction: Transaction!
+}
+
+type Order {
+  # orderKey
+  id: ID!
+
+  account: String!
+  receiver: String!
+  callbackContract: String!
+  marketAddress: String!
+  swapPath: [String!]
+  initialCollateralTokenAddress: String!
+
+  sizeDeltaUsd: BigInt!
+  initialCollateralDeltaAmount: BigInt!
+  triggerPrice: BigInt!
+  acceptablePrice: BigInt!
+  executionFee: BigInt!
+  callbackGasLimit: BigInt!
+  minOutputAmount: BigInt!
+
+  updatedAtBlock: BigInt!
+
+  orderType: BigInt!
+
+  shouldUnwrapNativeToken: Boolean!
+  isLong: Boolean!
+
+  status: OrderStatus!
+
+  cancelledReason: String
+  cancelledReasonBytes: String
+  frozenReason: String
+  frozenReasonBytes: String
+
+  createdTxn: Transaction!
+  cancelledTxn: Transaction
+  executedTxn: Transaction
+}
+
+type PositionIncrease {
+  # orderKey
+  id: ID!
+  orderKey: String!
+  positionKey: String!
+  account: String!
+  marketAddress: String!
+  collateralTokenAddress: String!
+  collateralTokenPriceMin: BigInt!
+  collateralTokenPriceMax: BigInt!
+  sizeInUsd: BigInt!
+  sizeInTokens: BigInt!
+  collateralAmount: BigInt!
+  sizeDeltaUsd: BigInt!
+  sizeDeltaInTokens: BigInt!
+  collateralDeltaAmount: BigInt!
+  executionPrice: BigInt!
+  orderType: BigInt!
+  borrowingFactor: BigInt!
+  longTokenFundingAmountPerSize: BigInt!
+  shortTokenFundingAmountPerSize: BigInt!
+  priceImpactAmount: BigInt!
+  priceImpactUsd: BigInt!
+  isLong: Boolean!
+
+  transaction: Transaction
+
+  priceImpactDiffUsd: BigInt!
+  basePnlUsd: BigInt!
+}
+
+type PositionDecrease {
+  # orderKey
+  id: ID!
+  orderKey: String!
+  positionKey: String!
+  account: String!
+  marketAddress: String!
+  collateralTokenAddress: String!
+  collateralTokenPriceMin: BigInt!
+  collateralTokenPriceMax: BigInt!
+  sizeInUsd: BigInt!
+  sizeInTokens: BigInt!
+  collateralAmount: BigInt!
+  sizeDeltaUsd: BigInt!
+  sizeDeltaInTokens: BigInt!
+  collateralDeltaAmount: BigInt!
+  executionPrice: BigInt!
+  priceImpactDiffUsd: BigInt!
+  priceImpactUsd: BigInt!
+  orderType: BigInt!
+  borrowingFactor: BigInt!
+  longTokenFundingAmountPerSize: BigInt!
+  shortTokenFundingAmountPerSize: BigInt!
+  priceImpactAmount: BigInt!
+  basePnlUsd: BigInt!
+  isLong: Boolean!
+
+  transaction: Transaction
+}
+
+type PositionFeesInfo {
+  # orderKey:eventName
+  id: ID!
+  eventName: String!
+  orderKey: String!
+  marketAddress: String!
+  collateralTokenAddress: String!
+
+  trader: String!
+  affiliate: String!
+
+  collateralTokenPriceMin: BigInt!
+  collateralTokenPriceMax: BigInt!
+
+  positionFeeAmount: BigInt!
+  liquidationFeeAmount: BigInt
+  borrowingFeeAmount: BigInt!
+  fundingFeeAmount: BigInt!
+  feeUsdForPool: BigInt!
+
+  totalRebateFactor: BigInt!
+  traderDiscountAmount: BigInt!
+  totalRebateAmount: BigInt!
+  affiliateRewardAmount: BigInt!
+
+  transaction: Transaction!
+}
+
+type ClaimableCollateral {
+  # account:market:token:timeKey
+  id: ID!
+  account: String!
+  marketAddress: String!
+  tokenAddress: String!
+  timeKey: String!
+  value: BigInt!
+  claimed: Boolean!
+  factor: BigInt!
+  factorByTime: BigInt!
+}
+
+type ClaimableCollateralGroup {
+  # market:token:timeKey
+  id: ID!
+  timeKey: String!
+  marketAddress: String!
+  tokenAddress: String!
+  factor: BigInt!
+  claimables: [String!]!
+}
+
+type SwapInfo {
+  # orderKey:marketAddress
+  id: ID!
+  orderKey: String!
+  receiver: String!
+  marketAddress: String!
+  tokenInAddress: String!
+  tokenOutAddress: String!
+  tokenInPrice: BigInt!
+  tokenOutPrice: BigInt!
+  amountIn: BigInt!
+  amountInAfterFees: BigInt!
+  amountOut: BigInt!
+  priceImpactUsd: BigInt!
+
+  transaction: Transaction!
+}
+
+type SwapFeesInfo {
+  # eventId
+  id: ID!
+  marketAddress: String!
+  tokenAddress: String!
+
+  swapFeeType: String!
+
+  tokenPrice: BigInt!
+  feeReceiverAmount: BigInt!
+  feeUsdForPool: BigInt!
+
+  transaction: Transaction!
+}
+
+type CollectedMarketFeesInfo {
+  # marketAddress:period:timestampGroup
+  id: ID!
+  period: String!
+  marketAddress: String!
+  feeUsdForPool: BigInt!
+  cummulativeFeeUsdForPool: BigInt!
+  feeUsdPerPoolValue: BigInt!
+  cumulativeFeeUsdPerPoolValue: BigInt!
+  feeUsdPerGmToken: BigInt!
+  cumulativeFeeUsdPerGmToken: BigInt!
+  prevCumulativeFeeUsdPerGmToken: BigInt!
+  timestampGroup: Int!
+}
+
+type UserGmTokensBalanceChange {
+  # account:marketAddress:timestamp
+  id: ID!
+  account: String! @index
+  marketAddress: String! @index
+  tokensBalance: BigInt!
+  timestamp: Int!
+  cumulativeIncome: BigInt!
+  cumulativeFeeUsdPerGmToken: BigInt!
+  index: BigInt!
+}
+
+type LatestUserGmTokensBalanceChangeRef {
+  # account:marketAddress
+  id: ID!
+  latestUserGmTokensBalanceChange: String
+}
+
+type TradeAction {
+  id: ID!
+  eventName: String!
+
+  orderKey: String!
+  orderType: BigInt!
+
+  account: String!
+  marketAddress: String
+  swapPath: [String!]
+  initialCollateralTokenAddress: String!
+  initialCollateralDeltaAmount: BigInt!
+
+  # positions
+  sizeDeltaUsd: BigInt
+  triggerPrice: BigInt
+  acceptablePrice: BigInt
+  executionPrice: BigInt
+  collateralTokenPriceMin: BigInt
+  collateralTokenPriceMax: BigInt
+  indexTokenPriceMin: BigInt
+  indexTokenPriceMax: BigInt
+  priceImpactDiffUsd: BigInt
+  priceImpactUsd: BigInt
+  priceImpactAmount: BigInt
+  positionFeeAmount: BigInt
+  liquidationFeeAmount: BigInt
+  borrowingFeeAmount: BigInt
+  fundingFeeAmount: BigInt
+  pnlUsd: BigInt
+  basePnlUsd: BigInt
+  isLong: Boolean
+
+  # swaps
+  minOutputAmount: BigInt
+  executionAmountOut: BigInt
+  shouldUnwrapNativeToken: Boolean
+
+  reason: String
+  reasonBytes: String
+
+  timestamp: Int!
+  transaction: Transaction!
+}
+
+type TokenPrice {
+  # tokenAddress
+  id: ID!
+
+  minPrice: BigInt!
+  maxPrice: BigInt!
+}
+
+type ClaimCollateralAction {
+  # transactionHash:account:eventName
+  id: ID!
+  eventName: ClaimActionType!
+  account: String!
+  marketAddresses: [String!]!
+  tokenAddresses: [String!]!
+  tokenPrices: [BigInt!]!
+  amounts: [BigInt!]!
+
+  transaction: Transaction!
+}
+
+type ClaimAction {
+  # transactionHash:account:eventName
+  id: ID!
+  eventName: ClaimActionType!
+  account: String!
+  marketAddresses: [String!]!
+  tokenAddresses: [String!]!
+  tokenPrices: [BigInt!]!
+  amounts: [BigInt!]!
+  isLongOrders: Json!
+  transaction: Transaction!
+}
+
+type ClaimRef {
+  # order.id
+  id: ID!
+}
+
+type PoolAmountUpdate {
+  id: ID!
+  marketAddress: String!
+  tokenAddress: String!
+  delta: BigInt!
+  nextValue: BigInt!
+  transaction: Transaction!
+}
+
+type ClaimableFundingFeeInfo {
+  # transactionHash:account
+  id: ID!
+  marketAddresses: [String!]!
+  tokenAddresses: [String!]!
+  amounts: [BigInt!]!
+}
+
+type Transaction {
+  id: ID!
+  from: String!
+  to: String!
+  hash: String!
+  timestamp: Int!
+  blockNumber: Int!
+  transactionIndex: Int!
+}
+
+type MarketInfo {
+  id: ID!
+  marketToken: String!
+  indexToken: String!
+  longToken: String!
+  shortToken: String!
+
+  marketTokensSupply: BigInt!
+  marketTokensSupplyFromPoolUpdated: BigInt
+}
+
+type DepositRef {
+  id: ID!
+  marketAddress: String!
+  account: String!
+}
+
+type VolumeInfo {
+  # collateralToken:indexToken:period:timestamp
+  id: ID!
+  period: String!
+  volumeUsd: BigInt!
+  marginVolumeUsd: BigInt!
+  swapVolumeUsd: BigInt!
+  depositVolumeUsd: BigInt!
+  withdrawalVolumeUsd: BigInt!
+  timestamp: Int!
+}
+
+type SwapVolumeInfo {
+  # tokenIn:tokenOut:period:timestamp
+  id: ID!
+  period: String!
+  tokenIn: String!
+  tokenOut: String!
+  timestamp: Int!
+  volumeUsd: BigInt!
+}
+
+type PositionVolumeInfo {
+  # collateralToken:indexToken:timestamp
+  id: ID!
+  period: String!
+  collateralToken: String!
+  indexToken: String!
+  timestamp: Int!
+  volumeUsd: BigInt!
+}
+
+type User {
+  # account address
+  id: ID!
+  account: String!
+
+  totalSwapCount: Int!
+  totalPositionCount: Int!
+  totalDepositCount: Int!
+  totalWithdrawalCount: Int!
+}
+
+type UserStat {
+  # timestamp | total
+  id: ID!
+  totalSwapCount: Int!
+  totalPositionCount: Int!
+  totalDepositCount: Int!
+  totalWithdrawalCount: Int!
+  timestamp: Int!
+  period: String!
+  uniqueUsers: Int!
+}
+
+type SwapFeesInfoWithPeriod {
+  # timestamp | total
+  id: ID!
+  period: String!
+
+  totalFeeReceiverUsd: BigInt!
+  totalFeeUsdForPool: BigInt!
+}
+
+type PositionFeesInfoWithPeriod {
+  # timestamp | total
+  id: ID!
+  period: String!
+  totalPositionFeeAmountForPool: BigInt!
+  totalPositionFeeUsdForPool: BigInt!
+
+  totalPositionFeeAmount: BigInt!
+  totalPositionFeeUsd: BigInt!
+  totalBorrowingFeeUsd: BigInt!
+
+  totalLiquidationFeeAmount: BigInt!
+  totalLiquidationFeeUsd: BigInt!
+}
+
+type LiquidityProviderIncentivesStat {
+  # account:glvOrMarket:period:timestamp
+  id: ID!
+  period: String!
+  timestamp: Int!
+  account: String!
+  glvOrMarketAddress: String!
+  type: GlvOrMarketType!
+
+  updatedTimestamp: Int!
+  lastTokensBalance: BigInt!
+  cumulativeTimeByTokensBalance: BigInt!
+  weightedAverageTokensBalance: BigInt!
+}
+
+type IncentivesStat {
+  # glvOrMarket:period:timestamp
+  id: ID!
+  period: String!
+  timestamp: Int!
+  glvOrMarketAddress: String!
+  type: GlvOrMarketType!
+
+  updatedTimestamp: Int!
+  lastTokensSupply: BigInt!
+  cumulativeTimeByTokensSupply: BigInt!
+  weightedAverageTokensSupply: BigInt!
+}
+
+type LiquidityProviderInfo {
+  # account:marketAddress
+  id: ID!
+
+  tokensBalance: BigInt!
+  account: String!
+  glvOrMarketAddress: String!
+  type: GlvOrMarketType!
+}
+
+type SellUSDG {
+  # it is used as a temporary storage for RemoveLiquidity event
+  id: ID!
+  txHash: String!
+  logIndex: Int!
+  feeBasisPoints: BigInt!
+}
+
+type UserGlpGmMigrationStat {
+  # account:period:timestamp
+  id: ID!
+  timestamp: Int!
+  period: String!
+  account: String!
+
+  glpRedemptionUsd: BigInt!
+  glpRedemptionFeeBpsByUsd: BigInt!
+  glpRedemptionWeightedAverageFeeBps: Int!
+  gmDepositUsd: BigInt!
+
+  eligibleRedemptionInArb: BigInt!
+  eligibleRedemptionUsd: BigInt!
+  eligibleUpdatedTimestamp: Int!
+}
+
+type GlpGmMigrationStat {
+  # "total"
+  id: ID!
+
+  eligibleRedemptionUsd: BigInt!
+  eligibleRedemptionInArb: BigInt!
+}
+
+type UserTradingIncentivesStat {
+  # account:period:timestamp
+  id: ID!
+  timestamp: Int!
+  period: String!
+  account: String!
+
+  positionFeesUsd: BigInt!
+  positionFeesInArb: BigInt!
+
+  eligibleFeesInArb: BigInt!
+  eligibleFeesUsd: BigInt!
+  eligibleUpdatedTimestamp: Int!
+}
+
+type TradingIncentivesStat {
+  # period:timestamp
+  id: ID!
+  timestamp: Int!
+  period: String!
+
+  positionFeesUsd: BigInt!
+  positionFeesInArb: BigInt!
+
+  eligibleFeesInArb: BigInt!
+  eligibleFeesUsd: BigInt!
+  rebatesCapInArb: BigInt!
+}
+
+type Distribution {
+  # receiver:txHash:typeId
+  id: ID!
+
+  receiver: String!
+  amounts: [BigInt!]!
+  amountsInUsd: [BigInt!]!
+  tokens: [String!]!
+
+  typeId: Int!
+
+  transactionHash: String!
+  blockNumber: Int!
+  timestamp: Int!
+}

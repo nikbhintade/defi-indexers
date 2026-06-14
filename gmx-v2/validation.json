@@ -1,0 +1,198 @@
+{
+  "subgraph": {
+    "url": "TODO: https://gateway.thegraph.com/api/subgraphs/id/<DEPLOYMENT_ID>",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "GMX V2 Arbitrum synthetics-stats is published on The Graph by gmx-io. No concrete deployment id is committed in the gmx-io/gmx-subgraph repo (synthetics-stats/subgraph-arbitrum.yaml) or its README, so the gateway id must be filled in before running tools/compare. The decentralized-network query id can be looked up from the GMX subgraph page; set GRAPH_API_KEY in the environment for the gateway."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 107737756, "end": 107787756 },
+  "entities": [
+    {
+      "subgraphName": "marketInfos",
+      "localName": "MarketInfo",
+      "fields": ["id", "marketToken", "indexToken", "longToken", "shortToken", "marketTokensSupply", "marketTokensSupplyFromPoolUpdated"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "orders",
+      "localName": "Order",
+      "fields": [
+        "id", "account", "receiver", "callbackContract", "marketAddress",
+        "initialCollateralTokenAddress", "sizeDeltaUsd", "initialCollateralDeltaAmount",
+        "triggerPrice", "acceptablePrice", "executionFee", "callbackGasLimit",
+        "minOutputAmount", "updatedAtBlock", "orderType", "shouldUnwrapNativeToken",
+        "isLong", "status"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positionIncreases",
+      "localName": "PositionIncrease",
+      "fields": [
+        "id", "orderKey", "positionKey", "account", "marketAddress", "collateralTokenAddress",
+        "collateralTokenPriceMin", "collateralTokenPriceMax", "sizeInUsd", "sizeInTokens",
+        "collateralAmount", "sizeDeltaUsd", "sizeDeltaInTokens", "collateralDeltaAmount",
+        "executionPrice", "orderType", "borrowingFactor", "priceImpactAmount", "priceImpactUsd",
+        "priceImpactDiffUsd", "basePnlUsd", "isLong"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positionDecreases",
+      "localName": "PositionDecrease",
+      "fields": [
+        "id", "orderKey", "positionKey", "account", "marketAddress", "collateralTokenAddress",
+        "sizeInUsd", "sizeInTokens", "collateralAmount", "sizeDeltaUsd", "sizeDeltaInTokens",
+        "collateralDeltaAmount", "executionPrice", "priceImpactDiffUsd", "priceImpactUsd",
+        "orderType", "borrowingFactor", "priceImpactAmount", "basePnlUsd", "isLong"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positionFeesInfos",
+      "localName": "PositionFeesInfo",
+      "fields": [
+        "id", "eventName", "orderKey", "marketAddress", "collateralTokenAddress", "trader",
+        "affiliate", "collateralTokenPriceMin", "collateralTokenPriceMax", "positionFeeAmount",
+        "liquidationFeeAmount", "borrowingFeeAmount", "fundingFeeAmount", "feeUsdForPool",
+        "totalRebateFactor", "traderDiscountAmount", "totalRebateAmount", "affiliateRewardAmount"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swapInfos",
+      "localName": "SwapInfo",
+      "fields": [
+        "id", "orderKey", "receiver", "marketAddress", "tokenInAddress", "tokenOutAddress",
+        "tokenInPrice", "tokenOutPrice", "amountIn", "amountInAfterFees", "amountOut", "priceImpactUsd"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swapFeesInfos",
+      "localName": "SwapFeesInfo",
+      "fields": ["id", "marketAddress", "tokenAddress", "swapFeeType", "tokenPrice", "feeReceiverAmount", "feeUsdForPool"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tradeActions",
+      "localName": "TradeAction",
+      "fields": [
+        "id", "eventName", "orderKey", "orderType", "account", "marketAddress",
+        "initialCollateralTokenAddress", "initialCollateralDeltaAmount", "sizeDeltaUsd",
+        "triggerPrice", "acceptablePrice", "executionPrice", "collateralTokenPriceMin",
+        "collateralTokenPriceMax", "indexTokenPriceMin", "indexTokenPriceMax", "priceImpactUsd",
+        "positionFeeAmount", "borrowingFeeAmount", "fundingFeeAmount", "basePnlUsd", "pnlUsd",
+        "isLong", "minOutputAmount", "executionAmountOut", "timestamp"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "collectedMarketFeesInfos",
+      "localName": "CollectedMarketFeesInfo",
+      "fields": [
+        "id", "period", "marketAddress", "feeUsdForPool", "cummulativeFeeUsdForPool",
+        "feeUsdPerPoolValue", "cumulativeFeeUsdPerPoolValue", "feeUsdPerGmToken",
+        "cumulativeFeeUsdPerGmToken", "prevCumulativeFeeUsdPerGmToken", "timestampGroup"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenPrices",
+      "localName": "TokenPrice",
+      "fields": ["id", "minPrice", "maxPrice"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "volumeInfos",
+      "localName": "VolumeInfo",
+      "fields": ["id", "period", "volumeUsd", "marginVolumeUsd", "swapVolumeUsd", "depositVolumeUsd", "withdrawalVolumeUsd", "timestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swapVolumeInfos",
+      "localName": "SwapVolumeInfo",
+      "fields": ["id", "period", "tokenIn", "tokenOut", "timestamp", "volumeUsd"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positionVolumeInfos",
+      "localName": "PositionVolumeInfo",
+      "fields": ["id", "period", "collateralToken", "indexToken", "timestamp", "volumeUsd"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swapFeesInfoWithPeriods",
+      "localName": "SwapFeesInfoWithPeriod",
+      "fields": ["id", "period", "totalFeeReceiverUsd", "totalFeeUsdForPool"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positionFeesInfoWithPeriods",
+      "localName": "PositionFeesInfoWithPeriod",
+      "fields": [
+        "id", "period", "totalPositionFeeAmountForPool", "totalPositionFeeUsdForPool",
+        "totalPositionFeeAmount", "totalPositionFeeUsd", "totalBorrowingFeeUsd",
+        "totalLiquidationFeeAmount", "totalLiquidationFeeUsd"
+      ],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "users",
+      "localName": "User",
+      "fields": ["id", "account", "totalSwapCount", "totalPositionCount", "totalDepositCount", "totalWithdrawalCount"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "userStats",
+      "localName": "UserStat",
+      "fields": ["id", "totalSwapCount", "totalPositionCount", "totalDepositCount", "totalWithdrawalCount", "timestamp", "period", "uniqueUsers"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "transactions",
+      "localName": "Transaction",
+      "fields": ["id", "from", "to", "hash", "timestamp", "blockNumber", "transactionIndex"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "claimableCollaterals",
+      "localName": "ClaimableCollateral",
+      "fields": ["id", "account", "marketAddress", "tokenAddress", "timeKey", "value", "claimed", "factor", "factorByTime"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "claimActions",
+      "localName": "ClaimAction",
+      "fields": ["id", "eventName", "account", "marketAddresses", "tokenAddresses", "tokenPrices", "amounts"],
+      "decimalFields": [],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "distributions",
+      "localName": "Distribution",
+      "fields": ["id", "receiver", "amounts", "amountsInUsd", "tokens", "typeId", "transactionHash", "blockNumber", "timestamp"],
+      "decimalFields": [],
+      "orderBy": "id"
+    }
+  ]
+}

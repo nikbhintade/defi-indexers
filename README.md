@@ -42,7 +42,7 @@ so that indexed data can be cross-validated entity-by-entity against the origina
 | 30 | Cooler Loans (#166) | [OlympusDAO/cooler-loans-subgraph](https://github.com/OlympusDAO/cooler-loans-subgraph) | `cooler-loans/` | ✅ ported, builds + offline tests pass |
 | 31 | FAssets (#167) | [flare-foundation/fasset-indexer](https://github.com/flare-foundation/fasset-indexer) | `fassets/` | ✅ ported (core EVM slice, Flare), builds + offline tests pass |
 | 32 | Starknet Bridge (#176) | [kaonone/starknet-bridge-subgraph](https://github.com/kaonone/starknet-bridge-subgraph) | `starknet-bridge/` | ✅ ported (L1 EVM side), builds + offline tests pass |
-| 33 | GMX V2 Perps (#186) | [gmx-io/gmx-subgraph](https://github.com/gmx-io/gmx-subgraph) | `gmx-v2/` | queued |
+| 33 | GMX V2 Perps (#186) | [gmx-io/gmx-subgraph](https://github.com/gmx-io/gmx-subgraph) | `gmx-v2/` | ✅ ported (Arbitrum), builds + offline tests pass |
 | 34 | RealT Tokens (#192) | [realtoken-thegraph/protocol-subgraphs](https://github.com/realtoken-thegraph/protocol-subgraphs) | `realt/` | queued |
 | 35 | Yearn Finance (#194) | [yearn/kong](https://github.com/yearn/kong) | `yearn/` | queued |
 | 36 | Dolomite (#209) | [dolomite-exchange/dolomite-subgraph](https://github.com/dolomite-exchange/dolomite-subgraph) | `dolomite/` | queued |
