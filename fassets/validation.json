@@ -1,0 +1,90 @@
+{
+  "_comment": "Cross-validation target is the FAssets indexer's OWN API (flare-foundation/fasset-indexer packages/fasset-indexer-api, a self-hosted NestJS query service), NOT a GraphQL subgraph. There is no public hosted read endpoint documented in the source README, so `subgraph.url` is left as a TODO: run fasset-indexer-core (Flare mainnet) + fasset-indexer-api and point the URL at its REST base. authEnv is null (the self-hosted API is unauthenticated by default). Many API endpoints serve eth_call-derived state (AgentVaultInfo, FTSO prices, dashboard aggregates) that this core-EVM-slice port intentionally does not reproduce.",
+  "subgraph": {
+    "url": "TODO_FASSET_INDEXER_API_BASE",
+    "authEnv": null
+  },
+  "local": {
+    "url": "http://localhost:8080/v1/graphql",
+    "adminSecret": "testing"
+  },
+  "chainId": 14,
+  "blockRange": {
+    "start": 22000000,
+    "end": 22050000
+  },
+  "entities": [
+    {
+      "subgraphName": "agentVault",
+      "localName": "AgentVault",
+      "fields": ["id", "fasset", "address", "underlyingAddress", "collateralPool", "collateralPoolToken", "owner_id", "destroyed"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "agentVaultSettings",
+      "localName": "AgentVaultSettings",
+      "fields": ["id", "feeBIPS", "poolFeeShareBIPS", "mintingVaultCollateralRatioBIPS", "mintingPoolCollateralRatioBIPS", "buyFAssetByAgentFactorBIPS", "poolExitCollateralRatioBIPS", "redemptionPoolFeeShareBIPS"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "collateralReserved",
+      "localName": "CollateralReserved",
+      "fields": ["id", "fasset", "collateralReservationId", "minter", "valueUBA", "feeUBA", "paymentReference", "executor", "executorFeeNatWei", "resolution"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mintingExecuted",
+      "localName": "MintingExecuted",
+      "fields": ["id", "fasset", "collateralReserved_id", "poolFeeUBA"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redemptionRequested",
+      "localName": "RedemptionRequested",
+      "fields": ["id", "kind", "fasset", "requestId", "redeemer", "valueUBA", "feeUBA", "paymentReference", "resolution"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redemptionPerformed",
+      "localName": "RedemptionPerformed",
+      "fields": ["id", "fasset", "redemptionRequested_id", "transactionHash", "spentUnderlyingUBA"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redemptionDefault",
+      "localName": "RedemptionDefault",
+      "fields": ["id", "fasset", "redemptionRequested_id", "redeemedVaultCollateralWei", "redeemedPoolCollateralWei"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "liquidationPerformed",
+      "localName": "LiquidationPerformed",
+      "fields": ["id", "fasset", "agentVault_id", "liquidator", "valueUBA", "paidVaultCollateralWei", "paidPoolCollateralWei"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "redemptionTicketCreated",
+      "localName": "RedemptionTicketCreated",
+      "fields": ["id", "fasset", "agentVault_id", "redemptionTicketId", "ticketValueUBA"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "cpEntered",
+      "localName": "CPEntered",
+      "fields": ["id", "fasset", "tokenHolder", "amountNatWei", "receivedTokensWei", "timelockExpiresAt"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "collateralTypeAdded",
+      "localName": "CollateralTypeAdded",
+      "fields": ["id", "fasset", "address", "decimals", "directPricePair", "assetFtsoSymbol", "tokenFtsoSymbol", "collateralClass"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pricesPublished",
+      "localName": "PricesPublished",
+      "fields": ["id", "votingRoundId"],
+      "orderBy": "id"
+    }
+  ]
+}

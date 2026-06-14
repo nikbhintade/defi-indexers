@@ -1,0 +1,34 @@
+[
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   },
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "name": "PriceEpochFinalized",
+  "type": "event"
+ },
+ {
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "uint32",
+    "name": "votingRoundId",
+    "type": "uint32"
+   }
+  ],
+  "name": "PricesPublished",
+  "type": "event"
+ }
+]

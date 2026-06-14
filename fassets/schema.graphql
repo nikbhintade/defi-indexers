@@ -1,0 +1,1031 @@
+###############################################################################
+# FAssets (Flare mainnet) — HyperIndex schema.
+#
+# Ported from flare-foundation/fasset-indexer (MikroORM entities). The original
+# uses an auto-increment EvmLog PK that every event row points at (OneToOne).
+# HyperIndex needs string ids, so per-event records use id = chainId_block_logIndex
+# (lowercase). State / lookup entities use their natural key (agent vault
+# address, fasset enum value, or fasset_naturalId composites) so the storer's
+# findOneOrFail(... { fasset, requestId }) lookups remain id-addressable.
+#
+# `fasset` is the FAssetType enum (FXRP=0, FBTC=1, FDOGE=2, ...) stored as Int,
+# matching the source enum ordinal. All addresses/hex stored LOWERCASE.
+###############################################################################
+
+# ----------------------------------------------------------------------------
+# core identity / state
+# ----------------------------------------------------------------------------
+
+type AgentManager {
+  id: ID! # lowercase management address
+  address: String!
+  name: String
+  description: String
+  iconUrl: String
+}
+
+type AgentOwner {
+  id: ID! # lowercase work address
+  address: String!
+  manager_id: String! @index
+}
+
+type AgentVault {
+  id: ID! # lowercase agent vault address
+  fasset: Int!
+  address: String!
+  underlyingAddress: String!
+  collateralPool: String! @index
+  collateralPoolToken: String
+  collateralPoolTokenSymbol: String
+  owner_id: String! @index
+  destroyed: Boolean!
+}
+
+type AgentVaultSettings {
+  id: ID! # lowercase agent vault address
+  agentVault_id: String! @index
+  collateralToken_id: String!
+  feeBIPS: BigInt!
+  poolFeeShareBIPS: BigInt!
+  mintingVaultCollateralRatioBIPS: BigInt!
+  mintingPoolCollateralRatioBIPS: BigInt!
+  buyFAssetByAgentFactorBIPS: BigInt!
+  poolExitCollateralRatioBIPS: BigInt!
+  poolTopupCollateralRatioBIPS: BigInt
+  poolTopupTokenPriceFactorBIPS: BigInt
+  redemptionPoolFeeShareBIPS: BigInt
+}
+
+type AssetManagerSettings {
+  id: ID! # fasset enum ordinal as string
+  fasset: Int!
+  lotSizeAmg: BigInt!
+}
+
+type CoreVaultManagerSettings {
+  id: ID! # fasset enum ordinal as string
+  fasset: Int!
+  escrowAmount: BigInt!
+  minimalAmount: BigInt!
+  escrowEndTimeSeconds: Int!
+  chainPaymentFee: BigInt!
+  coreVault: String
+}
+
+# A collateral pool registered (via contractRegister) from AgentVaultCreated.
+# Mirrors the source AgentVault.collateralPool relation; lets pool handlers
+# resolve fasset + agent vault by looking up the emitting pool address.
+type CollateralPoolMap {
+  id: ID! # lowercase collateral pool address
+  fasset: Int!
+  agentVault_id: String! @index
+}
+
+type TokenBalance {
+  id: ID! # token_holder (both lowercase)
+  token: String! @index
+  holder: String! @index
+  amount: BigInt!
+}
+
+# ----------------------------------------------------------------------------
+# settings / collateral types
+# ----------------------------------------------------------------------------
+
+type ContractChanged {
+  id: ID!
+  fasset: Int!
+  name: String!
+  value: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CollateralTypeAdded {
+  id: ID! # fasset_token (lowercase)
+  fasset: Int!
+  address: String! @index
+  decimals: Int!
+  directPricePair: Boolean!
+  assetFtsoSymbol: String!
+  tokenFtsoSymbol: String!
+  collateralClass: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CollateralRatiosChanged {
+  id: ID!
+  fasset: Int!
+  collateralToken_id: String!
+  minCollateralRatioBIPS: BigInt!
+  safetyMinCollateralRatioBIPS: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# agent events
+# ----------------------------------------------------------------------------
+
+type AgentVaultCreated {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type AgentVaultDestroyed {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type AgentDestroyAnnounced {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  allowedAt: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type AgentSettingChanged {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  name: String!
+  value: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type SelfClose {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  valueUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type VaultCollateralWithdrawalAnnounced {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  amountWei: BigInt!
+  allowedAt: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type PoolTokenRedemptionAnnounced {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  amountWei: BigInt!
+  allowedAt: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type UnderlyingWithdrawalAnnounced {
+  id: ID! # fasset_announcementId
+  fasset: Int!
+  agentVault_id: String!
+  announcementId: BigInt! @index
+  paymentReference: String!
+  resolution: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type UnderlyingWithdrawalConfirmed {
+  id: ID!
+  fasset: Int!
+  underlyingWithdrawalAnnounced_id: String!
+  spendUBA: BigInt!
+  transactionHash: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type UnderlyingWithdrawalCancelled {
+  id: ID!
+  fasset: Int!
+  underlyingWithdrawalAnnounced_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type UnderlyingBalanceToppedUp {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  transactionHash: String!
+  depositedUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type UnderlyingBalanceChanged {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  balanceUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type DustChanged {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  dustUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type ConfirmedClosedMintingPayment {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  transactionHash: String!
+  depositedUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# minting
+# ----------------------------------------------------------------------------
+
+type CollateralReserved {
+  id: ID! # fasset_collateralReservationId
+  fasset: Int!
+  agentVault_id: String!
+  collateralReservationId: Int! @index
+  minter: String!
+  valueUBA: BigInt!
+  feeUBA: BigInt!
+  firstUnderlyingBlock: Int!
+  lastUnderlyingBlock: Int!
+  lastUnderlyingTimestamp: Int!
+  paymentAddress: String!
+  paymentReference: String!
+  executor: String!
+  executorFeeNatWei: BigInt!
+  resolution: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type MintingExecuted {
+  id: ID!
+  fasset: Int!
+  collateralReserved_id: String!
+  poolFeeUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type MintingPaymentDefault {
+  id: ID!
+  fasset: Int!
+  collateralReserved_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CollateralReservationDeleted {
+  id: ID!
+  fasset: Int!
+  collateralReserved_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type SelfMint {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  mintFromFreeUnderlying: Boolean!
+  mintedUBA: BigInt!
+  depositedUBA: BigInt!
+  poolFeeUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# direct minting
+# ----------------------------------------------------------------------------
+
+type DirectMintingExecuted {
+  id: ID!
+  fasset: Int!
+  transactionId: String!
+  targetAddress: String!
+  executor: String!
+  mintedAmountUBA: BigInt!
+  mintingFeeUBA: BigInt!
+  executorFeeUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type DirectMintingExecutedToSmartAccount {
+  id: ID!
+  fasset: Int!
+  transactionId: String!
+  sourceAddress: String!
+  executor: String!
+  mintedAmountUBA: BigInt!
+  mintingFeeUBA: BigInt!
+  memoData: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type DirectMintingPaymentTooSmallForFee {
+  id: ID!
+  fasset: Int!
+  transactionId: String!
+  receivedAmountUBA: BigInt!
+  minimumMintingFeeUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type DirectMintingDelayed {
+  id: ID!
+  fasset: Int!
+  transactionId: String!
+  amount: BigInt!
+  executionAllowedAt: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type LargeDirectMintingDelayed {
+  id: ID!
+  fasset: Int!
+  transactionId: String!
+  amount: BigInt!
+  executionAllowedAt: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type DirectMintingsUnblocked {
+  id: ID!
+  fasset: Int!
+  startedUntilTimestamp: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# redemption
+# ----------------------------------------------------------------------------
+
+type RedemptionRequested {
+  id: ID! # fasset_requestId
+  kind: String! # "plain" | "tagged"
+  fasset: Int!
+  agentVault_id: String!
+  requestId: Int! @index
+  redeemer: String!
+  paymentAddress: String!
+  valueUBA: BigInt!
+  feeUBA: BigInt!
+  firstUnderlyingBlock: Int!
+  lastUnderlyingBlock: Int!
+  lastUnderlyingTimestamp: Int!
+  paymentReference: String!
+  executor: String!
+  executorFeeNatWei: BigInt!
+  resolution: Int!
+  destinationTag: BigInt
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionPerformed {
+  id: ID!
+  fasset: Int!
+  redemptionRequested_id: String!
+  transactionHash: String!
+  spentUnderlyingUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionDefault {
+  id: ID!
+  fasset: Int!
+  redemptionRequested_id: String!
+  redeemedVaultCollateralWei: BigInt!
+  redeemedPoolCollateralWei: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionRejected {
+  id: ID!
+  fasset: Int!
+  redemptionRequested_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionPaymentBlocked {
+  id: ID!
+  fasset: Int!
+  redemptionRequested_id: String!
+  transactionHash: String!
+  spentUnderlyingUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionPaymentFailed {
+  id: ID!
+  fasset: Int!
+  redemptionRequested_id: String!
+  transactionHash: String!
+  spentUnderlyingUBA: BigInt!
+  failureReason: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionRequestIncomplete {
+  id: ID!
+  fasset: Int!
+  redeemer: String!
+  remainingLots: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionAmountIncomplete {
+  id: ID!
+  fasset: Int!
+  redeemer: String!
+  remainingAmountUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionPoolFeeMinted {
+  id: ID!
+  fasset: Int!
+  redemptionRequested_id: String!
+  poolFeeUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedeemedInCollateral {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  redeemer: String!
+  redemptionAmountUBA: BigInt!
+  paidVaultCollateralWei: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# redemption tickets
+type RedemptionTicketCreated {
+  id: ID! # fasset_redemptionTicketId
+  fasset: Int!
+  agentVault_id: String!
+  redemptionTicketId: BigInt! @index
+  ticketValueUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionTicketUpdated {
+  id: ID!
+  fasset: Int!
+  redemptionTicketCreated_id: String!
+  ticketValueUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionTicketDeleted {
+  id: ID!
+  fasset: Int!
+  redemptionTicketCreated_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type RedemptionTicket {
+  id: ID! # = redemptionTicketCreated id
+  redemptionTicketCreated_id: String! @index
+  ticketValueUBA: BigInt!
+  destroyed: Boolean!
+}
+
+# ----------------------------------------------------------------------------
+# liquidation
+# ----------------------------------------------------------------------------
+
+type LiquidationStarted {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  timestamp: Int!
+  blockNumber: Int!
+  blockTimestamp: Int!
+  logIndex: Int!
+}
+
+type FullLiquidationStarted {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  timestamp: Int!
+  blockNumber: Int!
+  blockTimestamp: Int!
+  logIndex: Int!
+}
+
+type LiquidationPerformed {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  liquidator: String!
+  valueUBA: BigInt!
+  paidVaultCollateralWei: BigInt
+  paidPoolCollateralWei: BigInt
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type LiquidationEnded {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# challenges
+# ----------------------------------------------------------------------------
+
+type IllegalPaymentConfirmed {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  transactionHash: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type DuplicatePaymentConfirmed {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  transactionHash1: String!
+  transactionHash2: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type UnderlyingBalanceTooLow {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  balance: BigInt!
+  requiredBalance: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# agent ping / system
+# ----------------------------------------------------------------------------
+
+type AgentPing {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  sender: String!
+  query: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type AgentPingResponse {
+  id: ID!
+  fasset: Int!
+  agentVault_id: String!
+  query: BigInt!
+  response: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CurrentUnderlyingBlockUpdated {
+  id: ID!
+  fasset: Int!
+  underlyingBlockNumber: Int!
+  underlyingBlockTimestamp: Int!
+  updatedAt: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# core vault (asset-manager side)
+# ----------------------------------------------------------------------------
+
+type TransferToCoreVaultStarted {
+  id: ID! # fasset_transferRedemptionRequestId
+  fasset: Int!
+  agentVault_id: String!
+  transferRedemptionRequestId: Int! @index
+  valueUBA: BigInt!
+  resolution: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type TransferToCoreVaultSuccessful {
+  id: ID!
+  fasset: Int!
+  transferToCoreVaultStarted_id: String!
+  valueUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type TransferToCoreVaultDefaulted {
+  id: ID!
+  fasset: Int!
+  transferToCoreVaultStarted_id: String!
+  remintedUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type ReturnFromCoreVaultRequested {
+  id: ID! # fasset_requestId
+  fasset: Int!
+  agentVault_id: String!
+  requestId: Int! @index
+  paymentReference: String!
+  valueUBA: BigInt!
+  resolution: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type ReturnFromCoreVaultConfirmed {
+  id: ID!
+  fasset: Int!
+  returnFromCoreVaultRequested_id: String!
+  receivedUnderlyingUBA: BigInt!
+  remintedUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type ReturnFromCoreVaultCancelled {
+  id: ID!
+  fasset: Int!
+  returnFromCoreVaultRequested_id: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultRedemptionRequested {
+  id: ID!
+  fasset: Int!
+  redeemer: String!
+  paymentAddress: String!
+  paymentReference: String!
+  valueUBA: BigInt!
+  feeUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultFundsAdded {
+  id: ID!
+  fasset: Int!
+  amountUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# emergency pause
+# ----------------------------------------------------------------------------
+
+type EmergencyPauseTriggered {
+  id: ID!
+  fasset: Int!
+  externalLevel: Int!
+  governanceLevel: Int!
+  externalPausedUntil: BigInt!
+  governancePausedUntil: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type EmergencyPauseCancelled {
+  id: ID!
+  fasset: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# collateral pool (CP* post-Flare event set)
+# ----------------------------------------------------------------------------
+
+type CPClaimedReward {
+  id: ID!
+  fasset: Int!
+  amountNatWei: BigInt!
+  rewardType: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CPEntered {
+  id: ID!
+  fasset: Int!
+  tokenHolder: String!
+  amountNatWei: BigInt!
+  receivedTokensWei: BigInt!
+  timelockExpiresAt: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CPExited {
+  id: ID!
+  fasset: Int!
+  tokenHolder: String!
+  burnedTokensWei: BigInt!
+  receivedNatWei: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CPFeesWithdrawn {
+  id: ID!
+  fasset: Int!
+  tokenHolder: String!
+  withdrawnFeesUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CPFeeDebtChanged {
+  id: ID!
+  fasset: Int!
+  tokenHolder: String!
+  newFeeDebtUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CPFeeDebtPaid {
+  id: ID!
+  fasset: Int!
+  tokenHolder: String!
+  paidFeesUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CPPaidOut {
+  id: ID!
+  fasset: Int!
+  recipient: String!
+  paidNatWei: BigInt!
+  burnedTokensWei: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CPSelfCloseExited {
+  id: ID!
+  fasset: Int!
+  tokenHolder: String!
+  burnedTokensWei: BigInt!
+  receivedNatWei: BigInt!
+  closedFAssetsUBA: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# core vault manager
+# ----------------------------------------------------------------------------
+
+type CoreVaultManagerSettingsUpdated {
+  id: ID!
+  fasset: Int!
+  escrowEndTimeSeconds: Int!
+  escrowAmount: BigInt!
+  minimalAmount: BigInt!
+  fee: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultManagerCustodianAddressUpdated {
+  id: ID!
+  fasset: Int!
+  custodian: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultManagerPaymentConfirmed {
+  id: ID! # fasset_transactionId
+  fasset: Int!
+  transactionId: String!
+  paymentReference: String!
+  amount: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultManagerPaymentInstructions {
+  id: ID!
+  fasset: Int!
+  sequence: BigInt!
+  account: String!
+  destination: String!
+  amount: BigInt!
+  fee: BigInt!
+  paymentReference: String!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultManagerEscrowInstructions {
+  id: ID!
+  fasset: Int!
+  sequence: BigInt!
+  preimageHash: String!
+  account: String!
+  destination: String!
+  amount: BigInt!
+  fee: BigInt!
+  cancelAfterTs: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultManagerTransferRequested {
+  id: ID!
+  fasset: Int!
+  destination: String!
+  paymentReference: String!
+  amount: BigInt!
+  cancelable: Boolean!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultManagerTransferRequestCanceled {
+  id: ID!
+  fasset: Int!
+  destination: String!
+  paymentReference: String!
+  amount: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type CoreVaultManagerNotAllEscrowsProcessed {
+  id: ID!
+  fasset: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type EscrowExpired {
+  id: ID!
+  fasset: Int!
+  preimageHash: String!
+  amount: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+type EscrowFinished {
+  id: ID!
+  fasset: Int!
+  preimageHash: String!
+  amount: BigInt!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
+
+# ----------------------------------------------------------------------------
+# price publisher
+# ----------------------------------------------------------------------------
+
+type PricesPublished {
+  id: ID!
+  votingRoundId: Int!
+  blockNumber: Int!
+  timestamp: Int!
+  logIndex: Int!
+}
