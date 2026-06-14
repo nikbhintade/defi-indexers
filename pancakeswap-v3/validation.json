@@ -1,0 +1,311 @@
+{
+  "subgraph": {
+    "url": "TODO",
+    "authEnv": "GRAPH_API_KEY",
+    "_note": "PancakeSwap V3 is published on The Graph decentralized network. Replace TODO with the BSC (chain 56) gateway URL: https://gateway.thegraph.com/api/subgraphs/id/<ID>. Look the ID up on https://thegraph.com/explorer by searching 'pancakeswap v3' and selecting the BNB Smart Chain deployment. The PancakeSwap-hosted endpoints are listed under https://developer.pancakeswap.finance/apis/subgraph (the v3-bsc 'exchange' subgraph). No concrete ID is committed in pancakeswap/pancake-subgraph, so it must be filled in before running tools/compare. authEnv GRAPH_API_KEY supplies the gateway API key."
+  },
+  "local": { "url": "http://localhost:8080/v1/graphql", "adminSecret": "testing" },
+  "blockRange": { "start": 26956207, "end": 27006207 },
+  "entities": [
+    {
+      "subgraphName": "factories",
+      "localName": "Factory",
+      "fields": [
+        "id",
+        "poolCount",
+        "txCount",
+        "totalVolumeUSD",
+        "totalVolumeETH",
+        "totalFeesUSD",
+        "totalFeesETH",
+        "totalProtocolFeesUSD",
+        "totalProtocolFeesETH",
+        "untrackedVolumeUSD",
+        "totalValueLockedUSD",
+        "totalValueLockedETH",
+        "owner"
+      ],
+      "decimalFields": [
+        "totalVolumeUSD",
+        "totalVolumeETH",
+        "totalFeesUSD",
+        "totalFeesETH",
+        "totalProtocolFeesUSD",
+        "totalProtocolFeesETH",
+        "untrackedVolumeUSD",
+        "totalValueLockedUSD",
+        "totalValueLockedETH"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "bundles",
+      "localName": "Bundle",
+      "fields": ["id", "ethPriceUSD"],
+      "decimalFields": ["ethPriceUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokens",
+      "localName": "Token",
+      "fields": [
+        "id",
+        "symbol",
+        "name",
+        "decimals",
+        "totalSupply",
+        "volume",
+        "volumeUSD",
+        "untrackedVolumeUSD",
+        "feesUSD",
+        "txCount",
+        "poolCount",
+        "totalValueLocked",
+        "totalValueLockedUSD",
+        "derivedETH"
+      ],
+      "decimalFields": [
+        "volume",
+        "volumeUSD",
+        "untrackedVolumeUSD",
+        "feesUSD",
+        "totalValueLocked",
+        "totalValueLockedUSD",
+        "derivedETH"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "pools",
+      "localName": "Pool",
+      "fields": [
+        "id",
+        "createdAtTimestamp",
+        "createdAtBlockNumber",
+        "token0",
+        "token1",
+        "feeTier",
+        "liquidity",
+        "sqrtPrice",
+        "feeGrowthGlobal0X128",
+        "feeGrowthGlobal1X128",
+        "token0Price",
+        "token1Price",
+        "tick",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "untrackedVolumeUSD",
+        "feesUSD",
+        "txCount",
+        "totalValueLockedToken0",
+        "totalValueLockedToken1",
+        "totalValueLockedETH",
+        "totalValueLockedUSD",
+        "liquidityProviderCount"
+      ],
+      "decimalFields": [
+        "token0Price",
+        "token1Price",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "untrackedVolumeUSD",
+        "feesUSD",
+        "totalValueLockedToken0",
+        "totalValueLockedToken1",
+        "totalValueLockedETH",
+        "totalValueLockedUSD"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "ticks",
+      "localName": "Tick",
+      "fields": [
+        "id",
+        "poolAddress",
+        "tickIdx",
+        "pool",
+        "liquidityGross",
+        "liquidityNet",
+        "price0",
+        "price1",
+        "createdAtTimestamp",
+        "createdAtBlockNumber",
+        "feeGrowthOutside0X128",
+        "feeGrowthOutside1X128"
+      ],
+      "decimalFields": ["price0", "price1"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "positions",
+      "localName": "Position",
+      "fields": [
+        "id",
+        "owner",
+        "pool",
+        "token0",
+        "token1",
+        "tickLower",
+        "tickUpper",
+        "liquidity",
+        "depositedToken0",
+        "depositedToken1",
+        "withdrawnToken0",
+        "withdrawnToken1",
+        "collectedFeesToken0",
+        "collectedFeesToken1",
+        "feeGrowthInside0LastX128",
+        "feeGrowthInside1LastX128"
+      ],
+      "decimalFields": [
+        "depositedToken0",
+        "depositedToken1",
+        "withdrawnToken0",
+        "withdrawnToken1",
+        "collectedFeesToken0",
+        "collectedFeesToken1"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "mints",
+      "localName": "Mint",
+      "fields": [
+        "id",
+        "transaction",
+        "timestamp",
+        "pool",
+        "owner",
+        "sender",
+        "origin",
+        "amount",
+        "amount0",
+        "amount1",
+        "amountUSD",
+        "tickLower",
+        "tickUpper",
+        "logIndex"
+      ],
+      "decimalFields": ["amount0", "amount1", "amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "swaps",
+      "localName": "Swap",
+      "fields": [
+        "id",
+        "transaction",
+        "timestamp",
+        "pool",
+        "sender",
+        "recipient",
+        "origin",
+        "amount0",
+        "amount1",
+        "amountUSD",
+        "amountFeeUSD",
+        "sqrtPriceX96",
+        "tick",
+        "logIndex"
+      ],
+      "decimalFields": ["amount0", "amount1", "amountUSD", "amountFeeUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "burns",
+      "localName": "Burn",
+      "fields": [
+        "id",
+        "transaction",
+        "timestamp",
+        "pool",
+        "owner",
+        "origin",
+        "amount",
+        "amount0",
+        "amount1",
+        "amountUSD",
+        "tickLower",
+        "tickUpper",
+        "logIndex"
+      ],
+      "decimalFields": ["amount0", "amount1", "amountUSD"],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "poolDayDatas",
+      "localName": "PoolDayData",
+      "fields": [
+        "id",
+        "date",
+        "pool",
+        "liquidity",
+        "sqrtPrice",
+        "token0Price",
+        "token1Price",
+        "tick",
+        "tvlUSD",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "feesUSD",
+        "txCount",
+        "open",
+        "high",
+        "low",
+        "close"
+      ],
+      "decimalFields": [
+        "token0Price",
+        "token1Price",
+        "tvlUSD",
+        "volumeToken0",
+        "volumeToken1",
+        "volumeUSD",
+        "feesUSD",
+        "open",
+        "high",
+        "low",
+        "close"
+      ],
+      "orderBy": "id"
+    },
+    {
+      "subgraphName": "tokenDayDatas",
+      "localName": "TokenDayData",
+      "fields": [
+        "id",
+        "date",
+        "token",
+        "volume",
+        "volumeUSD",
+        "untrackedVolumeUSD",
+        "totalValueLocked",
+        "totalValueLockedUSD",
+        "priceUSD",
+        "feesUSD",
+        "open",
+        "high",
+        "low",
+        "close"
+      ],
+      "decimalFields": [
+        "volume",
+        "volumeUSD",
+        "untrackedVolumeUSD",
+        "totalValueLocked",
+        "totalValueLockedUSD",
+        "priceUSD",
+        "feesUSD",
+        "open",
+        "high",
+        "low",
+        "close"
+      ],
+      "orderBy": "id"
+    }
+  ]
+}

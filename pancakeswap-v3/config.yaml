@@ -1,0 +1,56 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: pancakeswap-v3
+description: PancakeSwap V3 (concentrated-liquidity AMM) subgraph (BSC) ported to HyperIndex
+rollback_on_reorg: false
+contracts:
+  - name: Factory
+    events:
+      # subgraph: PoolCreated(indexed address token0, indexed address token1, indexed uint24 fee, int24 tickSpacing, address pool)
+      - event: "PoolCreated(address indexed token0, address indexed token1, uint24 indexed fee, int24 tickSpacing, address pool)"
+  - name: NonfungiblePositionManager
+    events:
+      - event: "IncreaseLiquidity(uint256 indexed tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)"
+        field_selection:
+          transaction_fields: [hash, gasPrice]
+      - event: "DecreaseLiquidity(uint256 indexed tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)"
+        field_selection:
+          transaction_fields: [hash, gasPrice]
+      - event: "Collect(uint256 indexed tokenId, address recipient, uint256 amount0, uint256 amount1)"
+        field_selection:
+          transaction_fields: [hash, gasPrice]
+      - event: "Transfer(address indexed from, address indexed to, uint256 indexed tokenId)"
+        field_selection:
+          transaction_fields: [hash, gasPrice]
+  # Subgraph template: Pool (registered dynamically on PoolCreated)
+  - name: Pool
+    events:
+      - event: "Initialize(uint160 sqrtPriceX96, int24 tick)"
+      - event: "Swap(address indexed sender, address indexed recipient, int256 amount0, int256 amount1, uint160 sqrtPriceX96, uint128 liquidity, int24 tick, uint128 protocolFeesToken0, uint128 protocolFeesToken1)"
+        field_selection:
+          transaction_fields: [hash, from, gasPrice]
+      - event: "Mint(address sender, address indexed owner, int24 indexed tickLower, int24 indexed tickUpper, uint128 amount, uint256 amount0, uint256 amount1)"
+        field_selection:
+          transaction_fields: [hash, from, gasPrice]
+      - event: "Burn(address indexed owner, int24 indexed tickLower, int24 indexed tickUpper, uint128 amount, uint256 amount0, uint256 amount1)"
+        field_selection:
+          transaction_fields: [hash, from, gasPrice]
+      - event: "Collect(address indexed owner, address recipient, int24 indexed tickLower, int24 indexed tickUpper, uint128 amount0, uint128 amount1)"
+        field_selection:
+          transaction_fields: [hash, from, gasPrice]
+      - event: "Flash(address indexed sender, address indexed recipient, uint256 amount0, uint256 amount1, uint256 paid0, uint256 paid1)"
+        field_selection:
+          transaction_fields: [hash, gasPrice]
+      - event: "CollectProtocol(address indexed sender, address indexed recipient, uint128 amount0, uint128 amount1)"
+        field_selection:
+          transaction_fields: [hash, gasPrice]
+chains:
+  - id: 56
+    start_block: 26931961
+    # end_block: 27006207   # uncomment for bounded validation runs (factory start 26956207 + ~50k)
+    contracts:
+      - name: Factory
+        address: "0x0bfbcf9fa4f9c56b0f40a671ad40e0805a091865"
+      - name: NonfungiblePositionManager
+        address: "0x46a15b0b27311cedf172ab29e4f4766fbe7f4364"
+      # dynamically registered template (no static address)
+      - name: Pool
